@@ -4,18 +4,19 @@
 
     <section class="formulario-gravar-setor">
         <!-- formulario envio setor -->
-         <h1>Adicionar setor</h1>
-        <form class="form" action="include/gSetor.php" method="post">
+        <h1>Adicionar setor</h1>
+        <span class="separador"></span>
+        <form action="include/gSetor.php" method="post">
             <div class="mb-3">
-                <label for="setor">Setor</label>
+                <label class="font-1-s" for="form-label setor">Setor</label>
                 <input class="form-control" type="text" name="setor" required>
             </div>
             <div class="form-container-button">
-                <button class='botao' type="submit">Adicionar</button>
+                <button class='btn btn-primary' type="submit">ADICIONAR</button>
             </div>
         </form>
         <!-- fim formulario -->
-
+    </section>
 
 </body>
 </html>
