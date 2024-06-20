@@ -12,6 +12,28 @@
     --cor-10: #2e2e2e;
     --cor-11: #111111;
     --cor-12: #000000;
+
+    /* cores primarias */
+    --cor-p1: #0C465F;
+    --cor-p2: #07364A;
+    --cor-p3: #032737;
+    --cor-p4: #021F2C;
+    --cor-p5: #011822;
+    --cor-p6: #00131B;
+    --cor-p7: #001017;
+
+    /* cores secundarias */
+    --cor-s1: #94FFEC;
+    --cor-s2: #67FFE4;
+    --cor-s3: #47F2D4;
+    --cor-s4: #26E2C1;
+    --cor-s5: #1AD4B3;
+    --cor-s6: #09BE9E;
+    --cor-s7: #00AA8B;
+    --cor-s8: #009C80;
+    --cor-s9: #008870;
+    --cor-s10:#007E68;
+    --cor-s11: #00493C;
 }
   
   .cor-0 {
@@ -54,59 +76,58 @@
     color: var(--cor-12);
   }
 
-:root {
-    --cor-0: #ffffff;
-    --cor-1: #f7f7f7;
-    --cor-2: #ededed;
-    --cor-3: #dedede;
-    --cor-4: #cccccc;
-    --cor-5: #b2b2b2;
-    --cor-6: #9c9c9c;
-    --cor-7: #717171;
-    --cor-8: #595959;
-    --cor-9: #404040;
-    --cor-10: #2e2e2e;
-    --cor-11: #111111;
-    --cor-12: #000000;
+  .cor-p1 {
+    color: var(--cor-p1);
+  }
+  .cor-p2 {
+      color: var(--cor-p2);
+  }
+  .cor-p3 {
+      color: var(--cor-p3);
+  }
+  .cor-p4 {
+      color: var(--cor-p4);
+  }
+  .cor-p5 {
+      color: var(--cor-p5);
+  }
+  .cor-p6 {
+      color: var(--cor-p6);
+  }
+  .cor-p7 {
+      color: var(--cor-p7);
+  }
 
-  
-  .cor-0 {
-    color: var(--cor-0);
+  .cor-s1 {
+      color: var(--cor-s1);
   }
-  .cor-1 {
-    color: var(--cor-1);
+  .cor-s2 {
+      color: var(--cor-s2);
   }
-  .cor-2 {
-    color: var(--cor-2);
+  .cor-s3 {
+      color: var(--cor-s3);
   }
-  .cor-3 {
-    color: var(--cor-3);
+  .cor-s4 {
+      color: var(--cor-s4);
   }
-  .cor-4 {
-    color: var(--cor-4);
+  .cor-s5 {
+      color: var(--cor-s5);
   }
-  .cor-5 {
-    color: var(--cor-5);
+  .cor-s6 {
+      color: var(--cor-s6);
   }
-  .cor-6 {
-    color: var(--cor-6);
+  .cor-s7 {
+      color: var(--cor-s7);
   }
-  .cor-7 {
-    color: var(--cor-7);
+  .cor-s8 {
+      color: var(--cor-s8);
   }
-  .cor-8 {
-    color: var(--cor-8);
+  .cor-s9 {
+      color: var(--cor-s9);
   }
-  .cor-9 {
-    color: var(--cor-9);
+  .cor-s10 {
+      color: var(--cor-s10);
   }
-  .cor-10 {
-    color: var(--cor-10);
+  .cor-s11 {
+      color: var(--cor-s11);
   }
-  .cor-11 {
-    color: var(--cor-11);
-  }
-  .cor-12 {
-    color: var(--cor-12);
-  }
-}
