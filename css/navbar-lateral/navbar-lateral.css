@@ -2,6 +2,7 @@
     width: 310px;
     height: 100vh;
     background-color: var(--cor-p6);
+    /* position: absolute; */
 }
 
 .logo {
@@ -59,4 +60,32 @@
     top: 25px;
     left: 0px;
     border-radius: 0px 4px 4px 0px;
+}
+
+.header {
+    background-color: var(--cor-p5);
+    width: 100%;
+    height: 70px;
+    grid-area: header;
+}
+
+.conteudo {
+    background-color: aquamarine;
+    width: 100%;
+    grid-area: conteudo;
+}
+
+.container-navbar-lateral {
+    grid-area: aside;
+}
+
+body {
+    display: grid;
+    grid-template-rows: auto 1fr 1fr;
+    grid-template-columns: auto 1fr 1fr;
+    grid-template-areas: 
+    'aside header header'
+    'aside conteudo conteudo'
+    'aside conteudo conteudo'
+    ;
 }
