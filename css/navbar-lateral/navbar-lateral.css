@@ -1,7 +1,7 @@
 .container-navbar-lateral {
     width: 310px;
     width: 256px;
-    height: 100vh;
+    min-height: 100vh;
     background-color: var(--cor-p6);
     /* position: absolute; */
 }
@@ -77,9 +77,10 @@
 }
 
 .conteudo {
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     width: 100%;
     grid-area: conteudo;
+    position: relative;
 }
 
 .container-navbar-lateral {
