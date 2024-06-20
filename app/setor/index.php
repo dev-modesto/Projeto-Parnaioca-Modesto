@@ -1,18 +1,21 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Setor</title>
-</head>
-<body>
-    
-    <!-- formulario envio setor -->
-    <form action="include/gSetor.php" method="post">
-        <label for="setor">Setor</label>
-        <input type="text" name="setor" required>
-        <button type="submit">Enviar</button>
-    </form>
-    <!-- fim formulario -->
+<?php
+    include '../../include/navbar-lateral/navbar-lateral.php';
+?>
+
+    <section class="formulario-gravar-setor">
+        <!-- formulario envio setor -->
+         <h1>Adicionar setor</h1>
+        <form class="form" action="include/gSetor.php" method="post">
+            <div class="mb-3">
+                <label for="setor">Setor</label>
+                <input class="form-control" type="text" name="setor" required>
+            </div>
+            <div class="form-container-button">
+                <button class='botao' type="submit">Adicionar</button>
+            </div>
+        </form>
+        <!-- fim formulario -->
+
+
 </body>
 </html>
