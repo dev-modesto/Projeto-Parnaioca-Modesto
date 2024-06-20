@@ -1,8 +1,19 @@
 @import url(global/global.css);
 @import url(navbar-lateral/navbar-lateral.css);
 
+/* -- UTILIDADES -- */
 /* tipografia */
 @import url(utilidades/tipografia.css);
 
 /* cores */
 @import url(utilidades/cores.css);
+
+/* componentes */
+@import url(utilidades/componentes.css);
+
+/* formulario */
+@import url(utilidades/formulario.css);
+
+
+/* paginas */
+@import url(setor/setor.css);
