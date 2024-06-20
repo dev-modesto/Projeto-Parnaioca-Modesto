@@ -1,5 +1,6 @@
 .container-navbar-lateral {
     width: 310px;
+    width: 256px;
     height: 100vh;
     background-color: var(--cor-p6);
     /* position: absolute; */
@@ -9,12 +10,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* background-color: tomato; */
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
 }
 
 .logo img {
-    max-width: 100%;
+    max-width: 120px;
     height: auto;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    /* border: 1px solid white; */
 }
 
 .navbar-itens {
@@ -26,7 +32,8 @@
 
 .navbar-itens li {
     /* background-color: aliceblue; */
-    height: 70px;
+    /* height: 70px; */
+    height: 50px;
     align-items: center;
 }
 
@@ -57,7 +64,7 @@
     width: 5px;
     height: 20px;
     background-color: var(--cor-s7);
-    top: 25px;
+    top: 15px;
     left: 0px;
     border-radius: 0px 4px 4px 0px;
 }
