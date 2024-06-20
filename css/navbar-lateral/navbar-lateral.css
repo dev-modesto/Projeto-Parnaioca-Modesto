@@ -1,0 +1,41 @@
+.container-navbar-lateral {
+    width: 310px;
+    height: 100vh;
+    background-color: darkcyan;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 50px;
+}
+
+.navbar-itens {
+    /* background-color: tomato; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.navbar-itens li {
+    /* background-color: aliceblue; */
+    height: 70px;
+    align-items: center;
+
+}
+
+.navbar-itens li a {
+    /* background-color: blue; */
+    display: flex;
+    height: 100%;
+    align-items: center;
+    align-content: center;
+    padding: 0px 20px 0px 20px;
+    gap: 10px;
+}
