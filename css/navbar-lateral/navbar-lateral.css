@@ -1,7 +1,7 @@
 .container-navbar-lateral {
     width: 310px;
     height: 100vh;
-    background-color: darkcyan;
+    background-color: var(--cor-p6);
 }
 
 .logo {
@@ -27,7 +27,6 @@
     /* background-color: aliceblue; */
     height: 70px;
     align-items: center;
-
 }
 
 .navbar-itens li a {
@@ -38,4 +37,26 @@
     align-content: center;
     padding: 0px 20px 0px 20px;
     gap: 10px;
+    position: relative;
+}
+
+.container-navbar-lateral li:hover {
+    background-color: var(--cor-p2);
+    background-color: rgba(7, 54, 74, 20%);
+    transition: all .2s;
+}
+
+.link-ativo {
+    background-color: rgba(7, 54, 74, 20%);;
+}
+
+.link-ativo::before {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 20px;
+    background-color: var(--cor-s7);
+    top: 25px;
+    left: 0px;
+    border-radius: 0px 4px 4px 0px;
 }
