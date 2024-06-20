@@ -1,0 +1,52 @@
+.body-login {
+    display: block;
+}
+
+.container-principal-login {
+    /* background-color: tomato; */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.form-container-login {
+    /* background-color: antiquewhite; */
+    min-width: 400px;
+    box-sizing: border-box;
+    padding-top: 50px;
+    font: 100 1rem/1.5 "Poppins", sans-serif;
+}
+
+.container-logo-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.container-logo-login img {
+    max-width: 200px;
+}
+
+.label-login {
+    /* color: red; */
+    position: relative;
+    font: 200 1.2rem/1.5 "Poppins", sans-serif;
+}
+
+.label-login::before {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 5px;
+    top: calc(.60em);
+    left: -20px;
+    background-color: var(--cor-s7);
+    z-index: -1;
+}
+
+.input-login::placeholder {
+    color: var(--cor-3);
+    font: 100 1rem/1.5 "Poppins", sans-serif;
+}
+
