@@ -1,32 +1,54 @@
 <?php
     include '../../include/head.php';
+    include './include/cLogin.php';
 ?>
+
+
 <body class="body-login">
     <main class="container-principal-login">
         <section class="form-container-login">
             <!-- formulario envio cargo -->
-            <form  action="include/cLogin.php" method="post">
-                <div class="container-logo-login">
+            <div class="container-1-login">
+                <div class="logo-login">
                     <img src="../../assets/img/logo.svg" alt="">
                 </div>
-                <div>
-                    <div class="mb-3">
-                        <label class="label-login" for="form-label login">Login</label>
-                        <input class="input-login form-control " type="text" name="login" placeholder="Informe seu login de acesso" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="label-login" for="form-label senha">Senha</label>
-                        <input class="input-login form-control" type="password" name="senha" placeholder="Informe sua senha" required>
-                    </div>
-                    <div class="form-container-button">
-                        <button class='btn btn-primary' type="submit">ENTRAR</button>
-                    </div>
-                </div>
-            </form>
+            </div>
+            <div class="container-2-login">
+                <h1 class="font-1-xxl-2">LOGIN</h1>
+                
+                <form class="form-login" action="" method="post">
+                        <span class="separador-login"></span>
+                        <div class="mb-3">
+                            <label class="label-login" for="form-label login">Matrícula</label>
+                            <div>
+                                <span class="icone-login icone-matricula"></span>
+                                <input class="input-login form-control " type="text" name="login" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="label-login" for="form-label senha">Senha</label>
+                            <div>
+                                <span class="icone-login icone-senha"></span>
+                                <input class="input-login form-control" type="password" name="senha" required>
+                            </div>
+                        </div>
+
+                            <?php if(!empty($mensagem)){ ?>  
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <?php echo $mensagem ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div> 
+                            <?php }else {
+                                    echo '';
+                                }
+                            ?>
+
+                        <div class="form-container-button">
+                            <button class='btn-login' type="submit">ENTRAR</button>
+                        </div>
+                </form>
         </section>
     </main>
-</body>
 
-<!-- <footer>
-    <p>Alguns direitos reservados</p>
-</footer> -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
