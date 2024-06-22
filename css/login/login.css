@@ -4,7 +4,7 @@
 
 .container-principal-login {
     background-color: var(--cor-2);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
 }
@@ -100,7 +100,7 @@
     }
 
     .form-login .form-container-button {
-        margin-top: 70px;
+        margin-top: 50px;
     }
 
     .btn-login {
@@ -141,3 +141,14 @@
         top: 8px;
         left: 8px;
     }
+
+    .form-login-texto {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+.container-requisitos-senha {
+    box-sizing: border-box;
+    padding: 10px;
+    font: 300 .92rem/1.5 "Poppins", sans-serif;
+}
