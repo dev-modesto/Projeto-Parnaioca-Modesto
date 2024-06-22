@@ -39,11 +39,6 @@
             </select>
         </div>
 
-        <div class="mb-3">
-            <label class="font-1-s" for="senha">Senha</label>
-            <input class="form-control" type="password" name="senha" required>
-        </div>
-
         <div class="form-container-button">
             <button class='btn btn-primary' type="submit">ADICIONAR</button>
         </div>
