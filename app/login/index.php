@@ -1,6 +1,16 @@
 <?php
     include '../../include/head.php';
     include './include/cLogin.php';
+
+    session_start();
+
+    if(isset($_SESSION['id'])){
+        // echo 'Há uma sessão ativa no momento'; //retorno - comentário provisório
+        // echo $_SESSION['id'];
+    } else {
+        // echo 'Nenhuma sessão ativa no momento!!'; //retorno - comentário provisório
+    }
+    
 ?>
 
 
