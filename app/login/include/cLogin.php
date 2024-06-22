@@ -26,12 +26,14 @@
                 $_SESSION['id'] = $array['id_funcionario'];
                 $_SESSION['nome'] = $array['nome'];
                 $_SESSION['cpf'] = $array['cpf'];
-
+                $_SESSION['dt_cadastro'] = $array['dt_cadastro'];
+                $_SESSION['dt_atualizacao'] = $array['dt_atualizacao'];
+                
                 //verificando se houve atualizacção da senha. (caso nao houve, é o primeiro login do usuario)
                 if ($dt_cadastro == $dt_atualizacao){
                     //[não houve atualizacao]                   
                     // levar para tela de atualização de senha do usuário
-                    header('location: ../login/pag_primeira_senha.php');
+                    header('location: ../login/primeiraSenha.php');
                     
                 }else {
                     //[usuario ja atualizou]
@@ -48,8 +50,6 @@
         }else{
             // echo 'USUARIO NAO ENCONTRADO OU SENHA INVÁLIDOS!';
             $mensagem = 'Usuário não encontrado ou senha inválida';
-            // session_abort();
-            // echo 'sessao abortada';
         }
 
     }else {
