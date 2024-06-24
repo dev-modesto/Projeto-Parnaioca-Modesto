@@ -1,23 +1,29 @@
 <?php
-    include '../../../config/conexao.php';
+    include __DIR__  . '/../../../config/conexao.php';
 
-    $nome = trim($_POST['nome']);
-    $cpf = trim($_POST['cpf']);
-    $telefone = trim($_POST['telefone']);
-    $id_cargo = trim($_POST['id_cargo']);
-    $senha = trim($_POST['cpf']);
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        //enviou o formulario
+        $nome = trim($_POST['nome']);
+        $cpf = trim($_POST['cpf']);
+        $telefone = trim($_POST['telefone']);
+        $id_cargo = trim($_POST['id_cargo']);
+        $senha = trim($_POST['cpf']);
 
-    $hash = password_hash($senha,PASSWORD_DEFAULT);
+         $hash = password_hash($senha,PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO tbl_funcionario
-        (id_funcionario,nome,cpf,telefone,id_cargo,senha) 
-        VALUES (null,'$nome','$cpf','$telefone','$id_cargo','$hash')";
+        $sql = "INSERT INTO tbl_funcionario
+            (id_funcionario,nome,cpf,telefone,id_cargo,senha) 
+            VALUES (null,'$nome','$cpf','$telefone','$id_cargo','$hash')";
 
-    if(mysqli_query($con, $sql)){
-        echo "Gravado com sucesso!";
+        if(mysqli_query($con, $sql)){
+            echo "Gravado com sucesso!";
+            $mensagem = "Gravado com sucesso!";
+        } else {
+            echo "Erro ao gravar: " . mysqli_error($con);
+        }
+
+        mysqli_close($con);
     } else {
-        echo "Erro ao gravar: " . mysqli_error($con);
+        $mensagem = "Nada foi postado";
     }
-
-    mysqli_close($con);
 ?>
