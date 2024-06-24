@@ -1,6 +1,7 @@
 <?php
     include '../../include/navbar-lateral/navbar-lateral.php';
     include 'include/gFuncionario.php';
+    // include 'include/aFuncionario.php';
 
     include __DIR__  . '/../../config/conexao.php';
 
@@ -13,13 +14,24 @@
         
                 <h1>Funcionarios</h1>
                 <div class="container-button">
-                    <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Novo funcionário</button>
+                    <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo funcionário</button>
+                    <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop-editar"> <span class="material-symbols-rounded">add</span>Editar funcionário</button>
                 </div>
 
                 <span class="separador"></span>
                 <?php if(!empty($mensagem)){ ?>  
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <?php echo $mensagem ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div> 
+                <?php }else {
+                        echo '';
+                    }
+                ?>
+
+                <?php if(!empty($newMensage)){ ?>  
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo $newMensage ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div> 
                 <?php }else {
@@ -42,6 +54,7 @@
                     <tbody>
                         <?php 
                             while($exibe = mysqli_fetch_array($consulta)){
+                                    $id = $exibe['id_funcionario'];
                                 ?>
                                 <tr>
                                     <td><?php echo $exibe['id_funcionario']?></td>
@@ -51,8 +64,8 @@
                                     <td><?php echo $exibe['nome_cargo']?></td>
                                     <td>
                                         <a href=""><span class="material-symbols-rounded">visibility</span></a>
-                                        <a href=""><span class="material-symbols-rounded">edit</span></a>
-                                        <a href=""><span class="material-symbols-rounded">delete</span></a>
+                                        <a href="include/aFuncionario.php?id=<?php echo $id ?>"><span class="material-symbols-rounded">edit</span></a>
+                                        <a href="include/eFuncionario.php?id=<?php echo $id ?>" onclick="return confirm('Confirmar a exclusão do usuario?')"><span class="material-symbols-rounded">delete</span></a>
                                     </td>
                                 </tr>
                                 <?php
@@ -62,12 +75,84 @@
                 </table>
             </div>
 
-            <!-- Modal -->
+            <!-- Modal cadastrar informações -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastrar funcionário</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <!-- formulario envio cargo -->
+                        <form class="was-validated form-container" action="" method="post">
+                            <div class="mb-3">
+                                <label class="font-1-s" for="nome">Nome completo</label>
+                                <input class="form-control" type="text" name="nome" id="validationText" required>
+                                <div class="invalid-feedback">
+                                    
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="font-1-s" for="cpf">CPF</label>
+                                <input class="form-control" type="text" name="cpf" class="cpf" id="cpf" required>
+                                <!-- <p id="info-validaCpf"></p> -->
+                                <div class="invalid-feedback">
+                                   
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="font-1-s" for="telefone">Telefone</label>
+                                <input class="form-control" type="fone" name="telefone" class="telefone" id="telefone" required>
+                                <div class="invalid-feedback">
+                                    
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="id_cargo">Cargo</label>
+                                <select class="form-select" name="id_cargo" required aria-label="select example">
+                                    <option value="">Selecione um cargo</option>
+                                    <?php
+                                        include '../../config/conexao.php';
+                                        $query = "SELECT id_cargo, nome_cargo FROM tbl_cargo";
+                                        $result = mysqli_query($con, $query);
+                            
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<option value='" . $row['id_cargo'] . "'>" . $row['nome_cargo'] . "</option>";
+                                        }
+                                        mysqli_close($con);
+                                    ?>
+                                </select>
+                            </div>
+
+                            <?php if(!empty($mensagem)){ ?>  
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <?php echo $mensagem ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div> 
+                            <?php }else {
+                                    echo '';
+                                }
+                            ?>
+
+                            <div class="modal-footer form-container-button">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button class='btn btn-primary' type="submit">Adicionar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal editar informações -->
+            <div class="modal fade" id="staticBackdrop-editar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar funcionário</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
