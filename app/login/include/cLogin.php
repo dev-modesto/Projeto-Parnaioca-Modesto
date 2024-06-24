@@ -6,50 +6,53 @@
         $login = $_POST['login'];
         $senha = $_POST['senha'];
 
-        $sql_login = "SELECT * FROM tbl_funcionario WHERE id_funcionario = '$login'";//consulta sql buscando pelo login
-        $busca_login = mysqli_query($con, $sql_login);//passando a consulta sql pelo msqli_query
+        $stmt = mysqli_prepare($con,"SELECT * FROM tbl_funcionario WHERE id_funcionario = ?"); //estou preparando a consulta com o msqli_prepare
+        mysqli_stmt_bind_param($stmt,"i", $login);//informei os parametros 
+        $busca_login = mysqli_stmt_execute($stmt);
 
-        $verifica = mysqli_num_rows($busca_login);//verificando se exite o login. se true = existe, false = nao existe
-        
-        if($verifica){
-            //verificamos se o login existe. [existe]
-            $array = mysqli_fetch_array($busca_login);
-            $hash = $array['senha'];
-            $dt_cadastro = $array['dt_cadastro'];
-            $dt_atualizacao = $array['dt_atualizacao'];
+        if($busca_login){
+            // echo "executado a busca!";
+            $retorno = mysqli_stmt_get_result($stmt);
 
-            if (password_verify($senha, $hash)){ //verificando a senha digitada com a senha do banco
+            if(mysqli_num_rows($retorno)){
+                $array = mysqli_fetch_all($retorno, MYSQLI_ASSOC)[0];
+                echo "usuario encontrado!";
 
-                //[senha correta]
-                session_start();
-                //armazenando os dados do banco na sessão
-                $_SESSION['id'] = $array['id_funcionario'];
-                $_SESSION['nome'] = $array['nome'];
-                $_SESSION['cpf'] = $array['cpf'];
-                $_SESSION['dt_cadastro'] = $array['dt_cadastro'];
-                $_SESSION['dt_atualizacao'] = $array['dt_atualizacao'];
-                
-                //verificando se houve atualizacção da senha. (caso nao houve, é o primeiro login do usuario)
-                if ($dt_cadastro == $dt_atualizacao){
-                    //[não houve atualizacao]                   
-                    // levar para tela de atualização de senha do usuário
-                    header('location: ../login/primeiraSenha.php');
+                $hash = $array['senha'];
+                $dt_cadastro = $array['dt_cadastro'];
+                $dt_atualizacao = $array['dt_atualizacao'];
+
+                // echo "<pre>";
+                // print_r($array);
+                //verificando a senha
+                if (password_verify($senha, $hash)){ //verificando a senha digitada com a senha do banco
+
+                    //[senha correta]
+                    session_start();
+                    //armazenando os dados do banco na sessão
+                    $_SESSION['id'] = $array['id_funcionario'];
+                    $_SESSION['nome'] = $array['nome'];
+                    $_SESSION['cpf'] = $array['cpf'];
+                    $_SESSION['dt_cadastro'] = $array['dt_cadastro'];
+                    $_SESSION['dt_atualizacao'] = $array['dt_atualizacao'];
                     
-                }else {
-                    //[usuario ja atualizou]
-                   // echo '| Senha já atualizada. Podemos continuar | ACESSO AO SISTEMA LIBERADO!!!!';
-                    header('location: ./include/pag_sucesso.php');                    
+                    //verificando se houve atualizacção da senha. (caso nao houve, é o primeiro login do usuario)
+                    if ($dt_cadastro == $dt_atualizacao){
+                        header('location: ../login/primeiraSenha.php');
+                        
+                    }else {
+                        header('location: ./include/pag_sucesso.php');                    
+                    }
+
+                }else{
+                    $mensagem = 'Senha inválida';
                 }
 
-            }else{
-                // [senha incorreta]
-                // echo 'LOGIN OU SENHA INVÁLIDOS.';
-                $mensagem = 'Senha inválida';
+            } else {
+                $mensagem = "Usuário não encontrado ou senha inválida";
             }
-
-        }else{
-            // echo 'USUARIO NAO ENCONTRADO OU SENHA INVÁLIDOS!';
-            $mensagem = 'Usuário não encontrado ou senha inválida';
+        }else {
+            echo 'nao foi possivel executar a consulta';
         }
 
     }else {
