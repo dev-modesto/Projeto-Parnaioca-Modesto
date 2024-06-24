@@ -13,7 +13,7 @@
         
                 <h1>Funcionarios</h1>
                 <div class="container-button">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Novo funcionário</button>
+                    <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Novo funcionário</button>
                 </div>
 
                 <span class="separador"></span>
