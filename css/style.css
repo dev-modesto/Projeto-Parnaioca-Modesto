@@ -14,6 +14,8 @@
 /* formulario */
 @import url(utilidades/formulario.css);
 
+/* tabela */
+@import url(utilidades/tabela.css);
 
 /* paginas */
 @import url(setor/setor.css);
