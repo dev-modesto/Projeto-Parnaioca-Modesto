@@ -6,8 +6,8 @@
         $sql = "DELETE FROM tbl_funcionario where id_funcionario = '$id'";
 
         if(mysqli_query($con, $sql)){
-            $newMensage = "Usuario exluido com sucesso!";
-            header('location: ../index.php');
+            $mensagem = "Usuario exluido com sucesso!";
+            header('location: ../index.php?msg=Deletado com sucesso!');
         }else {
             $mensagem = "Não foi possivel excluir o usuario!";
             die;
