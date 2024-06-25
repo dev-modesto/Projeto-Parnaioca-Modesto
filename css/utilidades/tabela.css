@@ -1,0 +1,45 @@
+.table td {
+    background-color: var(--cor-0);
+    border: 1px solid var(--cor-3);
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    color: var(--cor-7);
+    vertical-align: middle;
+  }
+  
+  .table th {
+    /* background-color: tomato; */
+    border: 1px solid var(--cor-2);
+    /* border-left: none; */
+    /* border-right: none; */
+    font: 400 1rem/1rem "Roboto", sans-serif;
+    color: var(--cor-6);
+  }
+  
+  .table-group-divider {
+    color: var(--cor-3);
+  }
+  
+  .td-icons {
+    vertical-align: middle;
+  }
+  
+  .td-icons a {
+    padding: 3px;
+    display: inline-flex;
+    margin: 0px 2px;
+    border: 1px solid var(--cor-4);
+    border-radius: 4px;
+    transition: all .3s;
+}
+
+  .td-icons a:hover {
+    background-color: var(--cor-0);
+}
+  .td-icons a:hover .icon-btn-controle{
+    color: var(--cor-9);
+}
+
+  .icon-btn-controle {
+    color: var(--cor-7);
+}
