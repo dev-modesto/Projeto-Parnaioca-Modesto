@@ -1,31 +1,12 @@
 <?php
     include '../../include/navbar-lateral/navbar-lateral.php';
     // include 'include/gFuncionario.php';
-    include 'include/aFuncionario.php';
+    // include 'include/aFuncionario.php';
+    // include 'include/consultarFuncionario.php';
 
     include __DIR__  . '/../../config/conexao.php';
-
     $sql2=  "SELECT f.id_funcionario, f.nome, f.cpf, f.telefone, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo";
     $consulta = mysqli_query($con, $sql2);
-
-
-
-    if(isset($_GET['id'])){
-
-        $id = $_GET['id'];
-        echo $id;
-
-        $sql = "SELECT * FROM tbl_funcionario WHERE id_funcionario = " . $id;
-
-        $consulta = mysqli_query($con,$sql);
-        
-        if($array = mysqli_fetch_array($consulta)){
-            echo "<pre>";
-            print_r($array);
-        }
-
-    };
-
 
 ?>
     <div class="conteudo">
@@ -34,7 +15,6 @@
                 <h1>Funcionarios</h1>
                 <div class="container-button">
                     <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo funcionário</button>
-                    <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop-editar"> <span class="material-symbols-rounded">add</span>Editar funcionário</button>
                 </div>
 
                 <?php
@@ -95,13 +75,12 @@
                                     <td><?php echo $exibe['telefone']?></td>
                                     <td><?php echo $exibe['nome_cargo']?></td>
                                     <td class="td-icons">
-                                        <a href=""><span class="icon-btn-controle material-symbols-rounded">visibility</span></a>
-                                        <a href="index.php?id=<?php echo $id ?>" data-bs-toggle="modal" data-bs-target="#staticBackdrop-editar"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
-                                        <!-- <form id="form-editar" action="script_php.php" method="post">
-                                            <input type="hidden" id="edit-id" name="edit-id" value="">
-                                            <button type="button" class="btn btn-editar" data-id="<?php echo $id ?>" data-bs-toggle="modal" data-bs-target="#staticBackdrop-editar">Editar</button>
-                                        </form> -->
+                                        <!-- <a href="include/consultarFuncionario?id=<?php echo $id ?>" id="btn-id" data-bs-toggle="modal" data-bs-target="#staticBackdrop-editar"><span class="icon-btn-controle material-symbols-rounded">edit</span></a> -->
+                                        <a href="include/cModalEditar.php?id=<?php echo $id ?>"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
                                         <a href="include/eFuncionario.php?id=<?php echo $id ?>" onclick="return confirm('Confirmar a exclusão do usuario?')"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
+                                    </td>
+
+                                    
                                     </td>
                                 </tr>
                                 <?php
@@ -183,77 +162,6 @@
                 </div>
             </div>
 
-            <!-- Modal editar informações -->
-            <div class="modal fade" id="staticBackdrop-editar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar funcionário</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <!-- formulario envio cargo -->
-                        <form class="was-validated form-container" action="" method="post">
-                            <div class="mb-3">
-                                <label class="font-1-s" for="nome">Nome completo<?php?></label>
-                                <input class="form-control" type="text" name="nome" id="validationText" required>
-                                <div class="invalid-feedback">
-                                    
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="font-1-s" for="cpf">CPF</label>
-                                <input class="form-control" type="text" name="cpf" class="cpf" id="cpf" required>
-                                <!-- <p id="info-validaCpf"></p> -->
-                                <div class="invalid-feedback">
-                                   
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="font-1-s" for="telefone">Telefone</label>
-                                <input class="form-control" type="fone" name="telefone" class="telefone" id="telefone" required>
-                                <div class="invalid-feedback">
-                                    
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="id_cargo">Cargo</label>
-                                <select class="form-select" name="id_cargo" required aria-label="select example">
-                                    <option value="">Selecione um cargo</option>
-                                    <?php
-                                        include '../../config/conexao.php';
-                                        $query = "SELECT id_cargo, nome_cargo FROM tbl_cargo";
-                                        $result = mysqli_query($con, $query);
-                            
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            echo "<option value='" . $row['id_cargo'] . "'>" . $row['nome_cargo'] . "</option>";
-                                        }
-                                        mysqli_close($con);
-                                    ?>
-                                </select>
-                            </div>
-
-                            <?php if(!empty($mensagem)){ ?>  
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <?php echo $mensagem ?>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div> 
-                            <?php }else {
-                                    echo '';
-                                }
-                            ?>
-
-                            <div class="modal-footer form-container-button">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button class='btn btn-primary' type="submit">Adicionar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
         </div>
 
@@ -267,6 +175,7 @@
     <script>
         $('#cpf').mask('000.000.000-00', {reverse: true});
         $('#telefone').mask('0000000000000');
+
     </script>
 
     <script src="script.js"></script>
