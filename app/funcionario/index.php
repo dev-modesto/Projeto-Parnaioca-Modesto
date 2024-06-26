@@ -1,12 +1,21 @@
 <?php
-    include '../../include/navbar-lateral/navbar-lateral.php';
-    // include 'include/gFuncionario.php';
-    // include 'include/aFuncionario.php';
-    // include 'include/consultarFuncionario.php';
-
     include __DIR__  . '/../../config/conexao.php';
+    include __DIR__  . '/../../config/valida.php';
+
+    include '../../include/navbar-lateral/navbar-lateral.php';
+    include '../login/include/cLogin.php';
+
     $sql2=  "SELECT f.id_funcionario, f.nome, f.cpf, f.telefone, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo ORDER BY f.nome";
     $consulta = mysqli_query($con, $sql2);
+    
+
+    if(session_status() == PHP_SESSION_ACTIVE){
+        echo 'ha uma sessao ativa!';
+        $nomeLogado = $_SESSION['nome'];
+        echo $nomeLogado;
+
+    }
+    
 
 ?>
     <div class="conteudo">
@@ -15,6 +24,8 @@
             <h1>Funcionarios</h1>
             <div class="container-button">
                 <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo funcionário</button>
+                <?php echo '<a href="./../../config/logoff.php">Fechar</a>'?>
+                
             </div>
 
             <?php
