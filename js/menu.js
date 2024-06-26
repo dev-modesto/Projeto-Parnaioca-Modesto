@@ -11,3 +11,16 @@ function ativarLink(link) {
 }
 
 links.forEach(ativarLink);
+
+var ativarMenu = document.querySelector(".usuario-logado-foto");
+var usuarioDropdown = document.querySelector(".usuario-logado-dropdown");
+
+ativarMenu.addEventListener('click', function(){
+    console.log('clicado!!');
+    
+    if(usuarioDropdown.style.display === 'block'){
+        usuarioDropdown.style.display = 'none';
+    } else {
+        usuarioDropdown.style.display = 'block';
+    }
+})

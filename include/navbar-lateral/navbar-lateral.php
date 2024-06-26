@@ -1,9 +1,34 @@
 <?php
     include '../../include/head.php';
+    // header('location: ../../app/login/');
+
+    if(session_status() == PHP_SESSION_ACTIVE){
+        $nome = $_SESSION['nome'];
+        $id = $_SESSION['id'];
+    }
     
 ?>
 
 <header class="header">
+    <div class="container-usuario-logado">
+        <div class="usuario-logado">
+            <div class="usuario-logado-texto">
+                <p><?php echo $nome ?></p>
+                <span>Assistente de Frota II</span>
+            </div>
+            <div class="usuario-logado-foto" id="foto">
+                <img src="../../assets/img/user.png" alt="">
+            </div>
+        </div>
+
+        <div class="usuario-logado-dropdown">
+            <ul class="dropwdown-logado" class="font-2-xs">
+                <li><a href="#">Editar perfil</a></li>
+                <li><a href="#">Sair</a></li>
+            </ul>
+        </div>
+
+    </div>
 </header>
 
 <nav class="container-navbar-lateral aside">

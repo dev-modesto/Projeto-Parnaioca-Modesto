@@ -1,3 +1,7 @@
+* {
+    font: 400 1rem/1.5 "Roboto", sans-serif;
+}
+
 body {
     margin: 0px;
     font-family: Arial, Helvetica, sans-serif;

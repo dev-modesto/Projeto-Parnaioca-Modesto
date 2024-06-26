@@ -74,7 +74,105 @@
     width: 100%;
     height: 70px;
     grid-area: header;
+    display: flex;
+    justify-content: end;
 }
+
+.container-usuario-logado {
+    background-color: tomato;
+    min-width: 200px;
+    margin-right: 20px;
+}
+
+/* usuario logado css */
+.usuario-logado {
+    background-color: tan;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    /* margin-right: 20px; */
+    gap: 5px;
+    position: relative;
+}
+    .usuario-logado p {
+        font-size: .82rem;
+        font-weight: 500;
+    }
+
+    .usuario-logado span {
+        font-size: .72rem;
+    }
+
+.usuario-logado-texto {
+    /* background-color: azure; */
+    color: var(--cor-1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 10px;
+    border-left: 2px solid;
+    border-color: var(--cor-s7);
+}
+
+.usuario-logado-foto {
+    width: 70px;
+    height: 100%;
+    /* background-color: azure; */
+    /* background-color: var(--cor-1); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    /* display: none; */
+}
+    .usuario-logado-foto img {
+        width: 50px;
+        height: 50px;
+        /* border: 1px solid red; */
+    }
+
+.usuario-logado-dropdown {
+    background-color: var(--cor-0);
+    border: 1px solid var(--cor-3);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 5%);
+    padding: 10px;
+    position: absolute;
+    width: 150px;
+    box-sizing: border-box;
+    top: 80px;
+    z-index: 2;
+    display: none;
+}
+
+    .dropwdown-logado {
+        
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .dropwdown-logado li{
+        /* background-color: bisque; */
+    }
+
+    .dropwdown-logado li a {
+        display: block;
+        /* background-color: aqua; */
+        padding: 5px;
+        width: 100%;
+        height: auto;
+        font-size: .82rem;
+        transition: all .2s;
+    }
+
+    
+    .dropwdown-logado li a:hover {
+        background-color: tomato;
+
+    }
+    
 
 .conteudo {
     /* background-color: aquamarine; */

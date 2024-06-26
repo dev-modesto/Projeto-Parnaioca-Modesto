@@ -16,14 +16,13 @@
             VALUES (null,'$nome','$cpf','$telefone','$id_cargo','$hash')";
 
         if(mysqli_query($con, $sql)){
-            echo "Gravado com sucesso!";
-            $mensagem = "Gravado com sucesso!";
+            header('location: ../index.php?msg=Adicionado com sucesso!');
         } else {
             echo "Erro ao gravar: " . mysqli_error($con);
         }
 
         mysqli_close($con);
     } else {
-        $mensagem = "Nada foi postado";
+        $mensagem = "";
     }
 ?>

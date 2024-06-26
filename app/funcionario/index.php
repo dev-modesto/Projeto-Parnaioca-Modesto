@@ -1,36 +1,73 @@
 <?php
-    include '../../include/navbar-lateral/navbar-lateral.php';
-    include 'include/gFuncionario.php';
-
     include __DIR__  . '/../../config/conexao.php';
+    include __DIR__  . '/../../config/valida.php';
 
-    $sql2=  "SELECT f.id_funcionario, f.nome, f.cpf, f.telefone, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo";
+    include '../../include/navbar-lateral/navbar-lateral.php';
+    include '../login/include/cLogin.php';
+
+    $sql2=  "SELECT f.id_funcionario, f.nome, f.cpf, f.telefone, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo ORDER BY f.nome";
     $consulta = mysqli_query($con, $sql2);
+    
+
+    if(session_status() == PHP_SESSION_ACTIVE){
+        echo 'ha uma sessao ativa!';
+        $nomeLogado = $_SESSION['nome'];
+        echo $nomeLogado;
+
+    }
+    
 
 ?>
     <div class="conteudo">
         <div class="container-conteudo-principal">
         
-                <h1>Funcionarios</h1>
-                <div class="container-button">
-                    <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Novo funcionário</button>
-                </div>
+            <h1>Funcionarios</h1>
+            <div class="container-button">
+                <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo funcionário</button>
+                <?php echo '<a href="./../../config/logoff.php">Fechar</a>'?>
+                
+            </div>
 
-                <span class="separador"></span>
-                <?php if(!empty($mensagem)){ ?>  
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php echo $mensagem ?>
+            <?php
+                if(isset($_GET['msg'])){
+                    $msg = $_GET['msg'];
+                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            '. $msg .'
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div> 
-                <?php }else {
-                        echo '';
-                    }
-                ?>
+                        </div>';
+                }
+            
+            ?>
 
+            <span class="separador"></span>
+
+
+            <?php if(!empty($mensagem)){ ?>  
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?php echo $mensagem ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> 
+            <?php }else {
+                    echo '';
+                }
+            ?>
+
+            <?php if(!empty($newMensage)){ ?>  
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?php echo $newMensage ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> 
+            <?php }else {
+                    echo '';
+                }
+            ?>
+
+            <!-- Tabela -->
             <div class="container-tabela">
                 <table class="table table-hover text-center">
                     <thead class="">
                         <tr>
+                            <th scope="col">Nº</th>
                             <th scope="col">Matrícula</th>
                             <th scope="col">Nome</th>
                             <th scope="col">CPF</th>
@@ -39,20 +76,25 @@
                             <th scope="col">Controle</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-group-divider">
                         <?php 
+                            $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
+                                    $id = $exibe['id_funcionario'];
                                 ?>
                                 <tr>
-                                    <td><?php echo $exibe['id_funcionario']?></td>
+                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
+                                    <td class="id-funcionario"><?php echo $exibe['id_funcionario']?></td>
                                     <td><?php echo $exibe['nome']?></td>
                                     <td><?php echo $exibe['cpf']?></td>
                                     <td><?php echo $exibe['telefone']?></td>
                                     <td><?php echo $exibe['nome_cargo']?></td>
-                                    <td>
-                                        <a href=""><span class="material-symbols-rounded">visibility</span></a>
-                                        <a href=""><span class="material-symbols-rounded">edit</span></a>
-                                        <a href=""><span class="material-symbols-rounded">delete</span></a>
+                                    <td class="td-icons">
+                                        <a class="editar-funcionario" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
+                                        <a href="include/eFuncionario.php?id=<?php echo $id ?>" onclick="return confirm('Confirmar a exclusão do usuario?')"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
+                                    </td>
+
+                                    
                                     </td>
                                 </tr>
                                 <?php
@@ -62,7 +104,7 @@
                 </table>
             </div>
 
-            <!-- Modal -->
+            <!-- Modal cadastrar informações -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -72,7 +114,7 @@
                         </div>
 
                         <!-- formulario envio cargo -->
-                        <form class="was-validated form-container" action="" method="post">
+                        <form class="was-validated form-container" action="include/gFuncionario.php" method="post">
                             <div class="mb-3">
                                 <label class="font-1-s" for="nome">Nome completo</label>
                                 <input class="form-control" type="text" name="nome" id="validationText" required>
@@ -86,7 +128,7 @@
                                 <input class="form-control" type="text" name="cpf" class="cpf" id="cpf" required>
                                 <!-- <p id="info-validaCpf"></p> -->
                                 <div class="invalid-feedback">
-                                   
+                                
                                 </div>
                             </div>
 
@@ -116,7 +158,7 @@
                             </div>
 
                             <?php if(!empty($mensagem)){ ?>  
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     <?php echo $mensagem ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div> 
@@ -134,6 +176,9 @@
                 </div>
             </div>
 
+            <div class="modalEditarFuncionario">
+            </div>
+
         </div>
 
     </div>
@@ -146,7 +191,10 @@
     <script>
         $('#cpf').mask('000.000.000-00', {reverse: true});
         $('#telefone').mask('0000000000000');
+
     </script>
 
+    <script src="script.js"></script>
+    <script src="../../js/modal.js"></script>
 </body>
 </html>

@@ -24,6 +24,8 @@
     height: auto;
     box-sizing: border-box;
     height: 35px;
+    display: flex;
+    align-items: center;
 }
 
 .btn-primary:hover {
