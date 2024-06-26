@@ -5,56 +5,58 @@
     // include 'include/consultarFuncionario.php';
 
     include __DIR__  . '/../../config/conexao.php';
-    $sql2=  "SELECT f.id_funcionario, f.nome, f.cpf, f.telefone, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo";
+    $sql2=  "SELECT f.id_funcionario, f.nome, f.cpf, f.telefone, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo ORDER BY f.nome";
     $consulta = mysqli_query($con, $sql2);
 
 ?>
     <div class="conteudo">
         <div class="container-conteudo-principal">
         
-                <h1>Funcionarios</h1>
-                <div class="container-button">
-                    <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo funcionário</button>
-                </div>
+            <h1>Funcionarios</h1>
+            <div class="container-button">
+                <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo funcionário</button>
+            </div>
 
-                <?php
-                    if(isset($_GET['msg'])){
-                        $msg = $_GET['msg'];
-                        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                               '. $msg .'
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>';
-                    }
-                
-                ?>
-
-                <span class="separador"></span>
-
-
-                <?php if(!empty($mensagem)){ ?>  
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo $mensagem ?>
+            <?php
+                if(isset($_GET['msg'])){
+                    $msg = $_GET['msg'];
+                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            '. $msg .'
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div> 
-                <?php }else {
-                        echo '';
-                    }
-                ?>
+                        </div>';
+                }
+            
+            ?>
 
-                <?php if(!empty($newMensage)){ ?>  
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo $newMensage ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div> 
-                <?php }else {
-                        echo '';
-                    }
-                ?>
+            <span class="separador"></span>
 
+
+            <?php if(!empty($mensagem)){ ?>  
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?php echo $mensagem ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> 
+            <?php }else {
+                    echo '';
+                }
+            ?>
+
+            <?php if(!empty($newMensage)){ ?>  
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?php echo $newMensage ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> 
+            <?php }else {
+                    echo '';
+                }
+            ?>
+
+            <!-- Tabela -->
             <div class="container-tabela">
                 <table class="table table-hover text-center">
                     <thead class="">
                         <tr>
+                            <th scope="col">Nº</th>
                             <th scope="col">Matrícula</th>
                             <th scope="col">Nome</th>
                             <th scope="col">CPF</th>
@@ -65,18 +67,19 @@
                     </thead>
                     <tbody class="table-group-divider">
                         <?php 
+                            $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
                                     $id = $exibe['id_funcionario'];
                                 ?>
                                 <tr>
-                                    <td><?php echo $exibe['id_funcionario']?></td>
+                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
+                                    <td class="id-funcionario"><?php echo $exibe['id_funcionario']?></td>
                                     <td><?php echo $exibe['nome']?></td>
                                     <td><?php echo $exibe['cpf']?></td>
                                     <td><?php echo $exibe['telefone']?></td>
                                     <td><?php echo $exibe['nome_cargo']?></td>
                                     <td class="td-icons">
-                                        <!-- <a href="include/consultarFuncionario?id=<?php echo $id ?>" id="btn-id" data-bs-toggle="modal" data-bs-target="#staticBackdrop-editar"><span class="icon-btn-controle material-symbols-rounded">edit</span></a> -->
-                                        <a href="include/cModalEditar.php?id=<?php echo $id ?>"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
+                                        <a class="editar-funcionario" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
                                         <a href="include/eFuncionario.php?id=<?php echo $id ?>" onclick="return confirm('Confirmar a exclusão do usuario?')"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
                                     </td>
 
@@ -114,7 +117,7 @@
                                 <input class="form-control" type="text" name="cpf" class="cpf" id="cpf" required>
                                 <!-- <p id="info-validaCpf"></p> -->
                                 <div class="invalid-feedback">
-                                   
+                                
                                 </div>
                             </div>
 
@@ -162,6 +165,8 @@
                 </div>
             </div>
 
+            <div class="modalEditarFuncionario">
+            </div>
 
         </div>
 
@@ -179,5 +184,6 @@
     </script>
 
     <script src="script.js"></script>
+    <script src="../../js/modal.js"></script>
 </body>
 </html>
