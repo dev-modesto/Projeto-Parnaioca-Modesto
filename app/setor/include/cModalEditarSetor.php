@@ -11,7 +11,7 @@
         if($consulta){
             $retorno = mysqli_stmt_get_result($stmt);
             $array = mysqli_fetch_all($retorno, MYSQLI_ASSOC)[0];
-
+            
             $nomeSetor = $array['nome_setor'];
         }
     }
@@ -29,9 +29,12 @@
 
             <!-- formulario envio editar setor -->
             <form class="was-validated form-container" action="include/aSetor.php" method="post">
+
+                <input type="text" name="id" id="id" value="<?php echo $id ?>" hidden>
+
                 <div class="mb-3">
-                    <label class="font-1-s" for="nome">Nome do setor</label>
-                    <input class="form-control" type="text" name="nome" id="validationText" value="<?php echo $nomeSetor ?>" required>
+                    <label class="font-1-s" for="setor">Nome do setor</label>
+                    <input class="form-control" type="text" name="setor" id="setor" value="<?php echo $nomeSetor ?>" required>
                     <div class="invalid-feedback">
                     </div>
                 </div>
