@@ -46,3 +46,58 @@
     background-color: var(--cor-2);
     margin-bottom: 30px;
 }
+
+.titulo-pagina {
+    /* background-color: tomato; */
+}
+
+.titulo-pagina h1 {
+    font: 400 2.5rem/1rem 'poppins', sans-serif;
+    color: var(--cor-p5);
+    margin-bottom: 30px;
+}
+
+.page-item {
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+}
+
+.page-link {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;  
+}
+
+.page-link-ativo {
+    color: var(--cor-6);
+}
+
+.page-link span {
+    color: var(--cor-p2);
+    padding: 5px;
+}
+
+.pagination .page-item.active .page-link {
+    border: 1px solid var(--font-color-secondary);
+    background-color: var(--cor-p5);
+  }
+  
+  .pagination .page-item.disabled i{
+    color: transparent;
+  }
+
+  .page-item:first-child .page-link,
+  .page-item:last-child .page-link {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    color: var(--cor-2);
+    /* margin: 5px; */
+
+}

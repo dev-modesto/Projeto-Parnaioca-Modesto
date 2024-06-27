@@ -79,30 +79,63 @@
 }
 
 .container-usuario-logado {
-    background-color: tomato;
     min-width: 200px;
-    margin-right: 20px;
-}
-
-/* usuario logado css */
-.usuario-logado {
-    background-color: tan;
+    margin-right: 30px;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: end;
-    /* margin-right: 20px; */
     gap: 5px;
-    position: relative;
 }
-    .usuario-logado p {
+
+    .usuario-logado-texto p {
         font-size: .82rem;
-        font-weight: 500;
+        font-weight: 400;
+        color: var(--cor-3);
     }
 
-    .usuario-logado span {
+    .usuario-logado-texto span {
         font-size: .72rem;
+        font-weight: 300;
+        color: var(--cor-3);
     }
+
+.usuario-logado-icodown {
+    color: var(--cor-1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 10px 0px 10px;
+    /* border-left: 2px solid; */
+    border-color: var(--cor-s7);
+}
+
+.usuario-info {
+    display: flex;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+    transition: all .2s;
+}
+.usuario-info:hover {
+    background-color: var(--cor-p4);
+}
+
+.usuario-info:hover .ico-icodown  {
+    background-color: var(--cor-p4);
+    color: var(--cor-s2);
+}
+
+.ico-icodown {
+    transition: ease-out .2s;
+}
+
+.usuario-logado-icodown span {
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+}
 
 .usuario-logado-texto {
     /* background-color: azure; */
@@ -111,21 +144,18 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0px 10px;
-    border-left: 2px solid;
+    padding: 0px 10px 0px 10px;
+    /* border-left: 2px solid; */
     border-color: var(--cor-s7);
 }
 
 .usuario-logado-foto {
     width: 70px;
     height: 100%;
-    /* background-color: azure; */
-    /* background-color: var(--cor-1); */
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-    /* display: none; */
+    /* position: relative; */
 }
     .usuario-logado-foto img {
         width: 50px;
@@ -133,6 +163,7 @@
         /* border: 1px solid red; */
     }
 
+    /* dropdown usuario logado */
 .usuario-logado-dropdown {
     background-color: var(--cor-0);
     border: 1px solid var(--cor-3);
@@ -140,39 +171,49 @@
     padding: 10px;
     position: absolute;
     width: 150px;
+    width: 100%;
     box-sizing: border-box;
     top: 80px;
+    left: 0px;
     z-index: 2;
     display: none;
 }
 
     .dropwdown-logado {
-        
         display: flex;
         flex-direction: column;
         gap: 5px;
     }
 
-    .dropwdown-logado li{
-        /* background-color: bisque; */
-    }
-
     .dropwdown-logado li a {
-        display: block;
-        /* background-color: aqua; */
+        display: flex;
+        align-items: center;
         padding: 5px;
         width: 100%;
         height: auto;
         font-size: .82rem;
         transition: all .2s;
+        gap: 5px;
+        color: var(--cor-6);
+        transition: ease-out .2s;
     }
 
+    .dropwdown-logado li a span {
+        color: var(--cor-6);
+        transition: ease-out .2s;
+    }
     
     .dropwdown-logado li a:hover {
-        background-color: tomato;
-
+        background-color: var(--cor-1);
+        color: var(--cor-10);
     }
-    
+    .dropwdown-logado li a:hover span {
+        background-color: var(--cor-1);
+        color: var(--cor-10);
+    }
+
+
+
 
 .conteudo {
     /* background-color: aquamarine; */
