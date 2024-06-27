@@ -46,22 +46,22 @@
 
                 <div class="mb-3">
                     <label class="font-1-s" for="nome">Nome completo</label>
-                    <input class="form-control" type="text" name="nome" id="validationText" value="<?php echo $nome ?>" required>
+                    <input class="form-control nome" type="text" name="nome" id="validationText" value="<?php echo $nome ?>" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="font-1-s" for="cpf">CPF</label>
-                    <input class="form-control" type="text" name="cpf" class="cpf" id="cpf" value="<?php echo $cpf ?>" required>
+                    <input class="form-control cpf" type="text" name="cpf" id="cpf22" value="<?php echo $cpf ?>" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="font-1-s" for="telefone">Telefone</label>
-                    <input class="form-control" type="fone" name="telefone" class="telefone" value="<?php echo $telefone ?>" id="telefone" required>
+                    <input class="form-control telefone" type="fone" name="telefone" value="<?php echo $telefone ?>" id="telefone" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="id_cargo">Cargo</label>
-                    <select class="form-select" name="id_cargo" required aria-label="select example">
+                    <select class="form-select id_cargo" name="id_cargo" required aria-label="select example">
                         <?php
                             include '../../config/conexao.php';
                             $query = "SELECT id_cargo, nome_cargo FROM tbl_cargo";
