@@ -1,13 +1,21 @@
 <?php
-    include '../../../config/conexao.php';
+    include __DIR__  . '/../../../config/conexao.php';
 
-    $setor = $_POST['setor'];
-    $sql = "INSERT INTO tbl_setor(id_setor,nome_setor) VALUES(NULL,'$setor')";
+    if(isset($_POST['setor'])){
+        
+        $setor = trim($_POST['setor']);
+        $sql = "INSERT INTO tbl_setor(id_setor,nome_setor) VALUES(NULL,'$setor')";
+        
+        $stmt = mysqli_prepare($con, "INSERT INTO tbl_setor(id_setor, nome_setor) VALUES (NULL, ?)");
+        mysqli_stmt_bind_param($stmt, "s", $setor);
 
-    if(mysqli_query($con, $sql)){
-        echo "gravado com sucesso!";
-    }else {
-        echo "erro ao gravar";
+        if(mysqli_stmt_execute($stmt)){
+            header('location: ../index.php?msg=Adicionado com sucesso!');
+        } else {
+            echo "Error ao gravar" . mysqli_error($con);
+        }
+
+        mysqli_close($con);
     }
-    mysqli_close($con);
+
 ?>
