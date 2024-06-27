@@ -20,3 +20,28 @@ $(document).ready(function () {
         });
     });
 });
+
+
+$(document).ready(function () {
+    $('.btn-editar-setor').click(function (e) { 
+        e.preventDefault();
+        var idSetor = $(this).closest('tr').find('.id-setor').text()
+        // console.log('Numero do setor: ' + idSetor);
+
+        $.ajax({
+            type: "POST",
+            url: "../setor/include/cModalEditarSetor.php",
+
+            data: {
+                'click-editar-setor':true,
+                'idSetor':idSetor,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalEditarSetor').html(response)
+                $('#modalEditarSetor').modal('show');
+            }
+        });
+        
+    });
+});
