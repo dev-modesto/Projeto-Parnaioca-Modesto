@@ -1,7 +1,26 @@
 <?php
     include __DIR__  . '/../../config/conexao.php';
     include '../../include/navbar-lateral/navbar-lateral.php';
-    include __DIR__  . '/../../config/seguranca.php';
+    // include __DIR__  . '/../../config/seguranca.php';
+
+    $maxItensPagina = 10;
+
+    $sql_count = "SELECT COUNT(id_setor) AS total FROM tbl_setor";
+    $result_count = mysqli_query($con, $sql_count);
+    $row_count = mysqli_fetch_assoc($result_count);
+    $total_results = $row_count['total'];
+
+    $total_pages = ceil($total_results / $maxItensPagina);
+
+    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
+    if ($page > $total_pages) {
+        $page = $total_pages;
+    } elseif ($page < 1) {
+        $page = 1;
+    }
+
+    $offset = ($page - 1) * $maxItensPagina;
+
     if (session_status() == PHP_SESSION_ACTIVE) {
         $nomeLogado = $_SESSION['id'];
     }
@@ -54,7 +73,7 @@
             <!-- Tabela -->
             <div class="container-tabela">
                 <div class="container-button">
-                    <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo funcionário</button>
+                    <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo setor</button>
                     
                     </div>
                     <table class="table table-hover text-center minha" id="minha">
@@ -74,11 +93,11 @@
                                     ?>
                                     <tr>
                                         <td class="numero-linha"><?php echo $nroLinha++; ?></td>
-                                        <!-- <td class="id-setor"><?php echo $exibe['id_setor']?></td> -->
+                                        <td class="id-setor" hidden><?php echo $exibe['id_setor']?></td>
                                         <td><?php echo $exibe['nome_setor']?></td>
                                         <td class="td-icons">
                                             <a class="btn-editar-setor" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
-                                            <a href="include/eFuncionario.php?id=<?php echo $id ?>" onclick="return confirm('Confirmar a exclusão do usuario?')"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
+                                            <a href="include/eSetor.php?id=<?php echo $id ?>" onclick="return confirm('Confirmar a exclusão do setor?')"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
                                         </td>
 
                                         
@@ -92,7 +111,7 @@
                     </table>
                 
                     <!-- Paginação -->
-                    <!-- <nav aria-label="Page navigation">
+                    <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-end">
                             <?php if ($page > 1): ?>
                                 <li class="page-item <?php if ($page == 1) echo "disabled"; ?>">
@@ -116,7 +135,7 @@
                                 </li>
                             <?php endif; ?>
                         </ul>
-                    </nav> -->
+                    </nav>
 
                 </div>
 
@@ -125,15 +144,15 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastrar funcionário</h1>
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastrar setor</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
                             <!-- formulario envio cargo -->
-                            <form class="was-validated form-container" action="include/gFuncionario.php" method="post">
+                            <form class="was-validated form-container" action="include/gSetor.php" method="post">
                                 <div class="mb-3">
-                                    <label class="font-1-s" for="nome">Nome do setor</label>
-                                    <input class="form-control" type="text" name="nome" id="validationText" required>
+                                    <label class="font-1-s" for="setor">Nome do setor</label>
+                                    <input class="form-control" type="text" name="setor" id="setor" required>
                                     <div class="invalid-feedback">
                                     </div>
                                 </div>
