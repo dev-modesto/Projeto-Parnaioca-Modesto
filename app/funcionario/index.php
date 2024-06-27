@@ -1,31 +1,41 @@
 <?php
     include __DIR__  . '/../../config/conexao.php';
-    include __DIR__  . '/../../config/valida.php';
+    include __DIR__  . '/../../config/seguranca.php';
 
     include '../../include/navbar-lateral/navbar-lateral.php';
     include '../login/include/cLogin.php';
 
-    $sql2=  "SELECT f.id_funcionario, f.nome, f.cpf, f.telefone, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo ORDER BY f.nome";
-    $consulta = mysqli_query($con, $sql2);
-    
+    $maxItensPagina = 10;
 
-    if(session_status() == PHP_SESSION_ACTIVE){
-        echo 'ha uma sessao ativa!';
-        $nomeLogado = $_SESSION['nome'];
-        echo $nomeLogado;
+    $sql_count = "SELECT COUNT(id_funcionario) AS total FROM tbl_funcionario";
+    $result_count = mysqli_query($con, $sql_count);
+    $row_count = mysqli_fetch_assoc($result_count);
+    $total_results = $row_count['total'];
 
+    $total_pages = ceil($total_results / $maxItensPagina);
+
+    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
+    if ($page > $total_pages) {
+        $page = $total_pages;
+    } elseif ($page < 1) {
+        $page = 1;
     }
-    
+
+    $offset = ($page - 1) * $maxItensPagina;
+
+    $sql2= "SELECT f.id_funcionario, f.nome, f.cpf, f.telefone, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo ORDER BY f.nome LIMIT $offset, $maxItensPagina";
+    $consulta = mysqli_query($con, $sql2);
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $nomeLogado = $_SESSION['id'];
+    }
 
 ?>
+
     <div class="conteudo">
         <div class="container-conteudo-principal">
-        
-            <h1>Funcionarios</h1>
-            <div class="container-button">
-                <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo funcionário</button>
-                <?php echo '<a href="./../../config/logoff.php">Fechar</a>'?>
-                
+            <div class="titulo-pagina">
+                <h1>Lista de funcionarios</h1>
             </div>
 
             <?php
@@ -64,7 +74,13 @@
 
             <!-- Tabela -->
             <div class="container-tabela">
-                <table class="table table-hover text-center">
+            <div class="container-button">
+                <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo funcionário</button>
+                
+
+
+            </div>
+                <table class="table table-hover text-center minha" id="minha">
                     <thead class="">
                         <tr>
                             <th scope="col">Nº</th>
@@ -101,8 +117,37 @@
                             }
                         ?>
                     </tbody>
+
                 </table>
+            
+            <!-- Paginação -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-end">
+                    <?php if ($page > 1): ?>
+                        <li class="page-item <?php if ($page == 1) echo "disabled"; ?>">
+                            <a class="page-link" href="?page=<?php echo $page-1; ?>" aria-label="Previous">
+                                <span class="material-symbols-rounded">chevron_left</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    
+                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                        <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
+                            <a class="page-link page-link-ativo" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                        </li>
+                    <?php endfor; ?>
+
+                    <?php if ($page < $total_pages): ?>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $page+1; ?>" aria-label="Next">
+                                <span class="material-symbols-rounded">chevron_right</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
             </div>
+
 
             <!-- Modal cadastrar informações -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
