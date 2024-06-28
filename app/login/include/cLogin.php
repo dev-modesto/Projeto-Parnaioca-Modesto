@@ -41,7 +41,7 @@
                         header('location: ../login/primeiraSenha.php');
                         
                     }else {
-                        header('location: ./include/pag_sucesso.php');                    
+                        header('location: ./../funcionario/');                    
                     }
 
                 }else{

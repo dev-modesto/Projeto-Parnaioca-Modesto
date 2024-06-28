@@ -11,3 +11,19 @@ function ativarLink(link) {
 }
 
 links.forEach(ativarLink);
+
+var ativarMenu = document.querySelector(".usuario-info");
+var usuarioDropdown = document.querySelector(".usuario-logado-dropdown");
+var icon = document.querySelector(".ico-icodown");
+
+ativarMenu.addEventListener('click', function(){
+    console.log('clicado!!');
+    
+    if(usuarioDropdown.style.display === 'block'){
+        usuarioDropdown.style.display = 'none';
+        icon.style.rotate = '0deg';
+    } else {
+        usuarioDropdown.style.display = 'block';
+        icon.style.rotate = '180deg';
+    }
+})
