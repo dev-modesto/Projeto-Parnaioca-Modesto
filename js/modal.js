@@ -45,3 +45,27 @@ $(document).ready(function () {
         
     });
 });
+
+$(document).ready(function () {
+    $('.btn-editar-cargo').click(function (e) { 
+        e.preventDefault();
+        var idCargo = $(this).closest('tr').find('.id-cargo').text()
+        // console.log('Numero do setor: ' + idCargo);
+
+        $.ajax({
+            type: "POST",
+            url: "../cargo/include/cModalEditarCargo.php",
+
+            data: {
+                'click-editar-cargo':true,
+                'idCargo':idCargo,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalEditarCargo').html(response)
+                $('#modalEditarCargo').modal('show');
+            }
+        });
+        
+    });
+});

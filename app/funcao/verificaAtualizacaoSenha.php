@@ -20,7 +20,7 @@
                 return true;
             }else {
                 ?> <script>
-                    window.location.href = '../login/index.php'';
+                    window.location.href = '../login/index.php';
                     </script>   
                 <?php
                 // echo 'funcao: DATA JÁ FOI ATUALIZADA. ';//pre-verificação - comentario provisorio

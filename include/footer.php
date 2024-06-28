@@ -1,5 +1,5 @@
 <?php
-
+    // echo "Carregou o footer";
 ?>
 
     <!-- arquivos js importação bibliotecas -->
@@ -9,8 +9,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js" integrity="sha512-0XDfGxFliYJPFrideYOoxdgNIvrwGTLnmK20xZbCAvPfLGQMzHUsaqZK8ZoH+luXGRxTrS46+Aq400nCnAT0/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-        $('#cpf').mask('000.000.000-00', {reverse: true});
+        $('.cpf').mask('000.000.000-00', {reverse: true});
         $('#telefone').mask('0000000000000');
+        $('.monetario').mask('000.000.000.000.000,00', {reverse: true});
     </script>
 
 </body>
