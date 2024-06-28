@@ -17,6 +17,7 @@
             $salario = $array['salario'];
             $idSetor = $array['id_setor'];
     }
+}
 
 ?>
 
@@ -44,7 +45,7 @@
 
                 <div class="mb-3">
                     <label class="font-1-s" for="salario">Salário</label>
-                    <input class="form-control" type="text" name="salario" id="salario" value="<?php echo $salario ?>"  required>
+                    <input class="form-control monetario" type="text" name="salario" id="salario" value="<?php echo $salario ?>"  required>
                     <!-- <p id="info-validaCpf"></p> -->
                     <div class="invalid-feedback">
                     
@@ -86,4 +87,8 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('.monetario').mask('000.000.000.000.000,00', {reverse: true});
+</script>
 
