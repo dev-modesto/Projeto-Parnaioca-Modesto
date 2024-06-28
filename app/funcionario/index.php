@@ -50,28 +50,18 @@
             
             ?>
 
+            <?php
+                if(isset($_GET['msgInvalida'])){
+                    $msg = $_GET['msgInvalida'];
+                    echo '<div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                            '. $msg .'
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>';
+                }
+            
+            ?>
+
             <span class="separador"></span>
-
-
-            <?php if(!empty($mensagem)){ ?>  
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?php echo $mensagem ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div> 
-            <?php }else {
-                    echo '';
-                }
-            ?>
-
-            <?php if(!empty($newMensage)){ ?>  
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?php echo $newMensage ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div> 
-            <?php }else {
-                    echo '';
-                }
-            ?>
 
             <!-- Tabela -->
             <div class="container-tabela">
@@ -170,7 +160,7 @@
 
                             <div class="mb-3">
                                 <label class="font-1-s" for="cpf">CPF</label>
-                                <input class="form-control" type="text" name="cpf" class="cpf" id="cpf" required>
+                                <input class="form-control cpf" type="text" name="cpf" id="cpf" required>
                                 <!-- <p id="info-validaCpf"></p> -->
                                 <div class="invalid-feedback">
                                 

@@ -51,7 +51,7 @@
 
                 <div class="mb-3">
                     <label class="font-1-s" for="cpf">CPF</label>
-                    <input class="form-control cpf" type="text" name="cpf" id="cpf22" value="<?php echo $cpf ?>" required>
+                    <input class="form-control cpf" type="text" name="cpf" id="cpf" value="<?php echo $cpf ?>" required>
                 </div>
 
                 <div class="mb-3">
@@ -94,3 +94,7 @@
         </div>
     </div>
 </div>
+
+<script>
+        $('.cpf').mask('000.000.000-00', {reverse: true});
+</script>
