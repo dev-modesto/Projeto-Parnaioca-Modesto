@@ -73,7 +73,7 @@
             <!-- Tabela -->
             <div class="container-tabela">
             <div class="container-button">
-                <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo funcionário</button>
+                <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo cargo</button>
                 
 
 
@@ -99,7 +99,7 @@
                                     <td class="numeroLinha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-cargo"><?php echo $exibe['id_cargo']?></td>
                                     <td><?php echo $exibe['nome_cargo']?></td>
-                                    <td><?php echo $exibe['salario']?></td>
+                                    <td class="monetario"><?php echo $exibe['salario']?></td>
                                     <td><?php echo $exibe['nome_setor']?></td>
                                     <td class="td-icons">
                                         <a class="btn-editar-cargo" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
@@ -165,7 +165,7 @@
 
                             <div class="mb-3">
                                 <label class="font-1-s" for="salario">Salário</label>
-                                <input class="form-control" type="text" name="salario" id="salario" required>
+                                <input class="form-control monetario" type="text" name="salario" id="salario" required>
                                 <!-- <p id="info-validaCpf"></p> -->
                                 <div class="invalid-feedback">
                                 

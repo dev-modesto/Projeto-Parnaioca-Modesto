@@ -1,5 +1,5 @@
 <?php
-
+    echo "Carregou o footer";
 ?>
 
     <!-- arquivos js importação bibliotecas -->
@@ -11,6 +11,7 @@
     <script>
         $('#cpf').mask('000.000.000-00', {reverse: true});
         $('#telefone').mask('0000000000000');
+        $('.monetario').mask('000.000.000.000.000,00', {reverse: true});
     </script>
 
 </body>
