@@ -1,5 +1,6 @@
 <?php
     include '../../include/head.php';
+    include __DIR__  . '/../../config/seguranca.php';
     // header('location: ../../app/login/');
 
     if(session_status() == PHP_SESSION_ACTIVE){
