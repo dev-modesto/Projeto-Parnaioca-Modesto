@@ -1,20 +1,18 @@
 <?php
     include __DIR__  . '/../../../config/conexao.php';
 
-    if(isset($_GET['id'])){
+    if(isset($_POST['idSetor'])){
+        $id = $_POST['idSetor'];
+        // echo 'recebemos o id: ' .  $id;
+        $sql = "DELETE FROM tbl_setor where id_setor = '$id'";
+        if(mysqli_query($con, $sql)){
+            $mensagem = "Setor exluido com sucesso!";
+            header('location: ../index.php?msg=Deletado com sucesso!');
         
-        $id = $_GET['id'];
-        $stmt = mysqli_prepare($con, "DELETE FROM tbl_setor WHERE id_setor = ?");
-        mysqli_stmt_bind_param($stmt, 'i', $id);
-
-        if(mysqli_stmt_execute($stmt)){
-            echo 'executado com sucesso!!';
-            header('location: ../index.php?msg=Removido com sucesso!');
         } else {
-            echo "ocorreu um error". mysqli_error($con);
+            $mensagem = "Não foi possivel excluir o setor!";
         }
-        mysqli_close($con);
 
-    } 
+    }
 
 ?>
