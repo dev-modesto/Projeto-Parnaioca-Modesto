@@ -1,0 +1,60 @@
+.modal-content {
+    font-family: 'poppins';
+}
+.modal-body p {
+    text-align: center;
+}
+.modal-footer  {
+    background-color: rgb(245, 245, 245);
+}
+
+.form-container-button {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-footer button {
+    width: 48%;
+}
+
+.modal-header-second {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.modal-header-second span {
+    color: #D77C7C;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icone-alerta-modal {
+    background-color: #FCEEEE;
+    box-shadow: 0px 0px 0px 8px #FDF4F4;
+    border-radius: 50%;
+
+    width: 80px;
+    height: 80px;
+}
+
+/* botoes do modal */
+.btn-modal-cancelar {
+    background-color: white;
+    border: 1px solid rgb(218, 218, 218);
+    color: rgb(116, 116, 116);
+}
+
+.btn-modal-excluir {
+    background-color: #e05c5c;
+    border: #D77C7C;
+    color: white;
+}
+
+.btn-modal-excluir:hover {
+    background-color: #D77C7C;
+    border: #D77C7C;
+    color: white;
+}
