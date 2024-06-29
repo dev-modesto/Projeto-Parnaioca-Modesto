@@ -1,17 +1,17 @@
 <?php
     include __DIR__  . '/../../../config/conexao.php';
 
-    if($_GET['id']){
-        $id = $_GET['id'];
+    if(isset($_POST['idFuncionario'])){
+        $id = $_POST['idFuncionario'];
+        // echo 'recebemos o id: ' .  $id;
         $sql = "DELETE FROM tbl_funcionario where id_funcionario = '$id'";
-
         if(mysqli_query($con, $sql)){
-            $mensagem = "Usuario exluido com sucesso!";
+            $mensagem = "Cargo exluido com sucesso!";
             header('location: ../index.php?msg=Deletado com sucesso!');
-        }else {
-            $mensagem = "Não foi possivel excluir o usuario!";
-            die;
+        
+        } else {
+            $mensagem = "Não foi possivel excluir o funcionario!";
         }
-    }
 
+    }
 ?>

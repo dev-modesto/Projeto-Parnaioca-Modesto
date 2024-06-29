@@ -73,7 +73,7 @@
             <!-- Tabela -->
             <div class="container-tabela">
             <div class="container-button">
-                <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo cargo</button>
+                <button type="button" class="cadastrar-cargo btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo cargo</button>
                 
 
 
@@ -102,8 +102,8 @@
                                     <td class="monetario"><?php echo $exibe['salario']?></td>
                                     <td><?php echo $exibe['nome_setor']?></td>
                                     <td class="td-icons">
-                                        <a class="btn-editar-cargo" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
-                                        <a href="include/eCargo.php?id=<?php echo $id ?>" onclick="return confirm('Confirmar a exclusão do cargo?')"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
+                                        <a class="btn-editar-cargo icone-controle-editar" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
+                                        <a class="btn-excluir-cargo icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
                                     </td>
 
                                     
@@ -199,7 +199,7 @@
                             ?>
 
                             <div class="modal-footer form-container-button">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
                                 <button class='btn btn-primary' type="submit">Adicionar</button>
                             </div>
                         </form>
@@ -208,6 +208,9 @@
             </div>
 
             <div class="modalEditarCargo">
+            </div>
+
+            <div class="modalExcluir">
             </div>
 
         </div>

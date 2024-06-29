@@ -69,3 +69,51 @@ $(document).ready(function () {
         
     });
 });
+
+$(document).ready(function () {
+    $('.btn-excluir-cargo').click(function (e) { 
+        e.preventDefault();
+        var idCargo = $(this).closest('tr').find('.id-cargo').text()
+        // console.log('Numero do setor: ' + idCargo);
+
+        $.ajax({
+            type: "POST",
+            url: "../cargo/include/eModalExcluirCargo.php",
+
+            data: {
+                'click-excluir-cargo':true,
+                'idCargo':idCargo,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+        
+    });
+});
+
+$(document).ready(function () {
+    $('.btn-excluir-funcionario').click(function (e) { 
+        e.preventDefault();
+        var idFuncionario = $(this).closest('tr').find('.id-funcionario').text()
+        // console.log('Numero do funcionario: ' + idFuncionario);
+
+        $.ajax({
+            type: "POST",
+            url: "../funcionario/include/eModalExcluirFuncionario.php",
+
+            data: {
+                'click-excluir-funcionario':true,
+                'idFuncionario':idFuncionario,
+            },
+            success: function (response) {
+                console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+        
+    });
+});
