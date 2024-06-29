@@ -93,8 +93,8 @@
                                         <td class="id-setor" hidden><?php echo $exibe['id_setor']?></td>
                                         <td><?php echo $exibe['nome_setor']?></td>
                                         <td class="td-icons">
-                                            <a class="btn-editar-setor" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
-                                            <a href="include/eSetor.php?id=<?php echo $id ?>" onclick="return confirm('Confirmar a exclusão do setor?')"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
+                                            <a class="btn-editar-setor icone-controle-editar" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
+                                            <a class="btn-excluir-setor icone-controle-excluir" href="include/eSetor.php"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
                                         </td>
 
                                         
@@ -165,7 +165,7 @@
                                 ?>
 
                                 <div class="modal-footer form-container-button">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-secondary btn-modal-cancelar"" data-bs-dismiss="modal">Cancelar</button>
                                     <button class='btn btn-primary' type="submit">Adicionar</button>
                                 </div>
                             </form>
@@ -174,6 +174,9 @@
                 </div>
 
                 <div class="modalEditarSetor">
+                </div>
+
+                <div class="modalExcluir">
                 </div>
 
             </div>
