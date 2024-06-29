@@ -11,6 +11,9 @@
 /* componentes */
 @import url(utilidades/componentes.css);
 
+/* modal */
+@import url(utilidades/modal.css);
+
 /* formulario */
 @import url(utilidades/formulario.css);
 
