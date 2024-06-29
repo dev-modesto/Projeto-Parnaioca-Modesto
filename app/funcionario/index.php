@@ -35,9 +35,6 @@
 
     <div class="conteudo">
         <div class="container-conteudo-principal">
-            <div class="titulo-pagina">
-                <h1>Lista de funcionarios</h1>
-            </div>
 
             <?php
                 if(isset($_GET['msg'])){
