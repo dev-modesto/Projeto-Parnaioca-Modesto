@@ -87,7 +87,7 @@
                 ?>
 
                 <div class="modal-footer form-container-button">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
                     <button class='btn btn-primary' type="submit">Adicionar</button>
                 </div>
             </form>
