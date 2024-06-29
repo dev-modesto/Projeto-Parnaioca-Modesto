@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('.editar-funcionario').click(function() { //definir função click a minha classe do botao de editar
+    $('.btn-editar-funcionario').click(function() { //definir função click a minha classe do botao de editar
         var idFuncionario = $(this).closest('tr').find('.id-funcionario').text();//pegando a informação desejada do botao
         // console.log(idFuncionario);
         
