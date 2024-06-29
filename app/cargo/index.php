@@ -103,7 +103,8 @@
                                     <td><?php echo $exibe['nome_setor']?></td>
                                     <td class="td-icons">
                                         <a class="btn-editar-cargo" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
-                                        <a href="include/eCargo.php?id=<?php echo $id ?>" onclick="return confirm('Confirmar a exclusão do cargo?')"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
+                                        <!-- <a class="btn-excluir-cargo" href="include/eCargo.php?id=<?php echo $id ?>" onclick="return confirm('Confirmar a exclusão do cargo?')"><span class="icon-btn-controle material-symbols-rounded">delete</span></a> -->
+                                        <a class="btn-excluir-cargo" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
                                     </td>
 
                                     
@@ -208,6 +209,9 @@
             </div>
 
             <div class="modalEditarCargo">
+            </div>
+
+            <div class="modalExcluir">
             </div>
 
         </div>
