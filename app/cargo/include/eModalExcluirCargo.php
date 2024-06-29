@@ -13,13 +13,13 @@
             <div class="modal-header modal-header-second">
                 <span class="icone-alerta-modal material-symbols-rounded">error</span>
             </div>
-            <div class="modal-body">
+            <div class="modal-body body-alerta-modal">
                 <p><strong>Você tem certeza que deseja remover?</strong> <br>
                     Esta é uma ação irreversível.
                 </p>
             </div>
 
-            <form action="include/eCargo.php" method="post">
+            <form class="was-validated form-container" action="include/eCargo.php" method="post">
                 <input type="text" name="idCargo" id="idCargo" value="<?php echo $id ?>" hidden>
                 <div class="modal-footer form-container-button">
                     <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
