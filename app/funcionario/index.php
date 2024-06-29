@@ -35,9 +35,6 @@
 
     <div class="conteudo">
         <div class="container-conteudo-principal">
-            <div class="titulo-pagina">
-                <h1>Lista de funcionarios</h1>
-            </div>
 
             <?php
                 if(isset($_GET['msg'])){
@@ -97,8 +94,8 @@
                                     <td><?php echo $exibe['telefone']?></td>
                                     <td><?php echo $exibe['nome_cargo']?></td>
                                     <td class="td-icons">
-                                        <a class="editar-funcionario" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
-                                        <a href="include/eFuncionario.php?id=<?php echo $id ?>" onclick="return confirm('Confirmar a exclusão do usuario?')"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
+                                        <a class="btn-editar-funcionario icone-controle-editar " href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
+                                        <a class="btn-excluir-funcionario icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
                                     </td>
 
                                     
@@ -203,7 +200,7 @@
                             ?>
 
                             <div class="modal-footer form-container-button">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
                                 <button class='btn btn-primary' type="submit">Adicionar</button>
                             </div>
                         </form>
@@ -212,6 +209,9 @@
             </div>
 
             <div class="modalEditarFuncionario">
+            </div>
+
+            <div class="modalExcluir">
             </div>
 
         </div>

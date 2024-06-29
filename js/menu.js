@@ -27,3 +27,16 @@ ativarMenu.addEventListener('click', function(){
         icon.style.rotate = '180deg';
     }
 })
+
+
+const linksSubHeader = document.querySelectorAll('.container-header-itens li a');
+    function ativarLinkSubMenu(link){
+        const url = window.location.href;
+        const href = link.href;
+
+        if (url.includes(href)){
+            link.classList.add('link-ativo-sub-menu');
+        }
+    }
+
+linksSubHeader.forEach(ativarLinkSubMenu);
