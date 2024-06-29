@@ -69,3 +69,27 @@ $(document).ready(function () {
         
     });
 });
+
+$(document).ready(function () {
+    $('.btn-excluir-cargo').click(function (e) { 
+        e.preventDefault();
+        var idCargo = $(this).closest('tr').find('.id-cargo').text()
+        console.log('Numero do setor: ' + idCargo);
+
+        $.ajax({
+            type: "POST",
+            url: "../cargo/include/eModalExcluirCargo.php",
+
+            data: {
+                'click-excluir-cargo':true,
+                'idCargo':idCargo,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+        
+    });
+});
