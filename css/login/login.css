@@ -100,7 +100,7 @@
     }
 
     .form-login .form-container-button {
-        margin-top: 50px;
+        /* margin-top: 50px; */
     }
 
     .btn-login {
@@ -118,7 +118,6 @@
 
     .btn-login:hover {
         background: linear-gradient(var(--cor-s5), var(--cor-s8));
-        color: #332200;
         color: var(--cor-s11);
     }
 
