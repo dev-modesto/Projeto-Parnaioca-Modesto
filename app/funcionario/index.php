@@ -68,7 +68,7 @@
 
 
             </div>
-                <table class="table table-hover text-center minha" id="minha">
+                <table class="table  table-hover text-center">
                     <thead class="">
                         <tr>
                             <th scope="col">Nº</th>
