@@ -8,19 +8,25 @@
         $cpf = trim($_POST['cpf']);
         $telefone = trim($_POST['telefone']);
         $id_cargo = trim($_POST['id_cargo']);
-        
-        $sql = mysqli_prepare($con, "UPDATE tbl_funcionario SET nome=?,cpf=?,telefone=?,id_cargo=? WHERE id_funcionario = ?");
-        mysqli_stmt_bind_param($sql, "ssssi",$nome,$cpf,$telefone,$id_cargo,$id);
 
-        if(mysqli_stmt_execute($sql)){
-            echo 'gravado com sucesso';
-            $mensagem = "Usuario atualizado com sucesso!";
-            header('location: ../index.php?msg=Atualizado com sucesso!');
+        if(strlen($cpf) < 14){
+            header('location: ../index.php?msgInvalida=Cpf inválido. Favor, preencha corretamente.');
         } else {
-            echo "Erro ao gravar: " . mysqli_error($con);
+
+            $sql = mysqli_prepare($con, "UPDATE tbl_funcionario SET nome=?,cpf=?,telefone=?,id_cargo=? WHERE id_funcionario = ?");
+            mysqli_stmt_bind_param($sql, "ssssi",$nome,$cpf,$telefone,$id_cargo,$id);
+    
+            if(mysqli_stmt_execute($sql)){
+                echo 'gravado com sucesso';
+                $mensagem = "Usuario atualizado com sucesso!";
+                header('location: ../index.php?msg=Atualizado com sucesso!');
+            } else {
+                echo "Erro ao gravar: " . mysqli_error($con);
+            }
+            mysqli_close($con);
+            
         }
 
-        mysqli_close($con);
     }
 
 ?>
