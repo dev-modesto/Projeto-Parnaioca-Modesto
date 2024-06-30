@@ -1,9 +1,6 @@
 <?php
-    include __DIR__  . '/../../config/conexao.php';
-    include __DIR__  . '/../../config/seguranca.php';
-    // include __DIR__  . '/../../config/config.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
-    include '../../include/navbar/navbar.php';
     include '../login/include/cLogin.php';
 
     $maxItensPagina = 10;
