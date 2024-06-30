@@ -1,6 +1,6 @@
 @import url(global/global.css);
-@import url(navbar-lateral/navbar-lateral.css);
-@import url(navbar-lateral/navbar-top.css);
+@import url(navbar/navbar-lateral.css);
+@import url(navbar/navbar-top.css);
 
 /* -- UTILIDADES -- */
 /* tipografia */
