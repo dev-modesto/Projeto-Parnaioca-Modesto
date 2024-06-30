@@ -90,7 +90,7 @@
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-funcionario"><?php echo $exibe['id_funcionario']?></td>
                                     <td><?php echo $exibe['nome']?></td>
-                                    <td><?php echo $exibe['cpf']?></td>
+                                    <td class="cpf"><?php echo $exibe['cpf']?></td>
                                     <td><?php echo $exibe['telefone']?></td>
                                     <td><?php echo $exibe['nome_cargo']?></td>
                                     <td class="td-icons">
