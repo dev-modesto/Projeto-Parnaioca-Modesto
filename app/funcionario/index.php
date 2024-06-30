@@ -3,7 +3,7 @@
     include __DIR__  . '/../../config/seguranca.php';
     // include __DIR__  . '/../../config/config.php';
 
-    include '../../include/navbar/navbar-lateral.php';
+    include '../../include/navbar/navbar.php';
     include '../login/include/cLogin.php';
 
     $maxItensPagina = 10;
