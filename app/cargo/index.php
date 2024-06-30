@@ -1,7 +1,7 @@
 <?php
     include __DIR__  . '/../../config/conexao.php';
     include __DIR__  . '/../../config/seguranca.php';
-    include '../../include/navbar-lateral/navbar-lateral.php';
+    include '../../include/navbar/navbar-lateral.php';
 
     $maxItensPagina = 10;
 
