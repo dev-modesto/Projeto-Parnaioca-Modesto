@@ -24,11 +24,11 @@
 .navbar-itens {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    /* gap: 5px; */
 }
 
 .navbar-itens li {
-    height: 50px;
+    height: 65px;
     align-items: center;
 }
 
@@ -38,7 +38,7 @@
     align-items: center;
     align-content: center;
     padding: 0px 20px 0px 20px;
-    gap: 10px;
+    gap: 20px;
     position: relative;
 }
 
@@ -58,7 +58,7 @@
     width: 5px;
     height: 20px;
     background-color: var(--cor-s7);
-    top: 15px;
+    top: 20px;
     left: 0px;
     border-radius: 0px 4px 4px 0px;
 }
