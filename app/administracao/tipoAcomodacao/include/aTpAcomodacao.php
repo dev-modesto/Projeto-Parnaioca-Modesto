@@ -4,19 +4,19 @@
 
     if(isset($_POST['idTpAcomodacao'])){
         $id = $_POST['idTpAcomodacao'];
-        $nomeTpAcomodacao = $_POST['nomeTpAcomodacao'];
-        $sql = "UPDATE tbl_tp_acomodacao SET nome_tp_acomodacao = '$nomeTpAcomodacao' WHERE id_tp_acomodacao = '$id'";
+        $nomeTpAcomodacao = trim($_POST['nomeTpAcomodacao']);
 
-        if(mysqli_query($con, $sql)){
-            echo "atualizado com sucesso!!";
-            $mensagem = "Cargo atualizado com sucesso!";
+        $stmt = mysqli_prepare($con ,"UPDATE tbl_tp_acomodacao SET nome_tp_acomodacao = ? WHERE id_tp_acomodacao = ?");
+        mysqli_stmt_bind_param($stmt, 'si', $nomeTpAcomodacao, $id);
+
+        if(mysqli_stmt_execute($stmt)){
             header('location: ../index.php?msg=Atualizado com sucesso!');
         } else {
             echo "Erro ao gravar: " . mysqli_error($con);
         }
 
     } else {
-        echo "Nada por aqui...";
+        $mensagem = "";
     }
 
 
