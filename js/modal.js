@@ -159,12 +159,13 @@ $(document).ready(function () {
             success: function (response) {
                 console.log('Response: ' + response);
                 $('.modalEditarTpAcomodacao').html(response)
-                $('#modalEditarTPAcomodacao').modal('show');
+                $('#modalEditarTpAcomodacao').modal('show');
             }
         });
         
     });
 });
+
 $(document).ready(function () {
     $('.btn-excluir-tp-acomodacao').click(function (e) { 
         e.preventDefault();
