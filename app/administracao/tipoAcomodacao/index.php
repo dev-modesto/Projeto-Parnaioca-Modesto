@@ -141,7 +141,7 @@
                 </div>
             </div>
 
-            <div class="modalEditarTipoAcomodacao">
+            <div class="modalEditarTpAcomodacao">
             </div>
 
             <div class="modalExcluir">
