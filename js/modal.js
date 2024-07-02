@@ -189,3 +189,52 @@ $(document).ready(function () {
         
     });
 });
+
+
+$(document).ready(function () {
+    $('.btn-editar-status-geral').click(function (e) { 
+        e.preventDefault();
+        var idStatusGeral = $(this).closest('tr').find('.id-status').text()
+        // console.log('Status: ' + idStatusGeral);
+
+        $.ajax({
+            type: "POST",
+            url: "../statusGeral/include/cModalEditarStatusGeral.php",
+
+            data: {
+                'click-editar-status-geral':true,
+                'idStatusGeral':idStatusGeral,
+            },
+            success: function (response) {
+                console.log('Response: ' + response);
+                $('.modalEditarStatusGeral').html(response)
+                $('#modalEditarStatusGeral').modal('show');
+            }
+        });
+        
+    });
+});
+
+$(document).ready(function () {
+    $('.btn-excluir-status-geral').click(function (e) { 
+        e.preventDefault();
+        var idStatusGeral = $(this).closest('tr').find('.id-status').text()
+        // console.log('Status: ' + idStatusGeral);
+
+        $.ajax({
+            type: "POST",
+            url: "../statusGeral/include/eModalExcluirStatusGeral.php",
+
+            data: {
+                'click-excluir-status-geral':true,
+                'idStatusGeral':idStatusGeral,
+            },
+            success: function (response) {
+                console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+        
+    });
+});
