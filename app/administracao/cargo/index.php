@@ -4,29 +4,8 @@
     // include ARQUIVO_SEGURANCA;
     // include ARQUIVO_NAVBAR;
 
-    $maxItensPagina = 10;
-
-    $sql_count = "SELECT COUNT(id_cargo) AS total FROM tbl_cargo";
-    $result_count = mysqli_query($con, $sql_count);
-    $row_count = mysqli_fetch_assoc($result_count);
-    $total_results = $row_count['total'];
-
-    $total_pages = ceil($total_results / $maxItensPagina);
-
-    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
-    if ($page > $total_pages) {
-        $page = $total_pages;
-    } elseif ($page < 1) {
-        $page = 1;
-    }
-
-    $offset = ($page - 1) * $maxItensPagina;
-
-    if (session_status() == PHP_SESSION_ACTIVE) {
-        $nomeLogado = $_SESSION['id'];
-    }
-
-    $sql = "SELECT c.id_cargo, c.nome_cargo, c.salario, s.nome_setor FROM tbl_cargo c INNER JOIN tbl_setor s ON c.id_setor = s.id_setor ORDER BY c.id_cargo LIMIT $offset, $maxItensPagina";
+    
+    $sql = "SELECT c.id_cargo, c.nome_cargo, c.salario, s.nome_setor FROM tbl_cargo c INNER JOIN tbl_setor s ON c.id_setor = s.id_setor ORDER BY c.id_cargo";
 
     $consulta = mysqli_query($con, $sql);
 ?>
@@ -46,6 +25,10 @@
 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
+   
+        <!-- link css datatable -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+
     </head>
     <body>
 
@@ -76,25 +59,12 @@
                 }
             ?>
 
-            <?php if(!empty($newMensage)){ ?>  
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?php echo $newMensage ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div> 
-            <?php }else {
-                    echo '';
-                }
-            ?>
-
             <!-- Tabela -->
             <div class="container-tabela">
-            <div class="container-button">
-                <button type="button" class="cadastrar-cargo btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo cargo</button>
-                
-
-
-            </div>
-                <table class="table table-hover text-center">
+                <div class="container-button">
+                    <button type="button" class="cadastrar-cargo btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo cargo</button>
+                </div>
+                <table id="myTable" class="table table-hover text-center">
                     <thead class="">
                         <tr>
                             <th scope="col">Nº</th>
@@ -131,33 +101,6 @@
                     </tbody>
 
                 </table>
-            
-            <!-- Paginação -->
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-end">
-                    <?php if ($page > 1): ?>
-                        <li class="page-item <?php if ($page == 1) echo "disabled"; ?>">
-                            <a class="page-link" href="?page=<?php echo $page-1; ?>" aria-label="Previous">
-                                <span class="material-symbols-rounded">chevron_left</span>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                    
-                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                        <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
-                            <a class="page-link page-link-ativo" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                        </li>
-                    <?php endfor; ?>
-
-                    <?php if ($page < $total_pages): ?>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=<?php echo $page+1; ?>" aria-label="Next">
-                                <span class="material-symbols-rounded">chevron_right</span>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </nav>
             </div>
 
             <!-- Modal cadastrar informações -->
@@ -239,3 +182,4 @@
 
     <!-- <script src="../../../js/modal.js"></script> -->
     <script src="<?php echo BASE_URL ?>/js/modal.js"></script>
+    <script src="<?php echo BASE_URL ?>/js/table.js"></script>
