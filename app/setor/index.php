@@ -1,7 +1,5 @@
 <?php
-    include __DIR__  . '/../../config/conexao.php';
-    include '../../include/navbar-lateral/navbar-lateral.php';
-    // include __DIR__  . '/../../config/seguranca.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
     $maxItensPagina = 10;
 
@@ -32,9 +30,6 @@
 ?>
     <div class="conteudo">
         <div class="container-conteudo-principal">
-            <div class="titulo-pagina">
-                <h1>Lista de setores</h1>
-            </div>
 
             <?php
                 if(isset($_GET['msg'])){
@@ -76,7 +71,7 @@
                     <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo setor</button>
                     
                     </div>
-                    <table class="table table-hover text-center minha" id="minha">
+                    <table class="table table-hover text-center">
                         <thead class="">
                             <tr>
                                 <th scope="col">Nº</th>
@@ -96,8 +91,8 @@
                                         <td class="id-setor" hidden><?php echo $exibe['id_setor']?></td>
                                         <td><?php echo $exibe['nome_setor']?></td>
                                         <td class="td-icons">
-                                            <a class="btn-editar-setor" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
-                                            <a href="include/eSetor.php?id=<?php echo $id ?>" onclick="return confirm('Confirmar a exclusão do setor?')"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
+                                            <a class="btn-editar-setor icone-controle-editar" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
+                                            <a class="btn-excluir-setor icone-controle-excluir" href="include/eSetor.php"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
                                         </td>
 
                                         
@@ -168,7 +163,7 @@
                                 ?>
 
                                 <div class="modal-footer form-container-button">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-secondary btn-modal-cancelar"" data-bs-dismiss="modal">Cancelar</button>
                                     <button class='btn btn-primary' type="submit">Adicionar</button>
                                 </div>
                             </form>
@@ -177,6 +172,9 @@
                 </div>
 
                 <div class="modalEditarSetor">
+                </div>
+
+                <div class="modalExcluir">
                 </div>
 
             </div>

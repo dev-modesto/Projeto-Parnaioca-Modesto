@@ -1,5 +1,8 @@
 <?php
-    include __DIR__  . '/../../../config/conexao.php';
+    // include __DIR__  . '/../../../config/conexao.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
+    include ARQUIVO_CONEXAO;
+
 
     if(isset($_POST['click-botao-editar'])){
         $id = $_POST['idFuncionario'];

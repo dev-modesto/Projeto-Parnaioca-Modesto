@@ -1,5 +1,7 @@
 <?php
-    include __DIR__  . '/../../../config/conexao.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
+    include ARQUIVO_CONEXAO;
+    
     
     if($_SERVER['REQUEST_METHOD'] == "POST"){
 
