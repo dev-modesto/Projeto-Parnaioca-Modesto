@@ -6,6 +6,14 @@
     if(session_status() == PHP_SESSION_ACTIVE){
         $nome = $_SESSION['nome'];
         $id = $_SESSION['id'];
+
+        $sql = "SELECT f.id_funcionario, f.nome, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo WHERE id_funcionario = $id";
+        $consulta = mysqli_query($con,$sql);
+        $array = mysqli_fetch_array($consulta);
+
+        $nomeLogado = $array['nome'];
+        $cargo = $array['nome_cargo'];
+        
     }
     
 ?>
@@ -28,8 +36,8 @@
 
             <div class="usuario-info">
                 <div class="usuario-logado-texto">
-                    <p><?php echo $nome ?></p>
-                    <span>Assistente de Frota II</span>
+                    <p><?php echo $nomeLogado ?></p>
+                    <span><?php echo $cargo ?></span>
                 </div>
                 <div class="usuario-logado-icodown">
                     <span class="material-symbols-rounded ico-icodown">keyboard_arrow_down</span>
