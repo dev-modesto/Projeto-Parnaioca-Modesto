@@ -141,3 +141,50 @@ $(document).ready(function () {
         
     });
 });
+
+$(document).ready(function () {
+    $('.btn-editar-tp-acomodacao').click(function (e) { 
+        e.preventDefault();
+        var idTpAomocadao = $(this).closest('tr').find('.id-tp-acomodacao').text()
+        // console.log('Numero do tipo de acomodação: ' + idTpAomocadao);
+
+        $.ajax({
+            type: "POST",
+            url: "../tipoAcomodacao/include/cModalEditarTpAcomodacao.php",
+
+            data: {
+                'click-editar-tp-acomodacao':true,
+                'idTpAomocadao':idTpAomocadao,
+            },
+            success: function (response) {
+                console.log('Response: ' + response);
+                $('.modalEditarTpAcomodacao').html(response)
+                $('#modalEditarTPAcomodacao').modal('show');
+            }
+        });
+        
+    });
+});
+$(document).ready(function () {
+    $('.btn-excluir-tp-acomodacao').click(function (e) { 
+        e.preventDefault();
+        var idTpAomocadao = $(this).closest('tr').find('.id-tp-acomodacao').text()
+        // console.log('Numero do tipo de acomodação: ' + idTpAomocadao);
+
+        $.ajax({
+            type: "POST",
+            url: "../tipoAcomodacao/include/eModalExcluirTpAcomodacao.php",
+
+            data: {
+                'click-excluir-tp-acomodacao':true,
+                'idTpAomocadao':idTpAomocadao,
+            },
+            success: function (response) {
+                console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+        
+    });
+});
