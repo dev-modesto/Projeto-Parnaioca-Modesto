@@ -7,12 +7,22 @@
     $sql = "SELECT * FROM tbl_acomodacao";
     $consulta = mysqli_query($con, $sql);
 
+    $sqlInner = "SELECT a.id_acomodacao, a.numero_acomodacao, t.nome_tp_acomodacao, a.nome_acomodacao, a.valor, a.capacidade_max, a.status 
+                    FROM tbl_acomodacao a 
+                    INNER JOIN tbl_tp_acomodacao t ON a.id_tp_acomodacao = t.id_tp_acomodacao";
+
+    $consultaInner = mysqli_query($con, $sqlInner);
+    $array = mysqli_fetch_array($consultaInner);
+    
+    $nomeTpAcomodacao = $array['nome_tp_acomodacao'];
+
+
     if (session_status() == PHP_SESSION_ACTIVE) {
         $nomeLogado = $_SESSION['id'];
     }
 
 ?>
-
+    
     <!DOCTYPE html>
     <html lang="pt-br">
     <head>
@@ -66,15 +76,15 @@
             <!-- Tabela -->
             <div class="container-tabela">
                 <div class="container-button">
-                    <button type="button" class="cadastrar-acomodacao btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo tipo acomodação</button>
+                    <button type="button" class="cadastrar-acomodacao btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Nova acomodação</button>
                 </div>
-                <table id="myTable" class="table  nowrap order-column dt-right table-hover text-center">
+                <table id="myTable" class="table nowrap order-column table-hover text-left">
                     <thead class="">
                         <tr>
                             <th scope="col">Nº</th>
-                            <th scope="col">id acomodação</th>
+                            <th scope="col">id</th>
                             <th scope="col">Número</th>
-                            <th scope="col">id tipo acomodação</th>
+                            <th scope="col">Tipo</th>
                             <th scope="col">Nome acomodação</th>
                             <th scope="col">Valor(R$)</th>
                             <th scope="col">Capacidade</th>
@@ -92,7 +102,7 @@
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-acomodacao"><?php echo $exibe['id_acomodacao']?></td>
                                     <td><?php echo $exibe['numero_acomodacao']?></td>
-                                    <td><?php echo $exibe['id_tp_acomodacao']?></td>
+                                    <td><?php echo $array['nome_tp_acomodacao']?></td>
                                     <td><?php echo $exibe['nome_acomodacao']?></td>
                                     <td><?php echo $exibe['valor']?></td>
                                     <td><?php echo $exibe['capacidade_max']?></td>
@@ -122,8 +132,29 @@
                         <!-- formulario envio -->
                         <form class="was-validated form-container" action="include/gTpAcomodacao.php" method="post">
                             <div class="mb-3">
-                                <label class="font-1-s" for="nome-tp-acomodacao">Nome acomodação</label>
-                                <input class="form-control" type="text" name="nome-tp-acomodacao" id="validationText" required>
+                                <label class="font-1-s" for="numero">Número acomodação</label>
+                                <input class="form-control" type="text" name="numero" id="validationText" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="font-1-s" for="nome">Nome acomodação</label>
+                                <input class="form-control" type="text" name="nome" id="validationText" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="font-1-s" for="valor">Valor</label>
+                                <input class="form-control" type="text" name="valor" id="validationText" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="font-1-s" for="capacidade">Capacidade máxima</label>
+                                <input class="form-control" type="text" name="capacidade" id="validationText" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <option value="">
+                                    
+                                </option>
                             </div>
 
                             <?php if(!empty($mensagem)){ ?>  
