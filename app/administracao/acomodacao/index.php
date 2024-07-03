@@ -7,7 +7,7 @@
     $sql = "SELECT * FROM tbl_acomodacao";
     $consulta = mysqli_query($con, $sql);
 
-    $sqlInner = "SELECT a.id_acomodacao, a.numero_acomodacao, t.nome_tp_acomodacao, a.nome_acomodacao, a.valor, a.capacidade_max, a.status 
+    $sqlInner = "SELECT a.id_acomodacao, a.numero_acomodacao, t.nome_tp_acomodacao, a.nome_acomodacao, a.valor, a.capacidade_max, a.id_status 
                     FROM tbl_acomodacao a 
                     INNER JOIN tbl_tp_acomodacao t ON a.id_tp_acomodacao = t.id_tp_acomodacao";
 
@@ -16,6 +16,9 @@
     
     $nomeTpAcomodacao = $array['nome_tp_acomodacao'];
 
+    // $sqlInnerStatus = "SELECT s.nome_status FROM tbl_acomodacao a INNER JOIN tbl_status_geral s ON a.id_status = s.id_status";
+    // $consultaInnerStatus = mysqli_query($con, $sqlInnerStatus);
+    // $arrayInnerStatus = mysqli_fetch_array($consultaInnerStatus);
 
     if (session_status() == PHP_SESSION_ACTIVE) {
         $nomeLogado = $_SESSION['id'];
@@ -106,7 +109,8 @@
                                     <td><?php echo $exibe['nome_acomodacao']?></td>
                                     <td><?php echo $exibe['valor']?></td>
                                     <td><?php echo $exibe['capacidade_max']?></td>
-                                    <td><?php echo $exibe['status']?></td>
+                                    <!-- <td><?php echo $exibe['id_status']?></td> -->
+                                    <td><?php echo $exibe['id_status']?></td>
                                     <td class="td-icons">
                                         <a class="btn-editar-acomodacao icone-controle-editar" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
                                         <a class="btn-excluir-acomodacao icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
@@ -130,21 +134,43 @@
                         </div>
 
                         <!-- formulario envio -->
-                        <form class="was-validated form-container" action="include/gTpAcomodacao.php" method="post">
+                        <form class="was-validated form-container" action="include/gAcomodacao.php" method="post">
                             <div class="mb-3">
-                                <label class="font-1-s" for="numero">Número acomodação</label>
-                                <input class="form-control" type="text" name="numero" id="validationText" required>
-                            </div>
+                                <label for="id-tp-acomodacao">Tipo acomodação</label>
+                                <select class="form-select" name="id-tp-acomodacao" required aria-label="select example">
+                                    <option value="">-</option>
+                                    
+                                    <?php
+                                        $sqlConsulta1 = "SELECT * FROM tbl_tp_acomodacao";
+                                        $consultaTpAcomodacao = mysqli_query($con, $sqlConsulta1);
 
-                            <div class="mb-3">
-                                <label class="font-1-s" for="nome">Nome acomodação</label>
-                                <input class="form-control" type="text" name="nome" id="validationText" required>
+                                        while($row = mysqli_fetch_assoc($consultaTpAcomodacao)){
+                                            echo "<option value='" . $row['id_tp_acomodacao'] . "'>" . $row['nome_tp_acomodacao'] . "</option>";
+                                        }
+                                    ?>
+
+                                </select>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col mb-6">
+                                    <label class="font-1-s" for="nome-titulo">Nome título</label>
+                                    <input class="form-control" type="text" name="nome-titulo" id="validationText" required>
+                                </div>
+
+                                <div class="col mb-6">
+                                    <label class="font-1-s" for="numero">Número</label>
+                                    <input class="form-control" type="text" name="numero" id="validationText" required>
+                                </div>
+
                             </div>
                             
                             <div class="mb-3">
                                 <label class="font-1-s" for="valor">Valor</label>
-                                <input class="form-control" type="text" name="valor" id="validationText" required>
+                                <input class="form-control monetario" type="text" name="valor" id="validationText" required>
                             </div>
+
+
 
                             <div class="mb-3">
                                 <label class="font-1-s" for="capacidade">Capacidade máxima</label>
@@ -152,9 +178,20 @@
                             </div>
 
                             <div class="mb-3">
-                                <option value="">
+                                <label for="id-status">Status</label>
+                                <select class="form-select" name="id-status" required aria-label="select example">
+                                    <option value="">Selecione um status</option>
                                     
-                                </option>
+                                    <?php
+                                        $sqlConsulta = "SELECT * FROM tbl_status_geral";
+                                        $consultaStatus = mysqli_query($con, $sqlConsulta);
+
+                                        while($row = mysqli_fetch_assoc($consultaStatus)){
+                                            echo "<option value='" . $row['id_status'] . "'>" . $row['nome_status'] . "</option>";
+                                        }
+                                    ?>
+
+                                </select>
                             </div>
 
                             <?php if(!empty($mensagem)){ ?>  
