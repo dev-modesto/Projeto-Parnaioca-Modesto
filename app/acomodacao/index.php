@@ -76,7 +76,7 @@
                     <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Nova acomodação</button>
                     
                     </div>
-                    <table class="table table-hover text-center minha" id="minha">
+                    <table class="table table-hover text-center">
                         <thead class="">
                             <tr>
                                 <th scope="col">Nº</th>
