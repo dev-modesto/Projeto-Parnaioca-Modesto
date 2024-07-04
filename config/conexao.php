@@ -4,7 +4,7 @@
     $usuario = 'root';
     $senha = '';
     $banco = 'parnaiocamodesto';
-    echo 'conexao estabelecida com sucesso!';
+    // echo 'conexao estabelecida com sucesso!';
     $con = mysqli_connect($local,$usuario,$senha,$banco);
 
     header("Content-Type:text/html; charset=utf-8");

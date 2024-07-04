@@ -16,9 +16,11 @@
     border: 1px solid var(--cor-3);
     font-family: "Poppins", sans-serif;
     font-weight: 300;
-    color: var(--cor-7);
-    color: var(--cor-10);
     vertical-align: middle;
+    text-align: left !important;
+    font-size: .875rem;
+    /* color: rgb(100, 100, 100); */
+    color: var(--cor-7);
   }
 
   .table th {
@@ -26,6 +28,8 @@
     border-top: none;
     font: 400 1rem/1rem "Poppins", sans-serif;
     color: var(--cor-6);
+    text-align: left !important;
+    color: rgb(100, 100, 100);
   }
 
   .table td:first-child,
