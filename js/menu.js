@@ -17,7 +17,7 @@ var usuarioDropdown = document.querySelector(".usuario-logado-dropdown");
 var icon = document.querySelector(".ico-icodown");
 
 ativarMenu.addEventListener('click', function(){
-    console.log('clicado!!');
+    // console.log('clicado!!');
     
     if(usuarioDropdown.style.display === 'block'){
         usuarioDropdown.style.display = 'none';
@@ -40,3 +40,19 @@ const linksSubHeader = document.querySelectorAll('.container-header-itens li a')
     }
 
 linksSubHeader.forEach(ativarLinkSubMenu);
+
+
+var dropdownAcomodacoes = document.querySelector(".dropdown-acomodacoes");
+var cotainerDropdownAcomodacoes = document.querySelector(".container-dropwdown-acomodacoes");
+
+dropdownAcomodacoes.addEventListener('click', function() {
+
+    if(cotainerDropdownAcomodacoes.style.display === 'block'){
+        cotainerDropdownAcomodacoes.style.display = 'none';
+        icon.style.rotate = '0deg';
+    } else {
+        cotainerDropdownAcomodacoes.style.display = 'block';
+        icon.style.rotate = '180deg';
+    }
+
+})
