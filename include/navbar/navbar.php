@@ -60,7 +60,14 @@
             <li><a href="<?php echo BASE_URL ?>/app/administracao/funcionario/index.php">Funcionários</a></li>
             <li><a href="<?php echo BASE_URL ?>/app/administracao/setor/">Setores</a></li>
             <li><a href="<?php echo BASE_URL ?>/app/administracao/cargo/">Cargos</a></li>
-            <li><a href="#">Acomodações</a></li>
+            <li class="dropdown-acomodacoes"><a href="#">Acomodações</a>
+                 <div class="container-dropwdown-acomodacoes" >
+                    <ul class="container-dropwdown-itens font-2-xs">
+                        <li><a href="<?php echo BASE_URL ?>/app/administracao/acomodacao/index.php">Acomodações</a></li>
+                        <li><a href="<?php echo BASE_URL ?>/app/administracao/tipoAcomodacao/index.php">Tipo Acomodações</a></li>
+                    </ul>
+                </div>
+            </li>
             <li><a href="#">Frigobar</a></li>
             <li><a href="#">Estacionamento</a></li>
         </ul>
