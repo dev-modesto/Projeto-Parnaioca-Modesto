@@ -58,8 +58,8 @@
     <div class="sub-container-header">
         <ul class="container-header-itens" >
             <li><a href="<?php echo BASE_URL ?>/app/administracao/funcionario/index.php">Funcionários</a></li>
-            <li><a href="<?php echo BASE_URL ?>/app/administracao/setor/">Setores</a></li>
-            <li><a href="<?php echo BASE_URL ?>/app/administracao/cargo/">Cargos</a></li>
+            <li><a href="<?php echo BASE_URL ?>/app/administracao/setor/index.php">Setores</a></li>
+            <li><a href="<?php echo BASE_URL ?>/app/administracao/cargo/index.php">Cargos</a></li>
             <li class="dropdown-acomodacoes"><a href="#">Acomodações</a>
                  <div class="container-dropwdown-acomodacoes" >
                     <ul class="container-dropwdown-itens font-2-xs">
@@ -68,7 +68,7 @@
                     </ul>
                 </div>
             </li>
-            <li><a href="#">Frigobar</a></li>
+            <li><a href="<?php echo BASE_URL ?>/app/administracao/frigobar/index.php">Frigobar</a></li>
             <li><a href="<?php echo BASE_URL ?>/app/administracao/estacionamento/index.php">Estacionamento</a></li>
         </ul>
     </div>
