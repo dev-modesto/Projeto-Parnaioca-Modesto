@@ -238,3 +238,50 @@ $(document).ready(function () {
         
     });
 });
+
+$(document).ready(function () {
+    $('.btn-excluir-acomodacao').click(function (e) { 
+        e.preventDefault();
+        var idAcomodacao = $(this).closest('tr').find('.id-acomodacao').text()
+        // console.log('id acomodacao: ' + idAcomodacao);
+
+        $.ajax({
+            type: "POST",
+            url: "../acomodacao/include/eModalExcluirAcomodacao.php",
+
+            data: {
+                'click-excluir-acomodacao':true,
+                'idAcomodacao':idAcomodacao,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('.btn-editar-acomodacao').click(function (e) { 
+        e.preventDefault();
+        var idAcomodacao = $(this).closest('tr').find('.id-acomodacao').text()
+        console.log('id acomodacao: ' + idAcomodacao);
+
+        $.ajax({
+            type: "POST",
+            url: "../acomodacao/include/cModalEditarAcomodacao.php",
+
+            data: {
+                'click-editar-acomodacao':true,
+                'idAcomodacao':idAcomodacao,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalEditarAcomodacao').html(response)
+                $('#modalEditarAcomodacao').modal('show');
+            }
+        });
+    });
+});
+

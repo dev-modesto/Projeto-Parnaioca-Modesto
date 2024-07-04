@@ -1,7 +1,7 @@
 <?php
 
-    if(isset($_POST['click-excluir-tp-acomodacao'])){
-        $idTpAcomodacao = $_POST['idTpAomocadao'];
+    if(isset($_POST['click-excluir-acomodacao'])){
+        $idAcomodacao = $_POST['idAcomodacao'];
     }
 
 ?>
@@ -18,8 +18,8 @@
                 </p>
             </div>
 
-            <form class="was-validated form-container" action="include/eTpAcomodacao.php" method="post">
-                <input type="text" name="idTpAcomodacao" id="idTpAcomodacao" value="<?php echo $idTpAcomodacao ?>" hidden>
+            <form class="was-validated form-container" action="include/eAcomodacao.php" method="post">
+                <input type="text" name="idAcomodacao" id="idAcomodacao" value="<?php echo $idAcomodacao ?>" hidden>
                 <div class="modal-footer form-container-button">
                     <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
                     <button class='btn btn-modal-excluir' type="submit">Excluir</button>
