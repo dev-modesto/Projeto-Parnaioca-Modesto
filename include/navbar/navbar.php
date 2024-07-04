@@ -69,7 +69,7 @@
                 </div>
             </li>
             <li><a href="#">Frigobar</a></li>
-            <li><a href="#">Estacionamento</a></li>
+            <li><a href="<?php echo BASE_URL ?>/app/administracao/estacionamento/index.php">Estacionamento</a></li>
         </ul>
     </div>
 </header>

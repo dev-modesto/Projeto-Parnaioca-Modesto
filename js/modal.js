@@ -285,3 +285,49 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $('.btn-excluir-vaga-estacionamento').click(function (e) { 
+        e.preventDefault();
+        var idVagaEstacionamento = $(this).closest('tr').find('.id-vaga-estacionamento').text()
+        // console.log('id vaga: ' + idVagaEstacionamento);
+
+        $.ajax({
+            type: "POST",
+            url: "../estacionamento/include/eModalExcluirVagaEstacionamento.php",
+
+            data: {
+                'click-excluir-vaga-estacionamento':true,
+                'idVagaEstacionamento':idVagaEstacionamento,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('.btn-editar-vaga-estacionamento').click(function (e) { 
+        e.preventDefault();
+        var idVagaEstacionamento = $(this).closest('tr').find('.id-vaga-estacionamento').text()
+        // console.log('id vaga: ' + idVagaEstacionamento);
+
+        $.ajax({
+            type: "POST",
+            url: "../estacionamento/include/cModalEditarVagaEstacionamento.php",
+
+            data: {
+                'click-editar-vaga-estacionamento':true,
+                'idVagaEstacionamento':idVagaEstacionamento,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalEditarVagaEstacionamento').html(response)
+                $('#modalEditarVagaEstacionamento').modal('show');
+            }
+        });
+    });
+});
+

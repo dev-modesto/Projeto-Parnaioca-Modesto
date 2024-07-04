@@ -1,30 +1,7 @@
 <?php
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
-    $maxItensPagina = 10;
-
-    $sql_count = "SELECT COUNT(id_setor) AS total FROM tbl_setor";
-    $result_count = mysqli_query($con, $sql_count);
-    $row_count = mysqli_fetch_assoc($result_count);
-    $total_results = $row_count['total'];
-
-    $total_pages = ceil($total_results / $maxItensPagina);
-
-    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
-    if ($page > $total_pages) {
-        $page = $total_pages;
-    } elseif ($page < 1) {
-        $page = 1;
-    }
-
-    $offset = ($page - 1) * $maxItensPagina;
-
-    if (session_status() == PHP_SESSION_ACTIVE) {
-        $nomeLogado = $_SESSION['id'];
-    }
-
-    // consulta sql para exibir dados da tabela
-    $sql = 'SELECT * FROM tbl_setor';
+    $sql = 'SELECT * FROM tbl_estacionamento';
     $consulta = mysqli_query($con, $sql);
 
 ?>
@@ -81,14 +58,15 @@
             <!-- Tabela -->
             <div class="container-tabela">
                 <div class="container-button">
-                    <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo setor</button>
+                    <button type="button" class="cadastrar-estacionamento btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Nova vaga</button>
                 </div>
                 <table id="myTable" class="table table-hover text-center">
                     <thead class="">
                         <tr>
                             <th scope="col">Nº</th>
-                            <th scope="col">id setor</th>
-                            <th scope="col">Nome setor</th>
+                            <th scope="col">id estacionamento</th>
+                            <th scope="col">Número acomodação</th>
+                            <th scope="col">Vaga</th>
                             <th scope="col">Controle</th>
                         </tr>
                     </thead>
@@ -96,18 +74,16 @@
                         <?php 
                             $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id_setor'];
+                                    $id = $exibe['id_estacionamento'];
                                 ?>
                                 <tr>
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
-                                    <td class="id-setor"><?php echo $exibe['id_setor']?></td>
-                                    <td><?php echo $exibe['nome_setor']?></td>
+                                    <td class="id-vaga-estacionamento"><?php echo $exibe['id_estacionamento']?></td> 
+                                    <td class="id-acomodacao"><?php echo $exibe['id_acomodacao']?></td>
+                                    <td class="numero-vaga"><?php echo $exibe['numero_vaga']?></td>
                                     <td class="td-icons">
-                                        <a class="btn-editar-setor icone-controle-editar" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
-                                        <a class="btn-excluir-setor icone-controle-excluir" href="include/eSetor.php"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
-                                    </td>
-
-                                    
+                                        <a class="btn-editar-vaga-estacionamento icone-controle-editar" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
+                                        <a class="btn-excluir-vaga-estacionamento icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
                                     </td>
                                 </tr>
                                 <?php
@@ -122,15 +98,32 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastrar setor</h1>
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastrar vaga estacionamento</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
-                        <!-- formulario envio cargo -->
-                        <form class="was-validated form-container" action="include/gSetor.php" method="post">
+                        <!-- formulario envio -->
+                        <form class="was-validated form-container" action="include/gVagaEstacionamento.php" method="post">
                             <div class="mb-3">
-                                <label class="font-1-s" for="setor">Nome do setor</label>
-                                <input class="form-control" type="text" name="setor" id="setor" required>
+                                <label for="id-numero-acomodacao">Número da acomodação</label>
+                                <select class="form-select" name="id-numero-acomodacao" required aria-label="select example">
+                                    <option value="">Selecione o número da acomodação</option>
+                                    <?php
+                                        include '../../config/conexao.php';
+                                        $query = "SELECT * FROM tbl_acomodacao";
+                                        $result = mysqli_query($con, $query);
+                            
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<option value='" . $row['id_acomodacao'] . "'>" . $row['numero_acomodacao'] . "</option>";
+                                        }
+                                        mysqli_close($con);
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="font-1-s" for="numero-vaga-estacionamento">Número da vaga</label>
+                                <input class="form-control" type="text" name="numero-vaga-estacionamento" id="numero-vaga-estacionamento" required>
                                 <div class="invalid-feedback">
                                 </div>
                             </div>
@@ -146,7 +139,7 @@
                             ?>
 
                             <div class="modal-footer form-container-button">
-                                <button type="button" class="btn btn-secondary btn-modal-cancelar"" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
                                 <button class='btn btn-primary' type="submit">Adicionar</button>
                             </div>
                         </form>
@@ -154,7 +147,7 @@
                 </div>
             </div>
 
-            <div class="modalEditarSetor">
+            <div class="modalEditarVagaEstacionamento">
             </div>
 
             <div class="modalExcluir">
