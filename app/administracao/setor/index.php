@@ -87,7 +87,7 @@
                     <thead class="">
                         <tr>
                             <th scope="col">Nº</th>
-                            <!-- <th scope="col">id setor</th> -->
+                            <th scope="col">id setor</th>
                             <th scope="col">Nome setor</th>
                             <th scope="col">Controle</th>
                         </tr>
@@ -100,7 +100,7 @@
                                 ?>
                                 <tr>
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
-                                    <!-- <td class="id-setor"><?php echo $exibe['id_setor']?></td> -->
+                                    <td class="id-setor"><?php echo $exibe['id_setor']?></td>
                                     <td><?php echo $exibe['nome_setor']?></td>
                                     <td class="td-icons">
                                         <a class="btn-editar-setor icone-controle-editar" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
