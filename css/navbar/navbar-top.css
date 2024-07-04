@@ -219,3 +219,42 @@
         border-bottom: 2px solid var(--cor-s5) !important;
     }
 
+/*  */
+
+.container-dropwdown-acomodacoes {
+    background-color: var(--cor-0);
+    border: 1px solid var(--cor-3);
+    border-radius: 0.5rem;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 5%);
+    padding: 10px;
+    position: absolute;
+    width: 50px;
+    width: auto;
+    box-sizing: border-box;
+    top: 60px;
+    z-index: 2;
+    display: none;
+}
+
+.container-dropwdown-itens {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.container-dropwdown-itens li {
+    height: 30px;
+}
+
+.container-dropwdown-itens li a {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    width: 100%;
+    height: auto;
+    font-size: .82rem;
+    transition: all .2s;
+    gap: 5px;
+    color: var(--cor-6);
+    transition: ease-out .2s;
+}
