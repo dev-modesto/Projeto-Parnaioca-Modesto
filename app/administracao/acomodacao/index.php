@@ -116,7 +116,7 @@
                                     <td class="monetario"><?php echo $exibe['valor']?></td>
                                     <td><?php echo $exibe['capacidade_max']?></td>
                                     <!-- <td><?php echo $exibe['id_status']?></td> -->
-                                    <td><?php echo $exibe['nome_status']?></td>
+                                    <td><span class="status-geral"><?php echo $exibe['nome_status']?></span></td>
                                     <td class="td-icons">
                                         <a class="btn-editar-acomodacao icone-controle-editar" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
                                         <a class="btn-excluir-acomodacao icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
@@ -234,7 +234,18 @@
         include __DIR__ . '/../../../include/footer.php';
     ?>
 
-    <!-- <script src="../../js/modal.js"></script> -->
     <script src="<?php echo BASE_URL ?>/js/modal.js"></script>
     <script src="<?php echo BASE_URL ?>/js/table.js"></script>
 
+
+    <script>
+
+        document.querySelectorAll('.status-geral').forEach(function(element) {
+            if (element.textContent.trim() === 'Ativo') {
+                element.classList.add('ativo');
+            } else if (element.textContent.trim() === 'Inativo') {
+                element.classList.add('inativo');
+            }
+        });
+ 
+    </script>

@@ -82,3 +82,23 @@
 .icone-controle-excluir:hover span {
   color: var(--cor-a-red4);
 }
+
+.status-geral.ativo {
+  background-color: var(--cor-a-green1);
+  border: 1px solid var(--cor-a-green4);
+  color: var(--cor-a-green4);
+}
+
+.status-geral.inativo {
+  background-color: var(--cor-a-red1);
+  border: 1px solid var(--cor-a-red4);
+  color: var(--cor-a-red4);
+}
+
+.status-geral.ativo,
+.status-geral.inativo {
+  box-sizing: border-box;
+  padding: 5px;
+  border-radius: 0.5rem;
+  font-size: .85rem;
+}
