@@ -113,7 +113,7 @@
                                     <td><?php echo $exibe['numero_acomodacao']?></td>
                                     <td><?php echo $exibe['nome_tp_acomodacao']?></td>
                                     <td><?php echo $exibe['nome_acomodacao']?></td>
-                                    <td><?php echo $exibe['valor']?></td>
+                                    <td class="monetario"><?php echo $exibe['valor']?></td>
                                     <td><?php echo $exibe['capacidade_max']?></td>
                                     <!-- <td><?php echo $exibe['id_status']?></td> -->
                                     <td><?php echo $exibe['nome_status']?></td>
