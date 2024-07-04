@@ -1,7 +1,19 @@
 <?php
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
-    $sql = 'SELECT * FROM tbl_estacionamento';
+    $sql = 
+            "SELECT 
+            e.id_estacionamento, 
+            a.numero_acomodacao, 
+            e.numero_vaga
+            FROM
+            tbl_estacionamento e
+            INNER JOIN 
+            tbl_acomodacao a
+            ON
+            e.id_acomodacao = a.id_acomodacao"
+    ;
+    
     $consulta = mysqli_query($con, $sql);
 
 ?>
@@ -79,7 +91,8 @@
                                 <tr>
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-vaga-estacionamento"><?php echo $exibe['id_estacionamento']?></td> 
-                                    <td class="id-acomodacao"><?php echo $exibe['id_acomodacao']?></td>
+                                    <!-- <td class="id-acomodacao"><?php echo $exibe['id_acomodacao']?></td> -->
+                                    <td class="id-acomodacao"><?php echo $exibe['numero_acomodacao']?></td>
                                     <td class="numero-vaga"><?php echo $exibe['numero_vaga']?></td>
                                     <td class="td-icons">
                                         <a class="btn-editar-vaga-estacionamento icone-controle-editar" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
