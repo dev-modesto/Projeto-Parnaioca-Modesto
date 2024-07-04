@@ -331,3 +331,49 @@ $(document).ready(function () {
     });
 });
 
+
+$(document).ready(function () {
+    $('.btn-excluir-frigobar').click(function (e) { 
+        e.preventDefault();
+        var idFrigobar = $(this).closest('tr').find('.id-frigobar').text()
+        console.log('id frigobar: ' + idFrigobar);
+
+        $.ajax({
+            type: "POST",
+            url: "../frigobar/include/eModalExcluirFrigobar.php",
+
+            data: {
+                'click-excluir-frigobar':true,
+                'idFrigobar':idFrigobar,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('.btn-editar-frigobar').click(function (e) { 
+        e.preventDefault();
+        var idFrigobar = $(this).closest('tr').find('.id-frigobar').text()
+        // console.log('id frigobar: ' + idFrigobar);
+
+        $.ajax({
+            type: "POST",
+            url: "../frigobar/include/cModalEditarFrigobar.php",
+
+            data: {
+                'click-editar-frigobar':true,
+                'idFrigobar':idFrigobar,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalEditarFrigobar').html(response)
+                $('#modalEditarFrigobar').modal('show');
+            }
+        });
+    });
+});
