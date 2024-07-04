@@ -4,21 +4,27 @@
     include ARQUIVO_SEGURANCA;
     include ARQUIVO_NAVBAR;
 
-    $sql = "SELECT * FROM tbl_acomodacao";
-    $consulta = mysqli_query($con, $sql);
-
-    $sqlInner = "SELECT a.id_acomodacao, a.numero_acomodacao, t.nome_tp_acomodacao, a.nome_acomodacao, a.valor, a.capacidade_max, a.id_status 
-                    FROM tbl_acomodacao a 
-                    INNER JOIN tbl_tp_acomodacao t ON a.id_tp_acomodacao = t.id_tp_acomodacao";
+    $sqlInner = 
+                "SELECT 
+                    a.id_acomodacao, 
+                    a.numero_acomodacao, 
+                    t.nome_tp_acomodacao, 
+                    a.nome_acomodacao, 
+                    a.valor, 
+                    a.capacidade_max, 
+                    s.nome_status 
+                FROM ((tbl_acomodacao a 
+                INNER JOIN tbl_tp_acomodacao t 
+                ON a.id_tp_acomodacao = t.id_tp_acomodacao)
+                INNER JOIN tbl_status_geral s
+                ON a.id_status = s.id_status)
+    ";
 
     $consultaInner = mysqli_query($con, $sqlInner);
-    $array = mysqli_fetch_array($consultaInner);
-    
-    $nomeTpAcomodacao = $array['nome_tp_acomodacao'];
 
-    // $sqlInnerStatus = "SELECT s.nome_status FROM tbl_acomodacao a INNER JOIN tbl_status_geral s ON a.id_status = s.id_status";
-    // $consultaInnerStatus = mysqli_query($con, $sqlInnerStatus);
-    // $arrayInnerStatus = mysqli_fetch_array($consultaInnerStatus);
+    $sqlInnerStatus = "SELECT s.nome_status FROM tbl_acomodacao a INNER JOIN tbl_status_geral s ON a.id_status = s.id_status";
+    $consultaInnerStatus = mysqli_query($con, $sqlInnerStatus);
+    $arrayInnerStatus = mysqli_fetch_array($consultaInnerStatus);
 
     if (session_status() == PHP_SESSION_ACTIVE) {
         $nomeLogado = $_SESSION['id'];
@@ -98,19 +104,19 @@
                     <tbody class="table-group-divider">
                         <?php 
                             $nroLinha = 1;
-                            while($exibe = mysqli_fetch_array($consulta)){
+                            while($exibe = mysqli_fetch_array($consultaInner)){
                                     $id = $exibe['id_acomodacao'];
                                 ?>
                                 <tr>
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-acomodacao"><?php echo $exibe['id_acomodacao']?></td>
                                     <td><?php echo $exibe['numero_acomodacao']?></td>
-                                    <td><?php echo $array['nome_tp_acomodacao']?></td>
+                                    <td><?php echo $exibe['nome_tp_acomodacao']?></td>
                                     <td><?php echo $exibe['nome_acomodacao']?></td>
                                     <td><?php echo $exibe['valor']?></td>
                                     <td><?php echo $exibe['capacidade_max']?></td>
                                     <!-- <td><?php echo $exibe['id_status']?></td> -->
-                                    <td><?php echo $exibe['id_status']?></td>
+                                    <td><?php echo $exibe['nome_status']?></td>
                                     <td class="td-icons">
                                         <a class="btn-editar-acomodacao icone-controle-editar" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
                                         <a class="btn-excluir-acomodacao icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
@@ -192,6 +198,7 @@
                                     ?>
 
                                 </select>
+
                             </div>
 
                             <?php if(!empty($mensagem)){ ?>  
