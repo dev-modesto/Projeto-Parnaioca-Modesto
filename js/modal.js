@@ -377,3 +377,26 @@ $(document).ready(function () {
         });
     });
 });
+
+$(document).ready(function () {
+    $('.btn-excluir-cliente').click(function (e) { 
+        e.preventDefault();
+        var idCliente = $(this).closest('tr').find('.id-cliente').text()
+        // console.log('id cliente: ' + idCliente);
+
+        $.ajax({
+            type: "POST",
+            url: "../cliente/include/eModalExcluirCliente.php",
+
+            data: {
+                'click-excluir-cliente':true,
+                'idCliente':idCliente,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+    });
+});
