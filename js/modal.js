@@ -400,3 +400,26 @@ $(document).ready(function () {
         });
     });
 });
+
+$(document).ready(function () {
+    $('.btn-editar-cliente').click(function (e) { 
+        e.preventDefault();
+        var idCliente = $(this).closest('tr').find('.id-cliente').text()
+        console.log('id-cliente: ' + idCliente);
+
+        $.ajax({
+            type: "POST",
+            url: "../cliente/include/cModalEditarCliente.php",
+
+            data: {
+                'click-editar-cliente':true,
+                'idCliente':idCliente,
+            },
+            success: function (response) {
+                console.log('Response: ' + response);
+                $('.modalEditarCliente').html(response)
+                $('#modalEditarCliente').modal('show');
+            }
+        });
+    });
+});
