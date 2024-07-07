@@ -25,7 +25,7 @@
 <header class="header">
     <div class="principal-container-header">
         <div class="container-titulo-cabecalho">
-            <h1 class="font-1-xxl-1">Administração</h1>
+            <h1 class="font-1-xxl-1"><?php echo $tituloPagina ?></h1>
         </div>
 
         <div class="container-usuario-logado">

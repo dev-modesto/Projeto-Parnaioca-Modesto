@@ -1,8 +1,6 @@
 <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
-    include ARQUIVO_CONEXAO;
-    include ARQUIVO_SEGURANCA;
-    include ARQUIVO_NAVBAR;
+    $tituloPagina = "Administração";
+    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
     $sql = 
         "SELECT
