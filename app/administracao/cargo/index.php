@@ -1,8 +1,6 @@
 <?php
+    $tituloPagina = "Administração";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
-    // include ARQUIVO_CONEXAO;
-    // include ARQUIVO_SEGURANCA;
-    // include ARQUIVO_NAVBAR;
 
     
     $sql = "SELECT c.id_cargo, c.nome_cargo, c.salario, s.nome_setor FROM tbl_cargo c INNER JOIN tbl_setor s ON c.id_setor = s.id_setor ORDER BY c.id_cargo";

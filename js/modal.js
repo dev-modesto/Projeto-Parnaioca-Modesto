@@ -423,3 +423,27 @@ $(document).ready(function () {
         });
     });
 });
+
+
+$(document).ready(function () {
+    $('.btn-editar-acesso-area').click(function (e) { 
+        e.preventDefault();
+        var idFuncionario = $(this).closest('tr').find('.id-funcionario').text()
+        console.log('id-funcionario: ' + idFuncionario);
+
+        $.ajax({
+            type: "GET",
+            url: "../acessoArea/include/cModalEditarAcessoArea.php",
+
+            data: {
+                'click-editar-acesso-area':true,
+                'idFuncionario':idFuncionario,
+            },
+            success: function (response) {
+                console.log('Response: ' + response);
+                $('.modalEditarAcessoArea').html(response)
+                $('#modalEditarAcessoArea').modal('show');
+            }
+        });
+    });
+});

@@ -1,4 +1,5 @@
 <?php
+    $tituloPagina = "Administração";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
     
     $sql = "SELECT * FROM tbl_status_geral";
