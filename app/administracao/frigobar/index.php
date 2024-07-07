@@ -1,6 +1,12 @@
 <?php
     $tituloPagina = "Administração";
+    $pagina = "Frigobar";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+        segurancaAdm($con, $idLogado);
+    }
 
     $sql = 
             "SELECT 

@@ -13,7 +13,14 @@
 
         $nomeLogado = $array['nome'];
         $cargo = $array['nome_cargo'];
-        
+
+        $sqlAcesso = "SELECT * FROM tbl_acesso_area WHERE id_funcionario = '$id'";
+        $consultaAcesso = mysqli_query($con, $sqlAcesso);
+        $arrayAcesso = mysqli_fetch_array($consultaAcesso);
+
+        $sac = $arrayAcesso['sac'];
+        $logistica = $arrayAcesso['logistica'];
+        $administracao = $arrayAcesso['administracao'];
     }
     
 ?>
@@ -30,7 +37,6 @@
 
         <div class="container-usuario-logado">
             <div class="usuario-logado-foto" id="foto">
-                <!-- <img src="../../assets/img/user.png" alt=""> -->
                 <img src="<?php echo BASE_URL ?>/assets/img/user.png" alt="">
             </div>
 
@@ -55,28 +61,53 @@
         </div>
     </div>
 
-    <div class="sub-container-header">
-        <ul class="container-header-itens" >
-            <li><a href="<?php echo BASE_URL ?>/app/administracao/funcionario/index.php">Funcionários</a></li>
-            <li><a href="<?php echo BASE_URL ?>/app/administracao/setor/index.php">Setores</a></li>
-            <li><a href="<?php echo BASE_URL ?>/app/administracao/cargo/index.php">Cargos</a></li>
-            <li class="dropdown-acomodacoes"><a href="#">Acomodações</a>
-                 <div class="container-dropwdown-acomodacoes" >
-                    <ul class="container-dropwdown-itens font-2-xs">
-                        <li><a href="<?php echo BASE_URL ?>/app/administracao/acomodacao/index.php">Acomodações</a></li>
-                        <li><a href="<?php echo BASE_URL ?>/app/administracao/tipoAcomodacao/index.php">Tipo Acomodações</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li><a href="<?php echo BASE_URL ?>/app/administracao/frigobar/index.php">Frigobar</a></li>
-            <li><a href="<?php echo BASE_URL ?>/app/administracao/estacionamento/index.php">Estacionamento</a></li>
-        </ul>
-    </div>
+    <?php 
+
+        if ($tituloPagina == "Administração") {
+            // echo "<pre>";
+            // print_r('pagina administracao');
+            // die();
+
+            if ($administracao == 1 ){
+
+                if($pagina == "Nível de acesso") {
+                    ?> 
+                        <div class="sub-container-header">
+                            <ul class="container-header-itens" >
+                                <li><a href="<?php echo BASE_URL ?>/app/administracao/acessoArea/index.php">Controle nível de acesso</a></li>
+                            </ul>
+                        </div>
+                    <?php
+                } else {
+                    ?> 
+                    <div class="sub-container-header">
+                        <ul class="container-header-itens" >
+                            <li><a href="<?php echo BASE_URL ?>/app/administracao/funcionario/index.php">Funcionários</a></li>
+                            <li><a href="<?php echo BASE_URL ?>/app/administracao/setor/index.php">Setores</a></li>
+                            <li><a href="<?php echo BASE_URL ?>/app/administracao/cargo/index.php">Cargos</a></li>
+                            <li class="dropdown-acomodacoes"><a href="#">Acomodações</a>
+                                <div class="container-dropwdown-acomodacoes" >
+                                    <ul class="container-dropwdown-itens font-2-xs">
+                                        <li><a href="<?php echo BASE_URL ?>/app/administracao/acomodacao/index.php">Acomodações</a></li>
+                                        <li><a href="<?php echo BASE_URL ?>/app/administracao/tipoAcomodacao/index.php">Tipo Acomodações</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="<?php echo BASE_URL ?>/app/administracao/frigobar/index.php">Frigobar</a></li>
+                            <li><a href="<?php echo BASE_URL ?>/app/administracao/estacionamento/index.php">Estacionamento</a></li>
+                        </ul>
+                    </div>
+                
+                <?php
+                }
+            }
+        } 
+    ?>
+
 </header>
 
 <nav class="container-navbar-lateral">
     <div class="logo">
-        <!-- <img src="../../assets/img/logo.svg" alt=""> -->
         <img src="<?php echo BASE_URL ?>/assets/img/logo.svg" alt="">
     </div>
 
@@ -86,7 +117,15 @@
         <li class="cor-3"><a href="#" class="font-1-m"><span class="material-symbols-rounded">hotel</span>Acomodações</a></li>
         <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/cliente/index.php" class="font-1-m"><span class="material-symbols-rounded">group</span>Clientes</a></li>
         <li class="cor-3"><a href="#" class="font-1-m"><span class="material-symbols-rounded">package_2</span>Estoque</a></li>
-        <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/administracao/" class="font-1-m"><span class="material-symbols-rounded">room_preferences</span>Administração</a></li>
+
+        <?php 
+            if ($administracao == 1 ){
+                ?> 
+                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/administracao/" class="font-1-m"><span class="material-symbols-rounded">room_preferences</span>Administração</a></li>
+                <?php
+            }
+        ?>
+        
     </ul>
 
 </nav>
