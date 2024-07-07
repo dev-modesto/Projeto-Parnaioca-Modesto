@@ -96,9 +96,23 @@
 }
 
 .status-geral.ativo,
-.status-geral.inativo {
+.status-geral.inativo,
+.legenda-acesso.sim, 
+.legenda-acesso.não {
   box-sizing: border-box;
   padding: 5px;
   border-radius: 0.5rem;
   font-size: .85rem;
+}
+
+.legenda-acesso.sim {
+  background-color: var(--cor-a-green1);
+  border: 1px solid var(--cor-a-green4);
+  color: var(--cor-a-green4);
+}
+
+.legenda-acesso.não {
+  background-color: var(--cor-2);
+  border: 1px solid var(--cor-6);
+  color: var(--cor-6);
 }
