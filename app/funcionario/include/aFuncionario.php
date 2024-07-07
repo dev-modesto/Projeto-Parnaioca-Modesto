@@ -17,7 +17,6 @@
             mysqli_stmt_bind_param($sql, "ssssi",$nome,$cpf,$telefone,$id_cargo,$id);
     
             if(mysqli_stmt_execute($sql)){
-                echo 'gravado com sucesso';
                 $mensagem = "Usuario atualizado com sucesso!";
                 header('location: ../index.php?msg=Atualizado com sucesso!');
             } else {
