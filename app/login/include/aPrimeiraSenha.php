@@ -21,12 +21,7 @@
 
                 if(mysqli_query($con,$sql2)){
                     $_SESSION['update_success'] = true;
-                    ?> 
-                        <script>
-                            alert("Senha atualizada com sucesso!")
-                            window.location.href = './index.php';
-                        </script>
-                    <?php
+                    header('location: ../login/index.php?msg=Atualizado com sucesso!');
                     session_destroy();
                 } else {
                     $newMensage = "Erro ao gravar" . mysqli_error($con);
