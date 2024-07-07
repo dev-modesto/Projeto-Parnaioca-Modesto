@@ -100,3 +100,59 @@
     border: none;
     color: var(--cor-2);
 }
+
+.container-itens-administracao {
+    /* background-color: tomato; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    transition: ease-in-out 2s;
+}
+
+.card-administracao {
+    /* background-color: tomato; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--cor-3);
+    border-radius: .375rem;
+    transition: all .2s;
+}
+
+.card-administracao span {
+    color: var(--cor-7);
+    font-size: 6rem;
+    display: block;
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-administracao p {
+    color: var(--cor-7);
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.container-itens-administracao a:hover .card-administracao {
+    transform: scale(102%);
+    /* border-radius: .375rem; */
+    transition: all .2s;
+}
+
+.container-itens-administracao a:hover .card-administracao span {
+    transition: all .2s;
+    color: var(--cor-p2);
+}
+
+.container-itens-administracao a:hover p {
+    color: var(--cor-p2);
+    font-weight: 500;
+}
+

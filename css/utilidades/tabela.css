@@ -16,9 +16,11 @@
     border: 1px solid var(--cor-3);
     font-family: "Poppins", sans-serif;
     font-weight: 300;
-    color: var(--cor-7);
-    color: var(--cor-10);
     vertical-align: middle;
+    text-align: left !important;
+    font-size: .875rem;
+    /* color: rgb(100, 100, 100); */
+    color: var(--cor-7);
   }
 
   .table th {
@@ -26,6 +28,8 @@
     border-top: none;
     font: 400 1rem/1rem "Poppins", sans-serif;
     color: var(--cor-6);
+    text-align: left !important;
+    color: rgb(100, 100, 100);
   }
 
   .table td:first-child,
@@ -77,4 +81,38 @@
 
 .icone-controle-excluir:hover span {
   color: var(--cor-a-red4);
+}
+
+.status-geral.ativo {
+  background-color: var(--cor-a-green1);
+  border: 1px solid var(--cor-a-green4);
+  color: var(--cor-a-green4);
+}
+
+.status-geral.inativo {
+  background-color: var(--cor-a-red1);
+  border: 1px solid var(--cor-a-red4);
+  color: var(--cor-a-red4);
+}
+
+.status-geral.ativo,
+.status-geral.inativo,
+.legenda-acesso.sim, 
+.legenda-acesso.não {
+  box-sizing: border-box;
+  padding: 5px;
+  border-radius: 0.5rem;
+  font-size: .85rem;
+}
+
+.legenda-acesso.sim {
+  background-color: var(--cor-a-green1);
+  border: 1px solid var(--cor-a-green4);
+  color: var(--cor-a-green4);
+}
+
+.legenda-acesso.não {
+  background-color: var(--cor-2);
+  border: 1px solid var(--cor-6);
+  color: var(--cor-6);
 }
