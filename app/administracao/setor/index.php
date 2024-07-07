@@ -1,9 +1,11 @@
 <?php
     $tituloPagina = "Administração";
+    $pagina = "Setor";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
     if (session_status() == PHP_SESSION_ACTIVE) {
-        $nomeLogado = $_SESSION['id'];
+        $idLogado = $_SESSION['id'];
+        segurancaAdm($con, $idLogado);
     }
 
     $sql = 'SELECT * FROM tbl_setor';

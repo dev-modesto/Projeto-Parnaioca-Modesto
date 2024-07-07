@@ -1,11 +1,16 @@
 <?php
     $tituloPagina = "Administração";
+    $pagina = "Cargo";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
-    
-    $sql = "SELECT c.id_cargo, c.nome_cargo, c.salario, s.nome_setor FROM tbl_cargo c INNER JOIN tbl_setor s ON c.id_setor = s.id_setor ORDER BY c.id_cargo";
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+        segurancaAdm($con, $idLogado);
+    }
 
+    $sql = "SELECT c.id_cargo, c.nome_cargo, c.salario, s.nome_setor FROM tbl_cargo c INNER JOIN tbl_setor s ON c.id_setor = s.id_setor ORDER BY c.id_cargo";
     $consulta = mysqli_query($con, $sql);
+
 ?>
 
     <!DOCTYPE html>

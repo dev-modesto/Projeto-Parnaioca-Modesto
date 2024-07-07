@@ -1,6 +1,12 @@
 <?php
     $tituloPagina = "Administração";
+    $pagina = "Estacionamento";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+        segurancaAdm($con, $idLogado);
+    }
 
     $sql = 
             "SELECT 
@@ -16,6 +22,8 @@
     ;
     
     $consulta = mysqli_query($con, $sql);
+
+
 
 ?>
 
