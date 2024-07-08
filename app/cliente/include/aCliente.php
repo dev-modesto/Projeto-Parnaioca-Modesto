@@ -1,6 +1,13 @@
 <?php
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
+    include ARQUIVO_FUNCAO_SQL;
+
+    session_start();
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+    }
     
     
     if($_SERVER['REQUEST_METHOD'] == "POST"){
@@ -53,6 +60,16 @@
             );
     
             if(mysqli_stmt_execute($sql)){
+
+                // log operações
+                    $nomeTabela = 'tbl_cliente';
+                    $idRegistro = $id;
+                    $tpOperacao = 'atualizacao';
+                    $descricao = 'Cliente atualizado ID: ' . $id;
+                    logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+                // 
+
+
                 // echo 'gravado com sucesso';
                 $mensagem = "Cliente atualizado com sucesso!";
                 header('location: ../index.php?msg=Atualizado com sucesso!');
