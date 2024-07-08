@@ -64,13 +64,13 @@
                     </div>
                 </a>
 
-                <a href="">
+                <a href="<?php echo BASE_URL . '/app/administracao/logOperacao/index.php' ?>">
                     <div class="card" style="width: 18rem; min-height: 18rem; border: none">
                         <div class="card-body card-administracao">
                             <span class="material-symbols-rounded">
                                 manage_search
                             </span>
-                            <p class="card-title">Logs de acesso</p>
+                            <p class="card-title">Logs geral</p>
                         </div>
                     </div>
                 </a>
