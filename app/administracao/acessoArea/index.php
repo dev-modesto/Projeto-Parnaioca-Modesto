@@ -1,6 +1,7 @@
 <?php
     $tituloPagina = "Administração";
     $pagina = "Nível de acesso";
+    $grupoPagina = "Nível de acesso";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
     if (session_status() == PHP_SESSION_ACTIVE) {
