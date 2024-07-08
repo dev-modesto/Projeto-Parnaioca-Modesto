@@ -1,6 +1,13 @@
 <?php
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
+    include ARQUIVO_FUNCAO_SQL;
+
+    session_start();
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+    }
 
     if($_SERVER['REQUEST_METHOD'] == "POST"){
 
@@ -16,10 +23,6 @@
 
         $array = [$nome, $dataNascimento, $cpf, $email, $telefone, $estado, $cidade, $idFuncionario, $idStatus];
 
-        // echo "<pre>";
-        // print_r($array);
-
-        // die();
         if(strlen($cpf) < 14){
             header('location: ../index.php?msgInvalida=Cpf inválido. Favor, preencha corretamente.');
         } else {
@@ -56,6 +59,15 @@
             );
     
             if(mysqli_stmt_execute($sql)){
+                $idCliente = mysqli_insert_id($con);
+
+                // log operações
+                    $nomeTabela = 'tbl_cliente';
+                    $idRegistro = $idCliente;
+                    $tpOperacao = 'insercao';
+                    $descricao = 'Cliente adicionado ID: ' . $idCliente;
+                    logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+                // 
                 header('location: ../index.php?msg=Adicionado com sucesso!');
             } else {
                 echo "Error ao gravar" . mysqli_error($con);
