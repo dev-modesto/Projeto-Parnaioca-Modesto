@@ -1,5 +1,12 @@
 <?php
+    $tituloPagina = "Administração";
+    $pagina = "Status geral";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+        segurancaAdm($con, $idLogado);
+    }
     
     $sql = "SELECT * FROM tbl_status_geral";
     $consulta = mysqli_query($con, $sql);

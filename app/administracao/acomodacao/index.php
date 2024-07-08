@@ -1,8 +1,12 @@
 <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
-    include ARQUIVO_CONEXAO;
-    include ARQUIVO_SEGURANCA;
-    include ARQUIVO_NAVBAR;
+    $tituloPagina = "Administração";
+    $pagina = "Acomodação";
+    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+        segurancaAdm($con, $idLogado);
+    }
 
     $sqlInner = 
                 "SELECT 
@@ -25,10 +29,6 @@
     $sqlInnerStatus = "SELECT s.nome_status FROM tbl_acomodacao a INNER JOIN tbl_status_geral s ON a.id_status = s.id_status";
     $consultaInnerStatus = mysqli_query($con, $sqlInnerStatus);
     $arrayInnerStatus = mysqli_fetch_array($consultaInnerStatus);
-
-    if (session_status() == PHP_SESSION_ACTIVE) {
-        $nomeLogado = $_SESSION['id'];
-    }
 
 ?>
     

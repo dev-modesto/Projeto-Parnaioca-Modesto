@@ -1,24 +1,6 @@
 <?php
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
-    $maxItensPagina = 10;
-
-    $sql_count = "SELECT COUNT(id_cargo) AS total FROM tbl_cargo";
-    $result_count = mysqli_query($con, $sql_count);
-    $row_count = mysqli_fetch_assoc($result_count);
-    $total_results = $row_count['total'];
-
-    $total_pages = ceil($total_results / $maxItensPagina);
-
-    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
-    if ($page > $total_pages) {
-        $page = $total_pages;
-    } elseif ($page < 1) {
-        $page = 1;
-    }
-
-    $offset = ($page - 1) * $maxItensPagina;
-
     if (session_status() == PHP_SESSION_ACTIVE) {
         $nomeLogado = $_SESSION['id'];
     }

@@ -1,17 +1,15 @@
 <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
-    include ARQUIVO_CONEXAO;
-    include ARQUIVO_SEGURANCA;
-    include ARQUIVO_NAVBAR;
+    $tituloPagina = "Administração";
+    $pagina = "Funcionários";
+    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
     
-    // include '../login/include/cLogin.php';
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+        segurancaAdm($con, $idLogado);
+    }
 
     $sql2= "SELECT f.id_funcionario, f.nome, f.cpf, f.telefone, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo ORDER BY f.nome";
     $consulta = mysqli_query($con, $sql2);
-
-    if (session_status() == PHP_SESSION_ACTIVE) {
-        $nomeLogado = $_SESSION['id'];
-    }
 
 ?>
 

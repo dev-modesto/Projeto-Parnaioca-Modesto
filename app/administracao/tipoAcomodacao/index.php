@@ -1,18 +1,15 @@
 <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
-    include ARQUIVO_CONEXAO;
-    include ARQUIVO_SEGURANCA;
-    include ARQUIVO_NAVBAR;
-    
-    // include '../login/include/cLogin.php';
-
-    // $sql2= "SELECT f.id_funcionario, f.nome, f.cpf, f.telefone, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo ORDER BY f.nome";
-    $sql = "SELECT * FROM tbl_tp_acomodacao";
-    $consulta = mysqli_query($con, $sql);
+    $tituloPagina = "Administração";
+    $pagina = "Tipo acomodação";
+    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
     if (session_status() == PHP_SESSION_ACTIVE) {
-        $nomeLogado = $_SESSION['id'];
+        $idLogado = $_SESSION['id'];
+        segurancaAdm($con, $idLogado);
     }
+    
+    $sql = "SELECT * FROM tbl_tp_acomodacao";
+    $consulta = mysqli_query($con, $sql);
 
 ?>
 

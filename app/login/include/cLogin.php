@@ -16,8 +16,6 @@
 
             if(mysqli_num_rows($retorno)){
                 $array = mysqli_fetch_all($retorno, MYSQLI_ASSOC)[0];
-                echo "usuario encontrado!";
-
                 $hash = $array['senha'];
                 $dt_cadastro = $array['dt_cadastro'];
                 $dt_atualizacao = $array['dt_atualizacao'];
