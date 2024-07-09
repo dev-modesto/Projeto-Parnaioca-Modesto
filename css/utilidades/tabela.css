@@ -98,7 +98,10 @@
 .status-geral.ativo,
 .status-geral.inativo,
 .legenda-acesso.sim, 
-.legenda-acesso.não {
+.legenda-acesso.não,
+.legenda-tp-operacao.insercao,
+.legenda-tp-operacao.atualizacao,
+.legenda-tp-operacao.exclusao {
   box-sizing: border-box;
   padding: 5px;
   border-radius: 0.5rem;
@@ -115,4 +118,23 @@
   background-color: var(--cor-2);
   border: 1px solid var(--cor-6);
   color: var(--cor-6);
+}
+
+/* legenda de log */
+.legenda-tp-operacao.insercao {
+  background-color: var(--cor-a-green1);
+  border: 1px solid var(--cor-a-green4);
+  color: var(--cor-a-green4);
+}
+
+.legenda-tp-operacao.atualizacao {
+  background-color: var(--cor-a-yellow1);
+  border: 1px solid var(--cor-a-yellow4);
+  color: var(--cor-a-yellow4);
+}
+
+.legenda-tp-operacao.exclusao {
+  background-color: var(--cor-a-red1);
+  border: 1px solid var(--cor-a-red4);
+  color: var(--cor-a-red4);
 }
