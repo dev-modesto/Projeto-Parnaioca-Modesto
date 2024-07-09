@@ -71,6 +71,10 @@
     top: 120px;
 }
 
+.conteudo-user {
+    top: 70px;
+}
+
 
 body {
     display: grid;

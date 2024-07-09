@@ -1,7 +1,7 @@
 <?php
     $tituloPagina = "Administração";
-    $pagina = "Nível de acesso";
-    $grupoPagina = "Nível de acesso";
+    $pagina = "Logs de Operações";
+    $grupoPagina = "Logs geral";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
     if (session_status() == PHP_SESSION_ACTIVE) {
@@ -11,15 +11,17 @@
     
     $sql = 
         "SELECT
-            a.id, 
-            a.id_funcionario,
-            f.nome, 
-            a.sac, 
-            a.logistica, 
-            a.administracao 
-        FROM tbl_acesso_area a
+            l.id_log_op, 
+            l.id_funcionario,
+            f.nome,
+            l.nome_tbl, 
+            l.id_registro, 
+            l.tp_operacao, 
+            l.descricao, 
+            l.dt_ocorrencia 
+        FROM tbl_log_operacao l
         INNER JOIN tbl_funcionario f
-        ON a.id_funcionario = f.id_funcionario
+        ON l.id_funcionario = f.id_funcionario
     ";
 
     $consulta = mysqli_query($con, $sql);
@@ -31,7 +33,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Administração | Nível de acesso</title>
+        <title>Administração | Log de Operações</title>
         <!-- link bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <!-- meu css -->
@@ -78,39 +80,37 @@
 
             <!-- Tabela -->
             <div class="container-tabela">
-                <!-- <div class="container-button">
-                    <button type="button" class="cadastrar-acomodacao btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Nova acomodação</button>
-                </div> -->
+
                 <table id="myTable" class="table nowrap order-column table-hover text-left">
                     <thead class="">
                         <tr>
-                            <th scope="col">Nº</th>
-                            <th scope="col">id</th>
-                            <th scope="col">Matrícula</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">SAC</th>
-                            <th scope="col">Logística</th>
-                            <th scope="col">Administração</th>
-                            <th scope="col">Controle</th>
+                            <!-- <th scope="col">Nº</th> -->
+                            <th scope="col">#ID log</th>
+                            <th scope="col">ID funcionario</th>
+                            <th scope="col">Nome funcionário</th>
+                            <th scope="col">Tabela</th>
+                            <th scope="col">ID registro tabela</th>
+                            <th scope="col">Tipo operação</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Data ocorrência</th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
                         <?php 
                             $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id'];
+                                    $id = $exibe['id_log_op'];
                                 ?>
                                 <tr>
-                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
-                                    <td class="id"><?php echo $exibe['id']?></td>
-                                    <td class="id-funcionario"><?php echo $exibe['id_funcionario']?></td>
+                                    <!-- <td class="numero-linha"><?php echo $nroLinha++; ?></td> -->
+                                    <td class="id"><?php echo $exibe['id_log_op']?></td>
+                                    <td><?php echo $exibe['id_funcionario']?></td>
                                     <td><?php echo $exibe['nome']?></td>
-                                    <td class="legenda"><span class="legenda-acesso"><?php echo $exibe['sac']?></span></td>
-                                    <td class="legenda"><span class="legenda-acesso"><?php echo $exibe['logistica']?></span></td>
-                                    <td class="legenda"><span class="legenda-acesso"><?php echo $exibe['administracao']?></span></td>
-                                    <td class="td-icons">
-                                        <a class="btn-editar-acesso-area icone-controle-editar" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
-                                    </td>
+                                    <td><?php echo $exibe['nome_tbl']?></td>
+                                    <td><?php echo $exibe['id_registro']?></td>
+                                    <td class="legenda"><span class="legenda-tp-operacao"><?php echo $exibe['tp_operacao']?></span></td>
+                                    <td><?php echo $exibe['descricao']?></td>
+                                    <td><?php echo $exibe['dt_ocorrencia']?></td>
                                 </tr>
                                 <?php
                             }
@@ -137,13 +137,20 @@
 
     <script>
 
-        var legenda = document.querySelectorAll('.legenda-acesso').forEach(function (element) {
-            if (element.textContent.trim() == 1 ) {
-                element.innerHTML = 'Sim';
-                element.classList.add('sim');
-            } else {
-                element.innerHTML = 'Não';
-                element.classList.add('não');
+        var legendaTpOperacao = document.querySelectorAll('.legenda-tp-operacao').forEach(function (element){
+            switch (element.textContent) {
+                case 'insercao':
+                    element.innerHTML = 'Inserção';
+                    element.classList.add('insercao');
+                    break;
+                case 'atualizacao':
+                    element.innerHTML = 'Atualização';
+                    element.classList.add('atualizacao');
+                    break;
+                default:
+                    element.innerHTML = 'Exclusão';
+                    element.classList.add('exclusao');
+                    break;
             }
         })
 

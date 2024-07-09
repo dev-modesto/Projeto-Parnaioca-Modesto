@@ -16,7 +16,11 @@
 }
 
 .modal-footer button {
-    width: 48%;
+    min-width: 48%;
+}
+
+.btn-info button {
+    width: 100%;
 }
 
 .modal-header-second {
@@ -59,4 +63,34 @@
     background-color: #D77C7C;
     border: #D77C7C;
     color: white;
+}
+
+
+/* links do modal tab */
+.nav-link {
+    color: var(--cor-6);
+}
+
+.nav-underline {
+    gap: 5px;
+}
+
+.nav-underline .nav-link {
+    border-bottom: none;
+    border-bottom: 2px solid transparent;
+    padding: 10px 10px;
+}
+
+.nav-underline .nav-link.active {
+    color: var(--cor-s5);
+    color: var(--cor-10);
+    font-weight: 500;
+    border-bottom: 2px solid var(--cor-s5);
+}
+
+.nav-underline .nav-link:hover {
+    color: var(--cor-8);
+    font-weight: 500;
+    border-bottom: 2px solid var(--cor-2);
+    /* border-bottom-color: var(--cor-2); */
 }

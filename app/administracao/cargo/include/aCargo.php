@@ -2,6 +2,13 @@
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
     include './../../../funcao/converter.php';
+    include ARQUIVO_FUNCAO_SQL;
+
+    session_start();
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+    }
     
     if($_SERVER['REQUEST_METHOD'] == "POST"){
 
@@ -15,7 +22,13 @@
         mysqli_stmt_bind_param($sql, "sdii",$cargo,$salarioConvertido,$idSetor, $idCargo);
 
         if(mysqli_stmt_execute($sql)){
-            echo 'gravado com sucesso';
+            // log operações
+                $nomeTabela = 'tbl_cargo';
+                $idRegistro = $idCargo;
+                $tpOperacao = 'atualizacao';
+                $descricao = 'Cargo atualizado ID: ' . $idRegistro;
+                logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+            // 
             $mensagem = "Cargo atualizado com sucesso!";
             header('location: ../index.php?msg=Atualizado com sucesso!');
         } else {
