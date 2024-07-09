@@ -69,7 +69,7 @@
 
                         <div class="mb-3">
                             <label class="font-1-s" for="nome">Nome completo</label>
-                            <input class="form-control" type="text" name="nome" id="validationText" value="<?php echo $nome ?>" required>
+                            <input class="form-control" type="text" name="nome" id="nome" value="<?php echo $nome ?>" required>
                         </div>
 
                         <div class="mb-3">
@@ -91,7 +91,7 @@
 
                         <div class="mb-3">
                             <label class="font-1-s" for="data-nascimento">Data nascimento</label>
-                            <input class="form-control" type="date" name="data-nascimento" id="validationText" value="<?php echo $dataNascimento ?>" required>
+                            <input class="form-control" type="date" name="data-nascimento" id="data-nascimento" value="<?php echo $dataNascimento ?>" required>
                         </div>
                         
                     </div>
@@ -113,7 +113,7 @@
                     <div class="tab-pane fade" id="status-cliente-tab-edit-pane" role="tabpanel" aria-labelledby="status-cliente-tab-edit" tabindex="0">
                         <div class="mb-3">
                             <label for="id-status">Status</label>
-                            <select class="form-select" name="id-status" required aria-label="select example">
+                            <select class="form-select" name="id-status" id="id-status" required aria-label="select example">
                                 <option value="">Selecione um status</option>
                                 <?php
                                     include '../../config/conexao.php';
