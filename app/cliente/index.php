@@ -169,7 +169,7 @@
 
             <!-- Modal cadastrar informações -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastrar cliente</h1>
@@ -178,66 +178,93 @@
 
                         <!-- formulario envio cargo -->
                         <form class="was-validated form-container" action="include/gCliente.php" method="post">
-                            <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <label class="font-1-s" for="nome">Nome completo</label>
-                                    <input class="form-control" type="text" name="nome" id="validationText" required>
+                            <ul class="nav nav-underline">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="dados-pessoais-cliente-tab" data-bs-toggle="tab" data-bs-target="#dados-pessoais-cliente-tab-pane" type="button" role="tab" aria-controls="dados-pessoais-cliente-tab-pane" aria-selected="true">Dados pessoais</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="endereco-cliente-tab" data-bs-toggle="tab" data-bs-target="#endereco-cliente-tab-pane" type="button" role="tab" aria-controls="endereco-cliente-tab-pane" aria-selected="false">Endereço</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="status-cliente-tab" data-bs-toggle="tab" data-bs-target="#status-cliente-tab-pane" type="button" role="tab" aria-controls="status-cliente-tab-pane" aria-selected="false">Status cliente</button>
+                                </li>
+                            </ul>
+                            <br>
+
+                            <div class="tab-content" id="myTabContent">
+
+                                <div class="tab-pane fade show active" id="dados-pessoais-cliente-tab-pane" role="tabpanel" aria-labelledby="dados-pessoais-cliente-tab" tabindex="0">
+
+                                    <div class="mb-3">
+                                        <label class="font-1-s" for="nome">Nome completo</label>
+                                        <input class="form-control" type="text" name="nome" id="validationText" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="font-1-s" for="cpf">CPF</label>
+                                        <input class="form-control cpf" type="text" name="cpf" id="cpf" required>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="font-1-s" for="email">E-mail</label>
+                                            <input class="form-control" type="email" name="email" class="email" id="email" required>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="font-1-s" for="telefone">Telefone</label>
+                                            <input class="form-control" type="fone" name="telefone" class="telefone" id="telefone" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="font-1-s" for="data-nascimento">Data nascimento</label>
+                                        <input class="form-control" type="date" name="data-nascimento" id="validationText" required>
+                                    </div>
+                                    
                                 </div>
 
-                                <div class="col-md-4">
-                                    <label class="font-1-s" for="data-nascimento">Data nascimento</label>
-                                    <input class="form-control" type="date" name="data-nascimento" id="validationText" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="font-1-s" for="cpf">CPF</label>
-                                    <input class="form-control cpf" type="text" name="cpf" id="cpf" required>
-                                </div>
-                            </div>
+                                <div class="tab-pane fade" id="endereco-cliente-tab-pane" role="tabpanel" aria-labelledby="endereco-cliente-tab" tabindex="0">
+                                    
+                                    <div class="mb-3">
+                                        <label class="font-1-s" for="estado">Estado</label>
+                                        <input class="form-control" type="fone" name="estado" class="estado" id="estado" required>
+                                    </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="font-1-s" for="email">E-mail</label>
-                                    <input class="form-control" type="email" name="email" class="email" id="email" required>
-                                </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="font-1-s" for="cidade">Cidade</label>
+                                        <input class="form-control" type="fone" name="cidade" class="cidade" id="cidade" required>
+                                    </div>
 
-                                <div class="col-md-6">
-                                    <label class="font-1-s" for="telefone">Telefone</label>
-                                    <input class="form-control" type="fone" name="telefone" class="telefone" id="telefone" required>
                                 </div>
-                            </div>
-                            
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="font-1-s" for="estado">Estado</label>
-                                    <input class="form-control" type="fone" name="estado" class="estado" id="estado" required>
+                                
+                                <div class="tab-pane fade" id="status-cliente-tab-pane" role="tabpanel" aria-labelledby="status-cliente-tab" tabindex="0">
+                                    <div class="mb-3">
+                                        <label for="id-status">Status</label>
+                                        <select class="form-select" name="id-status" required aria-label="select example">
+                                            <option value="">Selecione um status</option>
+                                            <?php
+                                                include '../../config/conexao.php';
+                                                $query = "SELECT id_status, nome_status FROM tbl_status_geral";
+                                                $result = mysqli_query($con, $query);
+                                    
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    echo "<option value='" . $row['id_status'] . "'>" . $row['nome_status'] . "</option>";
+                                                }
+                                                mysqli_close($con);
+                                            ?>
+                                        </select>
+                                    </div>
                                 </div>
-
-                                <div class="col-md-6">
-                                    <label class="font-1-s" for="cidade">Cidade</label>
-                                    <input class="form-control" type="fone" name="cidade" class="cidade" id="cidade" required>
-                                </div>
+                                
                             </div>
 
                             <div class="mb-3">
                                 <input class="form-control" type="text" name="id-funcionario" class="id-funcionario" id="id-funcionario" value="<?php echo $nomeLogado ?>" hidden required>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="id-status">Status</label>
-                                <select class="form-select" name="id-status" required aria-label="select example">
-                                    <option value="">Selecione um status</option>
-                                    <?php
-                                        include '../../config/conexao.php';
-                                        $query = "SELECT id_status, nome_status FROM tbl_status_geral";
-                                        $result = mysqli_query($con, $query);
-                            
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            echo "<option value='" . $row['id_status'] . "'>" . $row['nome_status'] . "</option>";
-                                        }
-                                        mysqli_close($con);
-                                    ?>
-                                </select>
-                            </div>
+
 
                             <?php if(!empty($mensagem)){ ?>  
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
