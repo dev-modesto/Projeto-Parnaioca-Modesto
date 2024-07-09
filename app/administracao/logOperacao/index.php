@@ -108,7 +108,7 @@
                                     <td><?php echo $exibe['nome']?></td>
                                     <td><?php echo $exibe['nome_tbl']?></td>
                                     <td><?php echo $exibe['id_registro']?></td>
-                                    <td><?php echo $exibe['tp_operacao']?></td>
+                                    <td class="legenda"><span class="legenda-tp-operacao"><?php echo $exibe['tp_operacao']?></span></td>
                                     <td><?php echo $exibe['descricao']?></td>
                                     <td><?php echo $exibe['dt_ocorrencia']?></td>
                                 </tr>
@@ -137,13 +137,20 @@
 
     <script>
 
-        var legenda = document.querySelectorAll('.legenda-acesso').forEach(function (element) {
-            if (element.textContent.trim() == 1 ) {
-                element.innerHTML = 'Sim';
-                element.classList.add('sim');
-            } else {
-                element.innerHTML = 'Não';
-                element.classList.add('não');
+        var legendaTpOperacao = document.querySelectorAll('.legenda-tp-operacao').forEach(function (element){
+            switch (element.textContent) {
+                case 'insercao':
+                    element.innerHTML = 'Inserção';
+                    element.classList.add('insercao');
+                    break;
+                case 'atualizacao':
+                    element.innerHTML = 'Atualização';
+                    element.classList.add('atualizacao');
+                    break;
+                default:
+                    element.innerHTML = 'Exclusão';
+                    element.classList.add('exclusao');
+                    break;
             }
         })
 
