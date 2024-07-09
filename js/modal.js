@@ -447,3 +447,26 @@ $(document).ready(function () {
         });
     });
 });
+
+$(document).ready(function () {
+    $('.btn-visualizar-info-cliente').click(function (e) { 
+        e.preventDefault();
+        var idCliente = $(this).closest('tr').find('.id-cliente').text()
+        console.log('id-cliente: ' + idCliente);
+
+        $.ajax({
+            type: "POST",
+            url: "../cliente/include/cModalVisualizarInfoCliente.php",
+
+            data: {
+                'click-visualizar-info-cliente':true,
+                'idCliente':idCliente,
+            },
+            success: function (response) {
+                console.log('Response: ' + response);
+                $('.modalVisualizarInfoCliente').html(response)
+                $('#modalVisualizarInfoCliente').modal('show');
+            }
+        });
+    });
+});

@@ -138,3 +138,20 @@
   border: 1px solid var(--cor-a-red4);
   color: var(--cor-a-red4);
 }
+
+.dt-info,
+.paging_full_numbers {
+  color: var(--cor-6);
+  font-weight: 300;
+  font-size: .85rem;
+}
+
+.dt-length label {
+  color: var(--cor-8);
+  font-weight: 300;
+  font-size: .85rem;
+}
+.dt-search label {
+  color: var(--cor-8);
+  font-weight: 300;
+}

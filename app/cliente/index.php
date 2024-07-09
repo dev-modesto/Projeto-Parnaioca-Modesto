@@ -154,6 +154,7 @@
                                     <td><?php echo $exibe['dt_atualizacao']?></td>
                                     <td><span class="status-geral"><?php echo $exibe['nome_status']?></span></td>
                                     <td class="td-icons">
+                                        <a class="btn-visualizar-info-cliente icone-controle-visualizar " href="#"><span class="icon-btn-controle material-symbols-rounded">visibility</span></a>
                                         <a class="btn-editar-cliente icone-controle-editar " href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
                                         <a class="btn-excluir-cliente icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
                                     </td>
@@ -258,6 +259,9 @@
             </div>
 
             <div class="modalEditarCliente">
+            </div>
+
+            <div class="modalVisualizarInfoCliente">
             </div>
 
             <div class="modalExcluir">
