@@ -21,6 +21,9 @@
 /* tabela */
 @import url(utilidades/tabela.css);
 
+/* tabela */
+@import url(utilidades/cards-info.css);
+
 /* paginas */
 @import url(setor/setor.css);
 @import url(login/login.css);
