@@ -156,3 +156,22 @@
     font-weight: 500;
 }
 
+.label-dados-visualizar-info {
+    padding: 0px 15px;
+    position: relative;
+}
+
+.label-dados-visualizar-info::before {
+    content: '';
+    width: 5px;
+    height: 100%;
+    background-color: var(--cor-6);
+    position: absolute;
+    left: 0px;
+}
+
+.label-dados-visualizar-info p {
+    color: var(--cor-10);
+    font-weight: 300;
+    font-size: .85rem;
+}
