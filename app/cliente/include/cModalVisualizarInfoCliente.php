@@ -58,7 +58,7 @@
                         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Gerais</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Outras</button>
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Info. do cadastro</button>
                     </li>
                 </ul>
                 <br>
@@ -68,44 +68,44 @@
 
                     <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                         <div class="mb-3 label-dados-visualizar-info">
-                            <label class="font-1-s" for="nome">Nome completo:</label>
+                            <label class="font-1-s" for="nome">Nome completo</label>
                             <p class="font-1-s"><?php echo $nome ?></p>
                         </div>
 
                         <div class="mb-3 label-dados-visualizar-info">
-                            <label class="font-1-s" for="cpf">CPF:</label>
+                            <label class="font-1-s" for="cpf">CPF</label>
                             <p><?php echo $cpf ?></p>
                         </div>
 
                         <div class="mb-3 label-dados-visualizar-info">
-                            <label class="font-1-s" for="data-nascimento">Data nascimento:</label>
+                            <label class="font-1-s" for="data-nascimento">Data de nascimento</label>
                             <p><?php echo $dataNascimento ?> </p>
                         </div>
 
                         <div class="mb-3 label-dados-visualizar-info">
-                            <label class="font-1-s" for="estado">Estado: </label>
+                            <label class="font-1-s" for="estado">Estado</label>
                             <p><?php echo $estado ?></p>
                         </div>
 
                         <div class="mb-3 label-dados-visualizar-info">
-                            <label class="font-1-s" for="cidade">Cidade: </label>
+                            <label class="font-1-s" for="cidade">Cidade</label>
                             <p><?php echo $cidade ?></p>
                         </div>
                     </div>
 
                     <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                         <div class="mb-3 label-dados-visualizar-info">
-                            <label class="font-1-s" for="cidade">ID funcionário cadastro:</label>
+                            <label class="font-1-s" for="cidade">ID funcionário cadastro</label>
                             <p><?php echo $idFuncionario ?></p>
                         </div>
 
                         <div class="mb-3 label-dados-visualizar-info">
-                            <label class="font-1-s" for="cidade">Data cadastro:</label>
+                            <label class="font-1-s" for="cidade">Data de cadastro</label>
                             <p><?php echo $dtCadastro ?></p>
                         </div>
 
                         <div class="mb-3 label-dados-visualizar-info">
-                            <label class="font-1-s" for="cidade">Data atualização:</label>
+                            <label class="font-1-s" for="cidade">Data de atualização</label>
                             <p><?php echo $dtAtualizacao ?></p>
                         </div>
 
@@ -122,9 +122,8 @@
                     }
                 ?>
 
-                <div class="modal-footer form-container-button">
-                    <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
-                    <button class='btn btn-primary' type="submit">Adicionar</button>
+                <div class="modal-footer form-container-button btn-info">
+                    <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </form>
         </div>
