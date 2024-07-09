@@ -129,7 +129,7 @@
                         <form class="was-validated form-container" action="include/gFrigobar.php" method="post">
                             <div class="mb-3">
                                 <label for="id-acomodacao">Número da acomodação</label>
-                                <select class="form-select" name="id-acomodacao" required aria-label="select example">
+                                <select class="form-select" name="id-acomodacao" id="id-acomodacao" required aria-label="select example">
                                     <option value="">Selecione o número da acomodação</option>
                                     <?php
                                         include '../../config/conexao.php';
