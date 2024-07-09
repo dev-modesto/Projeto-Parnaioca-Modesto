@@ -26,4 +26,22 @@
         mysqli_query($con, $sql);
     }
     
+    function logOperacao ($con, $idFuncionario, $nomeTbl, $idRegistro, $tpOperacao, $descricao){
+
+        $stmt = 
+                mysqli_prepare($con, 
+                "INSERT INTO tbl_log_operacao (
+                id_funcionario, 
+                nome_tbl, 
+                id_registro, 
+                tp_operacao, 
+                descricao) 
+                VALUES (?, ?, ?, ?, ?)"
+        );
+
+        mysqli_stmt_bind_param($stmt, 'isiss', $idFuncionario, $nomeTbl, $idRegistro, $tpOperacao, $descricao);
+        mysqli_stmt_execute($stmt);
+
+    }
+
 ?>

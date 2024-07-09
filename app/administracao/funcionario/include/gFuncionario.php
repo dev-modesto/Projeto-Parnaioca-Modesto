@@ -1,7 +1,13 @@
 <?php
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
-    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/app/funcao/funcaoSql.php';
+    include ARQUIVO_FUNCAO_SQL;
+
+    session_start();
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+    }
 
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         //enviou o formulario
@@ -22,12 +28,34 @@
 
             $hash = password_hash($senhaPadrao,PASSWORD_DEFAULT);
 
-            $sql = mysqli_prepare($con, "INSERT INTO tbl_funcionario (id_funcionario, nome, cpf, telefone, id_cargo, senha) VALUES (null, ?, ?, ?, ?, ?)");
+            $sql = 
+                    mysqli_prepare(
+                        $con, 
+                "INSERT INTO tbl_funcionario (
+                            id_funcionario, 
+                            nome, 
+                            cpf, 
+                            telefone, 
+                            id_cargo, 
+                            senha) 
+                        VALUES (null, ?, ?, ?, ?, ?)"
+            );
+
             mysqli_stmt_bind_param($sql,"sssis",$nome,$cpf,$telefone,$id_cargo,$hash);
     
             if(mysqli_stmt_execute($sql)){
-                
+                // id gerado ao gravar
                 $idFuncionario = mysqli_insert_id($con);
+
+                // log operações
+                    $nomeTabela = 'tbl_funcionario';
+                    $idRegistro = $idFuncionario;
+                    $tpOperacao = 'insercao';
+                    $descricao = 'Funcionário adicionado ID: ' . $idFuncionario;
+                    logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+                // 
+                
+                // idFuncionario = matricula do novo funcionario
                 nivelAcessoPadrao($con, $idFuncionario,1,0,0);
 
                 header('location: ../index.php?msg=Adicionado com sucesso!');
