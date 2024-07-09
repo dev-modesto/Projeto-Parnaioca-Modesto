@@ -21,8 +21,14 @@
             ON c.id_status = s.id_status 
 
     ";
-
     $consulta = mysqli_query($con, $sql);
+
+    $sqlInfoCliente = "SELECT s.nome_status FROM tbl_cliente c INNER JOIN tbl_status_geral s ON c.id_status = s.id_status WHERE s.nome_status = 'Ativo'";
+    $consultaClienteCriterio = mysqli_query($con, $sqlInfoCliente);
+
+    $totalClientes = mysqli_num_rows($consulta);
+    $totalClientesAtivos = mysqli_num_rows($consultaClienteCriterio);
+    $totalClientesInativos = ($totalClientes - $totalClientesAtivos);
 
     if (session_status() == PHP_SESSION_ACTIVE) {
         $nomeLogado = $_SESSION['id'];
@@ -53,9 +59,32 @@
     </head>
     <body>
 
-    <div class="conteudo">
+    <div class="conteudo conteudo-user">
         <div class="container-conteudo-principal">
 
+            <div class="container-cards-info-top">
+                <div class="card card-top" style="border: none">
+                    <div class="card-body card-info-top">
+                        <span class="cor-8"><?php echo $totalClientes ?></span>
+                        <p class="card-title cor-8">Total clientes</p>
+                    </div>
+                </div>
+
+                <div class="card card-top" style="border: none">
+                    <div class="card-body card-info-top">
+                        <span class="cor-a-green4"><?php echo $totalClientesAtivos ?></span>
+                        <p class="card-title cor-a-green4">Ativos</p>
+                    </div>
+                </div>
+
+                <div class="card card-top" style="border: none">
+                    <div class="card-body card-info-top">
+                        <span class="cor-a-red4"><?php echo $totalClientesInativos ?></span>
+                        <p class="card-title cor-a-red4">Inativos</p>
+                    </div>
+                </div>
+            </div>
+            
             <?php
                 if(isset($_GET['msg'])){
                     $msg = $_GET['msg'];
@@ -123,7 +152,7 @@
                                     <td><?php echo $exibe['id_funcionario']?></td>
                                     <td><?php echo $exibe['dt_cadastro']?></td>
                                     <td><?php echo $exibe['dt_atualizacao']?></td>
-                                    <td><?php echo $exibe['nome_status']?></td>
+                                    <td><span class="status-geral"><?php echo $exibe['nome_status']?></span></td>
                                     <td class="td-icons">
                                         <a class="btn-editar-cliente icone-controle-editar " href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
                                         <a class="btn-excluir-cliente icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
@@ -245,3 +274,15 @@
     <!-- <script src="../../js/modal.js"></script> -->
     <script src="<?= BASE_URL ?>/js/modal.js"></script>
     <script src="<?= BASE_URL ?>/js/table.js"></script>
+
+    <script>
+
+        document.querySelectorAll('.status-geral').forEach(function(element) {
+            if (element.textContent.trim() === 'Ativo') {
+                element.classList.add('ativo');
+            } else if (element.textContent.trim() === 'Inativo') {
+                element.classList.add('inativo');
+            }
+        });
+
+    </script>
