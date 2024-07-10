@@ -11,26 +11,46 @@
 
     if(isset($_POST['setor'])){
         
-        $setor = trim($_POST['setor']);
-        $sql = "INSERT INTO tbl_setor(id_setor,nome_setor) VALUES(NULL,'$setor')";
-        
-        $stmt = mysqli_prepare($con, "INSERT INTO tbl_setor(id_setor, nome_setor) VALUES (NULL, ?)");
-        mysqli_stmt_bind_param($stmt, "s", $setor);
+        $nomeSetor = trim($_POST['setor']);
 
-        if(mysqli_stmt_execute($stmt)){
-            // log operações
-                $nomeTabela = 'tbl_setor';
-                $idRegistro = mysqli_insert_id($con);
-                $tpOperacao = 'insercao';
-                $descricao = 'Setor adicionado ID: ' . $idRegistro;
-                logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
-            // 
-            header('location: ../index.php?msg=Adicionado com sucesso!');
+        $sqlVerifica = mysqli_prepare($con, "SELECT * FROM tbl_setor WHERE nome_setor = ? ");
+        mysqli_stmt_bind_param($sqlVerifica, "s", $nomeSetor);
+        mysqli_stmt_execute($sqlVerifica);
+        $result = mysqli_stmt_get_result($sqlVerifica);
+        $msg = "";
+
+        if (mysqli_num_rows($result) > 0) {
+            $msg .= "Este setor já foi cadastrado.";
+            header('location: ../index.php?msgInvalida=' . $msg);
+            mysqli_close($con);
+
         } else {
-            echo "Error ao gravar" . mysqli_error($con);
+
+            $stmt = mysqli_prepare($con, "INSERT INTO tbl_setor(id_setor, nome_setor) VALUES (NULL, ?)");
+            mysqli_stmt_bind_param($stmt, "s", $nomeSetor);
+
+            if(mysqli_stmt_execute($stmt)){
+
+                // log operações
+                    $nomeTabela = 'tbl_setor';
+                    $idRegistro = mysqli_insert_id($con);
+                    $tpOperacao = 'insercao';
+                    $descricao = 'Setor adicionado ID: ' . $idRegistro;
+                    logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+                //
+                
+                $msg = "Adicionado com sucesso!";
+                header('location: ../index.php?msg=' . $msg);
+    
+            } else {
+                echo "Error ao gravar" . mysqli_error($con);
+                
+            }
+    
+            mysqli_close($con);
+
         }
 
-        mysqli_close($con);
     }
 
 ?>
