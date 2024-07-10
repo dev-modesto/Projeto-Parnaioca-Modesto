@@ -52,15 +52,15 @@
 
             <span class="separador"></span>
 
-
-            <?php if(!empty($mensagem)){ ?>  
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?php echo $mensagem ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div> 
-            <?php }else {
-                    echo '';
+            <?php
+                if(isset($_GET['msgInvalida'])){
+                    $msg = $_GET['msgInvalida'];
+                    echo '<div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                            '. $msg .'
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>';
                 }
+            
             ?>
 
             <!-- Tabela -->
