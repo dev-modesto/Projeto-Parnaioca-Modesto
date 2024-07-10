@@ -43,7 +43,7 @@
 
             <div class="container-itens-administracao">
                 <a href="<?php echo BASE_URL . '/app/administracao/funcionario/index.php' ?>">
-                    <div class="card" style="width: 18rem; min-height: 18rem; border: none">
+                    <div class="card" style="width: 15rem; min-height: 15rem; border: none">
                         <div class="card-body card-administracao">
                             <span class="material-symbols-rounded">
                                 inbox_customize
@@ -54,7 +54,7 @@
                 </a>
 
                 <a href="<?php echo BASE_URL . '/app/administracao/acessoArea/index.php' ?>">
-                    <div class="card" style="width: 18rem; min-height: 18rem; border: none">
+                    <div class="card" style="width: 15rem; min-height: 15rem; border: none">
                         <div class="card-body card-administracao">
                             <span class="material-symbols-rounded">
                                 switch_access_2
@@ -65,7 +65,7 @@
                 </a>
 
                 <a href="<?php echo BASE_URL . '/app/administracao/logOperacao/index.php' ?>">
-                    <div class="card" style="width: 18rem; min-height: 18rem; border: none">
+                    <div class="card" style="width: 15rem; min-height: 15rem; border: none">
                         <div class="card-body card-administracao">
                             <span class="material-symbols-rounded">
                                 manage_search
