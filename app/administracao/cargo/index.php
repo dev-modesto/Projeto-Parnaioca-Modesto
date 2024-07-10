@@ -119,7 +119,7 @@
                         <form class="was-validated form-container" action="include/gCargo.php" method="post">
                             <div class="mb-3">
                                 <label class="font-1-s" for="cargo">Cargo</label>
-                                <input class="form-control" type="text" name="cargo" id="validationText" required>
+                                <input class="form-control" type="text" name="cargo" id="cargo" required>
                                 <div class="invalid-feedback">
                                     
                                 </div>

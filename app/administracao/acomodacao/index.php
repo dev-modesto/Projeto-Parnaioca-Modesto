@@ -143,7 +143,7 @@
                         <form class="was-validated form-container" action="include/gAcomodacao.php" method="post">
                             <div class="mb-3">
                                 <label for="id-tp-acomodacao">Tipo acomodação</label>
-                                <select class="form-select" name="id-tp-acomodacao" required aria-label="select example">
+                                <select class="form-select" name="id-tp-acomodacao" id="id-tp-acomodacao" required aria-label="select example">
                                     <option value="">-</option>
                                     
                                     <?php
@@ -161,31 +161,31 @@
                             <div class="row mb-3">
                                 <div class="col mb-6">
                                     <label class="font-1-s" for="nome-titulo">Nome título</label>
-                                    <input class="form-control" type="text" name="nome-titulo" id="validationText" required>
+                                    <input class="form-control" type="text" name="nome-titulo" id="nome-titulo" required>
                                 </div>
 
                                 <div class="col mb-6">
                                     <label class="font-1-s" for="numero">Número</label>
-                                    <input class="form-control" type="text" name="numero" id="validationText" required>
+                                    <input class="form-control" type="text" name="numero" id="numero" required>
                                 </div>
 
                             </div>
                             
                             <div class="mb-3">
                                 <label class="font-1-s" for="valor">Valor</label>
-                                <input class="form-control monetario" type="text" name="valor" id="validationText" required>
+                                <input class="form-control monetario" type="text" name="valor" id="valor" required>
                             </div>
 
 
 
                             <div class="mb-3">
                                 <label class="font-1-s" for="capacidade">Capacidade máxima</label>
-                                <input class="form-control" type="text" name="capacidade" id="validationText" required>
+                                <input class="form-control" type="text" name="capacidade" id="capacidade" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="id-status">Status</label>
-                                <select class="form-select" name="id-status" required aria-label="select example">
+                                <select class="form-select" name="id-status" id="id-status" required aria-label="select example">
                                     <option value="">Selecione um status</option>
                                     
                                     <?php

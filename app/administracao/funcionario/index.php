@@ -123,7 +123,7 @@
                         <form class="was-validated form-container" action="include/gFuncionario.php" method="post">
                             <div class="mb-3">
                                 <label class="font-1-s" for="nome">Nome completo</label>
-                                <input class="form-control" type="text" name="nome" id="validationText" required>
+                                <input class="form-control" type="text" name="nome" id="nome" required>
                                 <div class="invalid-feedback">
                                     
                                 </div>
@@ -148,7 +148,7 @@
 
                             <div class="mb-3">
                                 <label for="id_cargo">Cargo</label>
-                                <select class="form-select" name="id_cargo" required aria-label="select example">
+                                <select class="form-select" name="id_cargo" id="id_cargo" aria-label="select example">
                                     <option value="">Selecione um cargo</option>
                                     <?php
                                         include '../../config/conexao.php';

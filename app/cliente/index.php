@@ -118,18 +118,13 @@
                     <thead class="">
                         <tr>
                             <th scope="col">Nº</th>
-                            <th scope="col">id cliente</th>
+                            <th scope="col">ID cliente</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Data nascimento</th>
-                            <th scope="col">Cpf</th>
+                            <th scope="col">CPF</th>
                             <th scope="col">E-mail</th>
                             <th scope="col">Telefone</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Cidade</th>
-                            <th scope="col">id funcionario</th>
                             <th scope="col">Data cadastro</th>
-                            <th scope="col">Data atualizacao</th>
-                            <th scope="col">id status</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Controle</th>
                         </tr>
                     </thead>
@@ -143,15 +138,10 @@
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-cliente"><?php echo $exibe['id_cliente']?></td>
                                     <td><?php echo $exibe['nome']?></td>
-                                    <td><?php echo $exibe['dt_nascimento']?></td>
                                     <td class="cpf"><?php echo $exibe['cpf']?></td>
                                     <td><?php echo $exibe['email']?></td>
                                     <td><?php echo $exibe['telefone']?></td>
-                                    <td><?php echo $exibe['estado']?></td>
-                                    <td><?php echo $exibe['cidade']?></td>
-                                    <td><?php echo $exibe['id_funcionario']?></td>
                                     <td><?php echo $exibe['dt_cadastro']?></td>
-                                    <td><?php echo $exibe['dt_atualizacao']?></td>
                                     <td><span class="status-geral"><?php echo $exibe['nome_status']?></span></td>
                                     <td class="td-icons">
                                         <a class="btn-visualizar-info-cliente icone-controle-visualizar " href="#"><span class="icon-btn-controle material-symbols-rounded">visibility</span></a>
@@ -197,7 +187,7 @@
 
                                     <div class="mb-3">
                                         <label class="font-1-s" for="nome">Nome completo</label>
-                                        <input class="form-control" type="text" name="nome" id="validationText" required>
+                                        <input class="form-control" type="text" name="nome" id="nome" required>
                                     </div>
 
                                     <div class="mb-3">
@@ -219,7 +209,7 @@
 
                                     <div class="mb-3">
                                         <label class="font-1-s" for="data-nascimento">Data nascimento</label>
-                                        <input class="form-control" type="date" name="data-nascimento" id="validationText" required>
+                                        <input class="form-control" type="date" name="data-nascimento" id="data-nascimento" required>
                                     </div>
                                     
                                 </div>
@@ -242,7 +232,7 @@
                                 <div class="tab-pane fade" id="status-cliente-tab-pane" role="tabpanel" aria-labelledby="status-cliente-tab" tabindex="0">
                                     <div class="mb-3">
                                         <label for="id-status">Status</label>
-                                        <select class="form-select" name="id-status" required aria-label="select example">
+                                        <select class="form-select" name="id-status" id="id-status" required aria-label="select example">
                                             <option value="">Selecione um status</option>
                                             <?php
                                                 include '../../config/conexao.php';

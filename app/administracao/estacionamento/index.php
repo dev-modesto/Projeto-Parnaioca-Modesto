@@ -129,7 +129,7 @@
                         <form class="was-validated form-container" action="include/gVagaEstacionamento.php" method="post">
                             <div class="mb-3">
                                 <label for="id-numero-acomodacao">Número da acomodação</label>
-                                <select class="form-select" name="id-numero-acomodacao" required aria-label="select example">
+                                <select class="form-select" name="id-numero-acomodacao" id="id-numero-acomodacao" required aria-label="select example">
                                     <option value="">Selecione o número da acomodação</option>
                                     <?php
                                         include '../../config/conexao.php';

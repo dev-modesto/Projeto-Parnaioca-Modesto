@@ -117,7 +117,7 @@
                         <form class="was-validated form-container" action="include/gTpAcomodacao.php" method="post">
                             <div class="mb-3">
                                 <label class="font-1-s" for="nome-tp-acomodacao">Nome tipo acomodação</label>
-                                <input class="form-control" type="text" name="nome-tp-acomodacao" id="validationText" required>
+                                <input class="form-control" type="text" name="nome-tp-acomodacao" id="nome-tp-acomodacao" required>
                             </div>
 
                             <?php if(!empty($mensagem)){ ?>  

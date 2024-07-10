@@ -49,7 +49,7 @@
                 
                 <div class="mb-3">
                     <label class="font-1-s" for="nome">Nome completo</label>
-                    <input class="form-control" type="text" name="nome" id="validationText nome" value="<?php echo $nome ?>" required>
+                    <input class="form-control" type="text" name="nome" id="nome" value="<?php echo $nome ?>" required>
                     <div class="invalid-feedback">
                         
                     </div>

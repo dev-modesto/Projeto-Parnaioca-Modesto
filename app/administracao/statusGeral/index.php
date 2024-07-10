@@ -115,7 +115,7 @@
                         <form class="was-validated form-container" action="include/gStatusGeral.php" method="post">
                             <div class="mb-3">
                                 <label class="font-1-s" for="status">Status</label>
-                                <input class="form-control" type="text" name="status" id="validationText" required>
+                                <input class="form-control" type="text" name="status" id="status" required>
                                 <div class="invalid-feedback">
                                 </div>
                             </div>

@@ -155,3 +155,24 @@
   color: var(--cor-8);
   font-weight: 300;
 }
+
+.paging_simple_numbers {
+  font-weight: 300;
+  font-size: .85rem;
+}
+
+.dt-paging-button {
+  /* background-color: aqua !important; */
+  border: 1px solid var(--cor-2) !important;
+}
+
+.dt-paging-button.current {
+  background-color: red !important;
+  background-color: var(--cor-4) !important;
+  color: white !important;
+}
+
+.dt-paging-button.disabled.previous,
+.dt-paging-button.disabled.next {
+  background-color: var(--cor-1) !important;
+}
