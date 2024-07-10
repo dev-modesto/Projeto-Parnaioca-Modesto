@@ -134,16 +134,16 @@
     </div>
 
     <ul class="navbar-itens">
-        <li class="cor-3 "><a href="navbar-lateral.php" class="font-1-m"><span class="material-symbols-rounded">dashboard</span>Dashboard</a></li>
-        <li class="cor-3"><a href="app/" class="font-1-m"><span class="material-symbols-rounded">style</span>Reservas</a></li>
-        <li class="cor-3"><a href="#" class="font-1-m"><span class="material-symbols-rounded">hotel</span>Acomodações</a></li>
-        <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/cliente/index.php" class="font-1-m"><span class="material-symbols-rounded">group</span>Clientes</a></li>
-        <li class="cor-3"><a href="#" class="font-1-m"><span class="material-symbols-rounded">package_2</span>Estoque</a></li>
+        <li class="cor-3 "><a href="navbar-lateral.php" class="font-1-s"><span class="material-symbols-rounded">dashboard</span>Dashboard</a></li>
+        <li class="cor-3"><a href="app/" class="font-1-s"><span class="material-symbols-rounded">style</span>Reservas</a></li>
+        <li class="cor-3"><a href="#" class="font-1-s"><span class="material-symbols-rounded">hotel</span>Acomodações</a></li>
+        <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/cliente/index.php" class="font-1-s"><span class="material-symbols-rounded">group</span>Clientes</a></li>
+        <li class="cor-3"><a href="#" class="font-1-s"><span class="material-symbols-rounded">package_2</span>Estoque</a></li>
 
         <?php 
             if ($administracao == 1 ){
                 ?> 
-                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/administracao/" class="font-1-m"><span class="material-symbols-rounded">room_preferences</span>Administração</a></li>
+                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/administracao/" class="font-1-s"><span class="material-symbols-rounded">room_preferences</span>Administração</a></li>
                 <?php
             }
         ?>
