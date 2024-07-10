@@ -12,6 +12,10 @@
   overflow-x: auto;
 }
 
+#myTable {
+  width: 100% !important;
+}
+
 .table td {
     border: 1px solid var(--cor-3);
     font-family: "Poppins", sans-serif;
