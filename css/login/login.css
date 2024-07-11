@@ -14,7 +14,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     min-width: 320px;
-    width: 1250px;
+    width: 1000px;
     box-sizing: border-box;
     padding: 50px;
     font: 400 1rem/1.5 "Poppins", sans-serif;
@@ -83,7 +83,7 @@
     .logo-login img {
         height: auto;
         width: 100%;
-        max-width: 300px;
+        max-width: 250px;
     }
 
 .container-2-login {
