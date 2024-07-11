@@ -70,35 +70,57 @@
 
             if ($administracao == 1 ){
 
-                if($pagina == "Nível de acesso") {
-                    ?> 
-                        <div class="sub-container-header">
-                            <ul class="container-header-itens" >
-                                <li><a href="<?php echo BASE_URL ?>/app/administracao/acessoArea/index.php">Controle nível de acesso</a></li>
-                            </ul>
-                        </div>
-                    <?php
-                } else {
-                    ?> 
-                    <div class="sub-container-header">
-                        <ul class="container-header-itens" >
-                            <li><a href="<?php echo BASE_URL ?>/app/administracao/funcionario/index.php">Funcionários</a></li>
-                            <li><a href="<?php echo BASE_URL ?>/app/administracao/setor/index.php">Setores</a></li>
-                            <li><a href="<?php echo BASE_URL ?>/app/administracao/cargo/index.php">Cargos</a></li>
-                            <li class="dropdown-acomodacoes"><a href="#">Acomodações</a>
-                                <div class="container-dropwdown-acomodacoes" >
-                                    <ul class="container-dropwdown-itens font-2-xs">
-                                        <li><a href="<?php echo BASE_URL ?>/app/administracao/acomodacao/index.php">Acomodações</a></li>
-                                        <li><a href="<?php echo BASE_URL ?>/app/administracao/tipoAcomodacao/index.php">Tipo Acomodações</a></li>
+                switch ($grupoPagina) {
+                    case 'Administração geral':
+                            ?> 
+                                <div class="sub-container-header">
+                                    <ul class="container-header-itens" >
+                                        <li><a href="<?php echo BASE_URL ?>/app/administracao/funcionario/index.php">Funcionários</a></li>
+                                        <li><a href="<?php echo BASE_URL ?>/app/administracao/setor/index.php">Setores</a></li>
+                                        <li><a href="<?php echo BASE_URL ?>/app/administracao/cargo/index.php">Cargos</a></li>
+                                        <li class="dropdown-acomodacoes"><a href="#">Acomodações</a>
+                                            <div class="container-dropwdown-acomodacoes" >
+                                                <ul class="container-dropwdown-itens font-2-xs">
+                                                    <li><a href="<?php echo BASE_URL ?>/app/administracao/acomodacao/index.php">Acomodações</a></li>
+                                                    <li><a href="<?php echo BASE_URL ?>/app/administracao/tipoAcomodacao/index.php">Tipo Acomodações</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li><a href="<?php echo BASE_URL ?>/app/administracao/frigobar/index.php">Frigobar</a></li>
+                                        <li><a href="<?php echo BASE_URL ?>/app/administracao/estacionamento/index.php">Estacionamento</a></li>
                                     </ul>
                                 </div>
-                            </li>
-                            <li><a href="<?php echo BASE_URL ?>/app/administracao/frigobar/index.php">Frigobar</a></li>
-                            <li><a href="<?php echo BASE_URL ?>/app/administracao/estacionamento/index.php">Estacionamento</a></li>
-                        </ul>
-                    </div>
-                
-                <?php
+                            
+                            <?php
+                        break;
+    
+                    case 'Nível de acesso':
+                            ?> 
+                                <div class="sub-container-header">
+                                    <ul class="container-header-itens" >
+                                        <li><a href="<?php echo BASE_URL ?>/app/administracao/acessoArea/index.php">Controle nível de acesso</a></li>
+                                    </ul>
+                                </div>
+                            <?php
+       
+                        break;
+    
+                    case 'Logs geral':
+                            
+                            ?> 
+                                <div class="sub-container-header">
+                                    <ul class="container-header-itens" >
+                                        <li><a href="<?php echo BASE_URL ?>/app/administracao/logOperacao/index.php">Logs de Operações</a></li>
+                                    </ul>
+                                </div>
+                            <?php
+
+       
+                        break;
+                    
+                    default:
+     
+                        break;
                 }
             }
         } 
@@ -112,16 +134,16 @@
     </div>
 
     <ul class="navbar-itens">
-        <li class="cor-3 "><a href="navbar-lateral.php" class="font-1-m"><span class="material-symbols-rounded">dashboard</span>Dashboard</a></li>
-        <li class="cor-3"><a href="app/" class="font-1-m"><span class="material-symbols-rounded">style</span>Reservas</a></li>
-        <li class="cor-3"><a href="#" class="font-1-m"><span class="material-symbols-rounded">hotel</span>Acomodações</a></li>
-        <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/cliente/index.php" class="font-1-m"><span class="material-symbols-rounded">group</span>Clientes</a></li>
-        <li class="cor-3"><a href="#" class="font-1-m"><span class="material-symbols-rounded">package_2</span>Estoque</a></li>
+        <li class="cor-3 "><a href="navbar-lateral.php" class="font-1-s"><span class="material-symbols-rounded">dashboard</span>Dashboard</a></li>
+        <li class="cor-3"><a href="app/" class="font-1-s"><span class="material-symbols-rounded">style</span>Reservas</a></li>
+        <li class="cor-3"><a href="#" class="font-1-s"><span class="material-symbols-rounded">hotel</span>Acomodações</a></li>
+        <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/cliente/index.php" class="font-1-s"><span class="material-symbols-rounded">group</span>Clientes</a></li>
+        <li class="cor-3"><a href="#" class="font-1-s"><span class="material-symbols-rounded">package_2</span>Estoque</a></li>
 
         <?php 
             if ($administracao == 1 ){
                 ?> 
-                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/administracao/" class="font-1-m"><span class="material-symbols-rounded">room_preferences</span>Administração</a></li>
+                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/administracao/" class="font-1-s"><span class="material-symbols-rounded">room_preferences</span>Administração</a></li>
                 <?php
             }
         ?>

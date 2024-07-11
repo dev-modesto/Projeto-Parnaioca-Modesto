@@ -1,6 +1,7 @@
 <?php
     $tituloPagina = "Administração";
     $pagina = "Acomodação";
+    $grupoPagina = "Administração geral";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
     if (session_status() == PHP_SESSION_ACTIVE) {
@@ -46,8 +47,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
-        
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
         <!-- link css datatable -->
         <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
     
@@ -143,7 +143,7 @@
                         <form class="was-validated form-container" action="include/gAcomodacao.php" method="post">
                             <div class="mb-3">
                                 <label for="id-tp-acomodacao">Tipo acomodação</label>
-                                <select class="form-select" name="id-tp-acomodacao" required aria-label="select example">
+                                <select class="form-select" name="id-tp-acomodacao" id="id-tp-acomodacao" required aria-label="select example">
                                     <option value="">-</option>
                                     
                                     <?php
@@ -161,31 +161,31 @@
                             <div class="row mb-3">
                                 <div class="col mb-6">
                                     <label class="font-1-s" for="nome-titulo">Nome título</label>
-                                    <input class="form-control" type="text" name="nome-titulo" id="validationText" required>
+                                    <input class="form-control" type="text" name="nome-titulo" id="nome-titulo" required>
                                 </div>
 
                                 <div class="col mb-6">
                                     <label class="font-1-s" for="numero">Número</label>
-                                    <input class="form-control" type="text" name="numero" id="validationText" required>
+                                    <input class="form-control" type="text" name="numero" id="numero" required>
                                 </div>
 
                             </div>
                             
                             <div class="mb-3">
                                 <label class="font-1-s" for="valor">Valor</label>
-                                <input class="form-control monetario" type="text" name="valor" id="validationText" required>
+                                <input class="form-control monetario" type="text" name="valor" id="valor" required>
                             </div>
 
 
 
                             <div class="mb-3">
                                 <label class="font-1-s" for="capacidade">Capacidade máxima</label>
-                                <input class="form-control" type="text" name="capacidade" id="validationText" required>
+                                <input class="form-control" type="text" name="capacidade" id="capacidade" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="id-status">Status</label>
-                                <select class="form-select" name="id-status" required aria-label="select example">
+                                <select class="form-select" name="id-status" id="id-status" required aria-label="select example">
                                     <option value="">Selecione um status</option>
                                     
                                     <?php

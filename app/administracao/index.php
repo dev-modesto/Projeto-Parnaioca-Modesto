@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
         
         <!-- link css datatable -->
         <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
@@ -43,7 +43,7 @@
 
             <div class="container-itens-administracao">
                 <a href="<?php echo BASE_URL . '/app/administracao/funcionario/index.php' ?>">
-                    <div class="card" style="width: 18rem; min-height: 18rem; border: none">
+                    <div class="card" style="width: 15rem; min-height: 15rem; border: none">
                         <div class="card-body card-administracao">
                             <span class="material-symbols-rounded">
                                 inbox_customize
@@ -54,7 +54,7 @@
                 </a>
 
                 <a href="<?php echo BASE_URL . '/app/administracao/acessoArea/index.php' ?>">
-                    <div class="card" style="width: 18rem; min-height: 18rem; border: none">
+                    <div class="card" style="width: 15rem; min-height: 15rem; border: none">
                         <div class="card-body card-administracao">
                             <span class="material-symbols-rounded">
                                 switch_access_2
@@ -64,13 +64,13 @@
                     </div>
                 </a>
 
-                <a href="">
-                    <div class="card" style="width: 18rem; min-height: 18rem; border: none">
+                <a href="<?php echo BASE_URL . '/app/administracao/logOperacao/index.php' ?>">
+                    <div class="card" style="width: 15rem; min-height: 15rem; border: none">
                         <div class="card-body card-administracao">
                             <span class="material-symbols-rounded">
                                 manage_search
                             </span>
-                            <p class="card-title">Logs de acesso</p>
+                            <p class="card-title">Logs geral</p>
                         </div>
                     </div>
                 </a>
