@@ -14,7 +14,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     min-width: 320px;
-    width: 1250px;
+    width: 1000px;
     box-sizing: border-box;
     padding: 50px;
     font: 400 1rem/1.5 "Poppins", sans-serif;
@@ -49,8 +49,7 @@
 
 .input-login {
     height: 45px;
-    position: relative;
-    padding: 0px 0px 0px 40px;
+    padding: 0px 40px 0px 40px;
 }
 
 .input-login::placeholder {
@@ -84,7 +83,7 @@
     .logo-login img {
         height: auto;
         width: 100%;
-        max-width: 300px;
+        max-width: 250px;
     }
 
 .container-2-login {
@@ -99,9 +98,6 @@
         width: 80%;
     }
 
-    .form-login .form-container-button {
-        /* margin-top: 50px; */
-    }
 
     .btn-login {
         height: 45px;
@@ -122,9 +118,7 @@
     }
 
     .icone-login {
-        position: absolute;
         z-index: 1;
-        position: relative;
     }
 
     .icone-matricula::after {
@@ -150,4 +144,19 @@
     box-sizing: border-box;
     padding: 10px;
     font: 300 .92rem/1.5 "Poppins", sans-serif;
+}
+
+.container-input-login {
+    position: relative;
+}
+
+.icone-ver-senha::before {
+    content: url(../../assets/img/password-hidden.svg);
+    position: absolute;
+    top: 9px;
+    right: 8px;
+}
+
+.icone-ver-senha.visible::before {
+    content: url(../../assets/img/password-visible.svg);
 }
