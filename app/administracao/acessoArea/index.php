@@ -1,7 +1,9 @@
 <?php
-    $tituloPagina = "Administração";
+    $setorPagina = "Administração";
     $pagina = "Nível de acesso";
     $grupoPagina = "Nível de acesso";
+    $tituloMenuPagina = "Administração";
+
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
     if (session_status() == PHP_SESSION_ACTIVE) {
