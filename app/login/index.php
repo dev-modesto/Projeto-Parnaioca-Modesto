@@ -65,6 +65,17 @@
                             
                             ?>
 
+                            <?php
+                                if(isset($_GET['msgInvalida'])){
+                                    $msg = $_GET['msgInvalida'];
+                                    echo '<div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                                            '. $msg .'
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>';
+                                }
+                            
+                            ?>
+
                         <div class="form-container-button">
                             <button class='btn-login' type="submit">ENTRAR</button>
                         </div>

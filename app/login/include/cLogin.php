@@ -1,5 +1,6 @@
 <?php
     include __DIR__ . '/../../../config/conexao.php';
+    // include $_SERVER['DOCUMENT_ROOT'] . "/Projeto-Parnaioca-Modesto/config/config.php";
 
     if(isset($_POST['login'])){
 
@@ -35,7 +36,7 @@
                         header('location: ../login/primeiraSenha.php');
                         
                     } else {
-                        header('location: ./../funcionario/');                    
+                        header("location: ../home/index.php");                    
                     }
 
                 } else {
