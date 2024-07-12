@@ -8,7 +8,7 @@
     
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
-        segurancaAdm($con, $idLogado);
+        segurancaLogistica($con, $idLogado);
     }
 
     $sql= "SELECT * FROM tbl_item";
@@ -75,6 +75,7 @@
                     <thead class="">
                         <tr>
                             <th scope="col">Nº</th>
+                            <th scope="col">ID item</th>
                             <th scope="col">SKU</th>
                             <th scope="col">Produto</th>
                             <th scope="col">Preço unit. (R$)</th>
@@ -87,18 +88,19 @@
                         <?php 
                             $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $skuItem = $exibe['id_sku'];
+                                    $idItem = $exibe['id_item'];
                                 ?>
                                 <tr>
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
-                                    <td><?php echo $exibe['id_sku']?></td>
+                                    <td class="id-item"><?php echo $exibe['id_item']?></td>
+                                    <td class="id-sku"><?php echo $exibe['id_sku']?></td>
                                     <td><?php echo $exibe['nome_item']?></td>
                                     <td class="monetario"><?php echo $exibe['preco_unit']?></td>
                                     <td class="id-funcionario"><?php echo $exibe['id_funcionario']?></td>
                                     <td><?php echo $exibe['dt_cadastro']?></td>
                                     <td class="td-icons">
-                                        <a class="btn-editar-funcionario icone-controle-editar " href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
-                                        <a class="btn-excluir-funcionario icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
+                                        <a class="btn-editar-item icone-controle-editar " href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
+                                        <a class="btn-excluir-item icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
                                     </td>
                                 </tr>
                                 <?php
@@ -121,18 +123,18 @@
                         <!-- formulario envio -->
                         <form class="was-validated form-container" action="include/gCadastroProduto.php" method="post">
                             <div class="mb-3">
-                                <label class="font-1-s" for="nome">SKU do produto</label>
-                                <input class="form-control" type="text" name="nome" id="nome" required>
+                                <label class="font-1-s" for="sku">SKU do produto</label>
+                                <input class="form-control" type="text" name="sku" id="sku" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="nome">Nome produto</label>
-                                <input class="form-control" type="text" name="nome" id="nome" required>
+                                <label class="font-1-s" for="nome-produto">Nome produto</label>
+                                <input class="form-control" type="text" name="nome-produto" id="nome-produto" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="nome">Preço</label>
-                                <input class="form-control monetario" type="text" name="nome" id="nome" required>
+                                <label class="font-1-s" for="preco">Preço</label>
+                                <input class="form-control monetario" type="text" name="preco" id="preco" required>
                             </div>
 
                             <?php if(!empty($mensagem)){ ?>  
@@ -154,7 +156,7 @@
                 </div>
             </div>
 
-            <div class="modalEditarProduto">
+            <div class="modalEditarCadastroProduto">
             </div>
 
             <div class="modalExcluir">

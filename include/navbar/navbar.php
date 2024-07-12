@@ -134,7 +134,7 @@
                             ?> 
                                 <div class="sub-container-header">
                                     <ul class="container-header-itens" >
-                                        <li><a href="<?php echo BASE_URL ?>/app/estoque/produtos/cadastro/index.php">Cadastro</a></li>
+                                        <li><a href="<?php echo BASE_URL ?>/app/estoque/produto/cadastro/index.php">Cadastro</a></li>
                                     </ul>
                                     <ul class="container-header-itens" >
                                         <li><a href="<?php echo BASE_URL ?>/app/estoque/frigobar/cadastro/index.php">Entrada</a></li>
@@ -169,10 +169,16 @@
         <li class="cor-3 "><a href="navbar-lateral.php" class="font-1-s"><span class="material-symbols-rounded">dashboard</span>Dashboard</a></li>
         <li class="cor-3"><a href="app/" class="font-1-s"><span class="material-symbols-rounded">style</span>Reservas</a></li>
         <li class="cor-3"><a href="#" class="font-1-s"><span class="material-symbols-rounded">hotel</span>Acomodações</a></li>
-        <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/cliente/index.php" class="font-1-s"><span class="material-symbols-rounded">group</span>Clientes</a></li>
+        
        
 
         <?php 
+
+            if ($sac == 1 ){
+                ?> 
+                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/cliente/index.php" class="font-1-s"><span class="material-symbols-rounded">group</span>Clientes</a></li>
+                <?php
+            }
 
             if ($logistica == 1) {
                 ?> 
@@ -185,6 +191,8 @@
                     <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/administracao/" class="font-1-s"><span class="material-symbols-rounded">room_preferences</span>Administração</a></li>
                 <?php
             }
+
+
         ?>
         
     </ul>
