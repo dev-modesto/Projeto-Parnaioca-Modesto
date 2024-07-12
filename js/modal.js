@@ -470,3 +470,51 @@ $(document).ready(function () {
         });
     });
 });
+
+$(document).ready(function () {
+    $('.btn-excluir-item').click(function (e) { 
+        e.preventDefault();
+        var idItem = $(this).closest('tr').find('.id-item').text()
+        var idSku = $(this).closest('tr').find('.id-sku').text()
+
+        $.ajax({
+            type: "POST",
+            url: "../../../estoque/produto/cadastro/include/eModalExcluirCadastroProduto.php",
+
+            data: {
+                'click-btn-excluir-item':true,
+                'idItem':idItem,
+                'idSku':idSku,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('.btn-editar-item').click(function (e) { 
+        e.preventDefault();
+        var idItem = $(this).closest('tr').find('.id-item').text()
+        var idSku = $(this).closest('tr').find('.id-sku').text()
+
+        $.ajax({
+            type: "POST",
+            url: "../../../estoque/produto/cadastro/include/cModalEditarCadastroProduto.php",
+
+            data: {
+                'click-btn-editar-cadastro-item':true,
+                'idItem':idItem,
+                'idSku':idSku,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalEditarCadastroProduto').html(response)
+                $('#modalEditarCadastroProduto').modal('show');
+            }
+        });
+    });
+});
