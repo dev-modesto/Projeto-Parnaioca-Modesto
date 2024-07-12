@@ -143,7 +143,7 @@
                                         <li><a href="<?php echo BASE_URL ?>/app/estoque/produto/cadastro/index.php">Cadastro</a></li>
                                     </ul>
                                     <ul class="container-header-itens" >
-                                        <li><a href="<?php echo BASE_URL ?>/app/estoque/frigobar/cadastro/index.php">Entrada</a></li>
+                                        <li><a href="<?php echo BASE_URL ?>/app/estoque/produto/entrada/index.php">Entrada</a></li>
                                     </ul>
                                     <ul class="container-header-itens" >
                                         <li><a href="<?php echo BASE_URL ?>/app/estoque/frigobar/cadastro/index.php">Saída</a></li>
