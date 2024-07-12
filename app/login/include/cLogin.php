@@ -6,8 +6,8 @@
         $login = $_POST['login'];
         $senha = $_POST['senha'];
 
-        $stmt = mysqli_prepare($con,"SELECT * FROM tbl_funcionario WHERE id_funcionario = ?"); //estou preparando a consulta com o msqli_prepare
-        mysqli_stmt_bind_param($stmt,"i", $login);//informei os parametros 
+        $stmt = mysqli_prepare($con,"SELECT * FROM tbl_funcionario WHERE id_funcionario = ?");
+        mysqli_stmt_bind_param($stmt,"i", $login);
         $busca_login = mysqli_stmt_execute($stmt);
 
         if($busca_login){
@@ -20,17 +20,13 @@
                 $dt_cadastro = $array['dt_cadastro'];
                 $dt_atualizacao = $array['dt_atualizacao'];
 
-                // echo "<pre>";
-                // print_r($array);
-                //verificando a senha
-                if (password_verify($senha, $hash)){ //verificando a senha digitada com a senha do banco
+                if (password_verify($senha, $hash)){
 
                     //[senha correta]
                     session_start();
                     //armazenando os dados do banco na sessão
                     $_SESSION['id'] = $array['id_funcionario'];
                     $_SESSION['nome'] = $array['nome'];
-                    $_SESSION['cpf'] = $array['cpf'];
                     $_SESSION['dt_cadastro'] = $array['dt_cadastro'];
                     $_SESSION['dt_atualizacao'] = $array['dt_atualizacao'];
                     
@@ -38,22 +34,23 @@
                     if ($dt_cadastro == $dt_atualizacao){
                         header('location: ../login/primeiraSenha.php');
                         
-                    }else {
+                    } else {
                         header('location: ./../funcionario/');                    
                     }
 
-                }else{
+                } else {
                     $mensagem = 'Senha inválida';
                 }
 
             } else {
                 $mensagem = "Usuário não encontrado ou senha inválida";
+            
             }
-        }else {
+        } else {
             echo 'nao foi possivel executar a consulta';
         }
 
-    }else {
+    } else {
         $mensagem = "";
     }
 ?>
