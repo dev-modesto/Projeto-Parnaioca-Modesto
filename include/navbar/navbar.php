@@ -21,6 +21,12 @@
         $sac = $arrayAcesso['sac'];
         $logistica = $arrayAcesso['logistica'];
         $administracao = $arrayAcesso['administracao'];
+
+        if ($sac == 0 AND $logistica == 0 AND $administracao == 0) {
+            header("location: " . BASE_URL . "/app/login/index.php?msgInvalida=Usuário sem acesso ao sistema. Favor, entre em contato com o administrador.");
+            mysqli_close($con);
+            die();
+        } 
     }
     
 ?>
