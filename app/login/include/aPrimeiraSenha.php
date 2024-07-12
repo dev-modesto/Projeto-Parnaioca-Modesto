@@ -1,41 +1,47 @@
 <?php 
-    include __DIR__ . '/../../../config/conexao.php'; 
-    include './../funcao/verificaCriterioSenha.php'; 
+    include $_SERVER['DOCUMENT_ROOT'] . "/Projeto-Parnaioca-Modesto/config/config.php";
+    include ARQUIVO_CONEXAO;
+    include PASTA_FUNCOES . '/verificaCriterioSenha.php';
     
     session_start(); 
 
-    if(isset($_POST['senha'])){
+    if(isset($_POST['senha'])) {
         $novaSenha = trim($_POST['senha']);
         $confirmaNovaSenha = trim($_POST['senha-confirma']);
 
         if($novaSenha == $confirmaNovaSenha){
 
-            $sql = 'SELECT * FROM tbl_funcionario WHERE id_funcionario = ' . $_SESSION['id'];
+            $sql = "SELECT * FROM tbl_funcionario WHERE id_funcionario = " . $_SESSION['id'];
             $retornoConsulta = mysqli_query($con,$sql);
             $hash = password_hash($novaSenha,PASSWORD_DEFAULT);
             $id = $_SESSION['id'];
 
-            if(verificaCriterioSenha($criterioSenha, $novaSenha)){
+            if(verificaCriterioSenha($criterioSenha, $novaSenha)) {
 
-                $sql2 = "UPDATE tbl_funcionario SET senha = '" . $hash . "' WHERE id_funcionario = " . $id;
-
-                if(mysqli_query($con,$sql2)){
-                    $_SESSION['update_success'] = true;
+                $sqlAtualizar = mysqli_prepare($con, "UPDATE tbl_funcionario SET senha = ? WHERE id_funcionario = $id ");
+                mysqli_stmt_bind_param($sqlAtualizar, "s", $hash);
+            
+                if (mysqli_stmt_execute($sqlAtualizar)) {
                     header('location: ../login/index.php?msg=Atualizado com sucesso!');
                     session_destroy();
+
                 } else {
                     $newMensage = "Erro ao gravar" . mysqli_error($con);
+
                 }
+
                 mysqli_close($con);
 
-            }else {
-                $mensagem = 'A senha nao atendeu aos requisitos.';
+            } else {
+                $mensagem = 'A senha não atendeu aos requisitos.';
             }
-            
 
         } else {
             $mensagem = 'Senhas não coincidem';
         }
-        
+
+    } else {
+        $mensagem = "";
     }
+    
 ?>
