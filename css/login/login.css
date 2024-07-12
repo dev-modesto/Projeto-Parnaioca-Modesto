@@ -155,6 +155,7 @@
     position: absolute;
     top: 9px;
     right: 8px;
+    cursor: pointer;
 }
 
 .icone-ver-senha.visible::before {
