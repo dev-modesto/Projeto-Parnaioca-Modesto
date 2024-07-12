@@ -1,29 +1,16 @@
 <?php
+    $setorPagina = "Administração";
+    $pagina = "Setor";
+    $grupoPagina = "Administração geral";
+    $tituloMenuPagina = "Administração";
+
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
-    $maxItensPagina = 10;
-
-    $sql_count = "SELECT COUNT(id_setor) AS total FROM tbl_setor";
-    $result_count = mysqli_query($con, $sql_count);
-    $row_count = mysqli_fetch_assoc($result_count);
-    $total_results = $row_count['total'];
-
-    $total_pages = ceil($total_results / $maxItensPagina);
-
-    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
-    if ($page > $total_pages) {
-        $page = $total_pages;
-    } elseif ($page < 1) {
-        $page = 1;
-    }
-
-    $offset = ($page - 1) * $maxItensPagina;
-
     if (session_status() == PHP_SESSION_ACTIVE) {
-        $nomeLogado = $_SESSION['id'];
+        $idLogado = $_SESSION['id'];
+        segurancaAdm($con, $idLogado);
     }
 
-    // consulta sql para exibir dados da tabela
     $sql = 'SELECT * FROM tbl_setor';
     $consulta = mysqli_query($con, $sql);
 
@@ -43,7 +30,7 @@
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
         
             <!-- link css datatable -->
             <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
@@ -67,15 +54,15 @@
 
             <span class="separador"></span>
 
-
-            <?php if(!empty($mensagem)){ ?>  
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?php echo $mensagem ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div> 
-            <?php }else {
-                    echo '';
+            <?php
+                if(isset($_GET['msgInvalida'])){
+                    $msg = $_GET['msgInvalida'];
+                    echo '<div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                            '. $msg .'
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>';
                 }
+            
             ?>
 
             <!-- Tabela -->

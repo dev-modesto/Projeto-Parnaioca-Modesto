@@ -1,8 +1,15 @@
 <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
-    include ARQUIVO_CONEXAO;
-    include ARQUIVO_SEGURANCA;
-    include ARQUIVO_NAVBAR;
+    $setorPagina = "Administração";
+    $pagina = "Acomodação";
+    $grupoPagina = "Administração geral";
+    $tituloMenuPagina = "Administração";
+
+    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+        segurancaAdm($con, $idLogado);
+    }
 
     $sqlInner = 
                 "SELECT 
@@ -26,10 +33,6 @@
     $consultaInnerStatus = mysqli_query($con, $sqlInnerStatus);
     $arrayInnerStatus = mysqli_fetch_array($consultaInnerStatus);
 
-    if (session_status() == PHP_SESSION_ACTIVE) {
-        $nomeLogado = $_SESSION['id'];
-    }
-
 ?>
     
     <!DOCTYPE html>
@@ -46,8 +49,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
-        
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
         <!-- link css datatable -->
         <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
     
@@ -116,7 +118,7 @@
                                     <td class="monetario"><?php echo $exibe['valor']?></td>
                                     <td><?php echo $exibe['capacidade_max']?></td>
                                     <!-- <td><?php echo $exibe['id_status']?></td> -->
-                                    <td><?php echo $exibe['nome_status']?></td>
+                                    <td><span class="status-geral"><?php echo $exibe['nome_status']?></span></td>
                                     <td class="td-icons">
                                         <a class="btn-editar-acomodacao icone-controle-editar" href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
                                         <a class="btn-excluir-acomodacao icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
@@ -143,7 +145,7 @@
                         <form class="was-validated form-container" action="include/gAcomodacao.php" method="post">
                             <div class="mb-3">
                                 <label for="id-tp-acomodacao">Tipo acomodação</label>
-                                <select class="form-select" name="id-tp-acomodacao" required aria-label="select example">
+                                <select class="form-select" name="id-tp-acomodacao" id="id-tp-acomodacao" required aria-label="select example">
                                     <option value="">-</option>
                                     
                                     <?php
@@ -161,31 +163,31 @@
                             <div class="row mb-3">
                                 <div class="col mb-6">
                                     <label class="font-1-s" for="nome-titulo">Nome título</label>
-                                    <input class="form-control" type="text" name="nome-titulo" id="validationText" required>
+                                    <input class="form-control" type="text" name="nome-titulo" id="nome-titulo" required>
                                 </div>
 
                                 <div class="col mb-6">
                                     <label class="font-1-s" for="numero">Número</label>
-                                    <input class="form-control" type="text" name="numero" id="validationText" required>
+                                    <input class="form-control" type="text" name="numero" id="numero" required>
                                 </div>
 
                             </div>
                             
                             <div class="mb-3">
                                 <label class="font-1-s" for="valor">Valor</label>
-                                <input class="form-control monetario" type="text" name="valor" id="validationText" required>
+                                <input class="form-control monetario" type="text" name="valor" id="valor" required>
                             </div>
 
 
 
                             <div class="mb-3">
                                 <label class="font-1-s" for="capacidade">Capacidade máxima</label>
-                                <input class="form-control" type="text" name="capacidade" id="validationText" required>
+                                <input class="form-control" type="text" name="capacidade" id="capacidade" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="id-status">Status</label>
-                                <select class="form-select" name="id-status" required aria-label="select example">
+                                <select class="form-select" name="id-status" id="id-status" required aria-label="select example">
                                     <option value="">Selecione um status</option>
                                     
                                     <?php
@@ -234,7 +236,18 @@
         include __DIR__ . '/../../../include/footer.php';
     ?>
 
-    <!-- <script src="../../js/modal.js"></script> -->
     <script src="<?php echo BASE_URL ?>/js/modal.js"></script>
     <script src="<?php echo BASE_URL ?>/js/table.js"></script>
 
+
+    <script>
+
+        document.querySelectorAll('.status-geral').forEach(function(element) {
+            if (element.textContent.trim() === 'Ativo') {
+                element.classList.add('ativo');
+            } else if (element.textContent.trim() === 'Inativo') {
+                element.classList.add('inativo');
+            }
+        });
+ 
+    </script>

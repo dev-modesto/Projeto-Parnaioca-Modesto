@@ -331,3 +331,190 @@ $(document).ready(function () {
     });
 });
 
+
+$(document).ready(function () {
+    $('.btn-excluir-frigobar').click(function (e) { 
+        e.preventDefault();
+        var idFrigobar = $(this).closest('tr').find('.id-frigobar').text()
+        console.log('id frigobar: ' + idFrigobar);
+
+        $.ajax({
+            type: "POST",
+            url: "../frigobar/include/eModalExcluirFrigobar.php",
+
+            data: {
+                'click-excluir-frigobar':true,
+                'idFrigobar':idFrigobar,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('.btn-editar-frigobar').click(function (e) { 
+        e.preventDefault();
+        var idFrigobar = $(this).closest('tr').find('.id-frigobar').text()
+        // console.log('id frigobar: ' + idFrigobar);
+
+        $.ajax({
+            type: "POST",
+            url: "../frigobar/include/cModalEditarFrigobar.php",
+
+            data: {
+                'click-editar-frigobar':true,
+                'idFrigobar':idFrigobar,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalEditarFrigobar').html(response)
+                $('#modalEditarFrigobar').modal('show');
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('.btn-excluir-cliente').click(function (e) { 
+        e.preventDefault();
+        var idCliente = $(this).closest('tr').find('.id-cliente').text()
+        // console.log('id cliente: ' + idCliente);
+
+        $.ajax({
+            type: "POST",
+            url: "../cliente/include/eModalExcluirCliente.php",
+
+            data: {
+                'click-excluir-cliente':true,
+                'idCliente':idCliente,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('.btn-editar-cliente').click(function (e) { 
+        e.preventDefault();
+        var idCliente = $(this).closest('tr').find('.id-cliente').text()
+        console.log('id-cliente: ' + idCliente);
+
+        $.ajax({
+            type: "POST",
+            url: "../cliente/include/cModalEditarCliente.php",
+
+            data: {
+                'click-editar-cliente':true,
+                'idCliente':idCliente,
+            },
+            success: function (response) {
+                console.log('Response: ' + response);
+                $('.modalEditarCliente').html(response)
+                $('#modalEditarCliente').modal('show');
+            }
+        });
+    });
+});
+
+
+$(document).ready(function () {
+    $('.btn-editar-acesso-area').click(function (e) { 
+        e.preventDefault();
+        var idFuncionario = $(this).closest('tr').find('.id-funcionario').text()
+        console.log('id-funcionario: ' + idFuncionario);
+
+        $.ajax({
+            type: "GET",
+            url: "../acessoArea/include/cModalEditarAcessoArea.php",
+
+            data: {
+                'click-editar-acesso-area':true,
+                'idFuncionario':idFuncionario,
+            },
+            success: function (response) {
+                console.log('Response: ' + response);
+                $('.modalEditarAcessoArea').html(response)
+                $('#modalEditarAcessoArea').modal('show');
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('.btn-visualizar-info-cliente').click(function (e) { 
+        e.preventDefault();
+        var idCliente = $(this).closest('tr').find('.id-cliente').text()
+        console.log('id-cliente: ' + idCliente);
+
+        $.ajax({
+            type: "POST",
+            url: "../cliente/include/cModalVisualizarInfoCliente.php",
+
+            data: {
+                'click-visualizar-info-cliente':true,
+                'idCliente':idCliente,
+            },
+            success: function (response) {
+                console.log('Response: ' + response);
+                $('.modalVisualizarInfoCliente').html(response)
+                $('#modalVisualizarInfoCliente').modal('show');
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('.btn-excluir-item').click(function (e) { 
+        e.preventDefault();
+        var idItem = $(this).closest('tr').find('.id-item').text()
+        var idSku = $(this).closest('tr').find('.id-sku').text()
+
+        $.ajax({
+            type: "POST",
+            url: "../../../estoque/produto/cadastro/include/eModalExcluirCadastroProduto.php",
+
+            data: {
+                'click-btn-excluir-item':true,
+                'idItem':idItem,
+                'idSku':idSku,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalExcluir').html(response)
+                $('#modalExcluir').modal('show');
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('.btn-editar-item').click(function (e) { 
+        e.preventDefault();
+        var idItem = $(this).closest('tr').find('.id-item').text()
+        var idSku = $(this).closest('tr').find('.id-sku').text()
+
+        $.ajax({
+            type: "POST",
+            url: "../../../estoque/produto/cadastro/include/cModalEditarCadastroProduto.php",
+
+            data: {
+                'click-btn-editar-cadastro-item':true,
+                'idItem':idItem,
+                'idSku':idSku,
+            },
+            success: function (response) {
+                // console.log('Response: ' + response);
+                $('.modalEditarCadastroProduto').html(response)
+                $('#modalEditarCadastroProduto').modal('show');
+            }
+        });
+    });
+});

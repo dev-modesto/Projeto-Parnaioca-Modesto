@@ -29,7 +29,7 @@ label {
 
 .form-container-button {
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
     margin-top:0px ;
     background-color: white;
     padding: 0px;

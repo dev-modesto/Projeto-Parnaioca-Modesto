@@ -1,13 +1,19 @@
 <?php
+    $setorPagina = "Administração";
+    $pagina = "Cargo";
+    $grupoPagina = "Administração geral";
+    $tituloMenuPagina = "Administração";
+
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
-    // include ARQUIVO_CONEXAO;
-    // include ARQUIVO_SEGURANCA;
-    // include ARQUIVO_NAVBAR;
 
-    
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+        segurancaAdm($con, $idLogado);
+    }
+
     $sql = "SELECT c.id_cargo, c.nome_cargo, c.salario, s.nome_setor FROM tbl_cargo c INNER JOIN tbl_setor s ON c.id_setor = s.id_setor ORDER BY c.id_cargo";
-
     $consulta = mysqli_query($con, $sql);
+
 ?>
 
     <!DOCTYPE html>
@@ -24,8 +30,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
-   
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
         <!-- link css datatable -->
         <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
 
@@ -116,7 +121,7 @@
                         <form class="was-validated form-container" action="include/gCargo.php" method="post">
                             <div class="mb-3">
                                 <label class="font-1-s" for="cargo">Cargo</label>
-                                <input class="form-control" type="text" name="cargo" id="validationText" required>
+                                <input class="form-control" type="text" name="cargo" id="cargo" required>
                                 <div class="invalid-feedback">
                                     
                                 </div>

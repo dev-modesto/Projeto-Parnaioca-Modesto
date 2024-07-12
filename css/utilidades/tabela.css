@@ -12,6 +12,10 @@
   overflow-x: auto;
 }
 
+#myTable {
+  width: 100% !important;
+}
+
 .table td {
     border: 1px solid var(--cor-3);
     font-family: "Poppins", sans-serif;
@@ -81,4 +85,98 @@
 
 .icone-controle-excluir:hover span {
   color: var(--cor-a-red4);
+}
+
+.status-geral.ativo {
+  background-color: var(--cor-a-green1);
+  border: 1px solid var(--cor-a-green4);
+  color: var(--cor-a-green4);
+}
+
+.status-geral.inativo {
+  background-color: var(--cor-a-red1);
+  border: 1px solid var(--cor-a-red4);
+  color: var(--cor-a-red4);
+}
+
+.status-geral.ativo,
+.status-geral.inativo,
+.legenda-acesso.sim, 
+.legenda-acesso.não,
+.legenda-tp-operacao.insercao,
+.legenda-tp-operacao.atualizacao,
+.legenda-tp-operacao.exclusao {
+  box-sizing: border-box;
+  padding: 5px;
+  border-radius: 0.5rem;
+  font-size: .85rem;
+}
+
+.legenda-acesso.sim {
+  background-color: var(--cor-a-green1);
+  border: 1px solid var(--cor-a-green4);
+  color: var(--cor-a-green4);
+}
+
+.legenda-acesso.não {
+  background-color: var(--cor-2);
+  border: 1px solid var(--cor-6);
+  color: var(--cor-6);
+}
+
+/* legenda de log */
+.legenda-tp-operacao.insercao {
+  background-color: var(--cor-a-green1);
+  border: 1px solid var(--cor-a-green4);
+  color: var(--cor-a-green4);
+}
+
+.legenda-tp-operacao.atualizacao {
+  background-color: var(--cor-a-yellow1);
+  border: 1px solid var(--cor-a-yellow4);
+  color: var(--cor-a-yellow4);
+}
+
+.legenda-tp-operacao.exclusao {
+  background-color: var(--cor-a-red1);
+  border: 1px solid var(--cor-a-red4);
+  color: var(--cor-a-red4);
+}
+
+.dt-info,
+.paging_full_numbers {
+  color: var(--cor-6);
+  font-weight: 300;
+  font-size: .85rem;
+}
+
+.dt-length label {
+  color: var(--cor-8);
+  font-weight: 300;
+  font-size: .85rem;
+}
+.dt-search label {
+  color: var(--cor-8);
+  font-weight: 300;
+}
+
+.paging_simple_numbers {
+  font-weight: 300;
+  font-size: .85rem;
+}
+
+.dt-paging-button {
+  /* background-color: aqua !important; */
+  border: 1px solid var(--cor-2) !important;
+}
+
+.dt-paging-button.current {
+  background-color: red !important;
+  background-color: var(--cor-4) !important;
+  color: white !important;
+}
+
+.dt-paging-button.disabled.previous,
+.dt-paging-button.disabled.next {
+  background-color: var(--cor-1) !important;
 }

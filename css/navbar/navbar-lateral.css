@@ -1,5 +1,5 @@
 .container-navbar-lateral {
-    width: 256px;
+    width: 226px;
     min-height: 100vh;
     background-color: var(--cor-p6);
     position: fixed;
@@ -71,10 +71,14 @@
     top: 120px;
 }
 
+.conteudo-user {
+    top: 70px;
+}
+
 
 body {
     display: grid;
-    grid-template-columns: 256px minmax(300px,auto);
+    grid-template-columns: 226px minmax(300px,auto);
     grid-template-rows: auto auto 1fr;
     grid-template-areas:
         'aside principal-header'

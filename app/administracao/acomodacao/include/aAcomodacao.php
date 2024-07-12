@@ -2,6 +2,13 @@
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
     include './../../../funcao/converter.php';
+    include ARQUIVO_FUNCAO_SQL;
+    
+    session_start();
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+    }
 
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -41,6 +48,13 @@
         );
 
         if(mysqli_stmt_execute($stmt)) {
+            // log operações
+                $nomeTabela = 'tbl_acomodacao';
+                $idRegistro = $id;
+                $tpOperacao = 'atualizacao';
+                $descricao = 'Acomodação atualização ID: ' . $idRegistro;
+                logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+            // 
             header('location: ../index.php?msg=Atualizado com sucesso!');
         } else {
             echo "Erro ao gravar: " . mysqli_error($con);

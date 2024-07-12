@@ -1,17 +1,18 @@
 <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
-    include ARQUIVO_CONEXAO;
-    include ARQUIVO_SEGURANCA;
-    include ARQUIVO_NAVBAR;
+    $setorPagina = "Administração";
+    $pagina = "Funcionários";
+    $grupoPagina = 'Administração geral';
+    $tituloMenuPagina = 'Administração';
     
-    // include '../login/include/cLogin.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+    
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+        segurancaAdm($con, $idLogado);
+    }
 
     $sql2= "SELECT f.id_funcionario, f.nome, f.cpf, f.telefone, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo ORDER BY f.nome";
     $consulta = mysqli_query($con, $sql2);
-
-    if (session_status() == PHP_SESSION_ACTIVE) {
-        $nomeLogado = $_SESSION['id'];
-    }
 
 ?>
 
@@ -29,7 +30,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
         
         <!-- link css datatable -->
         <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
@@ -124,7 +125,7 @@
                         <form class="was-validated form-container" action="include/gFuncionario.php" method="post">
                             <div class="mb-3">
                                 <label class="font-1-s" for="nome">Nome completo</label>
-                                <input class="form-control" type="text" name="nome" id="validationText" required>
+                                <input class="form-control" type="text" name="nome" id="nome" required>
                                 <div class="invalid-feedback">
                                     
                                 </div>
@@ -149,7 +150,7 @@
 
                             <div class="mb-3">
                                 <label for="id_cargo">Cargo</label>
-                                <select class="form-select" name="id_cargo" required aria-label="select example">
+                                <select class="form-select" name="id_cargo" id="id_cargo" aria-label="select example">
                                     <option value="">Selecione um cargo</option>
                                     <?php
                                         include '../../config/conexao.php';
