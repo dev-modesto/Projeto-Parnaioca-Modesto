@@ -7,7 +7,7 @@
 
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
-        segurancaAdm($con, $idLogado);
+        segurancaLogistica($con, $idLogado);
     }
 
 ?>

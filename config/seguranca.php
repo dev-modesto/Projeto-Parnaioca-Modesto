@@ -30,4 +30,30 @@
 
     }
 
+    function segurancaLogistica($con, $id){
+        $sqlAcesso = "SELECT * FROM tbl_acesso_area WHERE id_funcionario = '$id'";
+        $consultaAcesso = mysqli_query($con, $sqlAcesso);
+        $arrayAcesso = mysqli_fetch_array($consultaAcesso);
+
+        $idAcesso = $arrayAcesso['logistica'];
+
+        if ($idAcesso != 1) {
+            header('location:' .BASE_URL .'/app/cliente/index.php');
+        }
+
+    }
+
+    function segurancaSac($con, $id){
+        $sqlAcesso = "SELECT * FROM tbl_acesso_area WHERE id_funcionario = '$id'";
+        $consultaAcesso = mysqli_query($con, $sqlAcesso);
+        $arrayAcesso = mysqli_fetch_array($consultaAcesso);
+
+        $idAcesso = $arrayAcesso['sac'];
+
+        if ($idAcesso != 1) {
+            header('location:' .BASE_URL .'/app/cliente/index.php');
+        }
+
+    }
+
 ?>
