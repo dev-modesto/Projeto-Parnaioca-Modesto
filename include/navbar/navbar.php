@@ -134,7 +134,7 @@
                             ?> 
                                 <div class="sub-container-header">
                                     <ul class="container-header-itens" >
-                                        <li><a href="<?php echo BASE_URL ?>/app/estoque/produtos/cadastro/index.php">Cadastro</a></li>
+                                        <li><a href="<?php echo BASE_URL ?>/app/estoque/produto/cadastro/index.php">Cadastro</a></li>
                                     </ul>
                                     <ul class="container-header-itens" >
                                         <li><a href="<?php echo BASE_URL ?>/app/estoque/frigobar/cadastro/index.php">Entrada</a></li>
