@@ -518,3 +518,43 @@ $(document).ready(function () {
         });
     });
 });
+
+
+// var botaoClick = '.btn-editar-item';
+// var classIdTabela = '.id-item';
+// var urlCaminho = '../../../estoque/produto/cadastro/include/cModalEditarCadastroProduto.php';
+// var classClickModal = 'click-btn-editar-cadastro-item';
+// var classModal = '.modalEditarCadastroProduto';
+// var idModal = '#modalEditarCadastroProduto';
+
+// estoque > produto > entrada
+chamarModal('.btn-excluir-entrada-item-estoque', '.id_entrada-item-estoque', '../../../estoque/produto/entrada/include/eModalExcluirEntradaItemEstoque.php', 'click-btn-excluir-entrada-item-estoque', '.modalExcluir', '#modalExcluir');
+chamarModal('.btn-editar-entrada-item-estoque', '.id_entrada-item-estoque', '../../../estoque/produto/entrada/include/cModalEditarEntradaProdutoEstoque.php', 'click-btn-editar-entrada-item-estoque', '.modalEditarEntradaItemEstoque', '#modalEditarEntradaItemEstoque');
+
+
+function chamarModal(botaoClick, classIdTabela, urlCaminho, classClickModal, classModal, idModal) {
+    $(document).ready(function () {
+        $(document).on('click', botaoClick, function (e) {
+            console.log('botao clicado!!');
+            
+            e.preventDefault();
+            var idTabela = $(this).closest('tr').find(classIdTabela).text();
+            console.log(idTabela);
+
+            $.ajax({
+                type: "POST",
+                url: urlCaminho,
+                data: {
+                    [classClickModal]: true,
+                    idTabela: idTabela,
+                },
+                success: function (response) {
+                    $(classModal).html(response);
+                    $(idModal).modal('show');
+                }
+            });
+        });
+    });
+}
+
+
