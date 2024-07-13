@@ -1,7 +1,16 @@
 <?php
-    $tituloPagina = "Clientes";
+    $setorPagina = "SAC";
+    $pagina = "Cadastro de clientes";
+    // $grupoPagina = "";
+    $tituloMenuPagina = "Clientes";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
-    
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+        $nomeFuncionario = $_SESSION['nome'];
+        segurancaSac($con, $idLogado);
+    }
+
     $sql = 
             "SELECT 
                 c.id_cliente, 
@@ -30,10 +39,6 @@
     $totalClientesAtivos = mysqli_num_rows($consultaClienteCriterio);
     $totalClientesInativos = ($totalClientes - $totalClientesAtivos);
 
-    if (session_status() == PHP_SESSION_ACTIVE) {
-        $nomeLogado = $_SESSION['id'];
-        $nomeFuncionario = $_SESSION['nome'];
-    }
 
 ?>
 

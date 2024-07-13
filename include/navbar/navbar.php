@@ -21,6 +21,12 @@
         $sac = $arrayAcesso['sac'];
         $logistica = $arrayAcesso['logistica'];
         $administracao = $arrayAcesso['administracao'];
+
+        if ($sac == 0 AND $logistica == 0 AND $administracao == 0) {
+            header("location: " . BASE_URL . "/app/login/index.php?msgInvalida=Usuário sem acesso ao sistema. Favor, entre em contato com o administrador.");
+            mysqli_close($con);
+            die();
+        } 
     }
     
 ?>
@@ -32,7 +38,7 @@
 <header class="header">
     <div class="principal-container-header">
         <div class="container-titulo-cabecalho">
-            <h1 class="font-1-xxl-1"><?php echo $tituloPagina ?></h1>
+            <h1 class="font-1-xxl-1"><?php echo $tituloMenuPagina ?></h1>
         </div>
 
         <div class="container-usuario-logado">
@@ -63,7 +69,7 @@
 
     <?php 
 
-        if ($tituloPagina == "Administração") {
+        if ($setorPagina == "Administração") {
             // echo "<pre>";
             // print_r('pagina administracao');
             // die();
@@ -123,7 +129,39 @@
                         break;
                 }
             }
-        } 
+        }  
+
+        if ($setorPagina == "Logística") {
+
+            if ($logistica == 1) {
+
+                switch ($grupoPagina) {
+                    case 'Produtos':
+                            ?> 
+                                <div class="sub-container-header">
+                                    <ul class="container-header-itens" >
+                                        <li><a href="<?php echo BASE_URL ?>/app/estoque/produto/cadastro/index.php">Cadastro</a></li>
+                                    </ul>
+                                    <ul class="container-header-itens" >
+                                        <li><a href="<?php echo BASE_URL ?>/app/estoque/produto/entrada/index.php">Entrada</a></li>
+                                    </ul>
+                                    <ul class="container-header-itens" >
+                                        <li><a href="<?php echo BASE_URL ?>/app/estoque/frigobar/cadastro/index.php">Saída</a></li>
+                                    </ul>
+                                </div>
+                            <?php
+                        break;
+
+                    case 'Frigobar':
+                        break;
+
+                default:
+                        break;
+                    
+                }
+            }
+        }
+
     ?>
 
 </header>
@@ -137,15 +175,30 @@
         <li class="cor-3 "><a href="navbar-lateral.php" class="font-1-s"><span class="material-symbols-rounded">dashboard</span>Dashboard</a></li>
         <li class="cor-3"><a href="app/" class="font-1-s"><span class="material-symbols-rounded">style</span>Reservas</a></li>
         <li class="cor-3"><a href="#" class="font-1-s"><span class="material-symbols-rounded">hotel</span>Acomodações</a></li>
-        <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/cliente/index.php" class="font-1-s"><span class="material-symbols-rounded">group</span>Clientes</a></li>
-        <li class="cor-3"><a href="#" class="font-1-s"><span class="material-symbols-rounded">package_2</span>Estoque</a></li>
+        
+       
 
         <?php 
+
+            if ($sac == 1 ){
+                ?> 
+                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/cliente/index.php" class="font-1-s"><span class="material-symbols-rounded">group</span>Clientes</a></li>
+                <?php
+            }
+
+            if ($logistica == 1) {
+                ?> 
+                     <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/estoque/" class="font-1-s"><span class="material-symbols-rounded">package_2</span>Estoque</a></li>
+                 <?php
+            } 
+
             if ($administracao == 1 ){
                 ?> 
                     <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/administracao/" class="font-1-s"><span class="material-symbols-rounded">room_preferences</span>Administração</a></li>
                 <?php
             }
+
+
         ?>
         
     </ul>

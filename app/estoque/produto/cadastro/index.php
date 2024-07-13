@@ -1,18 +1,18 @@
 <?php
-    $setorPagina = "Administração";
-    $pagina = "Funcionários";
-    $grupoPagina = 'Administração geral';
-    $tituloMenuPagina = 'Administração';
-    
+    $setorPagina = "Logística";
+    $pagina = "Cadastro de produtos";
+    $grupoPagina = "Produtos";
+    $tituloMenuPagina = "Estoque | Produtos";
+
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
     
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
-        segurancaAdm($con, $idLogado);
+        segurancaLogistica($con, $idLogado);
     }
 
-    $sql2= "SELECT f.id_funcionario, f.nome, f.cpf, f.telefone, c.nome_cargo FROM tbl_funcionario f INNER JOIN tbl_cargo c ON f.id_cargo = c.id_cargo ORDER BY f.nome";
-    $consulta = mysqli_query($con, $sql2);
+    $sql= "SELECT * FROM tbl_item";
+    $consulta = mysqli_query($con, $sql);
 
 ?>
 
@@ -21,11 +21,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Administração | Funcionários</title>
+        <title>Estoque | Cadastro de item</title>
         <!-- link bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <!-- meu css -->
-        <link rel="stylesheet" href="../../../css/style.css"> <!--- precisa colocar a constante -->
+        <link rel="stylesheet" href="../../../../css/style.css"> <!--- precisa colocar a constante -->
         <!-- meus icons -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
@@ -69,17 +69,18 @@
             <!-- Tabela -->
             <div class="container-tabela">
                 <div class="container-button">
-                    <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo funcionário</button>
+                    <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Cadastrar produto</button>
                 </div>
                 <table id="myTable" class="table  nowrap order-column dt-right table-hover text-center">
                     <thead class="">
                         <tr>
                             <th scope="col">Nº</th>
-                            <th scope="col">Matrícula</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">CPF</th>
-                            <th scope="col">Telefone</th>
-                            <th scope="col">Cargo</th>
+                            <th scope="col">ID item</th>
+                            <th scope="col">SKU</th>
+                            <th scope="col">Produto</th>
+                            <th scope="col">Preço unit. (R$)</th>
+                            <th scope="col">ID funcionário</th>
+                            <th scope="col">Data cadastro</th>
                             <th scope="col">Controle</th>
                         </tr>
                     </thead>
@@ -87,21 +88,19 @@
                         <?php 
                             $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id_funcionario'];
+                                    $idItem = $exibe['id_item'];
                                 ?>
                                 <tr>
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
+                                    <td class="id-item"><?php echo $exibe['id_item']?></td>
+                                    <td class="id-sku"><?php echo $exibe['id_sku']?></td>
+                                    <td><?php echo $exibe['nome_item']?></td>
+                                    <td class="monetario"><?php echo $exibe['preco_unit']?></td>
                                     <td class="id-funcionario"><?php echo $exibe['id_funcionario']?></td>
-                                    <td><?php echo $exibe['nome']?></td>
-                                    <td class="cpf"><?php echo $exibe['cpf']?></td>
-                                    <td><?php echo $exibe['telefone']?></td>
-                                    <td><?php echo $exibe['nome_cargo']?></td>
+                                    <td><?php echo $exibe['dt_cadastro']?></td>
                                     <td class="td-icons">
-                                        <a class="btn-editar-funcionario icone-controle-editar " href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
-                                        <a class="btn-excluir-funcionario icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
-                                    </td>
-
-                                    
+                                        <a class="btn-editar-item icone-controle-editar " href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
+                                        <a class="btn-excluir-item icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
                                     </td>
                                 </tr>
                                 <?php
@@ -117,52 +116,25 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastrar funcionário</h1>
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastrar produto</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
-                        <!-- formulario envio cargo -->
-                        <form class="was-validated form-container" action="include/gFuncionario.php" method="post">
+                        <!-- formulario envio -->
+                        <form class="was-validated form-container" action="include/gCadastroProduto.php" method="post">
                             <div class="mb-3">
-                                <label class="font-1-s" for="nome">Nome completo</label>
-                                <input class="form-control" type="text" name="nome" id="nome" required>
-                                <div class="invalid-feedback">
-                                    
-                                </div>
+                                <label class="font-1-s" for="sku">SKU do produto</label>
+                                <input class="form-control" type="text" name="sku" id="sku" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="cpf">CPF</label>
-                                <input class="form-control cpf" type="text" name="cpf" id="cpf" required>
-                                <!-- <p id="info-validaCpf"></p> -->
-                                <div class="invalid-feedback">
-                                
-                                </div>
+                                <label class="font-1-s" for="nome-produto">Nome produto</label>
+                                <input class="form-control" type="text" name="nome-produto" id="nome-produto" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="telefone">Telefone</label>
-                                <input class="form-control" type="fone" name="telefone" class="telefone" id="telefone" required>
-                                <div class="invalid-feedback">
-                                    
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="id_cargo">Cargo</label>
-                                <select class="form-select" name="id_cargo" id="id_cargo" aria-label="select example">
-                                    <option value="">Selecione um cargo</option>
-                                    <?php
-                                        include '../../config/conexao.php';
-                                        $query = "SELECT id_cargo, nome_cargo FROM tbl_cargo";
-                                        $result = mysqli_query($con, $query);
-                            
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            echo "<option value='" . $row['id_cargo'] . "'>" . $row['nome_cargo'] . "</option>";
-                                        }
-                                        mysqli_close($con);
-                                    ?>
-                                </select>
+                                <label class="font-1-s" for="preco">Preço</label>
+                                <input class="form-control monetario" type="text" name="preco" id="preco" required>
                             </div>
 
                             <?php if(!empty($mensagem)){ ?>  
@@ -184,7 +156,7 @@
                 </div>
             </div>
 
-            <div class="modalEditarFuncionario">
+            <div class="modalEditarCadastroProduto">
             </div>
 
             <div class="modalExcluir">
@@ -195,10 +167,9 @@
     </div>
 
     <?php
-        include __DIR__ . '/../../../include/footer.php';
+        include ARQUIVO_FOOTER;
     ?>
 
-    <!-- <script src="../../js/modal.js"></script> -->
     <script src="<?php echo BASE_URL ?>/js/modal.js"></script>
     <script src="<?php echo BASE_URL ?>/js/table.js"></script>
 
