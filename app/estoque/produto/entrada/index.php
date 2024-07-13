@@ -11,8 +11,8 @@
         segurancaLogistica($con, $idLogado);
     }
 
-    $sql= "SELECT * FROM tbl_entrada_item_estoque";
-    $consulta = mysqli_query($con, $sql);
+    $sqlInner = "SELECT e.id_e_item_e, e.id_item, e.id_sku, i.nome_item, e.quantidade, e.valor_unit, e.valor_total, e.nota_fiscal, e.id_funcionario, e.dt_entrada FROM tbl_entrada_item_estoque e INNER JOIN tbl_item i ON e.id_item = i.id_item";
+    $consulta = mysqli_query($con, $sqlInner);
 
 ?>
 
@@ -69,7 +69,7 @@
             <!-- Tabela -->
             <div class="container-tabela">
                 <div class="container-button">
-                    <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Cadastrar produto</button>
+                    <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Cadastrar entrada</button>
                 </div>
                 <table id="myTable" class="table  nowrap order-column dt-right table-hover text-center">
                     <thead class="">
@@ -77,9 +77,12 @@
                             <th scope="col">Nº</th>
                             <th scope="col">ID entrada item</th>
                             <th scope="col">ID item</th>
-                            <th scope="col">nome item</th>
-                            <th scope="col">quantidade</th>
-                            <th scope="col">nota_fiscal</th>
+                            <th scope="col">ID sku</th>
+                            <th scope="col">Nome item</th>
+                            <th scope="col">Nota fiscal</th>
+                            <th scope="col">Quantidade</th>
+                            <th scope="col">Valor unit.</th>
+                            <th scope="col">Valor total</th>
                             <th scope="col">ID funcionário</th>
                             <th scope="col">Data entrada</th>
                             <th scope="col">Controle</th>
@@ -95,14 +98,17 @@
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id_entrada-item-estoque"><?php echo $exibe['id_e_item_e']?></td>
                                     <td class="id-item"><?php echo $exibe['id_item']?></td>
+                                    <td class="id-sku"><?php echo $exibe['id_sku']?></td>
                                     <td class="nome-item"><?php echo $exibe['nome_item']?></td>
-                                    <td class="quantidade"><?php echo $exibe['quantidade']?></td>
                                     <td class="nota-fiscal"><?php echo $exibe['nota_fiscal']?></td>
+                                    <td class=""><?php echo $exibe['quantidade']?></td>
+                                    <td class="monetario"><?php echo $exibe['valor_unit']?></td>
+                                    <td class="monetario"><?php echo $exibe['valor_total']?></td>
                                     <td class="id-funcionario"><?php echo $exibe['id_funcionario']?></td>
                                     <td class="dt-entrada"><?php echo $exibe['dt_entrada']?></td>
                                     <td class="td-icons">
-                                        <a class="btn-editar-item icone-controle-editar " href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
-                                        <a class="btn-excluir-item icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
+                                        <a class="btn-editar-entrada-item-estoque icone-controle-editar " href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
+                                        <a class="btn-excluir-entrada-item-estoque icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
                                     </td>
                                 </tr>
                                 <?php
@@ -114,29 +120,53 @@
             </div>
 
             <!-- Modal cadastrar informações -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastrar produto</h1>
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastrar entrada</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
                         <!-- formulario envio -->
-                        <form class="was-validated form-container" action="include/gCadastroProduto.php" method="post">
-                            <div class="mb-3">
-                                <label class="font-1-s" for="sku">SKU do produto</label>
-                                <input class="form-control" type="text" name="sku" id="sku" required>
+                        <form class="was-validated form-container" action="include/gEntradaProdutoEstoque.php" method="post">
+                            <div class="row mb-3">
+                                <input class="form-control" type="text" name="id-item" id="id-item" value="" hidden required>
+                                <div class="col-md-4">
+                                    <label class="font-1-s" for="id-sku">SKU do produto</label>
+                                    <input class="form-control input-sku-produto" type="text" name="id-sku" id="id-sku" required>
+                                </div>
+
+                                
+                                <div class="col-md-8">
+                                    <label class="font-1-s" for="nome-produto">Nome produto</label>
+                                    <input class="form-control" type="text" name="nome-produto" id="nome-produto" value="" readonly  required>
+                                </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="font-1-s" for="nome-produto">Nome produto</label>
-                                <input class="form-control" type="text" name="nome-produto" id="nome-produto" required>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="font-1-s" for="nota-fiscal">Nota fiscal</label>
+                                    <input class="form-control" type="text" name="nota-fiscal" id="nota-fiscal" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="font-1-s" for="quantidade">Quantidade</label>
+                                    <input class="form-control quantidade" type="text" name="quantidade" id="quantidade" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="font-1-s" for="valor-unitario">Valor unitário (R$)</label>
+                                    <input class="form-control monetario valor-unitario" type="text" name="valor-unitario" id="valor-unitario" required>
+                                </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="font-1-s" for="preco">Preço</label>
-                                <input class="form-control monetario" type="text" name="preco" id="preco" required>
+                            <div class="row mb-3 justify-content-end">
+                                <div class="col-md-4">
+                                    <label class="font-1-s" for="valor-total">Valor total (R$)</label>
+                                    <input class="form-control monetario valor-total" type="text" name="valor-total" id="valor-total" value="" readonly required>
+                                </div>
                             </div>
 
                             <?php if(!empty($mensagem)){ ?>  
@@ -158,7 +188,7 @@
                 </div>
             </div>
 
-            <div class="modalEditarCadastroProduto">
+            <div class="modalEditarEntradaItemEstoque">
             </div>
 
             <div class="modalExcluir">
@@ -175,3 +205,62 @@
     <script src="<?php echo BASE_URL ?>/js/modal.js"></script>
     <script src="<?php echo BASE_URL ?>/js/table.js"></script>
 
+<script>
+
+    $(document).ready(function () {
+
+        $(".input-sku-produto").keyup(function (e) { 
+            e.preventDefault();
+
+            var idSku = $(this).val();
+
+            $.ajax({
+                type: "POST",
+                url: "include/cPesquisaEntradaProdutoEstoque.php",
+                data: {
+                    'id-sku':idSku
+                },
+
+                success: function (response) {
+                    if (response !== "") {
+                        $('#id-item').val(response.idItem);
+                        $('#nome-produto').val(response.nomeItem);
+                    } else {
+                        $('#id-item').val('');
+                        $('#nome-produto').val('');
+                    }
+                },
+            });
+        });
+        
+    });
+
+    document.querySelector('.quantidade').addEventListener('input', function() {
+    calcularValorTotal();
+    });
+
+    document.querySelector('.valor-unitario').addEventListener('input', function() {
+        calcularValorTotal();
+    });
+
+    function calcularValorTotal() {
+        var quantidade = document.querySelector('.quantidade').value;
+        var valorUnitario = document.querySelector('.valor-unitario').value;
+
+        valorUnitario = valorUnitario.replace(/\./g, '').replace(',', '.');
+
+        if (!isNaN(quantidade) && !isNaN(valorUnitario)) {
+            var valorTotal = quantidade * valorUnitario;
+            valorTotal = formatarValor(valorTotal);
+            document.querySelector('.valor-total').value = valorTotal;
+        }
+    }
+
+    function formatarValor(valor) {
+        return parseFloat(valor).toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+</script>
