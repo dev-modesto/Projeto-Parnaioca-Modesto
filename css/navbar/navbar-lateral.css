@@ -7,11 +7,18 @@
     transition: all .3s;
 }
 
+.container-botao-menu {
+    position: relative;
+    top: 0px;
+    top: 67px;
+    left: -20px;
+    z-index: 999;
+}
+
 .botao-menu {
     background-color: var(--cor-p4);
-    position: absolute;
+    position: fixed;
     padding: 5px;
-    right: -10px;
     top: 67px;
     font-size: 2rem;
     color: var(--cor-4);
@@ -20,6 +27,12 @@
     transition: all .2s;
     overflow: visible;
     z-index: 9999;
+    width: 35px;
+    height: 35px;
+}
+
+.botao-menu span {
+    transition: all .2s;
 }
 
 .botao-menu:hover {
@@ -28,8 +41,16 @@
 
 .container-navbar-lateral.menu-min {
     width: 70px;
-    overflow: hidden;
+    /* overflow: hidden; */
     transition: all .3s;
+}
+
+    .container-navbar-lateral.menu-oculto {
+        display: none;
+    }
+
+.container-navbar-lateral.menu-min.menu-oculto + .container-botao-menu {
+    left: 5px;
 }
 
 
@@ -122,3 +143,6 @@ body {
 .min {
     grid-template-columns: 70px minmax(300px, auto);
 }
+    .min-pequeno {
+        grid-template-columns: 0px minmax(300px, auto);
+    }
