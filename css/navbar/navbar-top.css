@@ -10,6 +10,9 @@
     grid-area: principal-header;
 }
 
+.header-principal-min {
+    padding-left: 100px;
+}
 
 .container-usuario-logado {
     min-width: 200px;
@@ -170,23 +173,23 @@
     z-index: 5;
     top: 60px;
     width: 100%;
-    left: 226px;
-    /* display: none; */
 }
 
     .container-header-itens {
-        /* background-color: aquamarine; */
         display: flex;
         gap: 5px;
         height: 100%;
+        padding-left: 226px;
+    }
+
+    .header-sub-min {
+        padding-left: 70px;
     }
 
     .container-header-itens li {
-        /* background-color: beige; */
         display: flex;
         align-items: center;
         height: 100%;
-        /* border-bottom: 2px solid transparent; */
     }
 
     .container-header-itens li a {

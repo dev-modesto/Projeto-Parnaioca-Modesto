@@ -1,5 +1,4 @@
 const links = document.querySelectorAll(".navbar-itens a");
-console.log(links);
 
 function ativarLink(link) {
     const url = window.location.href;
@@ -45,14 +44,63 @@ linksSubHeader.forEach(ativarLinkSubMenu);
 var dropdownAcomodacoes = document.querySelector(".dropdown-acomodacoes");
 var cotainerDropdownAcomodacoes = document.querySelector(".container-dropwdown-acomodacoes");
 
-dropdownAcomodacoes.addEventListener('click', function() {
+if (dropdownAcomodacoes) {
+    dropdownAcomodacoes.addEventListener('click', function() {
 
-    if(cotainerDropdownAcomodacoes.style.display === 'block'){
-        cotainerDropdownAcomodacoes.style.display = 'none';
-        icon.style.rotate = '0deg';
+        if(cotainerDropdownAcomodacoes.style.display === 'block'){
+            cotainerDropdownAcomodacoes.style.display = 'none';
+            icon.style.rotate = '0deg';
+        } else {
+            cotainerDropdownAcomodacoes.style.display = 'block';
+            icon.style.rotate = '180deg';
+        }
+
+    })
+}
+
+var botaoMinMenu = document.querySelector(".botao-menu");
+var menuLateral = document.querySelector(".container-navbar-lateral");
+var bodyMin = document.querySelector("body");
+var menuPrincipalMin = document.querySelector(".principal-container-header");
+var menuTopMin = document.querySelector(".container-header-itens");
+var textoNav = document.querySelectorAll(".texto-nav");
+var imgLogo = document.querySelector(".img-logo");
+
+botaoMinMenu.addEventListener('click', function() {
+
+    if (botaoMinMenu.style.rotate == '180deg') {
+        botaoMinMenu.style.rotate = '0deg'
     } else {
-        cotainerDropdownAcomodacoes.style.display = 'block';
-        icon.style.rotate = '180deg';
+        botaoMinMenu.style.rotate = '180deg'
     }
+
+    menuLateral.classList.toggle("menu-min");
+    bodyMin.classList.toggle("min");
+    menuPrincipalMin.classList.toggle("header-principal-min");
+
+    if (menuTopMin) {
+        menuTopMin.classList.toggle("header-sub-min");
+    }
+    
+    textoNav.forEach(function(element) {
+
+        if (element.style.display == "none") {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    });
+
+    var logoMax = imgLogo.getAttribute('data-logoMax');
+    var logoMin = imgLogo.getAttribute('data-logoMin');
+    
+    var currentSrc = imgLogo.src;
+    
+    if (novaImg = currentSrc.includes('logo-2.svg')) {
+        novaImg = logoMin
+    } else {
+        novaImg = logoMax
+    }
+    imgLogo.src = novaImg;
 
 })

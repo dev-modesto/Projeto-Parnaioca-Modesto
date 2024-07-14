@@ -141,11 +141,7 @@
                                 <div class="sub-container-header">
                                     <ul class="container-header-itens" >
                                         <li><a href="<?php echo BASE_URL ?>/app/estoque/produto/cadastro/index.php">Cadastro</a></li>
-                                    </ul>
-                                    <ul class="container-header-itens" >
                                         <li><a href="<?php echo BASE_URL ?>/app/estoque/produto/entrada/index.php">Entrada</a></li>
-                                    </ul>
-                                    <ul class="container-header-itens" >
                                         <li><a href="<?php echo BASE_URL ?>/app/estoque/frigobar/cadastro/index.php">Saída</a></li>
                                     </ul>
                                 </div>
@@ -167,14 +163,18 @@
 </header>
 
 <nav class="container-navbar-lateral">
+    <div class="container-botao-menu">
+        <span class="material-symbols-rounded botao-menu"> keyboard_arrow_left</span>
+    </div>
+
     <div class="logo">
-        <img src="<?php echo BASE_URL ?>/assets/img/logo.svg" alt="">
+        <img class="img-logo" src="<?php echo BASE_URL ?>/assets/img/logo-2.svg"  data-logoMax="<?php echo BASE_URL ?>/assets/img/logo-2.svg" data-logoMin="<?php echo BASE_URL ?>/assets/img/logo-2-minimizada.svg" alt="">
     </div>
 
     <ul class="navbar-itens">
-        <li class="cor-3 "><a href="navbar-lateral.php" class="font-1-s"><span class="material-symbols-rounded">dashboard</span>Dashboard</a></li>
-        <li class="cor-3"><a href="app/" class="font-1-s"><span class="material-symbols-rounded">style</span>Reservas</a></li>
-        <li class="cor-3"><a href="#" class="font-1-s"><span class="material-symbols-rounded">hotel</span>Acomodações</a></li>
+        <li class="cor-3 "><a href="navbar-lateral.php" class="font-1-s"><span class="material-symbols-rounded">dashboard</span><p class="texto-nav">Dashboard</p></a></li>
+        <li class="cor-3"><a href="app/" class="font-1-s"><span class="material-symbols-rounded">style</span><p class="texto-nav">Reservas</p></a></li>
+        <li class="cor-3"><a href="#" class="font-1-s"><span class="material-symbols-rounded">hotel</span><p class="texto-nav">Acomodações</p></a></li>
         
        
 
@@ -182,19 +182,19 @@
 
             if ($sac == 1 ){
                 ?> 
-                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/cliente/index.php" class="font-1-s"><span class="material-symbols-rounded">group</span>Clientes</a></li>
+                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/cliente/index.php" class="font-1-s"><span class="material-symbols-rounded">group</span><p class="texto-nav">Clientes</p></a></li>
                 <?php
             }
 
             if ($logistica == 1) {
                 ?> 
-                     <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/estoque/" class="font-1-s"><span class="material-symbols-rounded">package_2</span>Estoque</a></li>
+                     <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/estoque/" class="font-1-s"><span class="material-symbols-rounded">package_2</span><p class="texto-nav">Estoque</p></a></li>
                  <?php
             } 
 
             if ($administracao == 1 ){
                 ?> 
-                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/administracao/" class="font-1-s"><span class="material-symbols-rounded">room_preferences</span>Administração</a></li>
+                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/administracao/" class="font-1-s"><span class="material-symbols-rounded">room_preferences</span><p class="texto-nav">Administração</p></a></li>
                 <?php
             }
 
