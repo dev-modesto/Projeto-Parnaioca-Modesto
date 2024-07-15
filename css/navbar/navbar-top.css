@@ -13,6 +13,9 @@
 .header-principal-min {
     padding-left: 100px;
 }
+    .header-principal-min-pequeno {
+        padding-left: 30px;
+    }
 
 .container-usuario-logado {
     min-width: 200px;
@@ -185,6 +188,9 @@
     .header-sub-min {
         padding-left: 70px;
     }
+        .header-sub-min-pequeno {
+            padding-left: 0px;
+        }
 
     .container-header-itens li {
         display: flex;

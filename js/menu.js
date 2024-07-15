@@ -59,6 +59,7 @@ if (dropdownAcomodacoes) {
 }
 
 var botaoMinMenu = document.querySelector(".botao-menu");
+var botaoMinMenuIcone = document.querySelector(".botao-menu span");
 var menuLateral = document.querySelector(".container-navbar-lateral");
 var bodyMin = document.querySelector("body");
 var menuPrincipalMin = document.querySelector(".principal-container-header");
@@ -66,12 +67,13 @@ var menuTopMin = document.querySelector(".container-header-itens");
 var textoNav = document.querySelectorAll(".texto-nav");
 var imgLogo = document.querySelector(".img-logo");
 
-botaoMinMenu.addEventListener('click', function() {
 
-    if (botaoMinMenu.style.rotate == '180deg') {
-        botaoMinMenu.style.rotate = '0deg'
+function menuMinMax () {
+
+    if (botaoMinMenuIcone.style.rotate == '0deg') {
+        botaoMinMenuIcone.style.rotate = '180deg'
     } else {
-        botaoMinMenu.style.rotate = '180deg'
+        botaoMinMenuIcone.style.rotate = '0deg'
     }
 
     menuLateral.classList.toggle("menu-min");
@@ -103,4 +105,154 @@ botaoMinMenu.addEventListener('click', function() {
     }
     imgLogo.src = novaImg;
 
+}
+
+function menuOculto() {
+
+    if (botaoMinMenuIcone.style.rotate == '180deg') {
+        botaoMinMenuIcone.style.rotate = '0deg'
+    } else {
+        botaoMinMenuIcone.style.rotate = '180deg'
+    }
+
+    menuLateral.classList.toggle("menu-oculto");
+    bodyMin.classList.toggle("min-pequeno");
+    menuPrincipalMin.classList.toggle("header-principal-min-pequeno");
+
+    if (menuTopMin) {
+        menuTopMin.classList.toggle("header-sub-min-pequeno");
+    }
+    
+    textoNav.forEach(function(element) {
+
+        if (element.style.display == "none") {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    });
+
+    var logoMax = imgLogo.getAttribute('data-logoMax');
+    var logoMin = imgLogo.getAttribute('data-logoMin');
+    
+    var currentSrc = imgLogo.src;
+    
+    if (novaImg = currentSrc.includes('logo-2.svg')) {
+        novaImg = logoMin
+    } else {
+        novaImg = logoMax
+    }
+    imgLogo.src = novaImg;
+
+}
+
+function menuMenor() {
+    if (botaoMinMenuIcone.style.rotate == '180deg') {
+        botaoMinMenuIcone.style.rotate = '0deg'
+    } else {
+        botaoMinMenuIcone.style.rotate = '180deg'
+    }
+
+    menuLateral.classList.toggle("menu-min");
+    bodyMin.classList.toggle("min");
+    menuPrincipalMin.classList.toggle("header-principal-min");
+
+    if (menuTopMin) {
+        menuTopMin.classList.toggle("header-sub-min");
+    }
+    
+    textoNav.forEach(function(element) {
+
+        if (element.style.display == "none") {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    });
+
+    var logoMax = imgLogo.getAttribute('data-logoMax');
+    var logoMin = imgLogo.getAttribute('data-logoMin');
+    
+    var currentSrc = imgLogo.src;
+    
+    if (novaImg = currentSrc.includes('logo-2.svg')) {
+        novaImg = logoMin
+    } else {
+        novaImg = logoMax
+    }
+    imgLogo.src = novaImg;
+}
+
+botaoMinMenu.addEventListener('click', function() {
+    if (window.innerWidth < 1024) {
+        menuOculto();
+        
+    } else {
+        menuMenor();
+    }
 })
+
+function removeClasses() {
+
+    botaoMinMenuIcone.style.rotate = '0deg'
+
+    menuLateral.classList.remove("menu-min");
+    menuLateral.classList.remove("menu-oculto");
+    bodyMin.classList.remove("min-pequeno");
+    bodyMin.classList.remove("min");
+    menuPrincipalMin.classList.remove("header-principal-min-pequeno");
+    menuPrincipalMin.classList.remove("header-principal-min");
+
+    if (menuTopMin) {
+        menuTopMin.classList.remove("header-sub-min-pequeno");
+        menuTopMin.classList.toggle("header-sub-min");
+    }
+    
+    var logoMax = imgLogo.getAttribute('data-logoMax');
+    imgLogo.src = logoMax;
+
+    textoNav.forEach(function(element) {
+        element.style.display = 'block';
+    });
+}
+
+function adicionaClasses() {
+
+    botaoMinMenuIcone.style.rotate = '180deg'
+
+    menuLateral.classList.add("menu-min");
+    menuLateral.classList.add("menu-oculto");
+    bodyMin.classList.add("min-pequeno");
+    bodyMin.classList.add("min");
+    menuPrincipalMin.classList.add("header-principal-min-pequeno");
+    menuPrincipalMin.classList.add("header-principal-min");
+
+    if (menuTopMin) {
+        menuTopMin.classList.add("header-sub-min-pequeno");
+        menuTopMin.classList.add("header-sub-min");
+    }
+    
+    var logoMax = imgLogo.getAttribute('data-logoMax');
+    imgLogo.src = logoMax;
+
+    textoNav.forEach(function(element) {
+        element.style.display = 'block';
+    });
+}
+
+let classesAplicadas = false;
+
+function verificaTamanho() {
+    if (window.innerWidth < 1024 && !classesAplicadas) {
+        adicionaClasses();
+        classesAplicadas = true; 
+
+    } else if (window.innerWidth > 1024 && classesAplicadas) {
+        removeClasses();
+        classesAplicadas = false;  
+    }
+}
+
+verificaTamanho();
+
+window.addEventListener('resize', verificaTamanho);

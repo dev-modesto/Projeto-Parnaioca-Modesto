@@ -163,10 +163,6 @@
 </header>
 
 <nav class="container-navbar-lateral">
-    <div class="container-botao-menu">
-        <span class="material-symbols-rounded botao-menu"> keyboard_arrow_left</span>
-    </div>
-
     <div class="logo">
         <img class="img-logo" src="<?php echo BASE_URL ?>/assets/img/logo-2.svg"  data-logoMax="<?php echo BASE_URL ?>/assets/img/logo-2.svg" data-logoMin="<?php echo BASE_URL ?>/assets/img/logo-2-minimizada.svg" alt="">
     </div>
@@ -204,6 +200,12 @@
     </ul>
 
 </nav>
+<div class="container-botao-menu">
+    <div class="botao-menu">
+        <span class="material-symbols-rounded"> keyboard_arrow_left</span>
+    </div>
+</div>
+
 
 <!-- <script src="../../js/menu.js"></script> -->
 <script src="<?php echo BASE_URL ?>/js/menu.js"></script>
