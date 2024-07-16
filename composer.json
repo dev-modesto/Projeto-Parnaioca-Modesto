@@ -1,0 +1,17 @@
+{
+    "name": "work.studies/projeto-parnaioca-modesto",
+    "autoload": {
+        "psr-4": {
+            "WorkStudies\\ProjetoParnaiocaModesto\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "dev-modesto",
+            "email": "gabriel_26@outlook.com.br"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
