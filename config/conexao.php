@@ -1,11 +1,11 @@
 <?php
 
-    $local = 'localhost';
-    $usuario = 'root';
-    $senha = '';
-    $banco = 'parnaiocamodesto';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/vendor/autoload.php';
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+
+    $con = mysqli_connect($_ENV['DB_HOST'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], $_ENV['DB_DATABASE']);
     // echo 'conexao estabelecida com sucesso!';
-    $con = mysqli_connect($local,$usuario,$senha,$banco);
 
     header("Content-Type:text/html; charset=utf-8");
     mysqli_query($con,"SET NAMES 'utf8'");

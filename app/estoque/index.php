@@ -52,7 +52,7 @@
                     </div>
                 </a>
 
-                <a href="<?php echo BASE_URL . '/app/estoque/index.php' ?>">
+                <a href="<?php echo BASE_URL . '/app/estoque/frigobar/abastecer/index.php' ?>">
                     <div class="card" style="width: 15rem; min-height: 15rem; border: none">
                         <div class="card-body card-administracao">
                             <span class="material-symbols-rounded">
