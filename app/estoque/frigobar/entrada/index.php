@@ -87,9 +87,6 @@
 
             <!-- Tabela -->
             <div class="container-tabela">
-                <div class="container-button">
-                    <button type="button" class="cadastrar-funcionario btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Abastecer frigobar</button>
-                </div>
                 <table id="myTable" class="table  nowrap order-column dt-right table-hover text-center">
                     <thead class="">
                         <tr>
@@ -136,68 +133,6 @@
                     </tbody>
 
                 </table>
-            </div>
-
-            <!-- Modal cadastrar informações -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Abastecer Frigobar</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <!-- formulario envio -->
-                        <form class="was-validated form-container" action="include/gAbastecerFrigobar.php" method="post">
-                            <div class="mb-3">
-                                <label for="id-acomodacao">Acomodação</label>
-                                <select class="form-select" name="id-acomodacao" id="id-acomodacao" required aria-label="select example">
-                                    <option value="">Selecione uma acomodação</option>
-                                    <?php
-                                        include '../../config/conexao.php';
-                                        $query = "SELECT id_acomodacao, numero_acomodacao, nome_acomodacao FROM tbl_acomodacao";
-                                        $result = mysqli_query($con, $query);
-                            
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            echo "<option value='" . $row['id_acomodacao'] . "'>" . $row['numero_acomodacao'] . "</option>";
-                                        }
-                                        mysqli_close($con);
-                                    ?>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="font-1-s" for="sku">SKU do produto</label>
-                                <input class="form-control" type="text" name="sku" id="sku" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="font-1-s" for="nome-produto">Nome produto</label>
-                                <input class="form-control" type="text" name="nome-produto" id="nome-produto" readonly required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="font-1-s" for="quantidade">Quantidade</label>
-                                <input class="form-control" type="text" name="quantidade" id="quantidade" required>
-                            </div>
-
-                            <?php if(!empty($mensagem)){ ?>  
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <?php echo $mensagem ?>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div> 
-                            <?php }else {
-                                    echo '';
-                                }
-                            ?>
-
-                            <div class="modal-footer form-container-button">
-                                <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
-                                <button class='btn btn-primary' type="submit">Adicionar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             </div>
 
             <div class="modalEditarAbastecimentoFigobar">
