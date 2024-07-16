@@ -175,3 +175,65 @@
     font-weight: 300;
     font-size: .85rem;
 }
+
+
+.container-cards-frigobar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    transition: ease-in-out 2s;
+}
+
+.card-frigobar {
+    background-color: transparent;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.card-frigobar-body {
+    background-color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--cor-3);
+    border-radius: .375rem;
+}
+
+    .card-frigobar-cabecalho {
+
+        padding: 5px 0px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .card-frigobar-cabecalho span {
+            color: var(--cor-7);
+            position: absolute;
+        }
+
+        .card-frigobar-cabecalho p {
+            width: 100%;
+        }
+
+    
+    .card-frigobar-acomodacao {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-frigobar-armazenamento {
+        /* background-color: aliceblue; */
+    }
+
+.card-frigobar-btn {
+    background-color: #fff;
+    height: 40px;
+    color: var(--cor-7);
+    border: 1px solid var(--cor-3);
+    border-radius: .375rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -92,6 +92,7 @@
 
 .navbar-itens p {
     display: block;
+    overflow: hidden;
 }
 
 .container-navbar-lateral li:hover {

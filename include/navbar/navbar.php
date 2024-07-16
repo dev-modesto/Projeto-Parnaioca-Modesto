@@ -149,6 +149,15 @@
                         break;
 
                     case 'Frigobar':
+                        ?> 
+                            <div class="sub-container-header">
+                                <ul class="container-header-itens" >
+                                    <li><a href="<?php echo BASE_URL ?>/app/estoque/frigobar/abastecer/index.php">Abastecer</a></li>
+                                    <li><a href="<?php echo BASE_URL ?>/app/estoque/frigobar/entrada/index.php">Tabela de abastecimento</a></li>
+                                    <li><a href="<?php echo BASE_URL ?>/app/estoque/frigobar/consumo/index.php">Consumo</a></li>
+                                </ul>
+                            </div>
+                        <?php
                         break;
 
                 default:
