@@ -44,4 +44,39 @@
 
     }
 
+    function infoItemArray ($con, $idItem) {
+        // informacoes do item
+        $sqlInfoItem = "SELECT * FROM tbl_item WHERE id_item = $idItem";
+        $consultaInfoItem = mysqli_query($con, $sqlInfoItem);
+        $arrayInfoItem = mysqli_fetch_assoc($consultaInfoItem);
+        return $arrayInfoItem;
+    }
+
+    function totalEntradasEstoque ($con, $idItem) {
+        // entradas
+        $sqlEntrada = "SELECT id_item, id_sku, SUM(quantidade) FROM tbl_entrada_item_estoque where id_item = $idItem";
+        $consultaEntradaItem = mysqli_query($con, $sqlEntrada);
+        $arrayItem = mysqli_fetch_assoc($consultaEntradaItem);
+        $totalEntrada = $arrayItem['SUM(quantidade)'] . "\n";
+        return $totalEntrada;
+    }
+
+    function entradasEstoqueArray ($con, $idItem) {
+        // entradas
+        $sqlEntrada = "SELECT id_item, id_sku, SUM(quantidade) FROM tbl_entrada_item_estoque where id_item = $idItem";
+        $consultaEntradaItem = mysqli_query($con, $sqlEntrada);
+        $arrayItem = mysqli_fetch_assoc($consultaEntradaItem);
+        return $arrayItem;
+
+    }
+
+    function totalSaidasEstoque ($con, $idItem) {
+        // saidas
+        $sqlSaida = "SELECT id_item, SUM(quantidade) FROM tbl_saida_item_estoque where id_item = $idItem";
+        $consultaSaidaItem = mysqli_query($con, $sqlSaida);
+        $arraySaidaItem = mysqli_fetch_assoc($consultaSaidaItem);
+        $totalSaida = $arraySaidaItem['SUM(quantidade)'];
+        return $totalSaida;
+    }
+    
 ?>
