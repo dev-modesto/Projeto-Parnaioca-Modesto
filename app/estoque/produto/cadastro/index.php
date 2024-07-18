@@ -79,6 +79,7 @@
                             <th scope="col">SKU</th>
                             <th scope="col">Produto</th>
                             <th scope="col">Preço unit. (R$)</th>
+                            <th scope="col">Estoque mínimo</th>
                             <th scope="col">ID funcionário</th>
                             <th scope="col">Data cadastro</th>
                             <th scope="col">Controle</th>
@@ -96,6 +97,7 @@
                                     <td class="id-sku"><?php echo $exibe['id_sku']?></td>
                                     <td><?php echo $exibe['nome_item']?></td>
                                     <td class="monetario"><?php echo $exibe['preco_unit']?></td>
+                                    <td><?php echo $exibe['estoque_minimo']?></td>
                                     <td class="id-funcionario"><?php echo $exibe['id_funcionario']?></td>
                                     <td><?php echo $exibe['dt_cadastro']?></td>
                                     <td class="td-icons">
@@ -135,6 +137,11 @@
                             <div class="mb-3">
                                 <label class="font-1-s" for="preco">Preço</label>
                                 <input class="form-control monetario" type="text" name="preco" id="preco" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="font-1-s" for="estoque-minimo">Estoque mínimo</label>
+                                <input class="form-control" type="number" min="1" max="5000" name="estoque-minimo" id="estoque-minimo" required>
                             </div>
 
                             <?php if(!empty($mensagem)){ ?>  

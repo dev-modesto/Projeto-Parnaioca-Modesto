@@ -72,7 +72,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nº</th>
-                                <th scope="col">ID item/th>
+                                <th scope="col">ID item</th>
                                 <th scope="col">ID SKU</th>
                                 <th scope="col">Nome item</th>
                                 <th scope="col">Entradas</th>
