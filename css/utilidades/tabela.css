@@ -52,6 +52,9 @@
     font-size: .875rem;
     color: var(--cor-7);
     color: var(--cor-10);
+    height: 50px;
+    border: none;
+    border-bottom: 1px solid #dee2e6 !important;
   }
 
   .table th {
@@ -60,6 +63,7 @@
     color: var(--cor-6);
     text-align: left !important;
     border: none;
+    border-bottom: 1px solid #dee2e6 !important;
   }
 
   .table td:first-child,
@@ -74,6 +78,7 @@
   
   .table-group-divider {
     color: var(--cor-3);
+    border-top: none;
   }
   
   .td-icons {
@@ -131,7 +136,8 @@
 .legenda-acesso.não,
 .legenda-tp-operacao.insercao,
 .legenda-tp-operacao.atualizacao,
-.legenda-tp-operacao.exclusao {
+.legenda-tp-operacao.exclusao,
+.legenda-status-estoque {
   box-sizing: border-box;
   padding: 5px;
   border-radius: 0.5rem;
@@ -215,4 +221,35 @@
 .dt-paging-button.disabled.previous,
 .dt-paging-button.disabled.next {
   background-color: var(--cor-1) !important;
+}
+
+.legenda-status-estoque.estavel {
+  background-color: var(--cor-a-green1);
+  border: 1px solid var(--cor-a-green4);
+  color: var(--cor-a-green4);
+}
+
+.legenda-status-estoque.baixo {
+  background-color: var(--cor-a-yellow1);
+  border: 1px solid var(--cor-a-yellow4);
+  color: var(--cor-a-yellow4);
+}
+
+.legenda-status-estoque.vazio {
+  background-color: var(--cor-a-red1);
+  border: 1px solid var(--cor-a-red4);
+  color: var(--cor-a-red4);
+}
+
+.borda-status.estavel {
+  border-left: 5px solid var(--cor-a-green3);
+  box-sizing: border-box !important;
+}
+
+.borda-status.baixo {
+  border-left: 5px solid var(--cor-a-yellow2);
+}
+
+.borda-status.vazio {
+  border-left: 5px solid var(--cor-a-red3);
 }
