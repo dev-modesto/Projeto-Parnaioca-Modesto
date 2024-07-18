@@ -17,9 +17,9 @@
         $sku = $_POST['sku'];
         $quantidade = $_POST['quantidade'];
 
-        $array = ['ID frigobar: '.  $idFrigobar, 'ID acomodacao: '.  $idAcomodacao, 'ID item: ' . $idItem, 'SKU: ' . $sku,'Quantidade: ' . $quantidade];
-        echo "<pre>";
-        print_r($array);
+        // $array = ['ID frigobar: '.  $idFrigobar, 'ID acomodacao: '.  $idAcomodacao, 'ID item: ' . $idItem, 'SKU: ' . $sku,'Quantidade: ' . $quantidade];
+        // echo "<pre>";
+        // print_r($array);
 
         $sql = 
             mysqli_prepare(
@@ -45,28 +45,9 @@
             $idLogado
         );
 
-        // sql tbl_saida_item_estoque
-            $sqlSaidaEstoque = 
-                mysqli_prepare($con,
-                "INSERT INTO tbl_saida_item_estoque (
-                    id_item,
-                    quantidade,
-                    id_funcionario)
-                VALUES (?,?,?)
-            ");
-            
-            mysqli_stmt_bind_param(
-                $sqlSaidaEstoque,
-                "iii",
-                $idItem,
-                $quantidade,
-                $idLogado
-            );
-
-            mysqli_stmt_execute($sqlSaidaEstoque);
-        //
-
-        if(mysqli_stmt_execute($sql)){
+        if(mysqli_stmt_execute($sql)) {
+            // id gerado ao gravar
+            $idEntradaItemFrigobar = mysqli_insert_id($con);
 
             // log operações
                 $nomeTabela = 'tbl_entrada_item_frigobar';
@@ -75,13 +56,51 @@
                 $descricao = 'Item adicionado ID: ' . $sku;
                 logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
             // 
-            header('location: ../index.php?msg=Adicionado com sucesso!');
 
+            // sql tbl_saida_item_estoque
+                $sqlSaidaEstoque = 
+                    mysqli_prepare($con,
+                    "INSERT INTO tbl_saida_item_estoque (
+                        id_e_item_f,
+                        id_item,
+                        quantidade,
+                        id_funcionario)
+                    VALUES (?,?,?,?)
+                ");
+            //  
+
+            mysqli_stmt_bind_param(
+                $sqlSaidaEstoque,
+                "iiii",
+                $idEntradaItemFrigobar,
+                $idItem,
+                $quantidade,
+                $idLogado
+            );
+
+            if (mysqli_stmt_execute($sqlSaidaEstoque)) {
+
+
+                // log operações
+                    $nomeTabela = 'tbl_saida_item_estoque';
+                    $idRegistro = $sku;
+                    $tpOperacao = 'insercao';
+                    $descricao = 'Saida do produto ID: ' . $sku;
+                    logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+                // 
+
+                header('location: ../index.php?msg=Adicionado com sucesso!');
+
+            } else {
+                    echo "Error ao gravar" . mysqli_error($con);
+            }
         } else {
-            echo "Error ao gravar" . mysqli_error($con);
+            echo "Erro ao gravar: " . mysqli_error($con); 
         }
 
         mysqli_close($con);
+    } else {
+        echo "Erro ao gravar: " . mysqli_error($con);
     }
 
 ?>
