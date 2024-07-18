@@ -41,7 +41,7 @@
             <span class="separador"></span>
 
             <div class="container-itens-administracao">
-                <a href="<?php echo BASE_URL . '/app/estoque/produto/cadastro/index.php' ?>">
+                <a href="<?php echo BASE_URL . '/app/estoque/produto/visaoGeral/index.php' ?>">
                     <div class="card" style="width: 15rem; min-height: 15rem; border: none">
                         <div class="card-body card-administracao">
                             <span class="material-symbols-rounded">
