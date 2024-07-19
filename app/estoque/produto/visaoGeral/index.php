@@ -5,6 +5,7 @@
     $tituloMenuPagina = "Estoque | Visão geral";
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+    include ARQUIVO_FUNCAO_SQL;
     
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
@@ -72,7 +73,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nº</th>
-                                <th scope="col">ID item/th>
+                                <th scope="col">ID item</th>
                                 <th scope="col">ID SKU</th>
                                 <th scope="col">Nome item</th>
                                 <th scope="col">Entradas</th>
@@ -86,23 +87,16 @@
                                 $nroLinha = 1;
                                 while($exibe = mysqli_fetch_array($consultaDistinta)){
                                         $idItem = $exibe['id_item'];
-
+                                        
                                         // informacoes do item
-                                        $sqlInfoItem = "SELECT * FROM tbl_item WHERE id_item = $idItem";
-                                        $consultaInfoItem = mysqli_query($con, $sqlInfoItem);
-                                        $arrayInfoItem = mysqli_fetch_assoc($consultaInfoItem);
+                                        $arrayInfoItem = infoItemArray($con, $idItem);
 
                                         // entradas
-                                        $sql2 = "SELECT id_item, id_sku, SUM(quantidade) FROM tbl_entrada_item_estoque where id_item = $idItem";
-                                        $consultaItem = mysqli_query($con, $sql2);
-                                        $arrayItem = mysqli_fetch_assoc($consultaItem);
-                                        $totalEntrada = $arrayItem['SUM(quantidade)'] . "\n";
-
+                                        $arrayItem = entradasEstoqueArray($con, $idItem);
+                                        $totalEntrada = totalEntradasEstoque($con, $idItem);
+                                        
                                         // saidas
-                                        $sqlSaida = "SELECT id_item, SUM(quantidade) FROM tbl_saida_item_estoque where id_item = $idItem";
-                                        $consultaSaidaItem = mysqli_query($con, $sqlSaida);
-                                        $arraySaidaItem = mysqli_fetch_assoc($consultaSaidaItem);
-                                        $totalSaida = $arraySaidaItem['SUM(quantidade)'];
+                                        $totalSaida = totalSaidasEstoque($con, $idItem);
 
                                         // total estoque
                                         $estoqueMinimo = $arrayInfoItem['estoque_minimo'];

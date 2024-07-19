@@ -17,6 +17,7 @@
         $nomeProduto = trim($_POST['nome-produto']);
         $preco = $_POST['preco'];
         $precoFormatado = converterMonetario($preco);
+        $estoqueMinimo = $_POST['estoque-minimo'];
 
 
         $sqlVerifica = mysqli_prepare($con, "SELECT * FROM tbl_item WHERE id_sku = ? AND id_item != $idItem");
@@ -38,16 +39,18 @@
                     id_sku=?, 
                     nome_item=?, 
                     preco_unit=?, 
+                    estoque_minimo=?,
                     id_funcionario=? 
                 WHERE id_item = $idItem 
             ");
             
             mysqli_stmt_bind_param(
                 $sql, 
-                "ssdi", 
+                "ssdii", 
                 $sku, 
                 $nomeProduto, 
                 $precoFormatado, 
+                $estoqueMinimo,
                 $idLogado
             );
 

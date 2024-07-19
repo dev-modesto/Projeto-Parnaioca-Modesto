@@ -14,6 +14,7 @@
 
         $nomeProduto = $array['nome_item'];
         $precoUnit = $array['preco_unit'];
+        $estoqueMinimo = $array['estoque_minimo'];
             
     }
 
@@ -44,6 +45,11 @@
                 <div class="mb-3">
                     <label class="font-1-s" for="preco">Preço</label>
                     <input class="form-control monetario" type="text" name="preco" id="preco" value="<?php echo $precoUnit?>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="font-1-s" for="estoque-minimo">Estoque mínimo</label>
+                    <input class="form-control" type="number" min="1" max="5000" name="estoque-minimo" id="estoque-minimo" value="<?php echo $estoqueMinimo?>" required>
                 </div>
 
                 <?php if(!empty($mensagem)){ ?>  

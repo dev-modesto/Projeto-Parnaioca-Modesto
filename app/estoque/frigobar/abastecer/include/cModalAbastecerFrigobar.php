@@ -26,6 +26,7 @@
         $consulta = mysqli_stmt_execute($sqlInner);
         $result = mysqli_stmt_get_result($sqlInner);
         $array = mysqli_fetch_assoc($result);
+        $capacidadeItens = $array['capacidade_itens'];
 
     }
 
@@ -46,6 +47,7 @@
                 <form class="was-validated form-container" action="include/gAbastecerFrigobar.php" method="post">
                     <input class="form-control" type="text" name="id-frigobar" id="id-frigobar" value="<?php echo $idFrigobar?>" hidden required >
                     <input class="form-control" type="text" name="id-acomodacao" id="id-acomodacao" value="<?php echo $idAcomodacao?>" hidden  required >
+                    <input class="form-control" type="text" name="capacidade-itens" id="capacidade-itens" value="<?php echo $capacidadeItens?>" hidden required >
                     <input class="form-control" type="text" name="id-item-frigobar" id="id-item-frigobar" value="" hidden required >
                     <div class="mb-3">
                         <label class="font-1-s" for="sku">SKU do produto</label>
