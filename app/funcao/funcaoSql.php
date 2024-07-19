@@ -78,5 +78,34 @@
         $totalSaida = $arraySaidaItem['SUM(quantidade)'];
         return $totalSaida;
     }
-    
+
+    function entradasFrigobar ($con, $idFrigobar) {
+        // tototal  frigobar
+        $sqlEntradaFrigobar = "SELECT id_item, SUM(quantidade) as quantidade FROM tbl_entrada_item_frigobar WHERE id_frigobar = $idFrigobar";
+        $consultaEntradaFrigobar = mysqli_query($con, $sqlEntradaFrigobar);
+        $arrayEntradaFrigobar = mysqli_fetch_assoc($consultaEntradaFrigobar);
+        return $arrayEntradaFrigobar;
+    }
+
+    function saidasFrigobar ($con, $idFrigobar) {
+        // saidas frigobar
+        $sqlConsumoFrigobar = "SELECT id_consumo_item_f, id_reserva, id_frigobar, id_item, SUM(quantidade) as quantidade FROM tbl_consumo_item_frigobar WHERE id_frigobar = $idFrigobar";
+        $consultaConsumoFrigobar = mysqli_query($con, $sqlConsumoFrigobar);
+        $arrayConsumoFrigobar = mysqli_fetch_assoc($consultaConsumoFrigobar);
+        return $arrayConsumoFrigobar;
+    }
+
+    function totalItensFrigobar ($con, $idFrigobar) {
+        // total item no frigobar
+        $arrayFrigobar = entradasFrigobar($con, $idFrigobar);
+        $quantidadeEntradaFrigobar = $arrayFrigobar['quantidade'];
+        
+        $arraySaidaFrigobar = saidasFrigobar($con, $idFrigobar);
+        $quantidadeTotalSaidaFrigobar = $arraySaidaFrigobar['quantidade'];
+
+        $totalItensFrigobar = $quantidadeEntradaFrigobar - $quantidadeTotalSaidaFrigobar;
+        return $totalItensFrigobar;
+
+    }
+
 ?>
