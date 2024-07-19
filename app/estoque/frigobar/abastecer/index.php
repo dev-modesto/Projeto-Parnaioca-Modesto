@@ -5,6 +5,7 @@
     $tituloMenuPagina = "Estoque | Frigobar";
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+    include ARQUIVO_FUNCAO_SQL;
     
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
@@ -85,7 +86,7 @@
                         $numeroAcomodacao = $array['numero_acomodacao'];
                         $nomeAcomodacao = $array['nome_acomodacao'];
                         $capacidadeItens = $array['capacidade_itens'];
-
+                        $totalItensFrigobar = totalItensFrigobar($con, $idFrigobar);
 
                         ?>
                             <div class="card card-frigobar" style="width: 15rem; min-height: 18rem; border: none" data-id-frigobar="<?php echo $idFrigobar ?>" data-id-acomodacao="<?php echo $idAcomodacao?>">
@@ -100,7 +101,7 @@
                                     </div>
                                     <div class="card-frigobar-armazenamento">
                                         <p class="cor-6 font-1-xs">Armazenamento</p>
-                                        <p class="cor-7">0/<?php echo $capacidadeItens ?></p>
+                                        <p class="cor-7"><?php echo $totalItensFrigobar ?>/<?php echo $capacidadeItens ?></p>
                                     </div>
                                 </a>
                                 <a href="" class="card-frigobar-btn click-botao-abastecer-frigobar">Abastecer</a>
