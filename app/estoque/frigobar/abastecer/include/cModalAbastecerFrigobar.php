@@ -29,6 +29,8 @@
         $array = mysqli_fetch_assoc($result);
         $capacidadeItens = $array['capacidade_itens'];
 
+        $totalItensFrigobar = totalItensFrigobar($con, $idFrigobar);
+        $totalLivreFrigobar = ($capacidadeItens - $totalItensFrigobar);
     }
 
 ?>
@@ -37,15 +39,14 @@
     <div class="modal fade" id="modalAbastecerFrigobar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalAbastecerFrigobar" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-   
-                
+
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="modalAbastecerFrigobar"><?php echo $array['nome_frigobar']?></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <!-- formulario envio -->
-                <form class="was-validated form-container" action="include/gAbastecerFrigobar.php" method="post">
+                <form class=" form-container" action="include/gAbastecerFrigobar.php" method="post">
                     <input class="form-control" type="text" name="id-frigobar" id="id-frigobar" value="<?php echo $idFrigobar?>" hidden required >
                     <input class="form-control" type="text" name="id-acomodacao" id="id-acomodacao" value="<?php echo $idAcomodacao?>" hidden  required >
                     <input class="form-control" type="text" name="capacidade-itens" id="capacidade-itens" value="<?php echo $capacidadeItens?>" hidden required >
@@ -62,11 +63,13 @@
 
                     <div class="mb-3">
                         <p class="font-1-xs">estoque disponível: <span class="total-item-estoque font-1-xs"></span></p>
+                        <p class="font-1-xs">espaço disponível no frigobar: <span class="total-livre-frigobar font-1-xs"><?php echo $totalLivreFrigobar  ?></span></p>
                     </div>
 
                     <div class="mb-3">
                         <label class="font-1-s" for="quantidade">Quantidade</label>
-                        <input class="form-control" type="text" name="quantidade" id="quantidade" required>
+                        <input class="form-control quantidade" type="number" min="1" max="" name="quantidade" id="quantidade" required>
+                        <div class="invalid-feedback"></div>
                     </div>
 
                     <?php if(!empty($mensagem)){ ?>  
@@ -81,7 +84,7 @@
 
                     <div class="modal-footer form-container-button">
                         <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
-                        <button class='btn btn-primary' type="submit">Adicionar</button>
+                        <button class='btn btn-primary btn-adicionar' type="submit">Adicionar</button>
                     </div>
                 </form>
             </div>
@@ -95,7 +98,7 @@
                 e.preventDefault();
 
                 var idSku = $(this).val();
-                console.log(idSku);
+                // console.log(idSku);
 
                 $.ajax({
                     type: "POST",
@@ -118,13 +121,46 @@
                                 element.innerHTML = totalEstoque;
                             });
 
+                            var totalLivreFrigobar = $('.total-livre-frigobar').text();
+                            var totalLivreFrigobar = Number(totalLivreFrigobar)
+
+                            $('.quantidade').keyup(function (e) { 
+                                var quantidadeDigitada = $(this).val();
+
+                                const btnAdicionar = document.querySelector('.btn-adicionar');
+                                var inputQuantidade = document.querySelector('.quantidade');
+
+                                if (quantidadeDigitada == "") {
+                                    inputQuantidade.classList.add("is-invalid");
+
+                                    document.querySelectorAll('.invalid-feedback').forEach( function (element) {
+                                        element.innerHTML = '';
+                                    })
+                                
+                                } else if (quantidadeDigitada > totalLivreFrigobar) {
+                                    btnAdicionar.setAttribute("disabled", "");
+                                    inputQuantidade.classList.add("is-invalid");
+
+                                    document.querySelectorAll('.invalid-feedback').forEach( function (element) {
+                                        element.innerHTML = 'Não há espaço no frigobar suficiente para esta quantidade de itens.';
+                                    })
+
+                                } else {
+                                    btnAdicionar.removeAttribute("disabled", "");
+                                    if (inputQuantidade.classList.contains("is-invalid")) {
+                                        inputQuantidade.classList.remove("is-invalid");
+                                        inputQuantidade.classList.add("is-valid");
+                                    }
+                                }
+                            });
+
                         } else {
                             $('#id-item-frigobar').val('');
                             $('#nome-produto-frigobar').val('');
                             $('#total-estoque-item').val('');
 
-                            var textoEstoque = document.querySelectorAll('.total-item-estoque').forEach( function (element) {
-                                console.log(element.textContent);
+                            document.querySelectorAll('.total-item-estoque').forEach( function (element) {
+                                console.log(textoEstoque.textContent);
                                 element.innerHTML = '';
                             });
                         }
