@@ -39,9 +39,19 @@
             $idItem = $array['id_item'];
             $nomeItem = $array['nome_item'];
 
+            // entradas
+            $totalEntrada = totalEntradasEstoque($con, $idItem);
+                                            
+            // saidas
+            $totalSaida = totalSaidasEstoque($con, $idItem);
+
+            // total estoque
+            $totalEstoque = ($totalEntrada - $totalSaida);
+
             $response = [
                 'idItem' => $idItem,
-                'nomeItem' => $nomeItem
+                'nomeItem' => $nomeItem,
+                'totalEstoqueItem' => $totalEstoque
             ];
     
             header('Content-Type: application/json');

@@ -21,9 +21,17 @@
         // $array = ['ID frigobar: '.  $idFrigobar, 'ID acomodacao: '.  $idAcomodacao, 'ID item: ' . $idItem, 'SKU: ' . $sku,'Quantidade: ' . $quantidade, 'Capacidade: ' . $capacidadeItens];
         // echo "<pre>";
         // print_r($array);
+
+         $totalEntrada = totalEntradasEstoque($con, $idItem);
+         $totalSaida = totalSaidasEstoque($con, $idItem);
+         $totalEstoqueItem = ($totalEntrada - $totalSaida);
         
         if ($quantidade > $capacidadeItens) {
             $msg = "Quantidade de itens superior a capacidade do frigobar.";
+            header("location: ../index.php?msgInvalida=" . $msg);
+            
+        } else if ($quantidade > $totalEstoqueItem) {
+            $msg = "A quantidade de item informada é superior a quantidade no estoque.";
             header("location: ../index.php?msgInvalida=" . $msg);
 
         } else {

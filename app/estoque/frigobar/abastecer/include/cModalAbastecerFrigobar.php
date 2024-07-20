@@ -1,6 +1,7 @@
 <?php
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
+    include ARQUIVO_FUNCAO_SQL;
 
     if(isset($_POST['click-botao-abastecer-frigobar'])){
 
@@ -60,6 +61,10 @@
                     </div>
 
                     <div class="mb-3">
+                        <p class="font-1-xs">estoque disponível: <span class="total-item-estoque font-1-xs"></span></p>
+                    </div>
+
+                    <div class="mb-3">
                         <label class="font-1-s" for="quantidade">Quantidade</label>
                         <input class="form-control" type="text" name="quantidade" id="quantidade" required>
                     </div>
@@ -101,13 +106,27 @@
 
                     success: function (response) {
                         if (response !== "") {
-                            console.log(response);
+                            // console.log(response);
                             $('#id-item-frigobar').val(response.idItem);
                             $('#nome-produto-frigobar').val(response.nomeItem);
+                            $('#total-estoque-item').val(response.totalEstoqueItem);
+
+                            var totalEstoque = response.totalEstoqueItem;
+
+                            var textoEstoque = document.querySelectorAll('.total-item-estoque').forEach( function (element) {
+                                console.log(element.textContent);
+                                element.innerHTML = totalEstoque;
+                            });
 
                         } else {
                             $('#id-item-frigobar').val('');
                             $('#nome-produto-frigobar').val('');
+                            $('#total-estoque-item').val('');
+
+                            var textoEstoque = document.querySelectorAll('.total-item-estoque').forEach( function (element) {
+                                console.log(element.textContent);
+                                element.innerHTML = '';
+                            });
                         }
                     },
                 });
