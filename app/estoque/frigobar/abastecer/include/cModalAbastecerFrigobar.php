@@ -61,9 +61,15 @@
                         <input class="form-control" type="text" name="nome-produto" id="nome-produto-frigobar" readonly required>
                     </div>
 
-                    <div class="mb-3">
-                        <p class="font-1-xs">estoque disponível: <span class="total-item-estoque font-1-xs"></span></p>
-                        <p class="font-1-xs">espaço disponível no frigobar: <span class="total-livre-frigobar font-1-xs"><?php echo $totalLivreFrigobar  ?></span></p>
+                    <div class="mb-3 container-info-produto-frigobar">
+                        <div>
+                            <p class="font-1-xs">Estoque disponível </p>
+                            <span class="total-item-estoque font-1-m-b">-</span>
+                        </div>
+                        <div>
+                            <p class="font-1-xs">Espaço frigobar</p>
+                            <span class="total-livre-frigobar font-1-m-b "><?php echo $totalLivreFrigobar  ?></span>
+                        </div>
                     </div>
 
                     <div class="mb-3">
@@ -137,6 +143,14 @@
                                         element.innerHTML = '';
                                     })
                                 
+                                } else if (quantidadeDigitada > totalEstoque) {
+                                    btnAdicionar.setAttribute("disabled", "");
+                                    inputQuantidade.classList.add("is-invalid");
+
+                                    document.querySelectorAll('.invalid-feedback').forEach( function (element) {
+                                        element.innerHTML = 'A quantidade de item informada é superior a quantidade disponível no estoque.';
+                                    })
+
                                 } else if (quantidadeDigitada > totalLivreFrigobar) {
                                     btnAdicionar.setAttribute("disabled", "");
                                     inputQuantidade.classList.add("is-invalid");
@@ -160,9 +174,10 @@
                             $('#total-estoque-item').val('');
 
                             document.querySelectorAll('.total-item-estoque').forEach( function (element) {
-                                console.log(textoEstoque.textContent);
-                                element.innerHTML = '';
+                                console.log(element.textContent);
+                                element.innerHTML = '-';
                             });
+
                         }
                     },
                 });
