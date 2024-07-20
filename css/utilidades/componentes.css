@@ -40,6 +40,11 @@
     height: 35px;
 }
 
+.btn:disabled {
+    background-color: var(--cor-3);
+    border-color: var(--cor-4);
+}
+
 .separador {
     display: block;
     width: 100%;
