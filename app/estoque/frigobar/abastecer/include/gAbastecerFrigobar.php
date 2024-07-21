@@ -25,13 +25,16 @@
          $totalEntrada = totalEntradasEstoque($con, $idItem);
          $totalSaida = totalSaidasEstoque($con, $idItem);
          $totalEstoqueItem = ($totalEntrada - $totalSaida);
+
+         $totalItensFrigobar = totalItensFrigobar($con, $idFrigobar);
+         $totalLivreFrigobar = ($capacidadeItens - $totalItensFrigobar);
         
-        if ($quantidade > $capacidadeItens) {
-            $msg = "Quantidade de itens superior a capacidade do frigobar.";
+        if ($quantidade > $totalLivreFrigobar) {
+            $msg = "Não há espaço no frigobar suficiente para esta quantidade de itens.";
             header("location: ../index.php?msgInvalida=" . $msg);
             
         } else if ($quantidade > $totalEstoqueItem) {
-            $msg = "A quantidade de item informada é superior a quantidade no estoque.";
+            $msg = "A quantidade de item informada é superior a quantidade disponível no estoque.";
             header("location: ../index.php?msgInvalida=" . $msg);
 
         } else {
