@@ -40,6 +40,11 @@
     height: 35px;
 }
 
+.btn:disabled {
+    background-color: var(--cor-3);
+    border-color: var(--cor-4);
+}
+
 .separador {
     display: block;
     width: 100%;
@@ -236,4 +241,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.container-info-produto-frigobar {
+    display: flex;
+    gap: 10px;
+}
+
+.container-info-produto-frigobar div {
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    width: 150px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.container-info-produto-frigobar div span {
+
+
 }

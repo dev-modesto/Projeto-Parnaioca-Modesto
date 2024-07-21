@@ -185,8 +185,6 @@
                 e.preventDefault();
                 var idFrigobar = $(this).closest('.card-frigobar').data('id-frigobar');
                 var idAcomodacao = $(this).closest('.card-frigobar').data('id-acomodacao');
-                console.log(idFrigobar);
-                console.log(idAcomodacao);
 
                 $.ajax({
                     type: "POST",
