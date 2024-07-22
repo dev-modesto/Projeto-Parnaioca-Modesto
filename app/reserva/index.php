@@ -137,6 +137,9 @@
             <div class="container-cards-reservas">
             </div>
 
+            <div class="modalNovaReserva">
+            </div>
+
         </div>
 
     </div>
