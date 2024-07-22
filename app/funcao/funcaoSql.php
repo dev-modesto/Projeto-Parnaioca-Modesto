@@ -108,8 +108,9 @@
 
     }
 
-    function consultaInfoTipoAcomodacao ($con, $idTipoAcomodacao) {
-        $sql = "SELECT * FROM tbl_acomodacao WHERE id_tp_acomodacao = $idTipoAcomodacao";
+    // pesquisa na tabela de acomodacao pelo id tipo ou id da acomodação
+    function consultaInfoTipoAcomodacao ($con, $idTipoAcomodacao, $idAcomodacao) {
+        $sql = "SELECT * FROM tbl_acomodacao WHERE (id_tp_acomodacao = $idTipoAcomodacao) OR (id_acomodacao = $idAcomodacao)";
         $consulta = mysqli_query($con, $sql);
         return $consulta;
     }
