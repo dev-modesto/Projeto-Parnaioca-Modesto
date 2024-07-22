@@ -108,4 +108,35 @@
 
     }
 
+    function consultaInfoTipoAcomodacao ($con, $idTipoAcomodacao) {
+        $sql = "SELECT * FROM tbl_acomodacao WHERE id_tp_acomodacao = $idTipoAcomodacao";
+        $consulta = mysqli_query($con, $sql);
+        return $consulta;
+    }
+
+    // funções de consulta reservas na tabela reserva
+    function consultaAcomodacaoDisponivel ($con, $idAcomodacao, $dataInicioFormatado, $dataFimFormatado) {
+        $sqlAcomodacaoDisponivel = 
+            "SELECT * FROM tbl_reserva 
+            WHERE id_acomodacao = $idAcomodacao 
+            AND ((dt_reserva_inicio <= '$dataFimFormatado' AND dt_reserva_fim >= '$dataInicioFormatado' ) 
+            OR (dt_reserva_inicio >= '$dataFimFormatado' AND dt_reserva_fim <= '$dataInicioFormatado' ))
+        ";
+                                    
+        $acomodacaoDisponivel = mysqli_query($con, $sqlAcomodacaoDisponivel);
+        return $acomodacaoDisponivel;
+    }
+
+    function consultaAcomodacaoReservada($con, $idAcomodacao, $dataFimFormatado, $dataInicioFormatado) {
+        $sqlAcomodacaoReservada = 
+            "SELECT * FROM tbl_reserva 
+            WHERE id_acomodacao = $idAcomodacao 
+            AND ((dt_reserva_inicio <= '$dataFimFormatado' AND dt_reserva_fim >= '$dataInicioFormatado') 
+            OR (dt_reserva_inicio >= '$dataFimFormatado' AND dt_reserva_fim <= '$dataInicioFormatado'))
+        ";
+
+        $acomodacaoReservada = mysqli_query($con, $sqlAcomodacaoReservada);
+        return $acomodacaoReservada;
+    }
+
 ?>
