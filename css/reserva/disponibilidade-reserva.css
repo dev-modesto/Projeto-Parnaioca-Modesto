@@ -1,0 +1,147 @@
+/* reservas */
+
+.container-cards-reservas-ocupadas,
+.container-cards-reservas-disponiveis {
+    margin-bottom: 90px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0px 20px;
+    transition: all .2s;
+}
+
+.container-cards-reservas-ocupadas.min,
+.container-cards-reservas-disponiveis.min  {
+    margin-bottom: 0px;
+    height: 0px;
+    overflow: hidden;
+}
+
+.card-container-disponibilidade-reserva {
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px 20px;
+    border-color: var(--cor-2);
+    height: 130px;
+    border-radius: 1rem;
+    transition: all .2s;
+    border-left: 5px solid;
+}
+
+.card-container-disponibilidade-reserva:hover {
+    transition: all .2s;
+    transform: scale(102%);
+    box-shadow: 2px 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    border-left: 5px solid var(--cor-6);
+    box-sizing: border-box;
+}
+
+    .card-container-disponibilidade-reserva.disponivel {
+        border-left-color: var(--cor-a-green3);
+    }
+
+    .card-container-disponibilidade-reserva.reservado {
+        border-left-color: var(--cor-a-red3);
+    }
+
+
+.disp-reserva-nome {
+    width: 30%;
+}
+
+    .disp-reserva-nome span {
+        color: var(--cor-3);
+    }
+
+    .disp-reserva-nome-info {
+        padding-top: 5px;
+    }
+
+.disp-reserva-status {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .disp-reserva-status p {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .disp-reserva-status span {
+        display: inline-flex;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+
+    .disp-reserva-status.disponivel span {
+        background-color: var(--cor-a-green3);
+      }
+
+    .disp-reserva-status.reservado span {
+        background-color: var(--cor-a-red3);
+      }
+
+.disp-reserva-data {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+    .disp-reserva-data-periodo {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+
+.disp-reserva-botao {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.separador-reserva {
+    width: 1px ;
+    background-color: var(--cor-2);
+    height: 85%;
+    margin: auto 0px;
+}
+
+.cards-reservas-cabecalho {
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--cor-13);
+    border-radius: .5rem;
+}
+
+.icon-drop-ocupadas,
+.icon-drop-disponiveis {
+    padding: 5px;
+    cursor: pointer;
+    transition: ease-out .2s;
+    color: var(--cor-8);
+}
+
+    .icon-drop-ocupadas:hover,
+    .icon-drop-disponiveis:hover {
+        color: var(--cor-s2);
+    }
+
+    .ico-icodown {
+        transition: ease-out .2s;
+    }
