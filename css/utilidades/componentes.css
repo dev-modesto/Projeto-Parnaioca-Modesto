@@ -264,3 +264,17 @@
 
 
 }
+
+.container-conteudo {
+    background-color: #fff;
+    padding: 20px 0px;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+}
+
+.container-cabecalho-padrao {
+    padding: 0px 20px;
+}
