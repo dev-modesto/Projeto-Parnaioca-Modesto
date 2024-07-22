@@ -1,7 +1,7 @@
 <?php
     $setorPagina = "SAC";
     $pagina = "Cadastro de clientes";
-    // $grupoPagina = "";
+    $grupoPagina = "";
     $tituloMenuPagina = "Clientes";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 

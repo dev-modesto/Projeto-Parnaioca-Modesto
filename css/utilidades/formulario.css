@@ -16,6 +16,9 @@
 .container-conteudo-principal {
   box-sizing: border-box;
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 label {
