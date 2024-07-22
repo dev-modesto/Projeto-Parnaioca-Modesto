@@ -29,7 +29,7 @@
         <div class="container-cards-reservas-disponiveis">
             <?php
                 
-                $retornoPrimeiraConsulta = consultaInfoTipoAcomodacao($con, $idTipoAcomodacao);
+                $retornoPrimeiraConsulta = consultaInfoTipoAcomodacao($con, $idTipoAcomodacao, 0);
 
                 while($arrayLivre = mysqli_fetch_assoc($retornoPrimeiraConsulta)) {
 
@@ -43,7 +43,7 @@
                     } else {
                         ?>
 
-                            <div class="card card-container-disponibilidade-reserva disponivel">
+                            <div class="card card-container-disponibilidade-reserva disponivel" data-id-acomodacao="<?php echo $idAcomodacao ?>" data-data-inicio="<?php echo $dataInicioFormatado?>" data-data-fim="<?php echo $dataFimFormatado ?>">
                                 <div class="disp-reserva-nome">
                                     <span class="material-symbols-rounded">hotel</span>
                                     <div class="disp-reserva-nome-info">
@@ -64,7 +64,7 @@
                                     <p class="text-center cor-6">Previsão</p>
                                     <div class="disp-reserva-data-periodo">
                                         <div>
-                                        <p class="cor-7 font-1-xxs">Data check-in<p>
+                                            <p class="cor-7 font-1-xxs">Data check-in<p>
                                             <p class="cor-5 font-1-xxs peso-leve" ><?php echo $dataInicioFormatado ?></p>
                                         </div>
                                         
@@ -78,7 +78,8 @@
                                 <span class="separador-reserva"></span>
 
                                 <div class="disp-reserva-botao">
-                                    <span class="cor-8">Reservar</span>
+                                    <!-- <span class="cor-8">Reservar</span> -->
+                                    <a class="btn-reservar">Reservar</a>
                                 </div>
                             </div>
 
@@ -99,7 +100,7 @@
         <div class="container-cards-reservas-ocupadas">
             <?php
 
-                $retornoSegundaConsulta = consultaInfoTipoAcomodacao($con, $idTipoAcomodacao);
+                $retornoSegundaConsulta = consultaInfoTipoAcomodacao($con, $idTipoAcomodacao, 0);
 
                 while($array = mysqli_fetch_assoc($retornoSegundaConsulta)) {
 
@@ -200,6 +201,41 @@
         }
 
     })
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.btn-reservar').click(function (e) { 
+            e.preventDefault();
+
+            var idAcomodacao = $(this).closest(".card-container-disponibilidade-reserva").data("id-acomodacao");
+            var dataInicio = $(this).closest(".card-container-disponibilidade-reserva").data("data-inicio");
+            var dataFim = $(this).closest(".card-container-disponibilidade-reserva").data("data-fim");
+
+            $.ajax({
+                type: "POST",
+                url: "../reserva/include/cModalNovaReserva.php",
+                data: {
+                    "click-btn-reservar":true,
+                    "id-acomodacao":idAcomodacao,
+                    "data-inicio":dataInicio,
+                    "data-fim":dataFim
+                },
+
+                success: function (response) {
+                    console.log(response);         
+
+                    $('.modalNovaReserva').html(response);
+                    $('#modalNovaReserva').modal('show');
+
+                }
+            });
+
+
+        });
+    });
+
+
 </script>
 
 
