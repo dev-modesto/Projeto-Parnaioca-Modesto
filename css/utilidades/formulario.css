@@ -13,6 +13,29 @@
   border-radius: 0.5rem;
 }
 
+.form-container.reservas {
+  max-width: 780px;
+  padding: 20px 40px;
+}
+
+.form-container.reservas.cabecalho {
+  max-width: 780px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.form-container.reservas.cabecalho::before {
+  content: '';
+  width: 10px;
+  height: 35px;
+  position: absolute;
+  left: -5px;
+  background-color: var(--cor-s7);
+  border-radius: 4px;
+}
+
 .container-conteudo-principal {
   box-sizing: border-box;
   padding: 30px;

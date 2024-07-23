@@ -23,15 +23,37 @@
     border: 1px solid var(--cor-s5);
 }
 
-.btn-primary:hover {
+.btn-avancar {
+    background-color: var(--cor-p1);
+    border: 1px solid var(--cor-p2);
+}
+
+.btn-avancar.finalizar {
+    background-color: var(--cor-s5);
+    border: 1px solid var(--cor-s5);
+}
+
+
+.btn-primary:hover,
+.btn-avancar.finalizar:hover {
     background: #8ceebf;
     background-color: var(--cor-s6);
     border-color: var(--cor-s5);
 }
 
+.btn-avancar:hover {
+    background-color: var(--cor-p2);
+    border: 1px solid var(--cor-p2);
+}
+
 .btn-primary:active {
     background-color: var(--cor-s4) !important;
     border-color: var(--cor-s5) !important;
+}
+
+.btn-primary:active {
+    background-color: var(--cor-p1) !important;
+    border-color: var(--cor-p2) !important;
 }
 
 .btn-secondary {

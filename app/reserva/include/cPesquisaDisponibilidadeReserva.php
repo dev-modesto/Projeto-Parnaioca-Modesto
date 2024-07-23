@@ -1,20 +1,17 @@
 <?php
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/conexao.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
+    include ARQUIVO_FUNCAO_SQL;
 
     if($_SERVER['REQUEST_METHOD'] == 'POST' ){
         $idTipoAcomodacao = $_POST['id-tipo-acomodacao'];
-        // $idTipoAcomodacao = "2";
         $dataInicio = $_POST['dt-inicio'];
-        // $dataInicio = '2024-07-25';
         $dataFim = $_POST['dt-fim'];
-        // $dataFim = '2024-07-29';
         $horaCheckIn = $_POST['hora-check-in'];
-        // $horaCheckIn = '13:00';
         $horaCheckOut = $_POST['hora-check-out'];
-        // $horaCheckOut = '11:00';
 
-        $inicioFormatado = ($dataInicio ." ".  $horaCheckIn);
-        $fimFormatado = ($dataFim ." ". $horaCheckOut);
+        $dataInicioFormatado = ($dataInicio ." ".  $horaCheckIn);
+        $dataFimFormatado = ($dataFim ." ". $horaCheckOut);
 
     }
 
@@ -32,29 +29,21 @@
         <div class="container-cards-reservas-disponiveis">
             <?php
                 
-                $sql = "SELECT * FROM tbl_acomodacao WHERE id_tp_acomodacao = $idTipoAcomodacao";
-                $consulta2 = mysqli_query($con, $sql);
+                $retornoPrimeiraConsulta = consultaInfoTipoAcomodacao($con, $idTipoAcomodacao, 0);
 
-
-                while($arrayLivre = mysqli_fetch_assoc($consulta2)) {
+                while($arrayLivre = mysqli_fetch_assoc($retornoPrimeiraConsulta)) {
 
                     $idAcomodacao = $arrayLivre['id_acomodacao'];
                     $numeroAcomodacao = $arrayLivre['numero_acomodacao'];
 
-                    $sqlDisponibilidadeReserva2 = 
-                    "SELECT * FROM tbl_reserva 
-                    WHERE id_acomodacao = $idAcomodacao 
-                    AND ((dt_reserva_inicio <= '$fimFormatado' and dt_reserva_fim >= '$inicioFormatado' ) OR (dt_reserva_inicio >= '$fimFormatado' and dt_reserva_fim <= '$inicioFormatado' )
-                    )";
+                    $acomodacaoDisponivel = consultaAcomodacaoDisponivel($con, $idAcomodacao, $dataInicioFormatado, $dataFimFormatado);
 
-                    $consultaReservaDisponivel2 = mysqli_query($con, $sqlDisponibilidadeReserva2);
-
-                    if($row = mysqli_fetch_assoc($consultaReservaDisponivel2)) {
+                    if($row = mysqli_fetch_assoc($acomodacaoDisponivel)) {
                     
                     } else {
                         ?>
 
-                            <div class="card card-container-disponibilidade-reserva disponivel">
+                            <div class="card card-container-disponibilidade-reserva disponivel" data-id-acomodacao="<?php echo $idAcomodacao ?>" data-data-inicio="<?php echo $dataInicioFormatado?>" data-data-fim="<?php echo $dataFimFormatado ?>">
                                 <div class="disp-reserva-nome">
                                     <span class="material-symbols-rounded">hotel</span>
                                     <div class="disp-reserva-nome-info">
@@ -75,13 +64,13 @@
                                     <p class="text-center cor-6">Previsão</p>
                                     <div class="disp-reserva-data-periodo">
                                         <div>
-                                        <p class="cor-7 font-1-xxs">Data check-in<p>
-                                            <p class="cor-5 font-1-xxs peso-leve" ><?php echo $inicioFormatado ?></p>
+                                            <p class="cor-7 font-1-xxs">Data check-in<p>
+                                            <p class="cor-5 font-1-xxs peso-leve" ><?php echo $dataInicioFormatado ?></p>
                                         </div>
                                         
                                         <div>
                                             <p class="cor-7 font-1-xxs">Data check-out</p>
-                                            <p class="cor-5 font-1-xxs peso-leve"><?php echo $fimFormatado ?></p>
+                                            <p class="cor-5 font-1-xxs peso-leve"><?php echo $dataFimFormatado ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +78,7 @@
                                 <span class="separador-reserva"></span>
 
                                 <div class="disp-reserva-botao">
-                                    <span class="cor-8">Reservar</span>
+                                    <a class="btn-reservar">Reservar</a>
                                 </div>
                             </div>
 
@@ -110,23 +99,16 @@
         <div class="container-cards-reservas-ocupadas">
             <?php
 
-                $sql = "SELECT * FROM tbl_acomodacao WHERE id_tp_acomodacao = $idTipoAcomodacao";
-                $consulta = mysqli_query($con, $sql);
+                $retornoSegundaConsulta = consultaInfoTipoAcomodacao($con, $idTipoAcomodacao, 0);
 
-                while($array = mysqli_fetch_assoc($consulta)) {
+                while($array = mysqli_fetch_assoc($retornoSegundaConsulta)) {
 
                     $idAcomodacao = $array['id_acomodacao'];
                     $numeroAcomodacao = $array['numero_acomodacao'];
 
-                    $sqlDisponibilidadeReserva = 
-                    "SELECT * FROM tbl_reserva 
-                    WHERE id_acomodacao = $idAcomodacao 
-                    AND ((dt_reserva_inicio <= '$fimFormatado' and dt_reserva_fim >= '$inicioFormatado' ) OR (dt_reserva_inicio >= '$fimFormatado' and dt_reserva_fim <= '$inicioFormatado' )
-                    )";
+                    $acomodacaoReservada = consultaAcomodacaoReservada($con, $idAcomodacao, $dataInicioFormatado, $dataFimFormatado);
 
-                    $consultaReservaDisponivel = mysqli_query($con, $sqlDisponibilidadeReserva);
-
-                    if($row = mysqli_fetch_assoc($consultaReservaDisponivel)) {
+                    if($row = mysqli_fetch_assoc($acomodacaoReservada)) {
 
                         $dataReservaCheckIn = $row['dt_reserva_inicio'];
                         $dataReservaCheckOut = $row['dt_reserva_fim'];
@@ -218,6 +200,30 @@
         }
 
     })
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.btn-reservar').click(function (e) { 
+            e.preventDefault();
+
+            var idAcomodacao = $(this).closest(".card-container-disponibilidade-reserva").data("id-acomodacao");
+            var dataInicio = $(this).closest(".card-container-disponibilidade-reserva").data("data-inicio");
+            var dataFim = $(this).closest(".card-container-disponibilidade-reserva").data("data-fim");
+
+            var queryString = $.param({
+            "click-btn-reservar": true,
+            "id-acomodacao": idAcomodacao,
+            "data-inicio": dataInicio,
+            "data-fim": dataFim
+        });
+
+            window.location.href = "../reserva/include/novaReserva.php?" + queryString;
+            
+        });
+    });
+
+
 </script>
 
 
