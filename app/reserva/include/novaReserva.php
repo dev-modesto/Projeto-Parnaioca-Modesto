@@ -2,7 +2,7 @@
     ob_start();
     $setorPagina = "SAC";
     $pagina = "Reservas";
-    $grupoPagina = "Reservas";
+    $grupoPagina = "";
     $tituloMenuPagina = "Reservas";
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
@@ -109,7 +109,8 @@
 
                         <div class="row mb-3 footer-container-button-reserva">
                             <div class="col-md-6 form-container-button-reserva">
-                                <button class='btn btn-primary btn-avancar info'>Avançar</button>
+                                <!-- <button class='btn btn-primary btn-avancar info'>Avançar</button> -->
+                                <a class="btn btn-primary btn-avancar info">Avançar</a>
                             </div>
                         </div>
 
@@ -164,8 +165,10 @@
 
                         <div class="row mb-3 footer-container-button-reserva">
                             <div class="col-md-6 form-container-button-reserva">
-                                <button class='btn btn-secondary btn-modal-cancelar btn-retornar hospede'>Retornar</button>
-                                <button class='btn btn-primary btn-avancar pagamento'>Avançar</button>
+                                <a class='btn btn-secondary btn-modal-cancelar btn-retornar hospede'>Retornar</a>
+                                <a class='btn btn-primary btn-avancar pagamento'>Avançar</a>
+                                <!-- <button class='btn btn-secondary btn-modal-cancelar btn-retornar hospede'>Retornar</button> -->
+                                <!-- <button class='btn btn-primary btn-avancar pagamento'>Avançar</button> -->
                             </div>
                         </div>
 
@@ -210,7 +213,8 @@
 
                         <div class="row mb-3 footer-container-button-reserva">
                             <div class="col-md-6 form-container-button-reserva">
-                                <button class='btn btn-secondary btn-modal-cancelar btn-retornar info'>Retornar</button>
+                                <a class='btn btn-secondary btn-modal-cancelar btn-retornar info'>Retornar</a>
+                                <!-- <button class='btn btn-secondary btn-modal-cancelar btn-retornar info'>Retornar</button> -->
                                 <button class='btn btn-primary btn-avancar finalizar' type="submit">Finalizar</button>
                             </div>
                         </div>
