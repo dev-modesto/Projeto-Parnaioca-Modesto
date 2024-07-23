@@ -78,7 +78,6 @@
                                 <span class="separador-reserva"></span>
 
                                 <div class="disp-reserva-botao">
-                                    <!-- <span class="cor-8">Reservar</span> -->
                                     <a class="btn-reservar">Reservar</a>
                                 </div>
                             </div>
@@ -212,26 +211,15 @@
             var dataInicio = $(this).closest(".card-container-disponibilidade-reserva").data("data-inicio");
             var dataFim = $(this).closest(".card-container-disponibilidade-reserva").data("data-fim");
 
-            $.ajax({
-                type: "POST",
-                url: "../reserva/include/cModalNovaReserva.php",
-                data: {
-                    "click-btn-reservar":true,
-                    "id-acomodacao":idAcomodacao,
-                    "data-inicio":dataInicio,
-                    "data-fim":dataFim
-                },
+            var queryString = $.param({
+            "click-btn-reservar": true,
+            "id-acomodacao": idAcomodacao,
+            "data-inicio": dataInicio,
+            "data-fim": dataFim
+        });
 
-                success: function (response) {
-                    console.log(response);         
-
-                    $('.modalNovaReserva').html(response);
-                    $('#modalNovaReserva').modal('show');
-
-                }
-            });
-
-
+            window.location.href = "../reserva/include/novaReserva.php?" + queryString;
+            
         });
     });
 
