@@ -24,7 +24,7 @@
         $intervalo = $dateTimeInicio->diff($dateTimeFim);
         $qntDias = $intervalo->days;
 
-        $consulta = consultaInfoTipoAcomodacao($con, 0, $idAcomodacao);
+        $consulta = consultaInfoAcomodacao($con, 0, $idAcomodacao);
         $array = mysqli_fetch_assoc($consulta);
 
         $valorDiaria = $array['valor'];
@@ -391,9 +391,9 @@
                 console.log("id da acomodacao: " + idAcomodacao);
                 console.log("id do cliente: " + idCliente);
 
-                $('#nome, #acomodacao, #numero-acomodacao, #data-inicio, #data-final, #valor-diaria, #valor-reserva-total').prop('disabled', false);
+                $('#data-inicio, #data-final, #valor-diaria, #valor-entrada, #valor-reserva-total').prop('disabled', false);
                 var formData = $(this).serialize();
-                $('#nome, #acomodacao, #numero-acomodacao, #data-inicio, #data-final, #valor-diaria, #valor-reserva-total').prop('disabled', true);
+                $('#data-inicio, #data-final, #valor-diaria, #valor-entrada, #valor-reserva-total').prop('disabled', true);
 
                 formData += '&id-acomodacao=' + encodeURIComponent(idAcomodacao);
                 formData += '&id-cliente=' + encodeURIComponent(idCliente);
