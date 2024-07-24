@@ -43,7 +43,7 @@
                     } else {
                         ?>
 
-                            <div class="card card-container-disponibilidade-reserva disponivel" data-id-acomodacao="<?php echo $idAcomodacao ?>" data-data-inicio="<?php echo $dataInicioFormatado?>" data-data-fim="<?php echo $dataFimFormatado ?>">
+                            <div class="card card-container-disponibilidade-reserva disponivel" data-id-acomodacao="<?php echo $idAcomodacao ?>" data-data-inicio="<?php echo $dataInicio?>" data-data-fim="<?php echo $dataFim ?>">
                                 <div class="disp-reserva-nome">
                                     <span class="material-symbols-rounded">hotel</span>
                                     <div class="disp-reserva-nome-info">
