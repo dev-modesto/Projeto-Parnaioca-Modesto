@@ -29,7 +29,7 @@
         <div class="container-cards-reservas-disponiveis">
             <?php
                 
-                $retornoPrimeiraConsulta = consultaInfoTipoAcomodacao($con, $idTipoAcomodacao, 0);
+                $retornoPrimeiraConsulta = consultaInfoAcomodacao($con, $idTipoAcomodacao, 0);
 
                 while($arrayLivre = mysqli_fetch_assoc($retornoPrimeiraConsulta)) {
 
@@ -99,7 +99,7 @@
         <div class="container-cards-reservas-ocupadas">
             <?php
 
-                $retornoSegundaConsulta = consultaInfoTipoAcomodacao($con, $idTipoAcomodacao, 0);
+                $retornoSegundaConsulta = consultaInfoAcomodacao($con, $idTipoAcomodacao, 0);
 
                 while($array = mysqli_fetch_assoc($retornoSegundaConsulta)) {
 
