@@ -75,6 +75,10 @@
     font: 700 2.25rem/2 "Poppins", sans-serif;
   }
 
+  .font-1-xxxl {
+    font: 500 3rem/1 "Poppins", sans-serif;
+  }
+
   /* pesos de fonte */
   .peso-leve {
     font-weight: 300;
