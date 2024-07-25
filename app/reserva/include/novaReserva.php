@@ -111,8 +111,8 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-3">
-                                    <label class="font-1-s" for="total-hospede">Total de hóspedes</label>
-                                    <input class="form-control" type="number" min="1" max="5" name="total-hospede" id="total-hospede" required>
+                                    <label class="font-1-s" for="total-hospedes">Total de hóspedes</label>
+                                    <input class="form-control" type="number" min="1" max="5" name="total-hospedes" id="total-hospedes" required>
                                 </div>
                             </div>
 
@@ -193,9 +193,23 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label class="font-1-s" for="forma-pagamento">Forma de pagamento</label>
-                                    <input class="form-control" type="text" name="forma-pagamento" id="forma-pagamento" value="">
+                                    <label for="id-forma-pagamento">Forma de pagamento</label>
+                                    <select class="form-select"  name="id-forma-pagamento" id="id-forma-pagamento" required aria-label="select example">
+                                        <option value="">-</option>
+                                        <?php
+                                            $sqlStatus = "SELECT id_metodo_pag, nome_metodo_pag FROM tbl_metodo_pagamento";
+                                            $consultaa = mysqli_query($con, $sqlStatus);
+
+                                            while($arrayStatus = mysqli_fetch_assoc($consultaa)) {
+                                                    echo "<option value='" . $arrayStatus['id_metodo_pag'] . "' $selected>" . $arrayStatus['nome_metodo_pag'] . "</option>";
+                                            }
+                                            mysqli_close($con);
+                                                
+                                        ?>
+                     
+                                    </select>
                                 </div>
+
                             </div>
 
                             <div class="row mb-3">
@@ -391,9 +405,9 @@
                 console.log("id da acomodacao: " + idAcomodacao);
                 console.log("id do cliente: " + idCliente);
 
-                $('#data-inicio, #data-final, #valor-diaria, #valor-entrada, #valor-reserva-total').prop('disabled', false);
+                $('#total-hospedes, #data-inicio, #data-final, #valor-diaria, #valor-entrada, #valor-reserva-total, #id-forma-pagamento').prop('disabled', false);
                 var formData = $(this).serialize();
-                $('#data-inicio, #data-final, #valor-diaria, #valor-entrada, #valor-reserva-total').prop('disabled', true);
+                $('#total-hospedes, #data-inicio, #data-final, #valor-diaria, #valor-entrada, #valor-reserva-total, #id-forma-pagamento').prop('disabled', true);
 
                 formData += '&id-acomodacao=' + encodeURIComponent(idAcomodacao);
                 formData += '&id-cliente=' + encodeURIComponent(idCliente);
