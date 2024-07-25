@@ -176,9 +176,8 @@
                             ?> 
                                 <div class="sub-container-header">
                                     <ul class="container-header-itens" >
-                                        <li><a href="<?php echo BASE_URL ?>/app/reserva/index.php">Disponibilidade</a></li>
-                                        <li><a href="<?php echo BASE_URL ?>/app/reserva/index.php">-</a></li>
-                                        <li><a href="<?php echo BASE_URL ?>/app/reserva/index.php">-</a></li>
+                                        <li><a href="<?php echo BASE_URL ?>/app/reserva/index.php">Visão geral</a></li>
+                                        <li><a href="<?php echo BASE_URL ?>/app/reserva/disponibilidade.php">Disponibilidade</a></li>
                                     </ul>
                                 </div>
                             <?php
