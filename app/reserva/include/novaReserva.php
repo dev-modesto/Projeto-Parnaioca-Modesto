@@ -417,7 +417,7 @@
                     url: 'gNovaReserva.php',
                     data: formData,
                     success: function(response) {
-                        console.log(response);
+                        window.location.href = "../index.php?msg=Reserva realizada com sucesso!";
                     }
                 });
             });
