@@ -20,7 +20,7 @@
         $horarioCheckInPadrao = "13:00";
         $horarioCheckOutPadrao = "11:00";
         $idStatusReserva = 1; //pendente
-        $formaPagamento = $_POST['id-forma-pagamento'];
+        $idFormaPagamento = $_POST['id-forma-pagamento'];
 
         $dateTimeCheckIn = new DateTime($dataCheckIn);
         $dateTimeCheckOut = new DateTime($dataCheckOut);
@@ -61,12 +61,67 @@
             "Data reserva check-out: " .  $dataHorarioCheckOut,
             "Valor entrada: " . $valorEntradaConvertido, 
             "Valor total reserva: " . $valorReservaTotal, 
-            "ID forma pagamento: " . $formaPagamento,
+            "ID forma pagamento: " . $idFormaPagamento,
             "ID status pagamento: " . $idStatusPagamento,
             "ID status reserva: " . $idStatusReserva,
             "ID logado: " . $idLogado
         ];
         print_r($array);
+        header('location: ../index.php?msg=Adicionado com sucesso!');
+        die();
+
+        $sql = 
+            mysqli_prepare(
+            $con,
+            "INSERT INTO tbl_reserva (
+            id_acomodacao,
+            valor,
+            id_cliente,
+            total_hospedes,
+            dt_reserva_inicio,
+            dt_reserva_fim,
+            total_noites,
+            total_pago,
+            valor_total_reserva,
+            id_metodo_pag,
+            id_status_pag,
+            id_status_reserva,
+            id_funcionario) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        );
+
+        mysqli_stmt_bind_param(
+            $sql, 
+            "idiissiddiiii", 
+            $idAcomodacao, 
+            $valorDiaria, 
+            $idCliente, 
+            $totalHospedes,
+            $dataHorarioCheckIn, 
+            $dataHorarioCheckOut, 
+            $qntNoites, 
+            $valorEntradaConvertido,
+            $valorReservaTotal,
+            $idFormaPagamento,
+            $idStatusPagamento,
+            $idStatusReserva,
+            $idLogado
+        );
+
+        if(mysqli_stmt_execute($sql)){
+            // log operações
+                // $nomeTabela = 'tbl_frigobar';
+                // $idRegistro = mysqli_insert_id($con);
+                // $tpOperacao = 'insercao';
+                // $descricao = 'Frigobar adicionado ID: ' . $idRegistro;
+                // logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+            // 
+
+        }  else {
+            echo "Error ao gravar" . mysqli_error($con);
+        }
+
+        mysqli_close($con);
 
 
     }   
