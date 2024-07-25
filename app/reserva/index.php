@@ -64,80 +64,83 @@
 
             <span class="separador"></span>
 
-            <div class="container-conteudo">
-                <div class="mb-3 container-cabecalho-padrao">
-                    <h1 class="modal-title fs-5 cor-8 peso-semi-bold" id="staticBackdropLabel">Verificar disponibilidade de reservas</h1>
+            <div class="container-conteudo dash-reserva">
+                <div class="container-cards-dash-reserva">
+                    <div class="card-dash card-confirmados">
+                        <div class="card-dash-reserva-cabecalho">
+                            <span class="material-symbols-rounded icone-dash-reserva">hotel</span>
+                            <div class="identificador-status"></div>
+                        </div>
+                        <div class="card-dash-reserva-conteudo">
+                            <p class="font-1-xxxl cor-a-green3">4</p>
+                            <p class="font-1-l">Confirmadas</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-check-in">
+                        <div class="card-dash-reserva-cabecalho">
+                            <span class="material-symbols-rounded icone-dash-reserva">hotel</span>
+                            <div class="identificador-status cor-p1"></div>
+                        </div>
+                        <div class="card-dash-reserva-conteudo">
+                            <p class="font-1-xm peso-medio">2</p>
+                            <p class="font-2-xs">Check-in</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-check-out">
+                        <div class="card-dash-reserva-cabecalho">
+                            <span class="material-symbols-rounded icone-dash-reserva">hotel</span>
+                            <div class="identificador-status"></div>
+                        </div>
+                        <div class="card-dash-reserva-conteudo">
+                            <p class="font-1-xm peso-medio">2</p>
+                            <p class="font-2-xs">Check-out</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-pendentes">
+                     <div class="card-dash-reserva-cabecalho">
+                            <span class="material-symbols-rounded icone-dash-reserva">hotel</span>
+                            <div class="identificador-status"></div>
+                        </div>
+                        <div class="card-dash-reserva-conteudo">
+                            <p class="font-1-xm peso-medio">2</p>
+                            <p class="font-2-xs">Pendentes</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-cancelados">
+                        <div class="card-dash-reserva-cabecalho">
+                            <span class="material-symbols-rounded icone-dash-reserva">hotel</span>
+                            <div class="identificador-status"></div>
+                        </div>
+                        <div class="card-dash-reserva-conteudo">
+                            <p class="font-1-xm peso-medio">2</p>
+                            <p class="font-2-xs">Cancelados</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-finalizados">
+                        <div class="card-dash-reserva-cabecalho">
+                            <span class="material-symbols-rounded icone-dash-reserva">hotel</span>
+                            <div class="identificador-status"></div>
+                        </div>
+                        <div class="card-dash-reserva-conteudo">
+                            <p class="font-1-xm peso-medio">2</p>
+                            <p class="font-2-xs">Finalizados</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-calendario">
+
+                    </div>
                 </div>
 
-                <!-- formulario envio -->
-                <form class="was-validated form-container" action="" method="post">
-
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="font-1-s" for="data-inicio">Data inicio</label>
-                            <input class="form-control" type="date" name="data-inicio" id="data-inicio" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="font-1-s" for="hora-inicio">Hora inicio</label>
-                            <input class="form-control" type="time" name="hora-inicio" id="hora-inicio" value="13:00" disabled>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                        <div class="col-md-4">
-                            <label class="font-1-s" for="data-final">Data final</label>
-                            <input class="form-control" type="date" name="data-final" id="data-final" required>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label class="font-1-s" for="hora-final">Hora final</label>
-                            <input class="form-control" type="time" name="hora-final" id="hora-final" value="11:00" disabled>
-                        </div>
-                        
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="id-tp-acomodacao">Tipo acomodação</label>
-                            <select class="form-select" name="id-tp-acomodacao" id="id-tp-acomodacao" required aria-label="select example">
-                                <option value="">-</option>
-                                
-                                <?php
-                                    $sqlTipoAcomodacao = "SELECT * FROM tbl_tp_acomodacao";
-                                    $consultaTpAcomodacao = mysqli_query($con, $sqlTipoAcomodacao);
-
-                                    while($row = mysqli_fetch_assoc($consultaTpAcomodacao)){
-                                        echo "<option value='" . $row['id_tp_acomodacao'] . "'>" . $row['nome_tp_acomodacao'] . "</option>";
-                                    }
-                                ?>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="col-md-4">
-                            <button class='btn btn-primary btn-verificar-disponibilidade'>Verificar</button>
-                        </div>
-                    </div>
-
-                    <?php if(!empty($mensagem)){ ?>  
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <?php echo $mensagem ?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div> 
-                    <?php } else {
-                            echo '';
-                        }
-                    ?>
-                </form>
             </div>
 
-            <div class="container-cards-reservas">
-            </div>
-
-            <div class="modalNovaReserva">
+            <div class="container-conteudo">
+               
             </div>
 
         </div>
@@ -153,40 +156,6 @@
     <script src="<?php echo BASE_URL ?>/js/table.js"></script>
 
 <script>
-
-    $(document).ready(function () {
-        $('.btn-verificar-disponibilidade').click(function (e) { 
-            e.preventDefault();
-
-            console.log("Clicou no botão!!");
-
-            var idTipoAcomodacao = $("#id-tp-acomodacao").val();
-            var dtInicio = $("#data-inicio").val();
-            var dtFim = $("#data-final").val();
-            var horaCheckIn = $("#hora-inicio").val();
-            var horaCheckOut = $("#hora-final").val();
-
-            $.ajax({
-                type: "POST",
-                url: "include/cPesquisaDisponibilidadeReserva.php",
-                data: {
-                    '.btn-verificar-disponibilidade':true,
-                    'id-tipo-acomodacao':idTipoAcomodacao,
-
-                    'dt-inicio':dtInicio,
-                    'dt-fim':dtFim,
-                    'hora-check-in':horaCheckIn,
-                    'hora-check-out':horaCheckOut
-                },
-                success: function (response) {
-                    console.log(response);
-
-                    $('.container-cards-reservas').html(response)
-                    
-                }
-            });
-        });
-    });
 
 </script>
 
