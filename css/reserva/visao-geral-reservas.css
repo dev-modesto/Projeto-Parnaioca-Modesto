@@ -1,0 +1,97 @@
+.container-conteudo.dash-reserva {
+    padding: 0px;
+    border: none;
+    background-color: transparent;
+}
+
+.container-cards-dash-reserva {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 95px);
+    grid-template-areas: 
+    "card-confirmados card-check-in card-pendentes card-cancelados card-calendario"
+    "card-confirmados card-check-out card-finalizados card-finalizados card-calendario"
+    ;
+    gap: 10px;
+}
+
+    .card-dash {
+        border: 1px solid var(--cor-13);
+        border-radius: 1rem;
+        background-color: var(--cor-p4);
+        display: flex;
+        flex-direction: column;
+        color: var(--cor-2);
+    }
+
+
+    .card-confirmados {
+        grid-area: card-confirmados;
+    }
+    .card-check-in {
+        grid-area: card-check-in;
+    }
+    .card-check-out {
+        grid-area: card-check-out;
+    }
+    .card-pendentes {
+        grid-area: card-pendentes;
+    }
+    .card-finalizados {
+        grid-area: card-finalizados;
+    }
+    .card-cancelados {
+        grid-area: card-cancelados;
+    }
+    .card-calendario{
+        grid-area: card-calendario;
+    }
+
+
+.card-dash-reserva-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0px;
+    position: relative;
+}
+
+.card-dash-reserva-conteudo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    height: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+    .numero-card-dash {
+        font-size: 4rem;
+        font-weight: 500;
+    }
+
+.icone-dash-reserva {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.2rem !important;
+}
+
+.identificador-status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    /* background-color: var(--cor-a-green3); */
+    position: absolute;
+    top: 15px;
+    right: 10px;
+}
+
+
+
+
