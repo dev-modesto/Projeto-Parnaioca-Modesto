@@ -14,11 +14,13 @@
         
         $idAcomodacao = $_POST['id-acomodacao'];
         $idCliente = $_POST['id-cliente'];
-        $totalHospede = $_POST['total-hospede'];
+        $totalHospedes = $_POST['total-hospedes'];
         $dataCheckIn = $_POST['data-inicio'];
         $dataCheckOut = $_POST['data-final'];
         $horarioCheckInPadrao = "13:00";
         $horarioCheckOutPadrao = "11:00";
+        $idStatusReserva = 1; //pendente
+        $formaPagamento = $_POST['id-forma-pagamento'];
 
         $dateTimeCheckIn = new DateTime($dataCheckIn);
         $dateTimeCheckOut = new DateTime($dataCheckOut);
@@ -29,7 +31,7 @@
         $dataHorarioCheckOut = ($dataCheckOut ." ". $horarioCheckOutPadrao);
         
         $valorEntrada = $_POST['valor-entrada'];
-        $valorEntradaConvertido = converterMonetario($valorEntrada);
+        $valorEntradaConvertido = floatval(converterMonetario($valorEntrada));
         
         $retornoInfoAcomodacao = consultaInfoAcomodacao($con, 0, $idAcomodacao);
         $arrayInfoAcomodacao = mysqli_fetch_assoc($retornoInfoAcomodacao);
@@ -37,15 +39,31 @@
         
         $valorReservaTotal = $valorDiaria * $qntNoites;
 
+
+        if ($valorEntradaConvertido == $valorReservaTotal){
+            $idStatusPagamento = 3; //pago 
+
+        } else if ($valorEntrada > 0) {
+            $valorEntradaConvertido;
+            $idStatusPagamento = 2; //parcial
+
+        } else {
+            $valorEntradaConvertido = 0;
+            $idStatusPagamento = 1; //pendente
+        }
+
         $array = [
             "ID acomodacao: ". $idAcomodacao,
-            "ID cliente: " . $idCliente,
-            "Total hospedes: " . $totalHospede,
-            "Data check-in: " . $dataHorarioCheckIn,
-            "Data check-out: " .  $dataHorarioCheckOut,
             "Valor diaria: " . $valorDiaria,
+            "ID cliente: " . $idCliente,
+            "Total hospedes: " . $totalHospedes,
+            "Data reserva check-in: " . $dataHorarioCheckIn,
+            "Data reserva check-out: " .  $dataHorarioCheckOut,
             "Valor entrada: " . $valorEntradaConvertido, 
             "Valor total reserva: " . $valorReservaTotal, 
+            "ID forma pagamento: " . $formaPagamento,
+            "ID status pagamento: " . $idStatusPagamento,
+            "ID status reserva: " . $idStatusReserva,
             "ID logado: " . $idLogado
         ];
         print_r($array);
