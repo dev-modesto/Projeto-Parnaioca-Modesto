@@ -121,7 +121,8 @@
             "SELECT * FROM tbl_reserva 
             WHERE id_acomodacao = $idAcomodacao 
             AND ((dt_reserva_inicio <= '$dataFimFormatado' AND dt_reserva_fim >= '$dataInicioFormatado' ) 
-            OR (dt_reserva_inicio >= '$dataFimFormatado' AND dt_reserva_fim <= '$dataInicioFormatado' ))
+            OR (dt_reserva_inicio >= '$dataFimFormatado' AND dt_reserva_fim <= '$dataInicioFormatado' )
+            OR (dt_reserva_inicio <= '$dataInicioFormatado' AND dt_reserva_fim >= '$dataFimFormatado'))
         ";
                                     
         $acomodacaoDisponivel = mysqli_query($con, $sqlAcomodacaoDisponivel);
@@ -133,7 +134,8 @@
             "SELECT * FROM tbl_reserva 
             WHERE id_acomodacao = $idAcomodacao 
             AND ((dt_reserva_inicio <= '$dataFimFormatado' AND dt_reserva_fim >= '$dataInicioFormatado') 
-            OR (dt_reserva_inicio >= '$dataFimFormatado' AND dt_reserva_fim <= '$dataInicioFormatado'))
+            OR (dt_reserva_inicio >= '$dataFimFormatado' AND dt_reserva_fim <= '$dataInicioFormatado')
+            OR (dt_reserva_inicio <= '$dataInicioFormatado' AND dt_reserva_fim >= '$dataFimFormatado'))
         ";
 
         $acomodacaoReservada = mysqli_query($con, $sqlAcomodacaoReservada);
