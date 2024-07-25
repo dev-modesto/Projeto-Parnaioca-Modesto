@@ -16,6 +16,7 @@
 .form-container.reservas {
   max-width: 780px;
   padding: 20px 40px;
+  border: 1px solid var(--cor-13);
 }
 
 .form-container.reservas.cabecalho {
