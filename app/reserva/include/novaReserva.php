@@ -2,7 +2,7 @@
     ob_start();
     $setorPagina = "SAC";
     $pagina = "Reservas";
-    $grupoPagina = "Reservas";
+    $grupoPagina = "";
     $tituloMenuPagina = "Reservas";
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
@@ -18,8 +18,21 @@
         $dataInicio = $_GET['data-inicio'];
         $dataFim = $_GET['data-fim'];
 
-        $consulta = consultaInfoTipoAcomodacao($con, 0, $idAcomodacao);
+        $dateTimeInicio = new DateTime($dataInicio);
+        $dateTimeFim = new DateTime($dataFim);
+
+        $intervalo = $dateTimeInicio->diff($dateTimeFim);
+        $qntDias = $intervalo->days;
+
+        $consulta = consultaInfoAcomodacao($con, 0, $idAcomodacao);
         $array = mysqli_fetch_assoc($consulta);
+
+        $valorDiaria = $array['valor'];
+        $valorReservaTotal = ($valorDiaria * $qntDias);
+
+        $valorDiariaFormatado = number_format($valorDiaria, 2, '.', '');
+        $valorReservaTotalFormatado = number_format($valorReservaTotal, 2, '.', '');
+
     } 
 
 ?>
@@ -56,7 +69,7 @@
             </div>
 
             <!-- formulario envio -->
-            <form class="was-validated form-container reservas" action="include/gNovaReserva.php" method="post" data-id-acomodacao="<?php echo $idAcomodacao ?>">
+            <form class="was-validated form-container reservas" id="reservaForm" data-id-acomodacao="<?php echo $idAcomodacao ?>" data-id-cliente="">
 
                 <div class="container-progresso-nova-reserva">
                     <div class="hospede">
@@ -98,8 +111,8 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-3">
-                                    <label class="font-1-s" for="total-hospede">Total de hóspedes</label>
-                                    <input class="form-control" type="number" min="1" max="" name="total-hospede" id="total-hospede" value="" >
+                                    <label class="font-1-s" for="total-hospedes">Total de hóspedes</label>
+                                    <input class="form-control" type="number" min="1" max="5" name="total-hospedes" id="total-hospedes" required>
                                 </div>
                             </div>
 
@@ -109,7 +122,7 @@
 
                         <div class="row mb-3 footer-container-button-reserva">
                             <div class="col-md-6 form-container-button-reserva">
-                                <button class='btn btn-primary btn-avancar info'>Avançar</button>
+                                <a class="btn btn-primary btn-avancar info">Avançar</a>
                             </div>
                         </div>
 
@@ -149,12 +162,12 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label class="font-1-s" for="valor-diaria">Valor diária</label>
-                                    <input class="form-control monetario" type="text" name="valor-diaria" id="valor-diaria" value="<?php echo $array['valor']?>" disabled required>
+                                    <input class="form-control monetario" type="text" name="valor-diaria" id="valor-diaria" value="<?php echo $valorDiariaFormatado ?>" disabled required>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class="font-1-s" for="valor-reserva-total">Valor reserva total</label>
-                                    <input class="form-control monetario" type="text" name="valor-reserva-total" id="valor-reserva-total" value="" disabled required>
+                                    <input class="form-control monetario" type="text" name="valor-reserva-total" id="valor-reserva-total" value="<?php echo $valorReservaTotalFormatado ?>" disabled required>
                                 </div>
                             </div>
 
@@ -164,8 +177,8 @@
 
                         <div class="row mb-3 footer-container-button-reserva">
                             <div class="col-md-6 form-container-button-reserva">
-                                <button class='btn btn-secondary btn-modal-cancelar btn-retornar hospede'>Retornar</button>
-                                <button class='btn btn-primary btn-avancar pagamento'>Avançar</button>
+                                <a class='btn btn-secondary btn-modal-cancelar btn-retornar hospede'>Retornar</a>
+                                <a class='btn btn-primary btn-avancar pagamento'>Avançar</a>
                             </div>
                         </div>
 
@@ -174,55 +187,70 @@
 
                     <!-- pagamento -->
                     <div class="tab-pagamento tab-pane fade" id="pagamento-pane" role="tabpanel" aria-labelledby="pagamento" tabindex="0">
-                    <span class="separador-botao"></span>
-
-                    <div class="conteudo-nova-reserva teste">
-
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="font-1-s" for="forma-pagamento">Forma de pagamento</label>
-                                <input class="form-control" type="text" name="forma-pagamento" id="forma-pagamento" value="">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="font-1-s" for="valor-entrada">Valor de entrada</label>
-                                <input class="form-control monetario" type="text" name="valor-entrada" id="valor-entrada" value="">
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="font-1-s" for="valor-restante">Valor restante</label>
-                                <input class="form-control monetario" type="text" name="valor-restante" id="valor-restante" disabled>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <label class="font-1-s" for="valor-reserva-total-2">Valor reserva total</label>
-                                <input class="form-control monetario" type="text" name="valor-reserva-total-2" id="valor-reserva-total-2" value="" disabled required>
-                            </div>
-                        </div>
-
-                        </div>
-
                         <span class="separador-botao"></span>
 
-                        <div class="row mb-3 footer-container-button-reserva">
-                            <div class="col-md-6 form-container-button-reserva">
-                                <button class='btn btn-secondary btn-modal-cancelar btn-retornar info'>Retornar</button>
-                                <button class='btn btn-primary btn-avancar finalizar' type="submit">Finalizar</button>
+                        <div class="conteudo-nova-reserva teste">
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="id-forma-pagamento">Forma de pagamento</label>
+                                    <select class="form-select"  name="id-forma-pagamento" id="id-forma-pagamento" required aria-label="select example">
+                                        <option value="">-</option>
+                                        <?php
+                                            $sqlStatus = "SELECT id_metodo_pag, nome_metodo_pag FROM tbl_metodo_pagamento";
+                                            $consultaa = mysqli_query($con, $sqlStatus);
+
+                                            while($arrayStatus = mysqli_fetch_assoc($consultaa)) {
+                                                    echo "<option value='" . $arrayStatus['id_metodo_pag'] . "' $selected>" . $arrayStatus['nome_metodo_pag'] . "</option>";
+                                            }
+                                            mysqli_close($con);
+                                                
+                                        ?>
+                     
+                                    </select>
+                                </div>
+
                             </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="font-1-s" for="valor-entrada">Valor de entrada</label>
+                                    <input class="form-control monetario" type="text" name="valor-entrada" id="valor-entrada" value="">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="font-1-s" for="valor-restante">Valor restante</label>
+                                    <input class="form-control monetario" type="text" name="valor-restante" id="valor-restante" value="" disabled>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label class="font-1-s" for="valor-reserva-total-2">Valor reserva total</label>
+                                    <input class="form-control monetario" type="text" name="valor-reserva-total-2" id="valor-reserva-total-2" value="<?php echo $valorReservaTotalFormatado ?>" disabled required>
+                                </div>
+                            </div>
+
+                            </div>
+
+                            <span class="separador-botao"></span>
+
+                            <div class="row mb-3 footer-container-button-reserva">
+                                <div class="col-md-6 form-container-button-reserva">
+                                    <a class='btn btn-secondary btn-modal-cancelar btn-retornar info'>Retornar</a>
+                                    <button class='btn btn-primary btn-avancar finalizar' id="btn-finalizar-reserva" type="submit">Finalizar</button>
+                                </div>
+                            </div>
+                    
                         </div>
-                
+
+                        <ul class="nav nav-links-reservas">
+                            <button class="nav-link active" id="hospede" data-bs-toggle="tab" data-bs-target="#hospedes-pane" type="button" role="tab" aria-controls="hospedes-pane" aria-selected="true">Dados cliente</button>
+                            <button class="nav-link" id="info-reserva" data-bs-toggle="tab" data-bs-target="#info-reserva-pane" type="button" role="tab" aria-controls="info-reserva-pane" aria-selected="false">Informações da reserva</button>
+                            <button class="nav-link" id="pagamento" data-bs-toggle="tab" data-bs-target="#pagamento-pane" type="button" role="tab" aria-controls="pagamento-pane" aria-selected="false">Pagamento</button>
+                        </ul>
                     </div>
 
-                    <ul class="nav nav-links-reservas">
-                        <button class="nav-link active" id="hospede" data-bs-toggle="tab" data-bs-target="#hospedes-pane" type="button" role="tab" aria-controls="hospedes-pane" aria-selected="true">Dados cliente</button>
-                        <button class="nav-link" id="info-reserva" data-bs-toggle="tab" data-bs-target="#info-reserva-pane" type="button" role="tab" aria-controls="info-reserva-pane" aria-selected="false">Informações da reserva</button>
-                        <button class="nav-link" id="pagamento" data-bs-toggle="tab" data-bs-target="#pagamento-pane" type="button" role="tab" aria-controls="pagamento-pane" aria-selected="false">Pagamento</button>
-                    </ul>
-                    
                 </div>
 
                 <?php if(!empty($mensagem)){ ?>  
@@ -248,11 +276,7 @@
 <script src="<?php echo BASE_URL ?>/js/table.js"></script>
 
 <script>
-        $('.cpf').mask('000.000.000-00', {reverse: true});
-</script>
-
-
-<script>
+    $('.cpf').mask('000.000.000-00', {reverse: true});
 
     var tabHospede = document.getElementById("hospede");
     
@@ -307,5 +331,96 @@
             }
         });
     });
+
+</script>
+
+
+<script>
+// pesquisa cliente
+
+    $(document).ready(function () {
+        $('.cpf').keyup(function (e) { 
+           var cpfCliente = $(this).val();
+
+            $.ajax({
+                type: "POST",
+                url: "../include/cPesquisaCadastroCliente.php",
+                data: {
+                    'cpf-cliente':cpfCliente
+                },
+                
+                success: function (response) {
+
+                    if(response !== "") {
+                        $('#nome').val(response.nomeCliente);
+                        $('#reservaForm').data('id-cliente', response.idCliente);
+                        console.log("id cliente é: " + response.idCliente);
+                        
+                    } else {
+                        $('#nome').val("");
+                        $('#reservaForm').data('id-cliente', "");
+                    }
+                }
+            });
+
+        });
+
+        var valorReservaTotal = $('#valor-reserva-total').val();
+        var valorRestante = valorReservaTotal;
+
+        valorRestanteSubstituir = valorRestante.replace(/\./g, '').replace(',', '.');
+        valorRestanteConvertido = parseFloat(valorRestanteSubstituir);
+        
+        $('#valor-restante').val(valorRestante);
+
+        $('#valor-entrada').keyup(function (e) {
+            var valorEntrada = $(this).val();
+            valorEntradaSubstituir = valorEntrada.replace(/\./g, '').replace(',', '.');
+            valorEntradaConvertido = parseFloat(valorEntradaSubstituir);
+
+            if (valorEntrada == NaN || valorEntrada == "") {
+                var calculoValorRestante = valorRestanteConvertido;
+
+            } else {
+                var calculoValorRestante = (valorRestanteConvertido - valorEntradaConvertido);
+            }
+
+            calculoValorRestante = parseFloat(calculoValorRestante.toFixed(2));
+
+            $('#valor-restante').val(calculoValorRestante);
+
+            // console.log(calculoValorRestante);
+            // console.log(typeof(calculoValorRestante));
+        });
+
+    });
+
+    $(document).ready(function() {
+            $('#reservaForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var idAcomodacao = $('#reservaForm').data('id-acomodacao');
+                var idCliente = $('#reservaForm').data('id-cliente');
+
+                console.log("id da acomodacao: " + idAcomodacao);
+                console.log("id do cliente: " + idCliente);
+
+                $('#total-hospedes, #data-inicio, #data-final, #valor-diaria, #valor-entrada, #valor-reserva-total, #id-forma-pagamento').prop('disabled', false);
+                var formData = $(this).serialize();
+                $('#total-hospedes, #data-inicio, #data-final, #valor-diaria, #valor-entrada, #valor-reserva-total, #id-forma-pagamento').prop('disabled', true);
+
+                formData += '&id-acomodacao=' + encodeURIComponent(idAcomodacao);
+                formData += '&id-cliente=' + encodeURIComponent(idCliente);
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'gNovaReserva.php',
+                    data: formData,
+                    success: function(response) {
+                        window.location.href = "../index.php?msg=Reserva realizada com sucesso!";
+                    }
+                });
+            });
+        });
 
 </script>

@@ -29,7 +29,7 @@
         <div class="container-cards-reservas-disponiveis">
             <?php
                 
-                $retornoPrimeiraConsulta = consultaInfoTipoAcomodacao($con, $idTipoAcomodacao, 0);
+                $retornoPrimeiraConsulta = consultaInfoAcomodacao($con, $idTipoAcomodacao, 0);
 
                 while($arrayLivre = mysqli_fetch_assoc($retornoPrimeiraConsulta)) {
 
@@ -43,7 +43,7 @@
                     } else {
                         ?>
 
-                            <div class="card card-container-disponibilidade-reserva disponivel" data-id-acomodacao="<?php echo $idAcomodacao ?>" data-data-inicio="<?php echo $dataInicioFormatado?>" data-data-fim="<?php echo $dataFimFormatado ?>">
+                            <div class="card card-container-disponibilidade-reserva disponivel" data-id-acomodacao="<?php echo $idAcomodacao ?>" data-data-inicio="<?php echo $dataInicio?>" data-data-fim="<?php echo $dataFim ?>">
                                 <div class="disp-reserva-nome">
                                     <span class="material-symbols-rounded">hotel</span>
                                     <div class="disp-reserva-nome-info">
@@ -99,7 +99,7 @@
         <div class="container-cards-reservas-ocupadas">
             <?php
 
-                $retornoSegundaConsulta = consultaInfoTipoAcomodacao($con, $idTipoAcomodacao, 0);
+                $retornoSegundaConsulta = consultaInfoAcomodacao($con, $idTipoAcomodacao, 0);
 
                 while($array = mysqli_fetch_assoc($retornoSegundaConsulta)) {
 
