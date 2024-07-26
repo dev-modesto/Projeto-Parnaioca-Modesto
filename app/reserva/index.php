@@ -16,15 +16,18 @@
     }
 
     date_default_timezone_set('America/Sao_Paulo');
-    $dataAtual = date('Y-m-d');
+    $extraiData = new DateTimeImmutable();
+    $dataAtual = date_format($extraiData, "Y-m-d");
+    $dataAtualPtbr = date_format($extraiData, "d/m/Y");
+
+    $diaSemanaIngles = strval( date_format($extraiData, 'l'));
 
     $sqlTotalHospedes = "SELECT SUM(total_hospedes) as total_hospedes from tbl_reserva WHERE dt_reserva_inicio >= '$dataAtual'";
     $consultaHospedes = mysqli_query($con, $sqlTotalHospedes);
     $arrayTotalHospedes = mysqli_fetch_assoc($consultaHospedes);
     $totalHospedes = $arrayTotalHospedes['total_hospedes'];
-    // echo "<pre>";
-    // die();
-    // echo "</pre>";
+
+    $diaDataHoje = diaSemanaPtbr($diaSemanaIngles) . ", " . $dataAtualPtbr;
 ?>
 
     <!DOCTYPE html>
@@ -76,6 +79,27 @@
             
 
             <div class="container-conteudo dash-reserva">
+                <div class="container-data-dash-reserva">
+                    <div class="info-data-dash-reserva">
+                        <p><?php echo $diaDataHoje ?></p>
+                    </div>
+                    <form class="form-container filtro-data-dash-reserva" id="form-data-filtro-dash" action="" method="post">
+                        <div class="container-data-dash-inputs">
+                            <div class="mb-3 data-dash">
+                                <label class="font-1-s" for="data-inicio">Data inicio</label>
+                                <input class="form-control data-dash-reserva" type="date" name="data-inicio" id="data-inicio" required>
+                            </div>
+                            <div class="mb-3 data-dash">
+                                <label class="font-1-s" for="data-final">Data final</label>
+                                <input class="form-control data-dash-reserva" type="date" name="data-final" id="data-final" required>
+                            </div>
+                        </div>
+                        <div class="container-data-dash-botao">
+                            <button id="btn-filtrar-dash"><span class="material-symbols-rounded">check</span></button>
+                            <button><span class="material-symbols-rounded">cleaning_services</span></button>
+                        </div>
+                    </form>
+                </div>
                 <div class="container-cards-dash-reserva">
 
                     <div class="card-dash card-bem-vindo">
@@ -220,6 +244,28 @@
     <script src="<?php echo BASE_URL ?>/js/table.js"></script>
 
 <script>
+
+    $(document).ready(function () {
+
+        $('#form-data-filtro-dash').on('submit', function (e) { 
+            e.preventDefault();
+
+            var dataInicio = $('#data-inicio').val();
+            var dataFinal = $('#data-final').val();
+
+            $.ajax({
+                type: "POST",
+                url: "include/cFiltrarDatasReservas.php",
+                data: {
+                    'data-inicio':dataInicio,
+                    'data-final':dataFinal
+                },
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+    });
 
 </script>
 
