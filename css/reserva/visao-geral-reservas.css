@@ -8,13 +8,13 @@
     width: 100%;
     height: auto;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 95px);
+    grid-template-columns: repeat(4, minmax(152px,1fr));
+    grid-template-rows: repeat(2, minmax(160px,auto));
     grid-template-areas: 
-    "card-confirmados card-check-in card-pendentes card-cancelados card-calendario"
-    "card-confirmados card-check-out card-finalizados card-finalizados card-calendario"
+    "card-bem-vindo card-hospedes card-check-in card-pendentes"
+    "card-bem-vindo card-confirmados card-check-out card-cancelados"
     ;
-    gap: 10px;
+    gap: 20px;
 }
 
     .card-dash {
@@ -26,6 +26,10 @@
         color: var(--cor-2);
     }
 
+    .card-bem-vindo {
+        grid-area: card-bem-vindo;
+        background-color: #C9D3DA;
+    }
 
     .card-confirmados {
         grid-area: card-confirmados;
@@ -60,13 +64,11 @@
 
 .card-dash-reserva-conteudo {
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 5px;
     height: 100%;
-    text-align: center;
-    padding-bottom: 10px;
+    padding: 0px 30px;
 }
 
     .numero-card-dash {
@@ -81,17 +83,67 @@
     font-size: 1.2rem !important;
 }
 
-.identificador-status {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    /* background-color: var(--cor-a-green3); */
-    position: absolute;
-    top: 15px;
-    right: 10px;
+
+.container-conteudo.dash {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.conteudo-bem-vindo {
+    display: block;
+    padding: 30px;
+}
+.conteudo-bem-vindo .texto-sub {
+    max-width: 290px;
 }
 
 
+/* cards da dashboard visao geral */
 
+.card-container-disponibilidade-reserva.dash {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.card-reserva-dash-top {
+
+}
+
+    .disp-reserva-nome.dash {
+        width: 100%;
+
+    }
+
+    .card-reserva-cabecalho.dash {
+        display: flex;
+        justify-content: center;
+        position: relative;
+    }
+
+    .card-reserva-cabecalho span {
+        position: absolute;
+        left: 0px;
+    }
+
+    .disp-reserva-nome-info.dash {
+        padding: 10px 0px;
+    }
+
+    .disp-reserva-status.dash {
+        justify-content: left;
+        padding: 5px 0px;
+        width: 100%;
+    }
+
+.disp-reserva-data.dash {
+    width: 100%;
+    justify-content: left;
+}
 
