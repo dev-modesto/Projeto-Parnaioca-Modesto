@@ -6,14 +6,25 @@
     $tituloMenuPagina = "Reservas";
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+    // include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
+    include ARQUIVO_FUNCAO_SQL;
     
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
+        $nome = $_SESSION['nome'];
         segurancaSac($con, $idLogado);
     }
 
-    $sql = "SELECT * FROM tbl_item";
-    $consulta = mysqli_query($con, $sql);
+    date_default_timezone_set('America/Sao_Paulo');
+    $dataAtual = date('Y-m-d');
+
+    $sqlTotalHospedes = "SELECT SUM(total_hospedes) as total_hospedes from tbl_reserva WHERE dt_reserva_inicio >= '$dataAtual'";
+    $consultaHospedes = mysqli_query($con, $sqlTotalHospedes);
+    $arrayTotalHospedes = mysqli_fetch_assoc($consultaHospedes);
+    $totalHospedes = $arrayTotalHospedes['total_hospedes'];
+    // echo "<pre>";
+    // die();
+    // echo "</pre>";
 ?>
 
     <!DOCTYPE html>
@@ -30,7 +41,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;500;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
         
         <!-- link css datatable -->
         <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
@@ -62,85 +73,138 @@
                 }
             ?>
 
-            <span class="separador"></span>
+            
 
             <div class="container-conteudo dash-reserva">
                 <div class="container-cards-dash-reserva">
-                    <div class="card-dash card-confirmados">
-                        <div class="card-dash-reserva-cabecalho">
-                            <span class="material-symbols-rounded icone-dash-reserva">hotel</span>
-                            <div class="identificador-status"></div>
+
+                    <div class="card-dash card-bem-vindo">
+                        <div class="card-dash-reserva-conteudo cor-p6 conteudo-bem-vindo">
+                            <p class="sub font-1-xm peso-medio">Olá, <?php echo $nome ?>!<br> Bem vindo de volta.</p>
+                            <p class="font-1-s texto-sub">Acompanhe aqui o andamento das reservas da pousada.</p>
                         </div>
+                    </div>
+
+                    <div class="card-dash card-hospedes ">
                         <div class="card-dash-reserva-conteudo">
-                            <p class="font-1-xxxl cor-a-green3">4</p>
-                            <p class="font-1-l">Confirmadas</p>
+                            <p class="titulo peso-leve">Total</p>
+                            <span class="valor font-1-xxxl "><?php echo $totalHospedes ?></span>
+                            <p class="sub info font-1 cor-2">Hóspedes</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-confirmados">
+                        <div class="card-dash-reserva-conteudo">
+                            <p class="titulo peso-leve ">Total</p>
+                            <span class="valor font-1-xxxl cor-a-green3">11</span>
+                            <p class="sub info font-1 cor-2">Confirmados</p>
                         </div>
                     </div>
 
                     <div class="card-dash card-check-in">
-                        <div class="card-dash-reserva-cabecalho">
-                            <span class="material-symbols-rounded icone-dash-reserva">hotel</span>
-                            <div class="identificador-status cor-p1"></div>
-                        </div>
-                        <div class="card-dash-reserva-conteudo">
-                            <p class="font-1-xm peso-medio">2</p>
-                            <p class="font-2-xs">Check-in</p>
+                    <div class="card-dash-reserva-conteudo">
+                            <p class="titulo peso-leve ">Total</p>
+                            <span class="valor font-1-xxxl cor-a-blue3">9</span>
+                            <p class="sub info font-1 cor-2">Check-in</p>
                         </div>
                     </div>
 
                     <div class="card-dash card-check-out">
-                        <div class="card-dash-reserva-cabecalho">
-                            <span class="material-symbols-rounded icone-dash-reserva">hotel</span>
-                            <div class="identificador-status"></div>
-                        </div>
                         <div class="card-dash-reserva-conteudo">
-                            <p class="font-1-xm peso-medio">2</p>
-                            <p class="font-2-xs">Check-out</p>
+                            <p class="titulo peso-leve ">Total</p>
+                            <span class="valor font-1-xxxl cor-a-purple3">2</span>
+                            <p class="sub info font-1 cor-2">Check-out</p>
                         </div>
                     </div>
 
                     <div class="card-dash card-pendentes">
-                     <div class="card-dash-reserva-cabecalho">
-                            <span class="material-symbols-rounded icone-dash-reserva">hotel</span>
-                            <div class="identificador-status"></div>
-                        </div>
                         <div class="card-dash-reserva-conteudo">
-                            <p class="font-1-xm peso-medio">2</p>
-                            <p class="font-2-xs">Pendentes</p>
+                            <p class="titulo peso-leve ">Total</p>
+                            <span class="valor font-1-xxxl cor-a-yellow3">3</span>
+                            <p class="sub info font-1 cor-2">Pendentes</p>
                         </div>
                     </div>
 
                     <div class="card-dash card-cancelados">
-                        <div class="card-dash-reserva-cabecalho">
-                            <span class="material-symbols-rounded icone-dash-reserva">hotel</span>
-                            <div class="identificador-status"></div>
-                        </div>
                         <div class="card-dash-reserva-conteudo">
-                            <p class="font-1-xm peso-medio">2</p>
-                            <p class="font-2-xs">Cancelados</p>
+                            <p class="titulo peso-leve ">Total</p>
+                            <span class="valor font-1-xxxl cor-a-red3">1</span>
+                            <p class="sub info font-1 cor-2">Cancelados</p>
                         </div>
-                    </div>
-
-                    <div class="card-dash card-finalizados">
-                        <div class="card-dash-reserva-cabecalho">
-                            <span class="material-symbols-rounded icone-dash-reserva">hotel</span>
-                            <div class="identificador-status"></div>
-                        </div>
-                        <div class="card-dash-reserva-conteudo">
-                            <p class="font-1-xm peso-medio">2</p>
-                            <p class="font-2-xs">Finalizados</p>
-                        </div>
-                    </div>
-
-                    <div class="card-dash card-calendario">
-
                     </div>
                 </div>
 
             </div>
 
-            <div class="container-conteudo">
-               
+            <span class="separador"></span>
+
+            <div class="container-conteudo dash">
+                    <?php
+                        $sqlConsultaReservas = 
+                            "SELECT 
+                                r.id_reserva,
+                                r.id_acomodacao,
+                                r.id_cliente,
+                                r.dt_reserva_inicio,
+                                r.dt_reserva_fim,
+                                r.id_status_reserva,
+                                s.nome_status_reserva
+                            FROM tbl_reserva r
+                            INNER JOIN tbl_status_reserva s
+                            ON r.id_status_reserva = s.id_status_reserva
+                        ";
+                        $consultaReservas = mysqli_query($con, $sqlConsultaReservas);
+                        $numeroLinhas = mysqli_num_rows($consultaReservas);
+
+                        while($arrayReservas = mysqli_fetch_assoc($consultaReservas)) {
+                            $idAcomodacao = $arrayReservas['id_acomodacao'];
+                            $idStatusReserva = $arrayReservas['id_status_reserva'];
+
+                            $dtReservaInicio = $arrayReservas['dt_reserva_inicio'];
+                            $dtReservaFim = $arrayReservas['dt_reserva_fim'];
+                            $dtReservaInicioFormatar = new DateTime($dtReservaInicio);
+                            $dtReservaFimFormatar = new DateTime($dtReservaFim);
+                            $dtReservaInicioFormatada = date_format($dtReservaInicioFormatar, "d/m/Y");
+                            $dtReservaFimFormatada = date_format($dtReservaFimFormatar, "d/m/Y");
+                            
+                            $consultaInfoAcomodacao = consultaInfoAcomodacao($con, 0, $idAcomodacao);
+                            $arrayInfoAcomodacao = mysqli_fetch_assoc($consultaInfoAcomodacao);
+
+                            ?>
+                                
+                                <div class="card card-container-disponibilidade-reserva dash disponivel" data-id-acomodacao="<?php  ?>" data-data-inicio="<?php ?>" data-data-fim="<?php ?>">
+                                    <div class="card-reserva-dash-top">
+                                        <div class="disp-reserva-nome dash">
+                                            <div class="card-reserva-cabecalho dash">
+                                                <span class="material-symbols-rounded">hotel</span>
+                                                <p class="cor-4">Reserva - #<?php echo $arrayReservas['id_reserva']?></p>
+                                            </div>
+                                    
+                                            <div class="disp-reserva-nome-info dash">
+                                                <p class="card-title font-1-l cor-8"><?php echo $arrayInfoAcomodacao['nome_acomodacao']?></p>
+                                                <p class="font-1-xm cor-8"><?php echo $arrayInfoAcomodacao['numero_acomodacao']?></p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="disp-reserva-status dash disponivel">
+                                            <p class="cor-6"><?php echo $arrayReservas['nome_status_reserva']?><span></span></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="disp-reserva-data dash">
+                                        <p class="cor-6 font-1-xs" >Período estadia</p>
+                                        <div class="disp-reserva-data-periodo">
+                                            <div>
+                                                <p class="cor-5 font-1-xxs peso-leve"> <?php echo $dtReservaInicioFormatada ?> - <?php echo $dtReservaFimFormatada ?><p>
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                                </div>
+                            
+                            <?php
+                        }
+                    ?>
             </div>
 
         </div>
