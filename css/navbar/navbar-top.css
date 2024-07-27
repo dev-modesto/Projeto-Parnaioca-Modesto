@@ -205,7 +205,7 @@
         display: flex;
         align-items: center;
         /* background-color: blue; */
-        font-weight: 500;
+        font-weight: 400;
         color: var(--cor-6);
     }
 

@@ -6,14 +6,55 @@
     $tituloMenuPagina = "Reservas";
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+    include ARQUIVO_FUNCAO_SQL;
+    include ARQUIVO_FUNCAO_SQL_RESERVA;
+    include PASTA_FUNCOES . "funcaoData.php";
     
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
+        $nome = $_SESSION['nome'];
         segurancaSac($con, $idLogado);
     }
 
-    $sql = "SELECT * FROM tbl_item";
-    $consulta = mysqli_query($con, $sql);
+    date_default_timezone_set('America/Sao_Paulo');
+    $extraiData = new DateTimeImmutable();
+    $dataAtual = date_format($extraiData, "Y-m-d");
+    $dataAtualPtbr = date_format($extraiData, "d/m/Y");
+
+    $diaSemanaIngles = strval( date_format($extraiData, 'l'));
+
+    // ID de status das reservas
+        $pendente = 1;
+        $confirmado = 2;
+        $cancelado = 3;
+        $checkIn = 4;
+        $checkOut = 5;
+        $finalizado = 6;
+    // 
+
+    // 
+        $sqlTotalHospedes = 
+            "SELECT SUM(total_hospedes) as total_hospedes 
+            FROM tbl_reserva 
+            WHERE (dt_reserva_inicio <= '$dataAtual 23:59:59' AND dt_reserva_fim >= '$dataAtual 00:00:00')
+            AND id_status_reserva = '$checkIn'
+        ";
+
+        // informações referentes a data atual
+        $totalPendentes = totalStatusReservaAtual($con, $dataAtual, $pendente);
+        $totalConfirmados = totalStatusReservaAtual($con, $dataAtual, $confirmado);
+        $totalFinalizados = totalStatusReservaAtual($con, $dataAtual, $finalizado);
+        $totalCheckIn = totalStatusReservaAtual($con, $dataAtual, $checkIn);
+        $totalCheckOut = totalStatusReservaAtual($con, $dataAtual, $checkOut);
+        $totalCancelados = totalStatusReservaAtual($con, $dataAtual, $cancelado);
+        
+        $consultaHospedes = mysqli_query($con, $sqlTotalHospedes);
+        $arrayTotalHospedes = mysqli_fetch_assoc($consultaHospedes);
+        $totalHospedes = $arrayTotalHospedes['total_hospedes'];
+    // 
+
+
+    $diaDataHoje = diaSemanaPtbr($diaSemanaIngles) . ", " . $dataAtualPtbr;
 ?>
 
     <!DOCTYPE html>
@@ -30,7 +71,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;500;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
         
         <!-- link css datatable -->
         <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
@@ -62,84 +103,99 @@
                 }
             ?>
 
-            <span class="separador"></span>
+            
 
-            <div class="container-conteudo">
-                <div class="mb-3 container-cabecalho-padrao">
-                    <h1 class="modal-title fs-5 cor-8 peso-semi-bold" id="staticBackdropLabel">Verificar disponibilidade de reservas</h1>
+            <div class="container-conteudo dash-reserva">
+                <div class="container-data-dash-reserva">
+                    <div class="info-data-dash-reserva">
+                        <p><?php echo $diaDataHoje ?></p>
+                    </div>
+                    <form class="form-container filtro-data-dash-reserva" id="form-data-filtro-dash" action="" method="post">
+                        <div class="container-data-dash-inputs">
+                            <div class="mb-3 data-dash">
+                                <label class="font-1-s" for="data-inicio">Data inicio</label>
+                                <input class="form-control data-dash-reserva" type="date" name="data-inicio" id="data-inicio" required>
+                            </div>
+                            <div class="mb-3 data-dash">
+                                <label class="font-1-s" for="data-final">Data final</label>
+                                <input class="form-control data-dash-reserva" type="date" name="data-final" id="data-final" required>
+                            </div>
+                        </div>
+                        <div class="container-data-dash-botao">
+                            <button id="btn-filtrar-dash"><span class="material-symbols-rounded">check</span></button>
+                            <button id="limpar-filtro"><span class="material-symbols-rounded">cleaning_services</span></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="container-cards-dash-reserva">
+
+                    <div class="card-dash card-bem-vindo">
+                        <div class="card-dash-reserva-conteudo cor-p6 conteudo-bem-vindo">
+                            <p class="sub font-1-xm peso-medio">Olá, <?php echo $nome ?>!<br> Bem vindo de volta.</p>
+                            <p class="font-1-s texto-sub">Acompanhe aqui o andamento das reservas da pousada.</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-hospedes ">
+                        <div class="card-dash-reserva-conteudo">
+                            <p class="titulo peso-leve">Total</p>
+                            <span class="valor font-1-xxxl " id="total-hospedes"><?php echo $totalHospedes ?></span>
+                            <p class="sub info font-1 cor-2">Hóspedes</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-confirmados">
+                        <div class="card-dash-reserva-conteudo">
+                            <p class="titulo peso-leve ">Total</p>
+                            <span class="valor font-1-xxxl cor-a-green3" id="total-confirmados"><?php echo $totalConfirmados ?></span>
+                            <p class="sub info font-1 cor-2">Confirmados</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-check-in">
+                    <div class="card-dash-reserva-conteudo">
+                            <p class="titulo peso-leve ">Total</p>
+                            <span class="valor font-1-xxxl cor-a-blue3" id="total-check-in"><?php echo $totalCheckIn ?></span>
+                            <p class="sub info font-1 cor-2">Check-in</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-check-out">
+                        <div class="card-dash-reserva-conteudo">
+                            <p class="titulo peso-leve ">Total</p>
+                            <span class="valor font-1-xxxl cor-a-purple3" id="total-check-out"><?php echo $totalCheckOut ?></span>
+                            <p class="sub info font-1 cor-2">Check-out</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-pendentes">
+                        <div class="card-dash-reserva-conteudo">
+                            <p class="titulo peso-leve ">Total</p>
+                            <span class="valor font-1-xxxl cor-a-yellow3" id="total-pendentes"><?php echo $totalPendentes ?></span>
+                            <p class="sub info font-1 cor-2">Pendentes</p>
+                        </div>
+                    </div>
+
+                    <div class="card-dash card-cancelados">
+                        <div class="card-dash-reserva-conteudo">
+                            <p class="titulo peso-leve ">Total</p>
+                            <span class="valor font-1-xxxl cor-a-red3 cancelados" id="total-cancelados"><?php echo $totalCancelados ?></span>
+                            <p class="sub info font-1 cor-2">Cancelados</p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- formulario envio -->
-                <form class="was-validated form-container" action="" method="post">
-
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="font-1-s" for="data-inicio">Data inicio</label>
-                            <input class="form-control" type="date" name="data-inicio" id="data-inicio" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="font-1-s" for="hora-inicio">Hora inicio</label>
-                            <input class="form-control" type="time" name="hora-inicio" id="hora-inicio" value="13:00" disabled>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                        <div class="col-md-4">
-                            <label class="font-1-s" for="data-final">Data final</label>
-                            <input class="form-control" type="date" name="data-final" id="data-final" required>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label class="font-1-s" for="hora-final">Hora final</label>
-                            <input class="form-control" type="time" name="hora-final" id="hora-final" value="11:00" disabled>
-                        </div>
-                        
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="id-tp-acomodacao">Tipo acomodação</label>
-                            <select class="form-select" name="id-tp-acomodacao" id="id-tp-acomodacao" required aria-label="select example">
-                                <option value="">-</option>
-                                
-                                <?php
-                                    $sqlTipoAcomodacao = "SELECT * FROM tbl_tp_acomodacao";
-                                    $consultaTpAcomodacao = mysqli_query($con, $sqlTipoAcomodacao);
-
-                                    while($row = mysqli_fetch_assoc($consultaTpAcomodacao)){
-                                        echo "<option value='" . $row['id_tp_acomodacao'] . "'>" . $row['nome_tp_acomodacao'] . "</option>";
-                                    }
-                                ?>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="col-md-4">
-                            <button class='btn btn-primary btn-verificar-disponibilidade'>Verificar</button>
-                        </div>
-                    </div>
-
-                    <?php if(!empty($mensagem)){ ?>  
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <?php echo $mensagem ?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div> 
-                    <?php } else {
-                            echo '';
-                        }
-                    ?>
-                </form>
             </div>
 
-            <div class="container-cards-reservas">
-            </div>
+            <span class="separador"></span>
 
-            <div class="modalNovaReserva">
+            <div class="conteudo-dash">
+                <?php 
+                    include "include/cFiltrarDatasReservas.php";
+                
+                ?>
             </div>
-
+               
         </div>
 
     </div>
@@ -155,34 +211,49 @@
 <script>
 
     $(document).ready(function () {
-        $('.btn-verificar-disponibilidade').click(function (e) { 
+
+        $('#form-data-filtro-dash').on('submit', function (e) { 
             e.preventDefault();
 
-            console.log("Clicou no botão!!");
-
-            var idTipoAcomodacao = $("#id-tp-acomodacao").val();
-            var dtInicio = $("#data-inicio").val();
-            var dtFim = $("#data-final").val();
-            var horaCheckIn = $("#hora-inicio").val();
-            var horaCheckOut = $("#hora-final").val();
+            var dataInicio = $('#data-inicio').val();
+            var dataFinal = $('#data-final').val();
 
             $.ajax({
                 type: "POST",
-                url: "include/cPesquisaDisponibilidadeReserva.php",
+                url: "include/cFiltrarDatasReservas.php",
                 data: {
-                    '.btn-verificar-disponibilidade':true,
-                    'id-tipo-acomodacao':idTipoAcomodacao,
-
-                    'dt-inicio':dtInicio,
-                    'dt-fim':dtFim,
-                    'hora-check-in':horaCheckIn,
-                    'hora-check-out':horaCheckOut
+                    'data-inicio':dataInicio,
+                    'data-final':dataFinal
                 },
                 success: function (response) {
-                    console.log(response);
+                    $('.conteudo-dash').html(response);
+                }
+            });
 
-                    $('.container-cards-reservas').html(response)
-                    
+            $.ajax({
+                type: "POST",
+                url: "include/cFiltroTotais.php",
+                data: {
+                    'data-inicio':dataInicio,
+                    'data-final':dataFinal
+                },
+
+                success: function (arrayTotalStatus) {
+                    if(arrayTotalStatus !== "") {
+                        $('#total-hospedes').text(arrayTotalStatus.totalHospedes);
+                        $('#total-confirmados').text(arrayTotalStatus.totalConfirmados);
+                        $('#total-check-in').text(arrayTotalStatus.totalCheckIn);
+                        $('#total-check-out').text(arrayTotalStatus.totalCheckOut);
+                        $('#total-pendentes').text(arrayTotalStatus.totalPendentes);
+                        $('#total-cancelados').text(arrayTotalStatus.totalCancelados);
+
+                    } else {
+                        $('#total-confirmados').text('');
+                        $('#total-check-in').text('');
+                        $('#total-check-out').text('');
+                        $('#total-pendentes').text('');
+                        $('#total-cancelados').text('');
+                    }
                 }
             });
         });
@@ -190,5 +261,12 @@
 
 </script>
 
+<script>
 
+    btnLimparFiltro = document.getElementById('limpar-filtro');
+    btnLimparFiltro.addEventListener('click', function(){
+        window.location.href = '../reserva/index.php';
+    })
+
+</script>
 

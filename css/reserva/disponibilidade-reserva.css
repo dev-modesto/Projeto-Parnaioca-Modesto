@@ -41,12 +41,65 @@
     box-sizing: border-box;
 }
 
-    .card-container-disponibilidade-reserva.disponivel {
+    /* cores de status dos cards */
+    .card-container-disponibilidade-reserva.pendente {
+        border-left-color: var(--cor-a-yellow3);
+    }
+
+    .card-container-disponibilidade-reserva.confirmado {
         border-left-color: var(--cor-a-green3);
+    }
+
+    .card-container-disponibilidade-reserva.cancelado {
+        border-left-color: var(--cor-a-red3);
+    }
+
+    .card-container-disponibilidade-reserva.check-in {
+        border-left-color: var(--cor-a-blue3);
+    }
+
+    .card-container-disponibilidade-reserva.check-out {
+        border-left-color: var(--cor-a-purple3);
+    }
+
+    .card-container-disponibilidade-reserva.finalizado {
+        border-left-color: var(--cor-s11);
     }
 
     .card-container-disponibilidade-reserva.reservado {
         border-left-color: var(--cor-a-red3);
+    }
+
+    .disp-reserva-status.pendente span {
+        background-color: var(--cor-a-yellow3);
+    }
+
+    .disp-reserva-status.confirmado span {
+        background-color: var(--cor-a-green3);
+    }
+
+    .disp-reserva-status.cancelado span {
+        background-color: var(--cor-a-red3);
+    }
+
+    .disp-reserva-status.check-in span {
+        background-color: var(--cor-a-blue3);
+    }
+
+    .disp-reserva-status.check-out span {
+        background-color: var(--cor-a-purple3);
+    }
+
+    .disp-reserva-status.finalizado span {
+        background-color: var(--cor-s11);
+    }
+
+    .disp-reserva-status.disponivel span {
+        background-color: var(--cor-a-green3);
+    }
+
+    .disp-reserva-status.reservado span {
+        background-color: var(--cor-a-red3);
     }
 
 
@@ -82,14 +135,6 @@
         height: 10px;
         border-radius: 50%;
     }
-
-    .disp-reserva-status.disponivel span {
-        background-color: var(--cor-a-green3);
-      }
-
-    .disp-reserva-status.reservado span {
-        background-color: var(--cor-a-red3);
-      }
 
 .disp-reserva-data {
     width: 25%;

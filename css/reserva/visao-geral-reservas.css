@@ -1,0 +1,233 @@
+.container-conteudo.dash-reserva {
+    padding: 0px;
+    border: none;
+    background-color: transparent;
+}
+
+.container-cards-dash-reserva {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(152px,1fr));
+    grid-template-rows: repeat(2, minmax(160px,auto));
+    grid-template-areas: 
+    "card-bem-vindo card-hospedes card-check-in card-pendentes"
+    "card-bem-vindo card-confirmados card-check-out card-cancelados"
+    ;
+    gap: 20px;
+}
+
+    .card-dash {
+        border: 1px solid var(--cor-13);
+        border-radius: 1rem;
+        background-color: var(--cor-p4);
+        display: flex;
+        flex-direction: column;
+        color: var(--cor-2);
+    }
+
+    .card-bem-vindo {
+        grid-area: card-bem-vindo;
+        background-color: #C9D3DA;
+    }
+
+    .card-confirmados {
+        grid-area: card-confirmados;
+    }
+    .card-check-in {
+        grid-area: card-check-in;
+    }
+    .card-check-out {
+        grid-area: card-check-out;
+    }
+    .card-pendentes {
+        grid-area: card-pendentes;
+    }
+    .card-finalizados {
+        grid-area: card-finalizados;
+    }
+    .card-cancelados {
+        grid-area: card-cancelados;
+    }
+    .card-calendario{
+        grid-area: card-calendario;
+    }
+
+
+.card-dash-reserva-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0px;
+    position: relative;
+}
+
+.card-dash-reserva-conteudo {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    height: 100%;
+    padding: 0px 30px;
+}
+
+    .numero-card-dash {
+        font-size: 4rem;
+        font-weight: 500;
+    }
+
+.icone-dash-reserva {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.2rem !important;
+}
+
+
+.container-conteudo.dash {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.conteudo-bem-vindo {
+    display: block;
+    padding: 30px;
+}
+.conteudo-bem-vindo .texto-sub {
+    max-width: 290px;
+}
+
+
+/* cards da dashboard visao geral */
+
+.card-container-disponibilidade-reserva.dash {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.card-reserva-dash-top {
+
+}
+
+    .disp-reserva-nome.dash {
+        width: 100%;
+
+    }
+
+    .card-reserva-cabecalho.dash {
+        display: flex;
+        justify-content: center;
+        position: relative;
+    }
+
+    .card-reserva-cabecalho span {
+        position: absolute;
+        left: 0px;
+    }
+
+    .disp-reserva-nome-info.dash {
+        padding: 10px 0px;
+    }
+
+    .disp-reserva-status.dash {
+        justify-content: left;
+        padding: 5px 0px;
+        width: 100%;
+    }
+
+.disp-reserva-data.dash {
+    width: 100%;
+    justify-content: left;
+}
+
+
+/* container cabeçalho de data dash */
+.container-data-dash-reserva {
+    /* height: 50px; */
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+    .info-data-dash-reserva {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        position: relative;
+        padding-left: 30px;
+    }
+
+        .info-data-dash-reserva::before {
+            content: '';
+            width: 20px;
+            height: 15px;
+            position: absolute;
+            left: 0px;
+            bottom: 8px;
+            border-radius: 1rem;
+            background-color: #C9D3DA;
+        }
+
+    .info-data-dash-reserva p {
+        font-size: 1.2rem;
+        font-weight: 400;
+    }
+
+    .filtro-data-dash-reserva {
+        display: flex;
+        gap: 10px;
+        text-align: center;
+        align-items: flex-end;
+        margin: 0px;
+        padding: 0px;
+        background-color: transparent;
+    }
+
+    .data-dash{
+        text-align: left;
+        margin-bottom: 0px !important;
+    }
+
+    .data-dash label{
+        font-size: .75rem;
+    }
+
+    .form-control.data-dash-reserva {
+        background-color: transparent;
+        font-size: .75rem;
+        height: 30px;
+    }
+
+    .container-data-dash-inputs {
+        display: flex;
+        gap: 10px;
+    }
+
+    .container-data-dash-botao {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .container-data-dash-botao button {
+        border: none;
+        font-size: .75rem;
+        width: 50px;
+        height: 30px;
+        border: 1px solid var(--cor-13);
+        border-radius: .3rem;
+        background-color: transparent;
+    }
+
+    .container-data-dash-botao button span {
+        color: var(--cor-6);
+        font-size: 1.2rem;
+    }
