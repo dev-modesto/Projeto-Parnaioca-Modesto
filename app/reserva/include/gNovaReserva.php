@@ -66,9 +66,6 @@
             "ID status reserva: " . $idStatusReserva,
             "ID logado: " . $idLogado
         ];
-        print_r($array);
-        header('location: ../index.php?msg=Adicionado com sucesso!');
-        die();
 
         $sql = 
             mysqli_prepare(
@@ -109,13 +106,6 @@
         );
 
         if(mysqli_stmt_execute($sql)){
-            // log operações
-                // $nomeTabela = 'tbl_frigobar';
-                // $idRegistro = mysqli_insert_id($con);
-                // $tpOperacao = 'insercao';
-                // $descricao = 'Frigobar adicionado ID: ' . $idRegistro;
-                // logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
-            // 
 
         }  else {
             echo "Error ao gravar" . mysqli_error($con);

@@ -11,6 +11,7 @@
     define('BASE_URL', '/Projeto-Parnaioca-Modesto');
     define('ARQUIVO_FOOTER', $_SERVER['DOCUMENT_ROOT'] . $pastaProjeto . '/include/footer.php');
     define('ARQUIVO_FUNCAO_SQL', $_SERVER['DOCUMENT_ROOT'] . $pastaProjeto . '/app/funcao/funcaoSql.php');
+    define('ARQUIVO_FUNCAO_SQL_RESERVA', $_SERVER['DOCUMENT_ROOT'] . $pastaProjeto . '/app/funcao/funcaoSqlReserva.php');
     
     // pastas
     define('PASTA_FUNCOES', $_SERVER['DOCUMENT_ROOT'] . BASE_URL . '/app/funcao/');
