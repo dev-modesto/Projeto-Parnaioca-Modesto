@@ -6,8 +6,9 @@
     $tituloMenuPagina = "Reservas";
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
-    // include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_FUNCAO_SQL;
+    include ARQUIVO_FUNCAO_SQL_RESERVA;
+    include PASTA_FUNCOES . "funcaoData.php";
     
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
@@ -22,10 +23,36 @@
 
     $diaSemanaIngles = strval( date_format($extraiData, 'l'));
 
-    $sqlTotalHospedes = "SELECT SUM(total_hospedes) as total_hospedes from tbl_reserva WHERE dt_reserva_inicio >= '$dataAtual'";
-    $consultaHospedes = mysqli_query($con, $sqlTotalHospedes);
-    $arrayTotalHospedes = mysqli_fetch_assoc($consultaHospedes);
-    $totalHospedes = $arrayTotalHospedes['total_hospedes'];
+    // ID de status das reservas
+        $pendente = 1;
+        $confirmado = 2;
+        $cancelado = 3;
+        $checkIn = 4;
+        $checkOut = 5;
+        $finalizado = 6;
+    // 
+
+    // 
+        $sqlTotalHospedes = 
+            "SELECT SUM(total_hospedes) as total_hospedes 
+            FROM tbl_reserva 
+            WHERE (dt_reserva_inicio <= '$dataAtual 23:59:59' AND dt_reserva_fim >= '$dataAtual 00:00:00')
+            AND id_status_reserva = '$checkIn'
+        ";
+
+        // informações referentes a data atual
+        $totalPendentes = totalStatusReservaAtual($con, $dataAtual, $pendente);
+        $totalConfirmados = totalStatusReservaAtual($con, $dataAtual, $confirmado);
+        $totalFinalizados = totalStatusReservaAtual($con, $dataAtual, $finalizado);
+        $totalCheckIn = totalStatusReservaAtual($con, $dataAtual, $checkIn);
+        $totalCheckOut = totalStatusReservaAtual($con, $dataAtual, $checkOut);
+        $totalCancelados = totalStatusReservaAtual($con, $dataAtual, $cancelado);
+        
+        $consultaHospedes = mysqli_query($con, $sqlTotalHospedes);
+        $arrayTotalHospedes = mysqli_fetch_assoc($consultaHospedes);
+        $totalHospedes = $arrayTotalHospedes['total_hospedes'];
+    // 
+
 
     $diaDataHoje = diaSemanaPtbr($diaSemanaIngles) . ", " . $dataAtualPtbr;
 ?>
@@ -96,7 +123,7 @@
                         </div>
                         <div class="container-data-dash-botao">
                             <button id="btn-filtrar-dash"><span class="material-symbols-rounded">check</span></button>
-                            <button><span class="material-symbols-rounded">cleaning_services</span></button>
+                            <button id="limpar-filtro"><span class="material-symbols-rounded">cleaning_services</span></button>
                         </div>
                     </form>
                 </div>
@@ -112,7 +139,7 @@
                     <div class="card-dash card-hospedes ">
                         <div class="card-dash-reserva-conteudo">
                             <p class="titulo peso-leve">Total</p>
-                            <span class="valor font-1-xxxl "><?php echo $totalHospedes ?></span>
+                            <span class="valor font-1-xxxl " id="total-hospedes"><?php echo $totalHospedes ?></span>
                             <p class="sub info font-1 cor-2">Hóspedes</p>
                         </div>
                     </div>
@@ -120,7 +147,7 @@
                     <div class="card-dash card-confirmados">
                         <div class="card-dash-reserva-conteudo">
                             <p class="titulo peso-leve ">Total</p>
-                            <span class="valor font-1-xxxl cor-a-green3">11</span>
+                            <span class="valor font-1-xxxl cor-a-green3" id="total-confirmados"><?php echo $totalConfirmados ?></span>
                             <p class="sub info font-1 cor-2">Confirmados</p>
                         </div>
                     </div>
@@ -128,7 +155,7 @@
                     <div class="card-dash card-check-in">
                     <div class="card-dash-reserva-conteudo">
                             <p class="titulo peso-leve ">Total</p>
-                            <span class="valor font-1-xxxl cor-a-blue3">9</span>
+                            <span class="valor font-1-xxxl cor-a-blue3" id="total-check-in"><?php echo $totalCheckIn ?></span>
                             <p class="sub info font-1 cor-2">Check-in</p>
                         </div>
                     </div>
@@ -136,7 +163,7 @@
                     <div class="card-dash card-check-out">
                         <div class="card-dash-reserva-conteudo">
                             <p class="titulo peso-leve ">Total</p>
-                            <span class="valor font-1-xxxl cor-a-purple3">2</span>
+                            <span class="valor font-1-xxxl cor-a-purple3" id="total-check-out"><?php echo $totalCheckOut ?></span>
                             <p class="sub info font-1 cor-2">Check-out</p>
                         </div>
                     </div>
@@ -144,7 +171,7 @@
                     <div class="card-dash card-pendentes">
                         <div class="card-dash-reserva-conteudo">
                             <p class="titulo peso-leve ">Total</p>
-                            <span class="valor font-1-xxxl cor-a-yellow3">3</span>
+                            <span class="valor font-1-xxxl cor-a-yellow3" id="total-pendentes"><?php echo $totalPendentes ?></span>
                             <p class="sub info font-1 cor-2">Pendentes</p>
                         </div>
                     </div>
@@ -152,7 +179,7 @@
                     <div class="card-dash card-cancelados">
                         <div class="card-dash-reserva-conteudo">
                             <p class="titulo peso-leve ">Total</p>
-                            <span class="valor font-1-xxxl cor-a-red3">1</span>
+                            <span class="valor font-1-xxxl cor-a-red3 cancelados" id="total-cancelados"><?php echo $totalCancelados ?></span>
                             <p class="sub info font-1 cor-2">Cancelados</p>
                         </div>
                     </div>
@@ -162,75 +189,13 @@
 
             <span class="separador"></span>
 
-            <div class="container-conteudo dash">
-                    <?php
-                        $sqlConsultaReservas = 
-                            "SELECT 
-                                r.id_reserva,
-                                r.id_acomodacao,
-                                r.id_cliente,
-                                r.dt_reserva_inicio,
-                                r.dt_reserva_fim,
-                                r.id_status_reserva,
-                                s.nome_status_reserva
-                            FROM tbl_reserva r
-                            INNER JOIN tbl_status_reserva s
-                            ON r.id_status_reserva = s.id_status_reserva
-                        ";
-                        $consultaReservas = mysqli_query($con, $sqlConsultaReservas);
-                        $numeroLinhas = mysqli_num_rows($consultaReservas);
-
-                        while($arrayReservas = mysqli_fetch_assoc($consultaReservas)) {
-                            $idAcomodacao = $arrayReservas['id_acomodacao'];
-                            $idStatusReserva = $arrayReservas['id_status_reserva'];
-
-                            $dtReservaInicio = $arrayReservas['dt_reserva_inicio'];
-                            $dtReservaFim = $arrayReservas['dt_reserva_fim'];
-                            $dtReservaInicioFormatar = new DateTime($dtReservaInicio);
-                            $dtReservaFimFormatar = new DateTime($dtReservaFim);
-                            $dtReservaInicioFormatada = date_format($dtReservaInicioFormatar, "d/m/Y");
-                            $dtReservaFimFormatada = date_format($dtReservaFimFormatar, "d/m/Y");
-                            
-                            $consultaInfoAcomodacao = consultaInfoAcomodacao($con, 0, $idAcomodacao);
-                            $arrayInfoAcomodacao = mysqli_fetch_assoc($consultaInfoAcomodacao);
-
-                            ?>
-                                
-                                <div class="card card-container-disponibilidade-reserva dash disponivel" data-id-acomodacao="<?php  ?>" data-data-inicio="<?php ?>" data-data-fim="<?php ?>">
-                                    <div class="card-reserva-dash-top">
-                                        <div class="disp-reserva-nome dash">
-                                            <div class="card-reserva-cabecalho dash">
-                                                <span class="material-symbols-rounded">hotel</span>
-                                                <p class="cor-4">Reserva - #<?php echo $arrayReservas['id_reserva']?></p>
-                                            </div>
-                                    
-                                            <div class="disp-reserva-nome-info dash">
-                                                <p class="card-title font-1-l cor-8"><?php echo $arrayInfoAcomodacao['nome_acomodacao']?></p>
-                                                <p class="font-1-xm cor-8"><?php echo $arrayInfoAcomodacao['numero_acomodacao']?></p>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="disp-reserva-status dash disponivel">
-                                            <p class="cor-6"><?php echo $arrayReservas['nome_status_reserva']?><span></span></p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="disp-reserva-data dash">
-                                        <p class="cor-6 font-1-xs" >Período estadia</p>
-                                        <div class="disp-reserva-data-periodo">
-                                            <div>
-                                                <p class="cor-5 font-1-xxs peso-leve"> <?php echo $dtReservaInicioFormatada ?> - <?php echo $dtReservaFimFormatada ?><p>
-                                            </div>
-                                        </div>
-                                    </div>
-                    
-                                </div>
-                            
-                            <?php
-                        }
-                    ?>
+            <div class="conteudo-dash">
+                <?php 
+                    include "include/cFiltrarDatasReservas.php";
+                
+                ?>
             </div>
-
+               
         </div>
 
     </div>
@@ -261,7 +226,34 @@
                     'data-final':dataFinal
                 },
                 success: function (response) {
-                    console.log(response);
+                    $('.conteudo-dash').html(response);
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "include/cFiltroTotais.php",
+                data: {
+                    'data-inicio':dataInicio,
+                    'data-final':dataFinal
+                },
+
+                success: function (arrayTotalStatus) {
+                    if(arrayTotalStatus !== "") {
+                        $('#total-hospedes').text(arrayTotalStatus.totalHospedes);
+                        $('#total-confirmados').text(arrayTotalStatus.totalConfirmados);
+                        $('#total-check-in').text(arrayTotalStatus.totalCheckIn);
+                        $('#total-check-out').text(arrayTotalStatus.totalCheckOut);
+                        $('#total-pendentes').text(arrayTotalStatus.totalPendentes);
+                        $('#total-cancelados').text(arrayTotalStatus.totalCancelados);
+
+                    } else {
+                        $('#total-confirmados').text('');
+                        $('#total-check-in').text('');
+                        $('#total-check-out').text('');
+                        $('#total-pendentes').text('');
+                        $('#total-cancelados').text('');
+                    }
                 }
             });
         });
@@ -269,5 +261,12 @@
 
 </script>
 
+<script>
 
+    btnLimparFiltro = document.getElementById('limpar-filtro');
+    btnLimparFiltro.addEventListener('click', function(){
+        window.location.href = '../reserva/index.php';
+    })
+
+</script>
 
