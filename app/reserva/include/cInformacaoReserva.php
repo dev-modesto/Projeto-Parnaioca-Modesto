@@ -71,6 +71,15 @@
             $valorReservaTotalFormatado = number_format($valorReservaTotal, 2, '.', '');
             $valorRestante = $valorReservaTotalFormatado - $totalPago;
             $valorRestanteFormatado = number_format($valorRestante, 2, '.', '');
+
+            // ID de status das reservas
+                $pendente = 1;
+                $confirmado = 2;
+                $cancelado = 3;
+                $checkIn = 4;
+                $checkOut = 5;
+                $finalizado = 6;
+            //
         }   
     }
 ?>
@@ -107,9 +116,39 @@
             </div>
             
             <div class="form-container reservas top-container-button-reserva-info" >
-                <div class="col-md-12 form-container-button-reserva" data-id-reservaas="<?php echo $idReserva ?>">
+                <div class="col-md-12 form-container-button-reserva" data-id-reserva="<?php echo $idReserva ?>">
                     <button class='btn btn-primary btn-realizar-check-out' id="btn-finalizar-reserva">Cancelar reserva</button>
-                    <button class='btn btn-primary btn-realizar-check-in' id="btn-realizar-check-in">Realizar check-in</button>
+
+                    <?php 
+                        switch ($idStatusReserva) {
+                            case $pendente :
+                                ?>
+                                    <button class='btn btn-primary btn-confirmar-reserva' id="btn-confirmar-reserva">Confirmar reserva</button>
+                                <?php
+                                break;
+
+                            case $confirmado :
+                                ?>
+                                     <button class='btn btn-primary btn-realizar-check-in' id="btn-realizar-check-in">Realizar check-in</button>
+                                <?php
+                                break;
+                            case $checkIn :
+                                ?>
+                                     <button class='btn btn-primary btn-realizar-check-out' id="btn-realizar-check-out">Realizar check-out</button>
+                                <?php
+                                break;
+
+                            case $checkOut :
+                                ?>
+                                    <button class='btn btn-primary btn-finalizar-reserva' id="btn-finalizar-reserva">Finalizar reserva</button>
+                                <?php
+                                break;
+                            
+                            default:
+                                break;
+                        }
+                    ?>
+                    
                 </div>
             </div>
             <!-- formulario envio -->
@@ -184,7 +223,35 @@
                 
                 <br>
 
-                <div>
+                <div class="modulo-reservas-informacao">
+                    <div class="cards-reservas-cabecalho">
+                        <h1 class="font-1-l cor-8 peso-semi-bold">Consumo</h1>
+                        <div id="dropdown-reservas-disponiveis">
+                            <span class="material-symbols-rounded icon-drop-disponiveis">keyboard_arrow_up</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-container reservas">
+                        <div class="row mb-3 conteudo-reserva">
+                            <div class="col-md-12">
+                                <label class="font-1-s" for="valor-total-consumido">Total consumido</label>
+                                <input class="form-control monetario" type="text" name="valor-total-consumido" id="valor-total-consumido" value="0" disabled required>
+                            </div>
+                        </div>
+
+                        <span class="separador-botao"></span>
+
+                        <div class="row mb-3 footer-container-button-reserva">
+                            <div class="col-md-6 container-button-reserva-info">
+                                <a class='btn btn-primary  btn-ver-consumo' id="btn-ver-consumo">Visualizar consumo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="modulo-reservas-informacao">
                     <div class="cards-reservas-cabecalho">
                         <h1 class="font-1-l cor-8 peso-semi-bold">Informações gerais</h1>
                         <div id="dropdown-reservas-disponiveis">
@@ -193,64 +260,47 @@
                     </div>
 
                     <div class="form-container reservas">
-                        <div class="conteudo-nova-reserva">
-
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="id-forma-pagamento">Forma de pagamento</label>
-                                    <select class="form-select"  name="id-forma-pagamento" id="id-forma-pagamento" required aria-label="select example">
-                                        <option value="">-</option>
-                                        <?php
-                                            $sqlStatus = "SELECT id_metodo_pag, nome_metodo_pag FROM tbl_metodo_pagamento";
-                                            $consultaa = mysqli_query($con, $sqlStatus);
-
-                                            while($arrayStatus = mysqli_fetch_assoc($consultaa)) {
-                                                    $selected = ($arrayStatus['id_metodo_pag'] == $idMetodoPag) ? 'selected' : '';
-                                                    echo "<option value='" . $arrayStatus['id_metodo_pag'] . "' $selected>" . $arrayStatus['nome_metodo_pag'] . "</option>";
-                                            }
-                                            mysqli_close($con);
-                                                
-                                        ?>
-                        
-                                    </select>
-                                </div>
-                            </div>
-
+                        <div class="conteudo-reserva">
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label class="font-1-s" for="valor-entrada">Valor de entrada</label>
-                                    <input class="form-control monetario" type="text" name="valor-entrada" id="valor-entrada" value="<?php echo $totalPago ?>">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="font-1-s" for="valor-restante">Valor restante</label>
-                                    <input class="form-control monetario" type="text" name="valor-restante" id="valor-restante" value="<?php echo $valorRestanteFormatado ?>" disabled>
+                                    <input class="form-control monetario" type="text" name="valor-entrada" id="valor-entrada" value="<?php echo $totalPago ?>" disabled>
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-12">
+                            <div class="row mb-5">
+                                <div class="col-md-6">
                                     <label class="font-1-s" for="valor-reserva-total-2">Valor reserva total</label>
                                     <input class="form-control monetario" type="text" name="valor-reserva-total-2" id="valor-reserva-total-2" value="<?php echo $valorReservaTotalFormatado ?>" disabled required>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <label class="font-1-s" for="valor-total-consumido-2">Total consumido</label>
+                                    <input class="form-control monetario" type="text" name="valor-total-consumido-2" id="valor-total-consumido-2" value="0" disabled required>
+                                </div>
                             </div>
 
+                            <div class="row mb-5">
+                                <div class="col-md-12">
+                                    <label class="font-1-s" for="total-a-pagar">Total a pagar</label>
+                                    <input class="form-control monetario" type="text" name="total-a-pagar" id="total-a-pagar" value="<?php echo $valorReservaTotalFormatado ?>" disabled required>
+                                </div>
                             </div>
 
                             <span class="separador-botao"></span>
 
                             <div class="row mb-3 footer-container-button-reserva">
-                                <div class="col-md-6 form-container-button-reserva">
-                                    <a class='btn btn-secondary btn-modal-cancelar btn-retornar info'>Pagar</a>
-                                    <button class='btn btn-primary btn-avancar finalizar' id="btn-finalizar-reserva" type="submit">Finalizar</button>
+                                <div class="col-md-6 ">
+                                    <a class='btn btn-primary btn-avancar finalizar' id="btn-finalizar-reserva">Realizar pagamento</a>
                                 </div>
                             </div>
-                    
-                        </div>
-                    </div>
+                        </div>   
+                    </div>   
+                </div>
                 </div>
 
-                <div class="modalConfirmaCheckIn">
+
+                <div class="modalConfirmaCheckIn modalConfirmarReserva">
                 </div>
 
                 <?php if(!empty($mensagem)){ ?>  
@@ -264,7 +314,6 @@
                 ?>
             </form>
         </div>
-
     </div>
 
 <?php
@@ -286,7 +335,7 @@
         $('.btn-realizar-check-in').click(function (e) { 
             e.preventDefault();
 
-            var idReserva = $(this).closest('.form-container-button-reserva').data('id-reservaas');
+            var idReserva = $(this).closest('.form-container-button-reserva').data('id-reserva');
 
             $.ajax({
                 type: "POST",
@@ -299,6 +348,26 @@
                     console.log(response);
                     $('.modalConfirmaCheckIn').html(response);
                     $('#modalConfirmaCheckIn').modal('show');
+                }
+            });
+        });
+
+        $('.btn-confirmar-reserva').click(function (e) { 
+            e.preventDefault();
+            
+            var idReserva = $(this).closest('.form-container-button-reserva').data('id-reserva');
+
+            $.ajax({
+                type: "POST",
+                url: "cModalConfirmarReserva.php",
+                data: {
+                    'click-confirmar-reserva':true,
+                    'id-reserva':idReserva
+                },
+                success: function (response) {
+                    console.log(response);
+                    $('.modalConfirmarReserva').html(response);
+                    $('#modalConfirmarReserva').modal('show');
                 }
             });
         });
