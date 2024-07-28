@@ -142,4 +142,10 @@
         return $acomodacaoReservada;
     }
 
+    function consultaInfoCliente ($con, $idCliente, $cpfCliente) {
+        $sql = "SELECT * FROM tbl_cliente WHERE (id_cliente = $idCliente) OR (cpf = $cpfCliente)";
+        $consulta = mysqli_query($con, $sql);
+        $array = mysqli_fetch_assoc($consulta);
+        return $array;
+    }
 ?>

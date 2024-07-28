@@ -270,3 +270,23 @@
 
 </script>
 
+
+<script>
+
+    $(document).ready(function () {
+        $('.card-container-disponibilidade-reserva').click(function (e) { 
+            e.preventDefault();
+
+            $('.card-container-disponibilidade-reserva').data('id-reserva');
+
+            var idReserva = $(this).closest('.card-container-disponibilidade-reserva').data('id-reserva');
+            var queryString = $.param({
+                'click-reserva':true,
+                'id-reserva':idReserva
+            });
+
+            window.location.href = "include/cInformacaoReserva.php?" + queryString;
+        });
+    });
+
+</script>
