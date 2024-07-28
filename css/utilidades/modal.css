@@ -65,6 +65,18 @@
     color: white;
 }
 
+.btn-modal-check-in {
+    background-color: var(--cor-a-blue3);
+    border: var(--cor-a-blue3);
+    color: white;
+}
+
+.btn-modal-check-in:hover {
+    background-color: var(--cor-a-blue4);
+    border: var(--cor-a-blue3);
+    color: white;
+}
+
 
 /* links do modal tab */
 .nav-link {

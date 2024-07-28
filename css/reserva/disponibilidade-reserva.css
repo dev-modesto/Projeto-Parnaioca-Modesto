@@ -165,6 +165,7 @@
 }
 
 .cards-reservas-cabecalho {
+    background-color: #fff;
     padding: 10px 20px;
     margin-bottom: 20px;
     display: flex;
@@ -259,4 +260,23 @@
 
 .nav-links-reservas {
     display: none;
+}
+
+/* informações das reservas */
+.top-container-button-reserva-info {
+    /* background-color: tomato; */
+    margin: 0px;
+}
+
+.icone-alerta-check-in-modal {
+    background-color: rgb(241, 253, 255);
+    box-shadow: 0px 0px 0px 8px rgb(252, 253, 255);
+    border-radius: 50%;
+
+    width: 80px;
+    height: 80px;
+}
+
+.modal-check-in-icone span {
+    color: var(--cor-a-blue3);
 }
