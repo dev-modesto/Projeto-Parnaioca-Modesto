@@ -12,6 +12,7 @@
         segurancaSac($con, $idLogado);
     }
     include ARQUIVO_FUNCAO_SQL;
+    include ARQUIVO_FUNCAO_SQL_RESERVA;
 
     if(isset($_GET['click-reserva']) && $_GET['click-reserva'] === 'true') {
         $idReserva = $_GET['id-reserva'];
@@ -36,7 +37,10 @@
             $totalNoites = $array['total_noites'];
             $dtCheckIn = $array['dt_check_in'];
             $dtCheckOut = $array['dt_check_out'];
-            $totalPago = $array['total_pago'];
+
+            $consultaTotalPago = consultaTotalPagamentoReserva($con, $idReserva);
+            $totalPago = $consultaTotalPago['valor_total'];
+
             $valorTotalReserva = $array['valor_total_reserva'];
             $idMetodoPag = $array['id_metodo_pag'];
             $valorConsumido = $array['valor_consumido'];
