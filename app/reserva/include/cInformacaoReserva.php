@@ -121,7 +121,7 @@
             
             <div class="form-container reservas top-container-button-reserva-info" >
                 <div class="col-md-12 form-container-button-reserva" data-id-reserva="<?php echo $idReserva ?>">
-                    <button class='btn btn-primary btn-realizar-check-out' id="btn-finalizar-reserva">Cancelar reserva</button>
+                    <button class='btn btn-primary btn-cancelar-reserva' id="btn-finalizar-reserva">Cancelar reserva</button>
 
                     <?php 
                         switch ($idStatusReserva) {
@@ -305,7 +305,7 @@
                 </div>
 
 
-                <div class="modalConfirmaCheckIn modalConfirmarReserva">
+                <div class="modalConfirmaCheckIn modalConfirmarCheckOut modalConfirmarReserva">
                 </div>
 
 
@@ -434,6 +434,26 @@
                     console.log(response);
                     $('.modalConfirmarReserva').html(response);
                     $('#modalConfirmarReserva').modal('show');
+                }
+            });
+        });
+
+        $('.btn-realizar-check-out').click(function (e) { 
+            e.preventDefault();
+            
+            var idReserva = $(this).closest('.form-container-button-reserva').data('id-reserva');
+
+            $.ajax({
+                type: "POST",
+                url: "cModalRealizarCheckOut.php",
+                data: {
+                    'click-confirmar-check-out':true,
+                    'id-reserva':idReserva
+                },
+                success: function (response) {
+                    console.log(response);
+                    $('.modalConfirmarCheckOut').html(response);
+                    $('#modalConfirmarCheckOut').modal('show');
                 }
             });
         });
