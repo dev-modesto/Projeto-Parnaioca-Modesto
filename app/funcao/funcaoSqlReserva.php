@@ -31,7 +31,26 @@
         $consulta = mysqli_stmt_get_result($sql);
         $array = mysqli_fetch_assoc($consulta);
         return $array;
-}
+    }
 
+    function consultaInfoPagamentoReserva($con, $idReserva) {
+        $sql = 
+            mysqli_prepare($con, "SELECT * FROM tbl_pagamento WHERE id_reserva = ? ");
+            mysqli_stmt_bind_param($sql, 'i', $idReserva);
+            mysqli_stmt_execute($sql);
+        $consulta = mysqli_stmt_get_result($sql);
+        $array = mysqli_fetch_all($consulta, MYSQLI_ASSOC);
+        return $array;
+    }
+
+    function consultaTotalPagamentoReserva($con, $idReserva) {
+        $sql = 
+            mysqli_prepare($con, "SELECT COALESCE(SUM(valor), 0) as valor_total FROM tbl_pagamento WHERE id_reserva = ? ");
+            mysqli_stmt_bind_param($sql, 'i', $idReserva);
+            mysqli_stmt_execute($sql);
+        $consulta = mysqli_stmt_get_result($sql);
+        $array = mysqli_fetch_assoc($consulta);
+        return $array;
+    }
 ?>
 
