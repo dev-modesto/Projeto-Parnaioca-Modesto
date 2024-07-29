@@ -23,5 +23,15 @@
         return $array['total'];
     }
 
+    function consultaInfoReserva($con, $idReserva) {
+        $sql = 
+            mysqli_prepare($con, "SELECT * FROM tbl_reserva WHERE id_reserva = ? ");
+            mysqli_stmt_bind_param($sql, 'i', $idReserva);
+            mysqli_stmt_execute($sql);
+        $consulta = mysqli_stmt_get_result($sql);
+        $array = mysqli_fetch_assoc($consulta);
+        return $array;
+}
+
 ?>
 
