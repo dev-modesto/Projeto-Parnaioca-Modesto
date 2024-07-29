@@ -263,7 +263,7 @@
                         <div class="conteudo-reserva">
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label class="font-1-s" for="valor-entrada">Valor de entrada</label>
+                                    <label class="font-1-s" for="valor-entrada">Total pago</label>
                                     <input class="form-control monetario" type="text" name="valor-entrada" id="valor-entrada" value="<?php echo $totalPago ?>" disabled>
                                 </div>
                             </div>
@@ -283,7 +283,7 @@
                             <div class="row mb-5">
                                 <div class="col-md-12">
                                     <label class="font-1-s" for="total-a-pagar">Total a pagar</label>
-                                    <input class="form-control monetario" type="text" name="total-a-pagar" id="total-a-pagar" value="<?php echo $valorReservaTotalFormatado ?>" disabled required>
+                                    <input class="form-control monetario" type="text" name="total-a-pagar" id="total-a-pagar" value="<?php echo $valorRestanteFormatado ?>" disabled required>
                                 </div>
                             </div>
 
@@ -291,7 +291,8 @@
 
                             <div class="row mb-3 footer-container-button-reserva">
                                 <div class="col-md-6 ">
-                                    <a class='btn btn-primary btn-avancar finalizar' id="btn-finalizar-reserva">Realizar pagamento</a>
+                                    <a class='btn btn-primary btn-avancar finalizar' id="btn-finalizar-reserva" data-bs-toggle="modal" data-bs-target="#modal-realizar-pagamento">Realizar pagamento</a>
+                                    <!-- <button type="button" class="" data-bs-toggle="modal" data-bs-target="#modal-realizar-pagamento"> <span class="material-symbols-rounded">add</span>Cadastrar produto</button> -->
                                 </div>
                             </div>
                         </div>   
@@ -303,6 +304,8 @@
                 <div class="modalConfirmaCheckIn modalConfirmarReserva">
                 </div>
 
+
+
                 <?php if(!empty($mensagem)){ ?>  
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?php echo $mensagem ?>
@@ -313,6 +316,65 @@
                     }
                 ?>
             </form>
+
+            <div class="modal fade" id="modal-realizar-pagamento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-realizar-pagamento" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modal-realizar-pagamento">Realizar pagamento</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <!-- formulario envio -->
+                        <form class="was-validated form-container" action="gRealizarPagamento.php" method="post">
+                            <input type="text" name="id-reserva" id="id-reserva" value="<?php echo $idReserva ?>" hidden>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="id-forma-pagamento">Forma de pagamento</label>
+                                    <select class="form-select"  name="id-forma-pagamento" id="id-forma-pagamento" required aria-label="select example">
+                                        <option value="">-</option>
+                                        <?php
+                                            $sqlStatus = "SELECT id_metodo_pag, nome_metodo_pag FROM tbl_metodo_pagamento";
+                                            $consultaa = mysqli_query($con, $sqlStatus);
+
+                                            while($arrayStatus = mysqli_fetch_assoc($consultaa)) {
+                                                    echo "<option value='" . $arrayStatus['id_metodo_pag'] . "' $selected>" . $arrayStatus['nome_metodo_pag'] . "</option>";
+                                            }
+                                            mysqli_close($con);
+                                                
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="font-1-s" for="valor-total-pendente">Total pendente</label>
+                                    <input class="form-control monetario" type="text" name="valor-total-pendente" id="valor-total-pendente" value="<?php echo $valorRestanteFormatado ?>" disabled required>
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label class="font-1-s" for="valor">Valor</label>
+                                <input class="form-control monetario" type="text" name="valor" id="valor" required>
+                            </div>
+
+                            <?php if(!empty($mensagem)){ ?>  
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <?php echo $mensagem ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div> 
+                            <?php }else {
+                                    echo '';
+                                }
+                            ?>
+
+                            <div class="modal-footer form-container-button">
+                                <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                                <button class='btn btn-primary' type="submit">Confirmar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
