@@ -11,7 +11,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-second modal-check-in-icone">
-                <span class="icone-alerta-check-in-modal material-symbols-rounded">where_to_vote</span>
+                <span class="icone-alerta-modal-padrao material-symbols-rounded">where_to_vote</span>
             </div>
             <div class="modal-body body-alerta-modal">
                 <p><strong>Deseja confirmar o Check-In?</strong> <br>

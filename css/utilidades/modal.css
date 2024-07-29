@@ -19,6 +19,10 @@
     min-width: 48%;
 }
 
+.container-button-modal {
+    padding: 20px;
+}
+
 .btn-info button {
     width: 100%;
 }
@@ -74,6 +78,30 @@
 .btn-modal-check-in:hover {
     background-color: var(--cor-a-blue4);
     border: var(--cor-a-blue3);
+    color: white;
+}
+
+.btn-modal-confirmar-reserva {
+    background-color: var(--cor-a-green3);
+    border: var(--cor-a-green3);
+    color: white;
+}
+
+.btn-modal-confirmar-reserva:hover {
+    background-color: var(--cor-a-green4);
+    border: var(--cor-a-green3);
+    color: white;
+}
+
+.btn-modal-confirmar-check-out {
+    background-color: var(--cor-a-purple3);
+    border: var(--cor-a-green3);
+    color: white;
+}
+
+.btn-modal-confirmar-check-out:hover {
+    background-color: var(--cor-a-purple4);
+    border: var(--cor-a-green3);
     color: white;
 }
 
