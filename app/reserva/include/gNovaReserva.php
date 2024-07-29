@@ -52,69 +52,64 @@
             $idStatusPagamento = 1; //pendente
         }
 
-        $array = [
-            "ID acomodacao: ". $idAcomodacao,
-            "Valor diaria: " . $valorDiaria,
-            "ID cliente: " . $idCliente,
-            "Total hospedes: " . $totalHospedes,
-            "Data reserva check-in: " . $dataHorarioCheckIn,
-            "Data reserva check-out: " .  $dataHorarioCheckOut,
-            "Valor entrada: " . $valorEntradaConvertido, 
-            "Valor total reserva: " . $valorReservaTotal, 
-            "ID forma pagamento: " . $idFormaPagamento,
-            "ID status pagamento: " . $idStatusPagamento,
-            "ID status reserva: " . $idStatusReserva,
-            "ID logado: " . $idLogado
-        ];
+        mysqli_begin_transaction($con);
 
-        $sql = 
-            mysqli_prepare(
-            $con,
-            "INSERT INTO tbl_reserva (
-            id_acomodacao,
-            valor,
-            id_cliente,
-            total_hospedes,
-            dt_reserva_inicio,
-            dt_reserva_fim,
-            total_noites,
-            total_pago,
-            valor_total_reserva,
-            id_metodo_pag,
-            id_status_pag,
-            id_status_reserva,
-            id_funcionario) 
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
-        );
+        try {
 
-        mysqli_stmt_bind_param(
-            $sql, 
-            "idiissiddiiii", 
-            $idAcomodacao, 
-            $valorDiaria, 
-            $idCliente, 
-            $totalHospedes,
-            $dataHorarioCheckIn, 
-            $dataHorarioCheckOut, 
-            $qntNoites, 
-            $valorEntradaConvertido,
-            $valorReservaTotal,
-            $idFormaPagamento,
-            $idStatusPagamento,
-            $idStatusReserva,
-            $idLogado
-        );
+            $sql = 
+                mysqli_prepare(
+                $con,
+                "INSERT INTO tbl_reserva (
+                    id_acomodacao,
+                    valor,
+                    id_cliente,
+                    total_hospedes,
+                    dt_reserva_inicio,
+                    dt_reserva_fim,
+                    total_noites,
+                    total_pago,
+                    valor_total_reserva,
+                    id_metodo_pag,
+                    id_status_pag,
+                    id_status_reserva,
+                    id_funcionario) 
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
+            );
 
-        if(mysqli_stmt_execute($sql)){
+            mysqli_stmt_bind_param(
+                $sql, 
+                "idiissiddiiii", 
+                $idAcomodacao, 
+                $valorDiaria, 
+                $idCliente, 
+                $totalHospedes,
+                $dataHorarioCheckIn, 
+                $dataHorarioCheckOut, 
+                $qntNoites, 
+                $valorEntradaConvertido,
+                $valorReservaTotal,
+                $idFormaPagamento,
+                $idStatusPagamento,
+                $idStatusReserva,
+                $idLogado
+            );
 
-        }  else {
-            echo "Error ao gravar" . mysqli_error($con);
+            mysqli_stmt_execute($sql);
+            $idReserva = mysqli_insert_id($con);
+
+            $sqlPagamento = mysqli_prepare($con, "INSERT INTO tbl_pagamento(id_reserva, valor, id_metodo_pag) VALUES(?,?,?)");
+            mysqli_stmt_bind_param($sqlPagamento, 'idi', $idReserva, $valorEntradaConvertido, $idFormaPagamento);
+            mysqli_stmt_execute($sqlPagamento);
+            
+            $mensagem = "Reserva realizada com sucesso!";
+            header('location: ../index.php?msg=' . $mensagem);
+            mysqli_commit($con);
+            mysqli_close($con);
+
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Houve um problema ao realizar a reserva.";
+            header('location: ../index.php?msg=' . $mensagem);
         }
-
-        mysqli_close($con);
-
-
     }   
-
-
 ?>
