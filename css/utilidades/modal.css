@@ -93,6 +93,18 @@
     color: white;
 }
 
+.btn-modal-confirmar-check-out {
+    background-color: var(--cor-a-purple3);
+    border: var(--cor-a-green3);
+    color: white;
+}
+
+.btn-modal-confirmar-check-out:hover {
+    background-color: var(--cor-a-purple4);
+    border: var(--cor-a-green3);
+    color: white;
+}
+
 
 /* links do modal tab */
 .nav-link {
