@@ -71,7 +71,7 @@
                         $idReserva = $arrayReservas['id_reserva'];
 
                         ?>
-                            <div class="card card-container-disponibilidade-reserva dash <?php echo strtolower($nomeStatusReserva) ?>" data-id-acomodacao="<?php  ?>" data-data-inicio="<?php ?>" data-data-fim="<?php ?>">
+                            <div class="card card-container-disponibilidade-reserva dash <?php echo strtolower($nomeStatusReserva) ?>" data-id-reserva="<?php echo $idReserva ?>">
                                 <div class="card-reserva-dash-top">
                                     <div class="disp-reserva-nome dash">
                                         <div class="card-reserva-cabecalho dash">
@@ -150,7 +150,7 @@
                         $idReserva = $arrayReservas['id_reserva'];
 
                         ?>
-                            <div class="card card-container-disponibilidade-reserva dash <?php echo strtolower($nomeStatusReserva) ?>" data-id-acomodacao="<?php  ?>" data-data-inicio="<?php ?>" data-data-fim="<?php ?>">
+                            <div class="card card-container-disponibilidade-reserva dash <?php echo strtolower($nomeStatusReserva) ?>" data-id-reserva="<?php echo $idReserva ?>">
                                 <div class="card-reserva-dash-top">
                                     <div class="disp-reserva-nome dash">
                                         <div class="card-reserva-cabecalho dash">

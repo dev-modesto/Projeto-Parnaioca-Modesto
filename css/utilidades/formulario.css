@@ -19,6 +19,15 @@
   border: 1px solid var(--cor-13);
 }
 
+.form-container.reservas-informacao {
+  padding: 0px;
+  background-color: transparent;
+}
+
+.form-container.reservas-informacao {
+  max-width: 780px;
+}
+
 .form-container.reservas.cabecalho {
   max-width: 780px;
   padding: 10px 20px;

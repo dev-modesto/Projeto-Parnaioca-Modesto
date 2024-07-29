@@ -165,6 +165,7 @@
 }
 
 .cards-reservas-cabecalho {
+    background-color: #fff;
     padding: 10px 20px;
     margin-bottom: 20px;
     display: flex;
@@ -219,6 +220,14 @@
         width: 100%;
     }
 
+    .form-container-button-reserva.informacao {
+        width: 100%;
+    }
+
+        .form-container-button-reserva.informacao button {
+            width: auto;
+        }
+    
 .container-progresso-nova-reserva {
     padding: 5px 0px;
     display: flex;
@@ -253,10 +262,49 @@
         box-shadow: 0px 0px 0px 1px var(--cor-s6);
     }
 
-    .conteudo-nova-reserva {
+    .conteudo-reserva {
         padding: 30px 0px;
     }
 
 .nav-links-reservas {
     display: none;
+}
+
+/* informações das reservas */
+.icone-alerta-modal-padrao {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.icone-alerta-check-in-modal {
+    background-color: rgb(241, 253, 255);
+    box-shadow: 0px 0px 0px 8px rgb(252, 253, 255);
+}
+
+.icone-alerta-confirmar-reserva-modal {
+    background-color: rgb(241, 255, 254);
+    box-shadow: 0px 0px 0px 8px rgb(252, 255, 254);
+}
+
+.icone-alerta-check-out-modal {
+    background-color: rgb(251, 243, 255);
+    box-shadow: 0px 0px 0px 8px rgb(252, 248, 255);
+}
+
+.modal-check-in-icone span {
+    color: var(--cor-a-blue3);
+}
+
+.modal-confirmar-reserva-icone span {
+    color: var(--cor-a-green3);
+}
+
+.modal-check-out-icone span {
+    color: var(--cor-a-purple3);
+}
+
+.container-button-reserva-info {
+    display: flex;
+    justify-content: right;
 }
