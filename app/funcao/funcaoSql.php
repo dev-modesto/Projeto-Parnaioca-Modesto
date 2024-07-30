@@ -108,6 +108,38 @@
 
     }
 
+    function totalItensEspecificoFrigobar($con, $idItem, $idFrigobar) {
+            $sql = 
+            "SELECT 
+                e.id_frigobar,
+                e.id_acomodacao,
+                e.id_item,
+                i.nome_item,
+                i.preco_unit,
+                e.quantidade AS total_entrada,
+            IFNULL(s.quantidade, 0) AS total_saida,
+            (e.quantidade - IFNULL(s.quantidade, 0)) AS total_disponivel
+            FROM tbl_entrada_item_frigobar e
+            LEFT JOIN tbl_consumo_item_frigobar s
+            ON e.id_item = s.id_item
+            INNER JOIN tbl_item i
+            ON e.id_item = i.id_item
+            WHERE e.id_frigobar = '$idFrigobar'
+            AND e.id_item = '$idItem'
+            HAVING total_disponivel > 0
+        ";
+            $consulta = mysqli_query($con, $sql);
+            $array = mysqli_fetch_assoc($consulta);
+            return $array;
+    }
+
+    function consultaInfoFrigobar($con, $idFrigobar, $idAcomodacao) {
+        $sql = "SELECT * FROM tbl_frigobar WHERE (id_frigobar = $idFrigobar) OR (id_acomodacao = $idAcomodacao)";
+        $consulta = mysqli_query($con, $sql);
+        $array = mysqli_fetch_assoc($consulta);
+        return $array;
+    }
+
     // pesquisa na tabela de acomodacao pelo id tipo ou id da acomodação
     function consultaInfoAcomodacao ($con, $idTipoAcomodacao, $idAcomodacao) {
         $sql = "SELECT * FROM tbl_acomodacao WHERE (id_tp_acomodacao = $idTipoAcomodacao) OR (id_acomodacao = $idAcomodacao)";
