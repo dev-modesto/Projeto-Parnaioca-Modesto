@@ -1,0 +1,65 @@
+.container-cards-produto-frigobar {
+    border: 1px solid var(--cor-13);
+}
+
+.card-produto-frigobar {
+    background-color: transparent;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.form-container .cards-produto-frigobar {
+    max-width: 780px;
+    padding: 20px;
+    border: 1px solid var(--cor-13);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .cards-produto-frigobar {
+    border: none !important;
+  }
+  
+
+.card-produto-frigobar-body {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--cor-3);
+    border-radius: .7rem;
+}
+
+    .card-produto-frigobar-cabecalho {
+        padding: 5px 0px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-align: right;
+    }
+
+        .card-produto-frigobar-cabecalho span {
+            color: var(--cor-7);
+            position: absolute;
+        }
+
+        .card-produto-frigobar-cabecalho p {
+            width: 100%;
+        }
+
+        .card-produto-frigobar-img {
+            height: 178px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-produto-frigobar-footer {
+            border-top: 1px solid var(--cor-3);
+            padding-top: 5px;
+        }
+    
+.cabecalho-container-conteudo-form {
+    padding: 10px 20px;
+}

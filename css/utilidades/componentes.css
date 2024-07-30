@@ -259,7 +259,8 @@
     height: 40px;
     color: var(--cor-7);
     border: 1px solid var(--cor-3);
-    border-radius: .375rem;
+    /* border-radius: .375rem; */
+    border-radius: .7rem;
     display: flex;
     justify-content: center;
     align-items: center;
