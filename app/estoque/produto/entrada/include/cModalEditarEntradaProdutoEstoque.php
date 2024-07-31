@@ -55,7 +55,7 @@
                     <input class="form-control" type="text" name="id-tabela" id="id-tabela" value="<?php echo $id?>" hidden required>
                     <input class="form-control" type="text" name="id-item" id="id-item-consulta" value="" hidden required>
                     <div class="col-md-4">
-                        <label class="font-1-s" for="id-sku">SKU do produto</label>
+                        <label class="font-1-s" for="id-sku">SKU do produto <em>*</em></label>
                         <input class="form-control input-sku-produto" type="text" name="id-sku" id="id-sku" value="<?php echo $idSku?>" required>
                     </div>
 
@@ -69,17 +69,17 @@
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label class="font-1-s" for="nota-fiscal">Nota fiscal</label>
+                        <label class="font-1-s" for="nota-fiscal">Nota fiscal <em>*</em></label>
                         <input class="form-control" type="text" name="nota-fiscal" id="nota-fiscal" value="<?php echo $notaFiscal?>" required>
                     </div>
 
                     <div class="col-md-4">
-                        <label class="font-1-s" for="quantidade">Quantidade</label>
+                        <label class="font-1-s" for="quantidade">Quantidade <em>*</em></label>
                         <input class="form-control quantidade2" type="text" name="quantidade" id="quantidade" value="<?php echo $quantidade?>" required>
                     </div>
 
                     <div class="col-md-4">
-                        <label class="font-1-s" for="valor-unitario">Valor unitário (R$)</label>
+                        <label class="font-1-s" for="valor-unitario">Valor unitário (R$) <em>*</em></label>
                         <input class="form-control monetario valor-unitario2" type="text" name="valor-unitario" id="valor-unitario" value="<?php echo $valorUnitario?>" required>
                     </div>
                 </div>
