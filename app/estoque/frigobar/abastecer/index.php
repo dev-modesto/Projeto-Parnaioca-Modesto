@@ -126,7 +126,7 @@
                         <!-- formulario envio -->
                         <form class="was-validated form-container" action="include/gAbastecerFrigobar.php" method="post">
                             <div class="mb-3">
-                                <label class="font-1-s" for="sku">SKU do produto</label>
+                                <label class="font-1-s" for="sku">SKU do produto <em>*</em></label>
                                 <input class="form-control" type="text" name="sku" id="sku" required>
                             </div>
 
@@ -136,7 +136,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="quantidade">Quantidade</label>
+                                <label class="font-1-s" for="quantidade">Quantidade <em>*</em></label>
                                 <input class="form-control" type="text" name="quantidade" id="quantidade" required>
                             </div>
 

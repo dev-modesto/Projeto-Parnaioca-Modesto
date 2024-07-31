@@ -52,7 +52,7 @@
                     </div>
                 
                     <div class="mb-3">
-                        <label class="font-1-s" for="quantidade">Quantidade</label>
+                        <label class="font-1-s" for="quantidade">Quantidade <em>*</em></label>
                         <input class="form-control quantidade numero" type="text" name="quantidade" id="quantidade" value="1" required>
                         <div class="qnt-invalida-frigobar invalid-feedback"></div>
                     </div>

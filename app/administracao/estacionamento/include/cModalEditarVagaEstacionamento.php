@@ -35,7 +35,7 @@
                 <input type="text" name="id" id="id" value="<?php echo $id ?>" hidden>
 
                 <div class="mb-3">
-                    <label for="id-numero-acomodacao">Número da acomodação</label>
+                    <label for="id-numero-acomodacao">Número da acomodação <em>*</em></label>
                     <select class="form-select" name="id-numero-acomodacao" required aria-label="select example">
                         <?php
                             include '../../config/conexao.php';
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="font-1-s" for="numero-vaga-estacionamento">Número da vaga</label>
+                    <label class="font-1-s" for="numero-vaga-estacionamento">Número da vaga <em>*</em></label>
                     <input class="form-control" type="text" name="numero-vaga-estacionamento" id="numero-vaga-estacionamento" value="<?php echo $numeroVaga ?>" required>
                     <div class="invalid-feedback">
                     </div>

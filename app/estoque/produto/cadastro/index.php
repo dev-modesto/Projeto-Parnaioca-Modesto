@@ -125,22 +125,22 @@
                         <!-- formulario envio -->
                         <form class="was-validated form-container" action="include/gCadastroProduto.php" method="post">
                             <div class="mb-3">
-                                <label class="font-1-s" for="sku">SKU do produto</label>
+                                <label class="font-1-s" for="sku">SKU do produto <em>*</em></label>
                                 <input class="form-control" type="text" name="sku" id="sku" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="nome-produto">Nome produto</label>
+                                <label class="font-1-s" for="nome-produto">Nome produto <em>*</em></label>
                                 <input class="form-control" type="text" name="nome-produto" id="nome-produto" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="preco">Preço</label>
+                                <label class="font-1-s" for="preco">Preço <em>*</em></label>
                                 <input class="form-control monetario" type="text" name="preco" id="preco" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="estoque-minimo">Estoque mínimo</label>
+                                <label class="font-1-s" for="estoque-minimo">Estoque mínimo <em>*</em></label>
                                 <input class="form-control" type="number" min="1" max="5000" name="estoque-minimo" id="estoque-minimo" required>
                             </div>
 

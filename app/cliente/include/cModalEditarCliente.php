@@ -68,29 +68,29 @@
                     <div class="tab-pane fade show active" id="dados-pessoais-cliente-tab-edit-pane" role="tabpanel" aria-labelledby="dados-pessoais-cliente-tab-edit" tabindex="0">
 
                         <div class="mb-3">
-                            <label class="font-1-s" for="nome">Nome completo</label>
+                            <label class="font-1-s" for="nome">Nome completo <em>*</em></label>
                             <input class="form-control" type="text" name="nome" id="nome" value="<?php echo $nome ?>" required>
                         </div>
 
                         <div class="mb-3">
-                            <label class="font-1-s" for="cpf">CPF</label>
+                            <label class="font-1-s" for="cpf">CPF <em>*</em></label>
                             <input class="form-control cpf" type="text" name="cpf" id="cpf" value="<?php echo $cpf ?>"  required>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label class="font-1-s" for="email">E-mail</label>
+                                <label class="font-1-s" for="email">E-mail <em>*</em></label>
                                 <input class="form-control" type="email" name="email" class="email" id="email" value="<?php echo $email ?>" required>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="font-1-s" for="telefone">Telefone</label>
+                                <label class="font-1-s" for="telefone">Telefone <em>*</em></label>
                                 <input class="form-control" type="fone" name="telefone" class="telefone" id="telefone" value="<?php echo $telefone ?>" required>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="font-1-s" for="data-nascimento">Data nascimento</label>
+                            <label class="font-1-s" for="data-nascimento">Data nascimento <em>*</em></label>
                             <input class="form-control" type="date" name="data-nascimento" id="data-nascimento" value="<?php echo $dataNascimento ?>" required>
                         </div>
                         
@@ -99,12 +99,12 @@
                     <div class="tab-pane fade" id="endereco-cliente-tab-edit-pane" role="tabpanel" aria-labelledby="endereco-cliente-tab-edit" tabindex="0">
                         
                         <div class="mb-3">
-                            <label class="font-1-s" for="estado">Estado</label>
+                            <label class="font-1-s" for="estado">Estado <em>*</em></label>
                             <input class="form-control" type="fone" name="estado" class="estado" id="estado" value="<?php echo $estado ?>"  required>
                         </div>
 
                         <div class="mb-3">
-                            <label class="font-1-s" for="cidade">Cidade</label>
+                            <label class="font-1-s" for="cidade">Cidade <em>*</em></label>
                             <input class="form-control" type="fone" name="cidade" class="cidade" id="cidade" value="<?php echo $cidade ?>" required>
                         </div>
 
@@ -112,9 +112,9 @@
 
                     <div class="tab-pane fade" id="status-cliente-tab-edit-pane" role="tabpanel" aria-labelledby="status-cliente-tab-edit" tabindex="0">
                         <div class="mb-3">
-                            <label for="id-status">Status</label>
+                            <label for="id-status">Status <em>*</em></label>
                             <select class="form-select" name="id-status" id="id-status" required aria-label="select example">
-                                <option value="">Selecione um status</option>
+                                <option value="">Selecione um status </option>
                                 <?php
                                     include '../../config/conexao.php';
                                     $query = "SELECT id_status, nome_status FROM tbl_status_geral";
