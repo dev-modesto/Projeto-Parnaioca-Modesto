@@ -92,23 +92,42 @@
                         <?php 
                             $sql = 
                                 "SELECT 
-                                    e.id_frigobar,
-                                    e.id_item,
+                                    i.id_item,
                                     i.nome_item,
                                     i.preco_unit,
-                                    e.quantidade AS total_entrada,
-                                IFNULL(s.quantidade, 0) AS total_saida,
-                                (e.quantidade - IFNULL(s.quantidade, 0)) AS total_disponivel
-                                FROM tbl_entrada_item_frigobar e
-                                LEFT JOIN tbl_consumo_item_frigobar s
-                                ON e.id_item = s.id_item
-                                INNER JOIN tbl_item i
+                                    COALESCE(e.total_entrada, 0) AS total_entrada,
+                                    COALESCE(s.total_saida, 0) AS total_saida,
+                                    (COALESCE(e.total_entrada, 0) - COALESCE(s.total_saida, 0)) AS total_disponivel
+
+                                FROM (
+                                    SELECT 
+                                        id_item,
+                                        id_frigobar,
+                                        SUM(quantidade) AS total_entrada
+                                    FROM tbl_entrada_item_frigobar
+                                    WHERE id_frigobar = '$idFrigobar'
+                                    GROUP BY id_item, id_frigobar
+                                ) AS e
+                                
+                                LEFT JOIN (
+                                    SELECT 
+                                        id_item,
+                                        id_frigobar,
+                                        SUM(quantidade) AS total_saida
+                                    FROM tbl_consumo_item_frigobar
+                                    WHERE id_frigobar = '$idFrigobar'
+                                    GROUP BY id_item, id_frigobar
+                                ) AS s 
+
+                                ON e.id_item = s.id_item AND e.id_frigobar = s.id_frigobar
+                                INNER JOIN tbl_item i 
                                 ON e.id_item = i.id_item
-                                WHERE e.id_acomodacao = '$idAcomodacao'
+                                WHERE e.id_frigobar = $idFrigobar
                                 HAVING total_disponivel > 0
                             ";
-
+  
                             $consultaFrigobar = mysqli_query($con, $sql);
+
                             while($arrayProduto = mysqli_fetch_assoc($consultaFrigobar)) {
                                 $idItem = $arrayProduto['id_item'];
                                 $nomeItem = $arrayProduto['nome_item'];
