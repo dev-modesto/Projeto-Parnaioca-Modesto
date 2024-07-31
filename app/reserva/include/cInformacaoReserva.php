@@ -17,8 +17,11 @@
     if(isset($_GET['click-reserva']) && $_GET['click-reserva'] === 'true') {
         $idReserva = $_GET['id-reserva'];
 
-        $sql = "SELECT * FROM tbl_reserva WHERE id_reserva = '$idReserva'";
-        $consulta  = mysqli_query($con, $sql);
+        $consultaConsumoReserva = consultaConsumoReserva($con, $idReserva);        
+        $arrayTotalConsumoReserva = consultaTotalConsumoReserva($con, $idReserva);   
+        
+        $totalConsumido = $arrayTotalConsumoReserva['total_consumo'];
+        $totalConsumidoFormatadado = floatval($totalConsumido);
 
         $sqlReserva = mysqli_prepare($con, "SELECT * FROM tbl_reserva WHERE id_reserva = ?");
         mysqli_stmt_bind_param($sqlReserva, "i", $idReserva);
@@ -73,7 +76,7 @@
     
             $valorDiariaFormatado = number_format($valorDiaria, 2, '.', '');
             $valorReservaTotalFormatado = number_format($valorReservaTotal, 2, '.', '');
-            $valorRestante = $valorReservaTotalFormatado - $totalPago;
+            $valorRestante = ($valorReservaTotalFormatado + $totalConsumidoFormatadado) - $totalPago;
             $valorRestanteFormatado = number_format($valorRestante, 2, '.', '');
 
             // ID de status das reservas
@@ -102,7 +105,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;500;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
     
     <!-- link css datatable -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
@@ -114,7 +117,7 @@
 
             <div class="form-container reservas cabecalho">
                 <div class="container-cabecalho-padrao">
-                    <h1 class="modal-title fs-5 cor-8 peso-semi-bold" id="staticBackdropLabel">Reserva</h1>
+                    <h1 class="modal-title fs-5 cor-8 peso-semi-bold" id="staticBackdropLabel">Reserva - #<?php echo $idReserva ?></h1>
                     <span class="cor-6"><?php echo $nomeAcomodacao ?> - <?php echo $numeroAcomodacao ?> </span>
                 </div>
             </div>
@@ -239,7 +242,7 @@
                         <div class="row mb-3 conteudo-reserva">
                             <div class="col-md-12">
                                 <label class="font-1-s" for="valor-total-consumido">Total consumido</label>
-                                <input class="form-control monetario" type="text" name="valor-total-consumido" id="valor-total-consumido" value="0" disabled required>
+                                <input class="form-control monetario" type="text" name="valor-total-consumido" id="valor-total-consumido" value="<?php echo $totalConsumidoFormatadado ?>" disabled required>
                             </div>
                         </div>
 
@@ -247,7 +250,7 @@
 
                         <div class="row mb-3 footer-container-button-reserva">
                             <div class="col-md-6 container-button-reserva-info" data-id-reserva="<?php echo $idReserva ?>">
-                                <a class='btn btn-primary  btn-ver-consumo' id="btn-ver-consumo">Visualizar consumo</a>
+                                <a class='btn btn-primary  btn-ver-consumo' data-bs-toggle="modal" data-bs-target="#modal-visualizar-consumo" id="btn-ver-consumo" >Visualizar consumo</a>
                                 <a class='btn btn-primary btn-consumir-itens-frigobar' id="btn-consumir-itens-frigobar">Consumo frigobar</a>
                             </div>
                         </div>
@@ -281,7 +284,7 @@
 
                                 <div class="col-md-6">
                                     <label class="font-1-s" for="valor-total-consumido-2">Total consumido</label>
-                                    <input class="form-control monetario" type="text" name="valor-total-consumido-2" id="valor-total-consumido-2" value="0" disabled required>
+                                    <input class="form-control monetario" type="text" name="valor-total-consumido-2" id="valor-total-consumido-2" value="<?php echo $totalConsumidoFormatadado ?>" disabled required>
                                 </div>
                             </div>
 
@@ -297,7 +300,6 @@
                             <div class="row mb-3 footer-container-button-reserva">
                                 <div class="col-md-6 ">
                                     <a class='btn btn-primary btn-avancar finalizar' id="btn-finalizar-reserva" data-bs-toggle="modal" data-bs-target="#modal-realizar-pagamento">Realizar pagamento</a>
-                                    <!-- <button type="button" class="" data-bs-toggle="modal" data-bs-target="#modal-realizar-pagamento"> <span class="material-symbols-rounded">add</span>Cadastrar produto</button> -->
                                 </div>
                             </div>
                         </div>   
@@ -335,7 +337,7 @@
                             <input type="text" name="id-reserva" id="id-reserva" value="<?php echo $idReserva ?>" hidden>
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="id-forma-pagamento">Forma de pagamento</label>
+                                    <label for="id-forma-pagamento">Forma de pagamento <em>*</em></label>
                                     <select class="form-select"  name="id-forma-pagamento" id="id-forma-pagamento" required aria-label="select example">
                                         <option value="">-</option>
                                         <?php
@@ -358,8 +360,8 @@
 
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="valor">Valor</label>
-                                <input class="form-control monetario" type="text" name="valor" id="valor" required>
+                                <label class="font-1-s" for="valor">Valor <em>*</em></label>
+                                <input class="form-control monetario" type="text" name="valor" id="valor" placeholder="R$" required>
                             </div>
 
                             <?php if(!empty($mensagem)){ ?>  
@@ -380,6 +382,70 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="modal-visualizar-consumo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-visualizar-consumo" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modal-visualizar-consumo">Produtos consumidos</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <form class="was-validated form-container" action="gRealizarPagamento.php" method="post">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <p class="font-1-xs-2 cor-8 peso-leve">Reserva - #<?php echo $idReserva ?></p>
+                                    <p class="font-1-xs-2 cor-8 peso-leve">Cliente: <?php echo $nomeCliente ?></p>
+                                </div>
+                            </div>
+
+                            <table class="table table-hover text-center">
+                                <thead class="">
+                                    <tr>
+                                        <th scope="col">Nº</th>
+                                        <th scope="col">Descrição</th>
+                                        <th scope="col">Qnt.</th>
+                                        <th scope="col">Valor</th>
+                                        <th scope="col">Valor total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                        $nroLinha = 1;
+                                        while($row = mysqli_fetch_array($consultaConsumoReserva)) {
+                                            ?>
+                                                <tr class="table-td-produtos-consumidos">
+                                                    <td><?php echo $nroLinha++ ?></td>
+                                                    <td><?php echo $row['nome_item'] ?></td>
+                                                    <td><?php echo $row['quantidade'] ?></td>
+                                                    <td>R$ <span class="monetario font-2-xs-2"><?php echo $row['preco_unit'] ?></span></td>
+                                                    <td>R$ <span class="monetario font-2-xs-2"><?php echo $row['valor_total'] ?></span></td>
+                                                </tr>
+                                            <?php
+                                        }
+                                    ?>
+
+                                    <tr class="footer-consumo-lista">
+                                        <td>.</td>
+                                        <td>.</td>
+                                        <td><?php echo $arrayTotalConsumoReserva['quantidade']?></td>
+                                        <td>.</td>
+                                        <td>R$ <span class="monetario font-2-xs-2"><?php echo $arrayTotalConsumoReserva['total_consumo']?></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <div class="modal-footer form-container-button">
+                                <div class="row-mb-3">
+                                    <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Fechar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 
