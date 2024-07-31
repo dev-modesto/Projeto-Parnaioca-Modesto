@@ -120,7 +120,7 @@
                         <!-- formulario envio cargo -->
                         <form class="was-validated form-container" action="include/gCargo.php" method="post">
                             <div class="mb-3">
-                                <label class="font-1-s" for="cargo">Cargo</label>
+                                <label class="font-1-s" for="cargo">Cargo <em>*</em></label>
                                 <input class="form-control" type="text" name="cargo" id="cargo" required>
                                 <div class="invalid-feedback">
                                     
@@ -128,7 +128,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="salario">Salário</label>
+                                <label class="font-1-s" for="salario">Salário <em>*</em></label>
                                 <input class="form-control monetario" type="text" name="salario" id="salario" required>
                                 <!-- <p id="info-validaCpf"></p> -->
                                 <div class="invalid-feedback">
@@ -137,7 +137,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="idSetor">Setor</label>
+                                <label for="idSetor">Setor <em>*</em></label>
                                 <select class="form-select" name="idSetor" id="idSetor" required>
                                     <?php
                                         include '../../config/conexao.php';

@@ -116,7 +116,7 @@
                         <!-- formulario envio cargo -->
                         <form class="was-validated form-container" action="include/gSetor.php" method="post">
                             <div class="mb-3">
-                                <label class="font-1-s" for="setor">Nome do setor</label>
+                                <label class="font-1-s" for="setor">Nome do setor <em>*</em></label>
                                 <input class="form-control" type="text" name="setor" id="setor" required>
                                 <div class="invalid-feedback">
                                 </div>

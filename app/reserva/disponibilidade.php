@@ -74,7 +74,7 @@
 
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <label class="font-1-s" for="data-inicio">Data inicio</label>
+                            <label class="font-1-s" for="data-inicio">Data inicio <em>*</em></label>
                             <input class="form-control" type="date" name="data-inicio" id="data-inicio" required>
                         </div>
                         <div class="col-md-4">
@@ -86,7 +86,7 @@
                     <div class="row mb-3">
 
                         <div class="col-md-4">
-                            <label class="font-1-s" for="data-final">Data final</label>
+                            <label class="font-1-s" for="data-final">Data final <em>*</em></label>
                             <input class="form-control" type="date" name="data-final" id="data-final" required>
                         </div>
 
@@ -99,7 +99,7 @@
 
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <label for="id-tp-acomodacao">Tipo acomodação</label>
+                            <label for="id-tp-acomodacao">Tipo acomodação <em>*</em></label>
                             <select class="form-select" name="id-tp-acomodacao" id="id-tp-acomodacao" required aria-label="select example">
                                 <option value="">-</option>
                                 

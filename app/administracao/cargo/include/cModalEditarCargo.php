@@ -39,14 +39,14 @@
                 <input type="text" name="idSetor" id="idSetor" value="<?php echo $idSetor ?>" hidden>
 
                 <div class="mb-3">
-                    <label class="font-1-s" for="cargo">Nome do cargo</label>
+                    <label class="font-1-s" for="cargo">Nome do cargo <em>*</em></label>
                     <input class="form-control" type="text" name="cargo" id="cargo" value="<?php echo $nomeCargo ?>" required>
                     <div class="invalid-feedback">
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label class="font-1-s" for="salario">Salário</label>
+                    <label class="font-1-s" for="salario">Salário <em>*</em></label>
                     <input class="form-control monetario" type="text" name="salario" id="salario" value="<?php echo $salario ?>"  required>
                     <!-- <p id="info-validaCpf"></p> -->
                     <div class="invalid-feedback">
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="idSetor">Cargo</label>
+                    <label for="idSetor">Cargo <em>*</em></label>
                     <select class="form-select idSetor" name="idSetor" required aria-label="select example">
                         <?php
                             include '../../config/conexao.php';
