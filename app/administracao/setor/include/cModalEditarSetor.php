@@ -34,7 +34,7 @@
                 <input type="text" name="id" id="id" value="<?php echo $id ?>" hidden>
 
                 <div class="mb-3">
-                    <label class="font-1-s" for="setor">Nome do setor</label>
+                    <label class="font-1-s" for="setor">Nome do setor <em>*</em></label>
                     <input class="form-control" type="text" name="setor" id="setor" value="<?php echo $nomeSetor ?>" required>
                     <div class="invalid-feedback">
                     </div>

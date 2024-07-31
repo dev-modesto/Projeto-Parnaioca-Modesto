@@ -39,7 +39,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalEditarFuncionarioLabel">Editar funcionário</h1>
+                <h1 class="modal-title fs-5" id="modalEditarFuncionarioLabel">Editar funcionário <em>*</em></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             
@@ -48,22 +48,22 @@
                     <input class="form-control" type="hidden" name="id-funcionario" id="id-funcionario" value="<?php echo $id ?>">
 
                 <div class="mb-3">
-                    <label class="font-1-s" for="nome">Nome completo</label>
+                    <label class="font-1-s" for="nome">Nome completo <em>*</em></label>
                     <input class="form-control nome" type="text" name="nome" id="nome" value="<?php echo $nome ?>" required>
                 </div>
 
                 <div class="mb-3">
-                    <label class="font-1-s" for="cpf">CPF</label>
+                    <label class="font-1-s" for="cpf">CPF <em>*</em></label>
                     <input class="form-control cpf" type="text" name="cpf" id="cpf" value="<?php echo $cpf ?>" required>
                 </div>
 
                 <div class="mb-3">
-                    <label class="font-1-s" for="telefone">Telefone</label>
+                    <label class="font-1-s" for="telefone">Telefone <em>*</em></label>
                     <input class="form-control telefone" type="fone" name="telefone" value="<?php echo $telefone ?>" id="telefone" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="id_cargo">Cargo</label>
+                    <label for="id_cargo">Cargo <em>*</em></label>
                     <select class="form-select id_cargo" name="id_cargo" required aria-label="select example">
                         <?php
                             include '../../config/conexao.php';

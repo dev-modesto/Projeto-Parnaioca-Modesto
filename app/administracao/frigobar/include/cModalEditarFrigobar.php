@@ -38,7 +38,7 @@
                 <input type="text" name="id" id="id" value="<?php echo $id ?>" hidden>
 
                 <div class="mb-3">
-                    <label for="id-acomodacao">Número da acomodação</label>
+                    <label for="id-acomodacao">Número da acomodação <em>*</em></label>
                     <select class="form-select" name="id-acomodacao" required aria-label="select example">
                         <?php
                             include '../../config/conexao.php';
@@ -55,12 +55,12 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="font-1-s" for="nome-frigobar">Nome frigobar</label>
+                    <label class="font-1-s" for="nome-frigobar">Nome frigobar <em>*</em></label>
                     <input class="form-control" type="text" name="nome-frigobar" id="nome-frigobar" value="<?php echo $nomeFrigobar ?>" required>
                 </div>
 
                 <div class="mb-3">
-                    <label class="font-1-s" for="capacidade">Capacidade</label>
+                    <label class="font-1-s" for="capacidade">Capacidade <em>*</em></label>
                     <input class="form-control" type="text" name="capacidade" id="capacidade" value="<?php echo $capacidade ?>" required>
                 </div>
 
