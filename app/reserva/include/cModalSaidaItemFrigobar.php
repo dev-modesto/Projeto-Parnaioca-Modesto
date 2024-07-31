@@ -14,7 +14,6 @@
         $arrayItem = totalItensEspecificoFrigobar($con, $idItem, $idFrigobar);
         $nomeItem = $arrayItem['nome_item'];
         $precoUnit = $arrayItem['preco_unit'];
-        $idAcomodacao = $arrayItem['id_acomodacao'];
         $totalItensDiponivel = $arrayItem['total_disponivel'];
     }
 
@@ -31,11 +30,7 @@
                 </div>
 
                 <!-- formulario envio -->
-                <form class=" form-container" action="gSaidaItemFrigobar.php" method="post">
-                    <input class="form-control" type="text" name="id-frigobar" id="id-frigobar" value="<?php echo $idFrigobar?>" hidden required >
-                    <input class="form-control" type="text" name="id-acomodacao" id="id-acomodacao" value="<?php echo $idAcomodacao?>" hidden  required >
-                    <input class="form-control" type="text" name="id-item-frigobar" id="id-item-frigobar" value="" hidden required >
-
+                <form class=" form-container form-modal-saida-frigobar" action="gSaidaItemFrigobar.php" method="post" data-id-reserva="<?php echo $idReserva ?>"  data-id-frigobar="<?php echo $idFrigobar ?>" data-id-item="<?php echo $idItem ?>">
                     <div class="row mb-3">
                         
                         <div class="col-md-8">
@@ -45,7 +40,7 @@
 
                         <div class="col-md-4">
                             <label class="font-1-s" for="preco-unit">Valor unit.</label>
-                            <input class="form-control monetario" type="text"  name="preco-unit" id="preco-unit" value="<?php echo $precoUnit ?>" disabled required>
+                            <input class="form-control monetario preco-unit" type="text" name="preco-unit" id="preco-unit" value="<?php echo $precoUnit ?>" disabled required>
                         </div>
                     </div>
 
@@ -58,13 +53,13 @@
                 
                     <div class="mb-3">
                         <label class="font-1-s" for="quantidade">Quantidade</label>
-                        <input class="form-control quantidade" type="number" min="1" max="" name="quantidade" id="quantidade" required>
-                        <div class="invalid-feedback"></div>
+                        <input class="form-control quantidade numero" type="text" name="quantidade" id="quantidade" value="1" required>
+                        <div class="qnt-invalida-frigobar invalid-feedback"></div>
                     </div>
 
                     <div class="mb-3">
                         <label class="font-1-s" for="valor-total">Valor total</label>
-                        <input class="form-control monetario" type="text" name="valor-total" id="valor-total" disabled required>
+                        <input class="form-control monetario valor-total" type="text" name="valor-total" id="valor-total" value="" disabled required>
                     </div>
 
 
@@ -80,7 +75,7 @@
 
                     <div class="modal-footer form-container-button">
                         <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
-                        <button class='btn btn-primary btn-adicionar' type="submit">Adicionar</button>
+                        <button class='btn btn-primary btn-salvar-saida-item-frigobar' type="submit">Salvar</button>
                     </div>
                 </form>
             </div>
@@ -89,5 +84,92 @@
 
 <script>
     $('.monetario').mask('000.000.000.000.000,00', {reverse: true});
+    $('.numero').mask('00000', {reverse: true});
+
+    $(document).ready(function () {
+
+        const precoUnit = $('.preco-unit').val();
+
+        const totalEstoque = $('.total-item-estoque').text();
+        const totalEstoqueConvertido = Number(totalEstoque);
+
+        precoUnitFormatado = precoUnit.replace(/\./g, '').replace(',', '.');
+
+        function formatarValor(valor) {
+            return parseFloat(valor).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        $('.valor-total').val(precoUnitFormatado);
+
+        $('.quantidade').keyup(function (e) { 
+            
+            var quantidadeDigitada = $(this).val();
+
+            if (!isNaN(quantidadeDigitada) && !isNaN(precoUnitFormatado)) {
+                var valorTotal = quantidadeDigitada * precoUnitFormatado;
+                valorTotal = formatarValor(valorTotal);
+                $('.valor-total').val(valorTotal);
+            }
+
+            if (quantidadeDigitada > totalEstoqueConvertido ) {
+                $('.quantidade').addClass('is-invalid');
+                $('.btn-salvar-saida-item-frigobar').attr('disabled', '');
+                var mensagem = 'A quantidade informada é superior a quantidade disponível.';
+                $('.qnt-invalida-frigobar').text(mensagem);
+                
+            } else if (quantidadeDigitada == "" || quantidadeDigitada == 0) {
+                $('.btn-salvar-saida-item-frigobar').attr('disabled', '');
+                $('.quantidade').removeClass('is-invalid');
+                $('.quantidade').removeClass('is-valid');
+
+            } else {
+                $('.quantidade').addClass('is-valid');
+                $('.quantidade').removeClass('is-invalid');
+                $('.btn-salvar-saida-item-frigobar').removeAttr('disabled');
+            }
+        });
+        
+        $('.btn-salvar-saida-item-frigobar').click(function (e) { 
+            e.preventDefault();
+
+            const idReserva = $(this).closest('.form-modal-saida-frigobar').data('id-reserva');
+            const idFrigobar = $(this).closest('.form-modal-saida-frigobar').data('id-frigobar');
+            const idItem = $(this).closest('.form-modal-saida-frigobar').data('id-item');
+            quantidade = $('.quantidade').val();
+            quantidadeFormatada = (quantidade);
+
+
+            $.ajax({
+                type: "POST",
+                url: "gSaidaItemFrigobar.php",
+                data: {
+                    'click-btn-saida-frigobar':true,
+                    'id-reserva':idReserva,
+                    'id-frigobar':idFrigobar,
+                    'id-item':idItem,
+                    'quantidade':quantidadeFormatada
+                },
+
+                success: function (response) {
+                    // console.log(response);
+ 
+                    if (response.sucesso) {
+                        console.log(response.sucesso);
+                        window.location.href = '../index.php?msg=' + encodeURIComponent(response.mensagem);
+
+                    } else {
+                        window.location.href = '../index.php?msgInvalida=' + encodeURIComponent(response.mensagem);
+                    }
+
+                },
+                error: function () {
+                    alert("Não foi possível realizar a operação.");
+                }
+            });
+        });
+    });
 
 </script>
