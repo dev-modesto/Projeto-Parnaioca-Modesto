@@ -204,7 +204,8 @@
 
 <script>
     $(document).ready(function () {
-        $('.btn-reservar').click(function (e) { 
+
+        $('body').on('click', '.card-container-disponibilidade-reserva', function (e) { 
             e.preventDefault();
 
             var idAcomodacao = $(this).closest(".card-container-disponibilidade-reserva").data("id-acomodacao");

@@ -34,7 +34,7 @@
 
     // 
         $sqlTotalHospedes = 
-            "SELECT SUM(total_hospedes) as total_hospedes 
+            "SELECT COALESCE(SUM(total_hospedes), 0) AS total_hospedes 
             FROM tbl_reserva 
             WHERE (dt_reserva_inicio <= '$dataAtual 23:59:59' AND dt_reserva_fim >= '$dataAtual 00:00:00')
             AND id_status_reserva = '$checkIn'
@@ -274,7 +274,7 @@
 <script>
 
     $(document).ready(function () {
-        $('.card-container-disponibilidade-reserva').click(function (e) { 
+        $('body').on('click', '.card-container-disponibilidade-reserva', function (e) { 
             e.preventDefault();
 
             $('.card-container-disponibilidade-reserva').data('id-reserva');
