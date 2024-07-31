@@ -33,43 +33,48 @@
             $precoUnitConvertido = floatval($precoUnit);
             $totalItemDisponivelFrigobar = $arrayItemFrigobar['total_disponivel'];
 
-            $valorTotal = $quantidadeFormatada * $precoUnit;
-            $valorTotalFormatado = number_format($valorTotal, 2);
-            $valorTotalConvertido = floatval($valorTotalFormatado);
+            if ($quantidadeFormatada > $totalItemDisponivelFrigobar ) {
+                $mensagem['mensagem'] = "A quantidade informada é superior a quantidade disponível.";
 
-            $sql = 
-                mysqli_prepare(
-                    $con, 
-                "INSERT INTO tbl_consumo_item_frigobar(
-                    id_reserva, 
-                    id_frigobar, 
-                    id_item, 
-                    quantidade, 
-                    preco_unit, 
-                    valor_total)
-                VALUES(?,?,?,?,?,?)       
-            ");
+            } else {
+                $valorTotal = $quantidadeFormatada * $precoUnit;
+                $valorTotalFormatado = number_format($valorTotal, 2);
+                $valorTotalConvertido = floatval($valorTotalFormatado);
 
-            mysqli_stmt_bind_param(
-                $sql, 
-                "iiiidd",
-                $idReservaFormatado, 
-                $idFrigobarFormatado, 
-                $idItemFormatado, 
-                $quantidadeFormatada, 
-                $precoUnitConvertido, 
-                $valorTotalConvertido
-            );
-            
-            mysqli_stmt_execute($sql);
-            
-            $mensagem['sucesso'] = true;
-            $mensagem['mensagem'] = "Saida do item realizada com sucesso!";
-            header('Content-Type: application/json');
-            echo json_encode($mensagem);
-            
-            mysqli_close($con);
-            exit();
+                $sql = 
+                    mysqli_prepare(
+                        $con, 
+                    "INSERT INTO tbl_consumo_item_frigobar(
+                        id_reserva, 
+                        id_frigobar, 
+                        id_item, 
+                        quantidade, 
+                        preco_unit, 
+                        valor_total)
+                    VALUES(?,?,?,?,?,?)       
+                ");
+
+                mysqli_stmt_bind_param(
+                    $sql, 
+                    "iiiidd",
+                    $idReservaFormatado, 
+                    $idFrigobarFormatado, 
+                    $idItemFormatado, 
+                    $quantidadeFormatada, 
+                    $precoUnitConvertido, 
+                    $valorTotalConvertido
+                );
+                
+                mysqli_stmt_execute($sql);
+                
+                $mensagem['sucesso'] = true;
+                $mensagem['mensagem'] = "Saida do item realizada com sucesso!";
+                header('Content-Type: application/json');
+                echo json_encode($mensagem);
+                
+                mysqli_close($con);
+                exit();
+            }
 
         } else {
             $mensagem['mensagem'] = "Não foi possível realizar a operação.";
