@@ -246,8 +246,9 @@
                         <span class="separador-botao"></span>
 
                         <div class="row mb-3 footer-container-button-reserva">
-                            <div class="col-md-6 container-button-reserva-info">
+                            <div class="col-md-6 container-button-reserva-info" data-id-reserva="<?php echo $idReserva ?>">
                                 <a class='btn btn-primary  btn-ver-consumo' id="btn-ver-consumo">Visualizar consumo</a>
+                                <a class='btn btn-primary btn-consumir-itens-frigobar' id="btn-consumir-itens-frigobar">Consumo frigobar</a>
                             </div>
                         </div>
                     </div>
@@ -456,6 +457,17 @@
                     $('#modalConfirmarCheckOut').modal('show');
                 }
             });
+        });
+
+        $('.btn-consumir-itens-frigobar').click(function (e) { 
+            e.preventDefault();
+            var idReserva = $(this).closest('.container-button-reserva-info').data('id-reserva');
+            var queryString = $.param({
+                'click-consumir-itens-frigobar':true,
+                'id-reserva':idReserva
+            });
+
+            window.location.href = "cFrigobarReserva.php?" + queryString;
         });
     });
 </script>

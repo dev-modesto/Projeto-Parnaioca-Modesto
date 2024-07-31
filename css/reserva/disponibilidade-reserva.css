@@ -307,4 +307,6 @@
 .container-button-reserva-info {
     display: flex;
     justify-content: right;
+    width: 100%;
+    gap: 10px;
 }
