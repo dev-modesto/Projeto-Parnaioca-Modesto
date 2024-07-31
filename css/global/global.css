@@ -27,3 +27,7 @@ img {
     height: auto;
     display: block;
 }
+
+em {
+    color: red;
+}
