@@ -1,7 +1,7 @@
 <?php
 
     if(isset($_POST['click-excluir-acomodacao'])){
-        $idAcomodacao = $_POST['idAcomodacao'];
+        $idAcomodacao = $_POST['idPrincipal'];
     }
 
 ?>

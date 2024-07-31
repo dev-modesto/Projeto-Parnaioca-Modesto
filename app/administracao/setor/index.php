@@ -83,9 +83,9 @@
                         <?php 
                             $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id_setor'];
+                                    $idSetor = $exibe['id_setor'];
                                 ?>
-                                <tr>
+                                <tr class="tr-info-setor" data-id-setor="<?php echo $idSetor ?>">
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-setor"><?php echo $exibe['id_setor']?></td>
                                     <td><?php echo $exibe['nome_setor']?></td>

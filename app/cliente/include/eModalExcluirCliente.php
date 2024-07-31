@@ -1,7 +1,7 @@
 <?php
 
     if(isset($_POST['click-excluir-cliente'])){
-        $id = $_POST['idCliente'];
+        $id = $_POST['idPrincipal'];
         // echo 'id do cliente é:' .  $id;
     }
 

@@ -3,7 +3,7 @@
     include ARQUIVO_CONEXAO;
 
     if(isset($_POST['click-btn-editar-entrada-item-estoque'])){
-        $id = $_POST['idTabela'];
+        $id = $_POST['idPrincipal'];
 
         $sqlInner = mysqli_prepare($con, 
                 "SELECT 

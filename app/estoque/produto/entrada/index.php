@@ -94,7 +94,7 @@
                             while($exibe = mysqli_fetch_array($consulta)){
                                     $idItem = $exibe['id_item'];
                                 ?>
-                                <tr>
+                                <tr data-id-entrada-item-estoque="<?php echo $idItem ?>">
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id_entrada-item-estoque"><?php echo $exibe['id_e_item_e']?></td>
                                     <td class="id-item"><?php echo $exibe['id_item']?></td>

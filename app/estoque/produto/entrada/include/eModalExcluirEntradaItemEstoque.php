@@ -1,7 +1,7 @@
 <?php
 
     if(isset($_POST['click-btn-excluir-entrada-item-estoque'])){
-        $id = $_POST['idTabela'];
+        $id = $_POST['idPrincipal'];
         // echo 'id do item é:' .  $id;
     }
 

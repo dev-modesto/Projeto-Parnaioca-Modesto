@@ -98,9 +98,9 @@
                         <?php 
                             $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id_estacionamento'];
+                                    $idVagaEstacionamento = $exibe['id_estacionamento'];
                                 ?>
-                                <tr>
+                                <tr data-id-vaga-estacionamento="<?php echo $idVagaEstacionamento ?>">
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-vaga-estacionamento"><?php echo $exibe['id_estacionamento']?></td> 
                                     <!-- <td class="id-acomodacao"><?php echo $exibe['id_acomodacao']?></td> -->

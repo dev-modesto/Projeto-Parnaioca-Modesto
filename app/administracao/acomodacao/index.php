@@ -107,9 +107,9 @@
                         <?php 
                             $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consultaInner)){
-                                    $id = $exibe['id_acomodacao'];
+                                    $idAcomodacao = $exibe['id_acomodacao'];
                                 ?>
-                                <tr>
+                                <tr data-id-acomodacao="<?php echo $idAcomodacao ?>">
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-acomodacao"><?php echo $exibe['id_acomodacao']?></td>
                                     <td><?php echo $exibe['numero_acomodacao']?></td>

@@ -1,7 +1,8 @@
 <?php
-    $tituloPagina = "Administração";
+    $setorPagina = "Administração";
     $pagina = "Status geral";
     $grupoPagina = "Administração geral";
+    $tituloMenuPagina = "Status geral";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
 
     if (session_status() == PHP_SESSION_ACTIVE) {
@@ -80,9 +81,9 @@
                         <?php 
                             $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id_status'];
+                                    $idStatusGeral = $exibe['id_status'];
                                 ?>
-                                <tr>
+                                <tr data-id-status-geral="<?php echo $idStatusGeral ?>">
                                     <td class="numeroLinha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-status"><?php echo $exibe['id_status']?></td>
                                     <td><?php echo $exibe['nome_status']?></td>

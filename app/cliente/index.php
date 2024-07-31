@@ -137,9 +137,9 @@
                         <?php 
                             $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id_cliente'];
+                                    $idCliente = $exibe['id_cliente'];
                                 ?>
-                                <tr>
+                                <tr data-id-cliente="<?php echo $idCliente ?>">
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-cliente"><?php echo $exibe['id_cliente']?></td>
                                     <td><?php echo $exibe['nome']?></td>

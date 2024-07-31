@@ -1,7 +1,7 @@
 <?php
 
     if(isset($_POST['click-excluir-funcionario'])){
-        $id = $_POST['idFuncionario'];
+        $id = $_POST['idPrincipal'];
         // echo 'id do funcionario é:' .  $id;
     }
 

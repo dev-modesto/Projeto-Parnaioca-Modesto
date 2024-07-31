@@ -84,9 +84,9 @@
                         <?php 
                             $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id_tp_acomodacao'];
+                                    $idTpAcomodacao = $exibe['id_tp_acomodacao'];
                                 ?>
-                                <tr>
+                                <tr data-id-tp-acomodacao="<?php echo $idTpAcomodacao ?>">
                                     <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-tp-acomodacao"><?php echo $exibe['id_tp_acomodacao']?></td>
                                     <td><?php echo $exibe['nome_tp_acomodacao']?></td>

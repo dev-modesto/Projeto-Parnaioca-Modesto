@@ -1,7 +1,7 @@
 <?php
 
     if(isset($_POST['click-excluir-cargo'])){
-        $id = $_POST['idCargo'];
+        $id = $_POST['idPrincipal'];
         // echo 'id do cargo é:' .  $id;
     }
 

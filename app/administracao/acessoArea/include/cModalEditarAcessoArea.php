@@ -3,8 +3,8 @@
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
 
-    if(isset($_GET['click-editar-acesso-area'])){
-        $id = $_GET['idFuncionario'];
+    if(isset($_POST['click-editar-acesso-area'])){
+        $id = $_POST['idPrincipal'];
 
         $sql = 
             "SELECT

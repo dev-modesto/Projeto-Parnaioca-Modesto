@@ -5,7 +5,7 @@
 
     if(isset($_POST['click-editar-tp-acomodacao'])){
 
-        $id = $_POST['idTpAomocadao'];
+        $id = $_POST['idPrincipal'];
         // echo 'recebemos o id da acomodacao' . $id;
         $stmt = mysqli_prepare($con, "SELECT * FROM tbl_tp_acomodacao WHERE id_tp_acomodacao = ?");
         mysqli_stmt_bind_param($stmt, 'i', $id);

@@ -84,9 +84,9 @@
                         <?php 
                             $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id_cargo'];
+                                    $idCargo = $exibe['id_cargo'];
                                 ?>
-                                <tr>
+                                <tr class="tr-info-cargo" data-id-cargo="<?php echo $idCargo ?>">
                                     <td class="numeroLinha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-cargo"><?php echo $exibe['id_cargo']?></td>
                                     <td><?php echo $exibe['nome_cargo']?></td>
