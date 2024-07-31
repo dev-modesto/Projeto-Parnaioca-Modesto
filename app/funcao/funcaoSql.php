@@ -108,6 +108,55 @@
 
     }
 
+    function totalItensEspecificoFrigobar($con, $idItem, $idFrigobar) {
+        $sql = 
+            "SELECT 
+                i.id_item,
+                i.nome_item,
+                i.preco_unit,
+                COALESCE(e.total_entrada, 0) AS total_entrada,
+                COALESCE(s.total_saida, 0) AS total_saida,
+                (COALESCE(e.total_entrada, 0) - COALESCE(s.total_saida, 0)) AS total_disponivel
+
+            FROM (
+                SELECT 
+                    id_item,
+                    id_frigobar,
+                    SUM(quantidade) AS total_entrada
+                FROM tbl_entrada_item_frigobar
+                WHERE id_frigobar = '$idFrigobar' AND id_item = '$idItem'
+                GROUP BY id_item, id_frigobar
+            ) AS e
+            
+            LEFT JOIN (
+                SELECT 
+                    id_item,
+                    id_frigobar,
+                    SUM(quantidade) AS total_saida
+                FROM tbl_consumo_item_frigobar
+                WHERE id_frigobar = '$idFrigobar' AND id_item = '$idItem'
+                GROUP BY id_item, id_frigobar
+            ) AS s 
+
+            ON e.id_item = s.id_item AND e.id_frigobar = s.id_frigobar
+            INNER JOIN tbl_item i 
+            ON e.id_item = i.id_item
+            WHERE e.id_frigobar = $idFrigobar AND e.id_item = '$idItem'
+            HAVING total_disponivel > 0
+        ";
+
+        $consulta = mysqli_query($con, $sql);
+        $array = mysqli_fetch_assoc($consulta);
+        return $array;
+    }
+
+    function consultaInfoFrigobar($con, $idFrigobar, $idAcomodacao) {
+        $sql = "SELECT * FROM tbl_frigobar WHERE (id_frigobar = $idFrigobar) OR (id_acomodacao = $idAcomodacao)";
+        $consulta = mysqli_query($con, $sql);
+        $array = mysqli_fetch_assoc($consulta);
+        return $array;
+    }
+
     // pesquisa na tabela de acomodacao pelo id tipo ou id da acomodação
     function consultaInfoAcomodacao ($con, $idTipoAcomodacao, $idAcomodacao) {
         $sql = "SELECT * FROM tbl_acomodacao WHERE (id_tp_acomodacao = $idTipoAcomodacao) OR (id_acomodacao = $idAcomodacao)";
