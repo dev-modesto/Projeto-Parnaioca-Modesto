@@ -130,7 +130,7 @@
                         <!-- formulario envio -->
                         <form class="was-validated form-container" action="include/gFrigobar.php" method="post">
                             <div class="mb-3">
-                                <label for="id-acomodacao">Número da acomodação</label>
+                                <label for="id-acomodacao">Número da acomodação <em>*</em></label>
                                 <select class="form-select" name="id-acomodacao" id="id-acomodacao" required aria-label="select example">
                                     <option value="">Selecione o número da acomodação</option>
                                     <?php
@@ -147,12 +147,12 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="nome-frigobar">Nome frigobar</label>
+                                <label class="font-1-s" for="nome-frigobar">Nome frigobar <em>*</em></label>
                                 <input class="form-control" type="text" name="nome-frigobar" id="nome-frigobar" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="capacidade">Capacidade</label>
+                                <label class="font-1-s" for="capacidade">Capacidade <em>*</em></label>
                                 <input class="form-control" type="text" name="capacidade" id="capacidade" required>
                             </div>
 

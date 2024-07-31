@@ -37,7 +37,7 @@
                 <input type="text" name="idTpAcomodacao" id="idTpAcomodacao" value="<?php echo $id ?>" hidden>
 
                 <div class="mb-3">
-                    <label class="font-1-s" for="nomeTpAcomodacao">Nome do tipo de acomodação</label>
+                    <label class="font-1-s" for="nomeTpAcomodacao">Nome do tipo de acomodação <em>*</em></label>
                     <input class="form-control" type="text" name="nomeTpAcomodacao" id="nomeTpAcomodacao" value="<?php echo $nomeTpAcomodacao ?>" required>
                     <div class="invalid-feedback">
                     </div>

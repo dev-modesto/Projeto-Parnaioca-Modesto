@@ -52,7 +52,7 @@
                     <input class="form-control" type="text" name="capacidade-itens" id="capacidade-itens" value="<?php echo $capacidadeItens?>" hidden required >
                     <input class="form-control" type="text" name="id-item-frigobar" id="id-item-frigobar" value="" hidden required >
                     <div class="mb-3">
-                        <label class="font-1-s" for="sku">SKU do produto</label>
+                        <label class="font-1-s" for="sku">SKU do produto <em>*</em></label>
                         <input class="form-control input-sku-produto" type="text" name="sku" id="sku" required>
                     </div>
 
@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="font-1-s" for="quantidade">Quantidade</label>
+                        <label class="font-1-s" for="quantidade">Quantidade <em>*</em></label>
                         <input class="form-control quantidade" type="number" min="1" max="" name="quantidade" id="quantidade" required>
                         <div class="invalid-feedback"></div>
                     </div>

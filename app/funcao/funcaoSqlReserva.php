@@ -52,5 +52,39 @@
         $array = mysqli_fetch_assoc($consulta);
         return $array;
     }
+
+    function consultaConsumoReserva ($con, $idReserva) {
+        $sql = 
+            mysqli_prepare($con, 
+            "SELECT 
+                r.id_reserva, 
+                r.id_frigobar, 
+                r.id_item,
+                i.nome_item,
+                r.quantidade,
+                r.preco_unit,
+                r.valor_total,
+                r.dt_saida
+            FROM tbl_consumo_item_frigobar r 
+            INNER JOIN tbl_item i
+            ON r.id_item = i.id_item 
+            WHERE id_reserva = ? 
+        ");
+            mysqli_stmt_bind_param($sql, 'i', $idReserva);
+            mysqli_stmt_execute($sql);
+        $consulta = mysqli_stmt_get_result($sql);
+        return $consulta;
+    }
+
+    function consultaTotalConsumoReserva ($con, $idReserva) {
+        $sql = 
+            mysqli_prepare($con, "SELECT SUM(quantidade) AS quantidade, SUM(valor_total) AS total_consumo FROM tbl_consumo_item_frigobar WHERE id_reserva = ? ");
+            mysqli_stmt_bind_param($sql, 'i', $idReserva);
+            mysqli_stmt_execute($sql);
+        $consulta = mysqli_stmt_get_result($sql);
+        $array = mysqli_fetch_assoc($consulta);
+        return $array;
+    }
+
 ?>
 

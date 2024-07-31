@@ -61,7 +61,7 @@
                 <input type="text" name="idAcomodacao" id="idAcomodacao" value="<?php echo $id ?>" hidden>
 
                 <div class="mb-3">
-                    <label for="id-tp-acomodacao">Tipo acomodação</label>
+                    <label for="id-tp-acomodacao">Tipo acomodação <em>*</em></label>
                     <select class="form-select" name="id-tp-acomodacao" id="id-tp-acomodacao" required aria-label="select example">
                         <?php
                             $sqlConsulta1 = "SELECT * FROM tbl_tp_acomodacao";
@@ -78,31 +78,31 @@
                 
                 <div class="row mb-3">
                     <div class="col mb-6">
-                        <label class="font-1-s" for="nome-titulo">Nome título</label>
+                        <label class="font-1-s" for="nome-titulo">Nome título <em>*</em></label>
                         <input class="form-control" type="text" name="nome-titulo" id="nome-titulo" value="<?php echo $nomeAcomodacao ?>" required>
                     </div>
 
                     <div class="col mb-6">
-                        <label class="font-1-s" for="numero">Número</label>
+                        <label class="font-1-s" for="numero">Número <em>*</em></label>
                         <input class="form-control" type="text" name="numero" id="numero" value="<?php echo $numero ?>" required>
                     </div>
 
                 </div>
                 
                 <div class="mb-3">
-                    <label class="font-1-s" for="valor">Valor</label>
+                    <label class="font-1-s" for="valor">Valor <em>*</em></label>
                     <input class="form-control monetario" type="text" name="valor" id="valor" value="<?php echo $valor?>" required>
                 </div>
 
 
 
                 <div class="mb-3">
-                    <label class="font-1-s" for="capacidade">Capacidade máxima</label>
+                    <label class="font-1-s" for="capacidade">Capacidade máxima <em>*</em></label>
                     <input class="form-control" type="text" name="capacidade" id="capacidade" value="<?php echo $capacidadeMax ?>" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="id-status">Status</label>
+                    <label for="id-status">Status <em>*</em></label>
                     <select class="form-select" name="id-status" id="id-status" required aria-label="select example">
                         <?php
                             $sqlConsulta = "SELECT * FROM tbl_status_geral";
