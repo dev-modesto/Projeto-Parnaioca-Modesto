@@ -16,6 +16,7 @@
         $telefone = trim($_POST['telefone']);
         $id_cargo = trim($_POST['id_cargo']);
         $senha = trim($_POST['cpf']);
+        $nivelFuncionario = 0;
 
         if(strlen($cpf) < 14){
             $mensagem = "Cpf inválido. Favor, preencha corretamente.";
@@ -82,6 +83,7 @@
     
             // idFuncionario = matricula do novo funcionario
             nivelAcessoPadrao($con, $idFuncionario,1,0,0);
+            inserirNivelAcesso($con, $idFuncionario, $nivelFuncionario);
             mysqli_commit($con);
             header('location: ../index.php?msg=Adicionado com sucesso!');
 
