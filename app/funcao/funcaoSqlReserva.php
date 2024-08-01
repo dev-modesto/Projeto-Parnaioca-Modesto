@@ -61,10 +61,9 @@
                 r.id_frigobar, 
                 r.id_item,
                 i.nome_item,
-                r.quantidade,
+                SUM(r.quantidade) AS total_quantidade,
                 r.preco_unit,
-                r.valor_total,
-                r.dt_saida
+                SUM(r.valor_total) AS total_consumido
             FROM tbl_consumo_item_frigobar r 
             INNER JOIN tbl_item i
             ON r.id_item = i.id_item 
