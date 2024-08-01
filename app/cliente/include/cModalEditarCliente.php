@@ -9,7 +9,7 @@
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
         $nomeFuncionario = $_SESSION['nome'];
-        $arrayAcessoArea = consultaNivelAcessoPadrao($con, $idLogado);
+        $arrayAcessoArea = consultaAcessoArea($con, $idLogado);
         $adm = $arrayAcessoArea['administracao'];
     }
 

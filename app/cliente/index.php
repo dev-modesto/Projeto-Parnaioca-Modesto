@@ -10,7 +10,7 @@
         $idLogado = $_SESSION['id'];
         $nomeFuncionario = $_SESSION['nome'];
         segurancaSac($con, $idLogado);
-        $arrayAcessoArea = consultaNivelAcessoPadrao($con, $idLogado);
+        $arrayAcessoArea = consultaAcessoArea($con, $idLogado);
         $adm = $arrayAcessoArea['administracao'];
     }
 
