@@ -12,16 +12,29 @@
 
     if(isset($_POST['cargo'])){
         
-        $cargo = trim($_POST['cargo']);
-        $salario = trim($_POST['salario']);
-        $idSetor = $_POST['idSetor'];
-        $salarioConvertido = converterMonetario($salario);
+        mysqli_begin_transaction($con);
+        
+        try {
 
-        $stmt = mysqli_prepare($con, "INSERT INTO tbl_cargo(id_cargo, nome_cargo, salario, id_setor) VALUES (NULL, ?, ?, ?)");
+            $cargo = trim($_POST['cargo']);
+            $salario = trim($_POST['salario']);
+            $idSetor = $_POST['idSetor'];
+            $salarioConvertido = converterMonetario($salario);
 
-        mysqli_stmt_bind_param($stmt, 'sdi',$cargo,$salarioConvertido,$idSetor);
+            $stmt = mysqli_prepare(
+                $con, 
+                "INSERT INTO tbl_cargo(
+                    id_cargo, 
+                    nome_cargo, 
+                    salario, 
+                    id_setor) 
+                VALUES (NULL, ?, ?, ?)
+            ");
 
-        if(mysqli_stmt_execute($stmt)){
+            mysqli_stmt_bind_param($stmt, 'sdi',$cargo,$salarioConvertido,$idSetor);
+
+            mysqli_stmt_execute($stmt);
+        
             // log operações
                 $nomeTabela = 'tbl_cargo';
                 $idRegistro = mysqli_insert_id($con);
@@ -29,12 +42,18 @@
                 $descricao = 'Cargo adicionado ID: ' . $idRegistro;
                 logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
             // 
-            header('location: ../index.php?msg=Adicionado com sucesso!');
-        } else {
-            echo "Error ao gravar" . mysqli_error($con);
-        }
 
-        mysqli_close($con);
+            mysqli_commit($con);
+            header('location: ../index.php?msg=Adicionado com sucesso!');
+           
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+            
+        } finally {
+            mysqli_close($con);
+        }
     }
 
 ?>

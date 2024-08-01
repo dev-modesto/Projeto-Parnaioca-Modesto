@@ -18,15 +18,21 @@
         $senha = trim($_POST['cpf']);
 
         if(strlen($cpf) < 14){
-            header('location: ../index.php?msgInvalida=CPF inválido. Favor, preencha corretamente.');
-        } else {
+            $mensagem = "Cpf inválido. Favor, preencha corretamente.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+            die();
+        } 
 
-            // definindo senha padrao
-            $nomePadrao = "Parnaioca";
-            $priCaractereCpf = substr($senha,0,3);
-            $senhaPadrao = $nomePadrao . '@' . $priCaractereCpf;
+        // definindo senha padrao
+        $nomePadrao = "Parnaioca";
+        $priCaractereCpf = substr($senha,0,3);
+        $senhaPadrao = $nomePadrao . '@' . $priCaractereCpf;
 
-            $hash = password_hash($senhaPadrao,PASSWORD_DEFAULT);
+        $hash = password_hash($senhaPadrao,PASSWORD_DEFAULT);
+
+        mysqli_begin_transaction($con);
+
+        try {
 
             // consulta verificar cpf se já foi cadastrado
             $sqlVerifica = mysqli_prepare($con, "SELECT * FROM tbl_funcionario WHERE cpf = ? ");
@@ -35,54 +41,58 @@
             $result = mysqli_stmt_get_result($sqlVerifica);
 
             if (mysqli_num_rows($result) > 0) {
-                header('location: ../index.php?msgInvalida=Este CPF já foi cadastrado anteriormente.');
-                mysqli_close($con);
+                $mensagem = "Este CPF já foi cadastrado anteriormente.";
+                header('location: ../index.php?msgInvalida=' . $mensagem);
+                die();
+            } 
 
-            } else {
-                $sql = 
-                    mysqli_prepare(
-                    $con, 
-                    "INSERT INTO tbl_funcionario (
-                        id_funcionario, 
-                        nome, 
-                        cpf, 
-                        telefone, 
-                        id_cargo, 
-                        senha) 
-                    VALUES (null, ?, ?, ?, ?, ?)"
-                );
+            $sql = 
+                mysqli_prepare(
+                $con, 
+                "INSERT INTO tbl_funcionario (
+                    id_funcionario, 
+                    nome, 
+                    cpf, 
+                    telefone, 
+                    id_cargo, 
+                    senha) 
+                VALUES (null, ?, ?, ?, ?, ?)"
+            );
 
-                mysqli_stmt_bind_param(
-                    $sql,
-                    "sssis",
-                    $nome,
-                    $cpf,
-                    $telefone,
-                    $id_cargo,
-                    $hash
-                );
+            mysqli_stmt_bind_param(
+                $sql,
+                "sssis",
+                $nome,
+                $cpf,
+                $telefone,
+                $id_cargo,
+                $hash
+            );
 
-                if(mysqli_stmt_execute($sql)){
-                    // id gerado ao gravar
-                    $idFuncionario = mysqli_insert_id($con);
+            mysqli_stmt_execute($sql);
+            $idFuncionario = mysqli_insert_id($con);
+
+            // log operações
+                $nomeTabela = 'tbl_funcionario';
+                $idRegistro = $idFuncionario;
+                $tpOperacao = 'insercao';
+                $descricao = 'Funcionário adicionado ID: ' . $idFuncionario;
+                logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+            // 
     
-                    // log operações
-                        $nomeTabela = 'tbl_funcionario';
-                        $idRegistro = $idFuncionario;
-                        $tpOperacao = 'insercao';
-                        $descricao = 'Funcionário adicionado ID: ' . $idFuncionario;
-                        logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
-                    // 
-                    
-                    // idFuncionario = matricula do novo funcionario
-                    nivelAcessoPadrao($con, $idFuncionario,1,0,0);
-    
-                    header('location: ../index.php?msg=Adicionado com sucesso!');
-                } else {
-                    echo "Error ao gravar" . mysqli_error($con);
-                }
-                mysqli_close($con);
-            }
+            // idFuncionario = matricula do novo funcionario
+            nivelAcessoPadrao($con, $idFuncionario,1,0,0);
+            mysqli_commit($con);
+            header('location: ../index.php?msg=Adicionado com sucesso!');
+
+        
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+
+        } finally {
+            mysqli_close($con);
         }
 
     } else {

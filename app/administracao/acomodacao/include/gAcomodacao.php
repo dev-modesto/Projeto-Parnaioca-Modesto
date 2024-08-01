@@ -20,30 +20,35 @@
         $capacidade = $_POST['capacidade'];
         $status = $_POST['id-status'];
 
+        mysqli_begin_transaction($con);
+
+        try {
+
             $sql = mysqli_prepare($con, 
-        "INSERT INTO tbl_acomodacao 
-            (id_acomodacao, 
-            numero_acomodacao, 
-            id_tp_acomodacao, 
-            nome_acomodacao, 
-            valor, 
-            capacidade_max, 
-            id_status) 
-        VALUES 
-            (null, ?, ?, ?, ?, ?, ?)");
+                "INSERT INTO tbl_acomodacao 
+                    (id_acomodacao, 
+                    numero_acomodacao, 
+                    id_tp_acomodacao, 
+                    nome_acomodacao, 
+                    valor, 
+                    capacidade_max, 
+                    id_status) 
+                VALUES 
+                    (null, ?, ?, ?, ?, ?, ?)
+            ");
 
-        mysqli_stmt_bind_param(
-            $sql, 
-            'iisdis', 
-            $numero, 
-            $idTpAcomodacao, 
-            $nomeAcomodacao, 
-            $valorConvertido, 
-            $capacidade, 
-            $status
-        );
+            mysqli_stmt_bind_param(
+                $sql, 
+                'iisdis', 
+                $numero, 
+                $idTpAcomodacao, 
+                $nomeAcomodacao, 
+                $valorConvertido, 
+                $capacidade, 
+                $status
+            );
 
-        if(mysqli_stmt_execute($sql)){
+            mysqli_stmt_execute($sql);
 
             // log operações
                 $nomeTabela = 'tbl_acomodacao';
@@ -53,9 +58,17 @@
                 logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
             // 
 
+            mysqli_commit($con);
             header('location: ../index.php?msg=Adicionado com sucesso!');
-        } else {
-            echo "Error ao gravar" . mysqli_error($con);
+                      
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+
+        } finally {
+            mysqli_close($con);
+            
         }
 
     } else {

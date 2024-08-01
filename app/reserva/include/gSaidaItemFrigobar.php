@@ -20,19 +20,24 @@
         $quantidadePost = $_POST['quantidade'];
 
 
-        if (is_numeric($idReservaPost) && is_numeric($idItemPost) && is_numeric($idFrigobarPost) && is_numeric($quantidadePost)) {
+        if (!is_numeric($idReservaPost) && !is_numeric($idItemPost) && !is_numeric($idFrigobarPost) && !is_numeric($quantidadePost)) { 
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a saída do item.";
+            header('location: ../index.php?msg=' . $mensagem);
+            die();
+        }
 
-            $idReservaFormatado = intval($idReservaPost);
-            $idItemFormatado = intval($idItemPost);
-            $idFrigobarFormatado = intval($idFrigobarPost);
-            $quantidadeFormatada = intval($quantidadePost);
+        $idReservaFormatado = intval($idReservaPost);
+        $idItemFormatado = intval($idItemPost);
+        $idFrigobarFormatado = intval($idFrigobarPost);
+        $quantidadeFormatada = intval($quantidadePost);
 
-            $arrayItemFrigobar = totalItensEspecificoFrigobar($con, $idItemFormatado, $idFrigobarFormatado);
-            $nomeItem = $arrayItemFrigobar['nome_item'];
-            $precoUnit = $arrayItemFrigobar['preco_unit'];
-            $precoUnitConvertido = floatval($precoUnit);
-            $totalItemDisponivelFrigobar = $arrayItemFrigobar['total_disponivel'];
+        $arrayItemFrigobar = totalItensEspecificoFrigobar($con, $idItemFormatado, $idFrigobarFormatado);
+        $nomeItem = $arrayItemFrigobar['nome_item'];
+        $precoUnit = $arrayItemFrigobar['preco_unit'];
+        $precoUnitConvertido = floatval($precoUnit);
+        $totalItemDisponivelFrigobar = $arrayItemFrigobar['total_disponivel'];
 
+ 
             if ($quantidadeFormatada > $totalItemDisponivelFrigobar ) {
                 $mensagem['mensagem'] = "A quantidade informada é superior a quantidade disponível.";
 
@@ -66,6 +71,14 @@
                 );
                 
                 mysqli_stmt_execute($sql);
+
+                // log operações
+                    $nomeTabela = 'tbl_consumo_item_frigobar';
+                    $idRegistro = $idItemFormatado;
+                    $tpOperacao = 'insercao';
+                    $descricao = 'Saída produto frigobar ID: ' . $idItemFormatado;
+                    logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+                // 
                 
                 $mensagem['sucesso'] = true;
                 $mensagem['mensagem'] = "Saida do item realizada com sucesso!";
@@ -79,10 +92,6 @@
         } else {
             $mensagem['mensagem'] = "Não foi possível realizar a operação.";
         }
-
-    } else {
-
-    }
 
     header('Content-Type: application/json');
     echo json_encode($mensagem);

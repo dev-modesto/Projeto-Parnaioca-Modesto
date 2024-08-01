@@ -20,31 +20,43 @@
         $msg = "";
 
         if (mysqli_num_rows($result) > 0) {
-            $msg .= "Este setor já foi cadastrado.";
-            header('location: ../index.php?msgInvalida=' . $msg);
-            mysqli_close($con);
+            $mensagem = "Este setor já foi cadastrado.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+            die();
+        } 
 
-        } else {
+        mysqli_begin_transaction($con);
+
+        try {
 
             $stmt = mysqli_prepare($con, "UPDATE tbl_setor SET nome_setor = ? WHERE id_setor = ? ");
             mysqli_stmt_bind_param($stmt, 'si', $nomeSetor, $id);
     
-            if(mysqli_stmt_execute($stmt)){
-                // log operações
-                    $nomeTabela = 'tbl_setor';
-                    $idRegistro = $id;
-                    $tpOperacao = 'atualizacao';
-                    $descricao = 'Setor atualizado ID: ' . $idRegistro;
-                    logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
-                // 
+            mysqli_stmt_execute($stmt);
 
-                $msg = "Adicionado com sucesso!";
-                header('location: ../index.php?msg=' . $msg);
+            // log operações
+                $nomeTabela = 'tbl_setor';
+                $idRegistro = $id;
+                $tpOperacao = 'atualizacao';
+                $descricao = 'Setor atualizado ID: ' . $idRegistro;
+                logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+            // 
 
-            } else {
-                echo "Error ao gravar" . mysqli_error($con);
-            }
+            mysqli_commit($con);
+            header('location: ../index.php?msg=Adicionado com sucesso!');
+
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+
+        } finally {
+            mysqli_close($con);
+            
         }
+
+    } else {
+        $mensagem = "";
     }
 
 ?>

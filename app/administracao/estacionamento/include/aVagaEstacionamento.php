@@ -14,17 +14,22 @@
         $idAcomodacao = $_POST['id-numero-acomodacao'];
         $numeroVaga = trim($_POST['numero-vaga-estacionamento']);
 
-        $stmt = 
+        mysqli_begin_transaction($con);
+
+        try {
+
+            $stmt = 
                 mysqli_prepare(
                 $con, 
                 "UPDATE tbl_estacionamento 
                 SET id_acomodacao = ?, numero_vaga = ? 
                 WHERE id_estacionamento = '$id'"
-        );
-        
-        mysqli_stmt_bind_param($stmt, 'is', $idAcomodacao, $numeroVaga);
+            );
+            
+            mysqli_stmt_bind_param($stmt, 'is', $idAcomodacao, $numeroVaga);
 
-        if(mysqli_stmt_execute($stmt)){
+            mysqli_stmt_execute($stmt);
+
             // log operações
                 $nomeTabela = 'tbl_estacionamento';
                 $idRegistro = $id;
@@ -32,9 +37,17 @@
                 $descricao = 'Vaga estacionamento atualizada ID: ' . $idRegistro;
                 logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
             // 
+
+            mysqli_commit($con);
             header('location: ../index.php?msg=Alterado com sucesso!');
-        } else {
-            echo "Error ao gravar" . mysqli_error($con);
+
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+
+        } finally {
+            mysqli_close($con);
         }
     }
 

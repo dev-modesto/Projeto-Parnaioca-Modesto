@@ -89,7 +89,7 @@
                     <tbody class="table-group-divider">
                         <?php 
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $idItem = $exibe['id_item'];
+                                    $idItem = $exibe['id_e_item_e'];
                                 ?>
                                 <tr data-id-entrada-item-estoque="<?php echo $idItem ?>">
                                     <td class="id_entrada-item-estoque"><?php echo $exibe['id_e_item_e']?></td>
