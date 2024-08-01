@@ -2,6 +2,7 @@
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
+    include ARQUIVO_FUNCAO_SQL;
     include ARQUIVO_FUNCAO_SQL_RESERVA;
     include PASTA_FUNCOES . '/converter.php';
 
