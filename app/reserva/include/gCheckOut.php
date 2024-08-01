@@ -3,6 +3,7 @@
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
     include ARQUIVO_FUNCAO_SQL;
+    include ARQUIVO_FUNCAO_SQL_RESERVA;
 
     session_start();
 
@@ -19,6 +20,8 @@
             header('location: ../index.php?msgInvalida=' . $mensagem);
             die();
         }
+
+        $idReservaFormatado = intval($idReservaPost);
             
         // ID de status das reservas
             $pendente = 1;
@@ -32,6 +35,19 @@
         mysqli_begin_transaction($con);
 
         try {
+
+            $consultaReserva = consultaInfoReserva($con, $idReservaFormatado); 
+
+            $totalPago = $consultaReserva['total_pago'];
+            $valorTotalReserva = $consultaReserva['valor_total_reserva'];
+            $totalCosumido = $consultaReserva['valor_consumido']; 
+            $totalPendente = ($valorTotalReserva + $totalCosumido) - $totalPago;
+
+            if ($totalPendente > 0) {
+                $mensagem = "Existem débitos a pagar. Favor, realize o pagamento antes de prosseguir. Reserva: " . $idReservaFormatado;
+                header("location: ../index.php?msgInvalida=" . $mensagem);
+                die();
+            }
 
             $sql = 
                 mysqli_prepare(
