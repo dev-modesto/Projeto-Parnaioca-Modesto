@@ -5,6 +5,7 @@
     $tituloMenuPagina = "Administração";
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+    include PASTA_FUNCOES . "funcaoData.php";
 
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
@@ -102,6 +103,8 @@
                             $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
                                     $id = $exibe['id_log_op'];
+                                    $dtOcorrencia = $exibe['dt_ocorrencia'];
+                                    $dtOcorrenciaFormatada = dataHoraFormatada($dtOcorrencia);
                                 ?>
                                 <tr>
                                     <!-- <td class="numero-linha"><?php echo $nroLinha++; ?></td> -->
@@ -112,7 +115,7 @@
                                     <td><?php echo $exibe['id_registro']?></td>
                                     <td class="legenda"><span class="legenda-tp-operacao"><?php echo $exibe['tp_operacao']?></span></td>
                                     <td><?php echo $exibe['descricao']?></td>
-                                    <td><?php echo $exibe['dt_ocorrencia']?></td>
+                                    <td><?php echo $dtOcorrenciaFormatada ?></td>
                                 </tr>
                                 <?php
                             }
