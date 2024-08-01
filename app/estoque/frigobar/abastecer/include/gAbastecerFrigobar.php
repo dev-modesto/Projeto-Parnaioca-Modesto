@@ -18,27 +18,29 @@
         $quantidade = $_POST['quantidade'];
         $capacidadeItens = $_POST['capacidade-itens'];
 
-        // $array = ['ID frigobar: '.  $idFrigobar, 'ID acomodacao: '.  $idAcomodacao, 'ID item: ' . $idItem, 'SKU: ' . $sku,'Quantidade: ' . $quantidade, 'Capacidade: ' . $capacidadeItens];
-        // echo "<pre>";
-        // print_r($array);
+        $totalEntrada = totalEntradasEstoque($con, $idItem);
+        $totalSaida = totalSaidasEstoque($con, $idItem);
+        $totalEstoqueItem = ($totalEntrada - $totalSaida);
 
-         $totalEntrada = totalEntradasEstoque($con, $idItem);
-         $totalSaida = totalSaidasEstoque($con, $idItem);
-         $totalEstoqueItem = ($totalEntrada - $totalSaida);
-
-         $totalItensFrigobar = totalItensFrigobar($con, $idFrigobar);
-         $totalLivreFrigobar = ($capacidadeItens - $totalItensFrigobar);
+        $totalItensFrigobar = totalItensFrigobar($con, $idFrigobar);
+        $totalLivreFrigobar = ($capacidadeItens - $totalItensFrigobar);
         
         if ($quantidade > $totalLivreFrigobar) {
-            $msg = "Não há espaço no frigobar suficiente para esta quantidade de itens.";
-            header("location: ../index.php?msgInvalida=" . $msg);
-            
-        } else if ($quantidade > $totalEstoqueItem) {
-            $msg = "A quantidade de item informada é superior a quantidade disponível no estoque.";
-            header("location: ../index.php?msgInvalida=" . $msg);
+            $mensagem = "Não há espaço no frigobar suficiente para esta quantidade de itens.";
+            header("location: ../index.php?msgInvalida=" . $mensagem);
+            die();
+        } 
+        
+        if ($quantidade > $totalEstoqueItem) {
+            $mensagem = "A quantidade de item informada é superior a quantidade disponível no estoque.";
+            header("location: ../index.php?msgInvalida=" . $mensagem);
+            die();
+        }
+        
+        mysqli_begin_transaction($con);
+        
+        try {
 
-        } else {
-            
             $sql = 
                 mysqli_prepare(
                 $con, 
@@ -63,63 +65,64 @@
                 $idLogado
             );
 
-            if(mysqli_stmt_execute($sql)) {
-                // id gerado ao gravar
-                $idEntradaItemFrigobar = mysqli_insert_id($con);
+            mysqli_stmt_execute($sql);
 
-                // log operações
-                    $nomeTabela = 'tbl_entrada_item_frigobar';
-                    $idRegistro = $sku;
-                    $tpOperacao = 'insercao';
-                    $descricao = 'Item adicionado ID: ' . $sku;
-                    logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
-                // 
+            // id gerado ao gravar
+            $idEntradaItemFrigobar = mysqli_insert_id($con);
 
-                // sql tbl_saida_item_estoque
-                    $sqlSaidaEstoque = 
-                        mysqli_prepare($con,
-                        "INSERT INTO tbl_saida_item_estoque (
-                            id_e_item_f,
-                            id_item,
-                            quantidade,
-                            id_funcionario)
-                        VALUES (?,?,?,?)
-                    ");
-                //  
+            // log operações
+                $nomeTabela = 'tbl_entrada_item_frigobar';
+                $idRegistro = $sku;
+                $tpOperacao = 'insercao';
+                $descricao = 'Entrada item frigobar ID: ' . $sku;
+                logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+            // 
 
-                mysqli_stmt_bind_param(
-                    $sqlSaidaEstoque,
-                    "iiii",
-                    $idEntradaItemFrigobar,
-                    $idItem,
-                    $quantidade,
-                    $idLogado
-                );
+            // sql tbl_saida_item_estoque
+                $sqlSaidaEstoque = 
+                    mysqli_prepare($con,
+                    "INSERT INTO tbl_saida_item_estoque (
+                        id_e_item_f,
+                        id_item,
+                        quantidade,
+                        id_funcionario)
+                    VALUES (?,?,?,?)
+                ");
+            //  
 
-                if (mysqli_stmt_execute($sqlSaidaEstoque)) {
+            mysqli_stmt_bind_param(
+                $sqlSaidaEstoque,
+                "iiii",
+                $idEntradaItemFrigobar,
+                $idItem,
+                $quantidade,
+                $idLogado
+            );
 
+            mysqli_stmt_execute($sqlSaidaEstoque);
 
-                    // log operações
-                        $nomeTabela = 'tbl_saida_item_estoque';
-                        $idRegistro = $sku;
-                        $tpOperacao = 'insercao';
-                        $descricao = 'Saida do produto ID: ' . $sku;
-                        logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
-                    // 
+            // log operações
+                $nomeTabela = 'tbl_saida_item_estoque';
+                $idRegistro = $sku;
+                $tpOperacao = 'insercao';
+                $descricao = 'Saida do produto ID: ' . $sku;
+                logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+            // 
 
-                    header('location: ../index.php?msg=Adicionado com sucesso!');
+            mysqli_commit($con);
+            header('location: ../index.php?msg=Adicionado com sucesso!');
 
-                } else {
-                        echo "Error ao gravar" . mysqli_error($con);
-                }
-            } else {
-                echo "Erro ao gravar: " . mysqli_error($con); 
-            }
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+
+        } finally {
+            mysqli_close($con);
         }
-        mysqli_close($con);
 
     } else {
-        echo "Erro ao gravar: " . mysqli_error($con);
+        $mensagem = "";
     }
 
 ?>
