@@ -72,8 +72,7 @@
                     <table id="myTable" class="table nowrap order-column dt-right table-hover text-center">
                         <thead>
                             <tr>
-                                <th scope="col">Nº</th>
-                                <th scope="col">ID item</th>
+                                <th scope="col">ID#</th>
                                 <th scope="col">ID SKU</th>
                                 <th scope="col">Nome item</th>
                                 <th scope="col">Entradas</th>
@@ -84,7 +83,6 @@
                         </thead>
                         <tbody class="table-group-divider">
                             <?php 
-                                $nroLinha = 1;
                                 while($exibe = mysqli_fetch_array($consultaDistinta)){
                                         $idItem = $exibe['id_item'];
                                         
@@ -105,7 +103,6 @@
                                     ?>
                                     
                                     <tr class="borda-status">
-                                        <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                         <td class="id-item"><?php echo $exibe['id_item']?></td>
                                         <td class="id-item"><?php echo $arrayItem['id_sku']?></td>
                                         <td><?php echo $arrayInfoItem['nome_item']?></td>

@@ -72,8 +72,7 @@
                 <table id="myTable" class="table table-hover text-center">
                     <thead class="">
                         <tr>
-                            <th scope="col">Nº</th>
-                            <th scope="col">idCargo</th>
+                            <th scope="col">ID#</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Salário</th>
                             <th scope="col">Setor</th>
@@ -82,12 +81,10 @@
                     </thead>
                     <tbody class="table-group-divider">
                         <?php 
-                            $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
                                     $idCargo = $exibe['id_cargo'];
                                 ?>
                                 <tr class="tr-info-cargo" data-id-cargo="<?php echo $idCargo ?>">
-                                    <td class="numeroLinha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-cargo"><?php echo $exibe['id_cargo']?></td>
                                     <td><?php echo $exibe['nome_cargo']?></td>
                                     <td class="monetario"><?php echo $exibe['salario']?></td>

@@ -86,8 +86,7 @@
                 <table id="myTable" class="table nowrap order-column table-hover text-left">
                     <thead class="">
                         <tr>
-                            <th scope="col">Nº</th>
-                            <th scope="col">id</th>
+                            <th scope="col">ID#</th>
                             <th scope="col">Matrícula</th>
                             <th scope="col">Nome</th>
                             <th scope="col">SAC</th>
@@ -103,7 +102,6 @@
                                     $idFuncionario = $exibe['id_funcionario'];
                                 ?>
                                 <tr data-id-funcionario="<?php echo $idFuncionario ?>">
-                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id"><?php echo $exibe['id']?></td>
                                     <td class="id-funcionario"><?php echo $exibe['id_funcionario']?></td>
                                     <td><?php echo $exibe['nome']?></td>

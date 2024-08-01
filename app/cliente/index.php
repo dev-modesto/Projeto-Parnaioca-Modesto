@@ -122,8 +122,7 @@
                 <table id="myTable" class="table  nowrap order-column dt-right table-hover text-center">
                     <thead class="">
                         <tr>
-                            <th scope="col">Nº</th>
-                            <th scope="col">ID cliente</th>
+                            <th scope="col">ID#</th>
                             <th scope="col">Nome</th>
                             <th scope="col">CPF</th>
                             <th scope="col">E-mail</th>
@@ -135,12 +134,10 @@
                     </thead>
                     <tbody class="table-group-divider">
                         <?php 
-                            $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
                                     $idCliente = $exibe['id_cliente'];
                                 ?>
                                 <tr data-id-cliente="<?php echo $idCliente ?>">
-                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-cliente"><?php echo $exibe['id_cliente']?></td>
                                     <td><?php echo $exibe['nome']?></td>
                                     <td class="cpf"><?php echo $exibe['cpf']?></td>

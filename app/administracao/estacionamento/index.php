@@ -87,8 +87,7 @@
                 <table id="myTable" class="table table-hover text-center">
                     <thead class="">
                         <tr>
-                            <th scope="col">Nº</th>
-                            <th scope="col">id estacionamento</th>
+                            <th scope="col">ID#</th>
                             <th scope="col">Número acomodação</th>
                             <th scope="col">Vaga</th>
                             <th scope="col">Controle</th>
@@ -96,14 +95,11 @@
                     </thead>
                     <tbody class="table-group-divider">
                         <?php 
-                            $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
                                     $idVagaEstacionamento = $exibe['id_estacionamento'];
                                 ?>
                                 <tr data-id-vaga-estacionamento="<?php echo $idVagaEstacionamento ?>">
-                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-vaga-estacionamento"><?php echo $exibe['id_estacionamento']?></td> 
-                                    <!-- <td class="id-acomodacao"><?php echo $exibe['id_acomodacao']?></td> -->
                                     <td class="id-acomodacao"><?php echo $exibe['numero_acomodacao']?></td>
                                     <td class="numero-vaga"><?php echo $exibe['numero_vaga']?></td>
                                     <td class="td-icons">
