@@ -46,6 +46,10 @@
                 $valorTotalFormatado = number_format($valorTotal, 2);
                 $valorTotalConvertido = floatval($valorTotalFormatado);
 
+                $arrayTotalConsumoReserva = consultaTotalConsumoReserva($con, $idReservaFormatado);
+                $totalConsumoMomento = $arrayTotalConsumoReserva['total_consumo'];
+                $novoTotalConsumo = $valorTotalConvertido + $totalConsumoMomento;
+
                 $sql = 
                     mysqli_prepare(
                         $con, 
@@ -79,7 +83,24 @@
                     $descricao = 'Saída produto frigobar ID: ' . $idItemFormatado;
                     logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
                 // 
-                
+
+                $sqlUpdate = mysqli_prepare(
+                    $con,
+                    "UPDATE tbl_reserva
+                    SET valor_consumido = ? WHERE id_reserva = ? "
+                );
+
+                mysqli_stmt_bind_param($sqlUpdate, "di", $novoTotalConsumo, $idReservaFormatado);
+                mysqli_stmt_execute($sqlUpdate);
+
+                // log operações
+                    $nomeTabela = 'tbl_reserva';
+                    $idRegistro = $idReservaFormatado;
+                    $tpOperacao = 'atualizacao';
+                    $descricao = 'Atualização total consumo ID: ' . $idReservaFormatado;
+                    logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+                // 
+
                 $mensagem['sucesso'] = true;
                 $mensagem['mensagem'] = "Saida do item realizada com sucesso!";
                 header('Content-Type: application/json');
