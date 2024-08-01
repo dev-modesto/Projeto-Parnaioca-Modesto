@@ -26,6 +26,13 @@
         mysqli_query($con, $sql);
     }
     
+    function consultaNivelAcessoPadrao($con, $idFuncionario) {
+        $sql = "SELECT * FROM tbl_acesso_area WHERE id_funcionario = '$idFuncionario'";
+        $consulta = mysqli_query($con, $sql);
+        $array = mysqli_fetch_assoc($consulta);
+        return $array;
+    }
+    
     function logOperacao ($con, $idFuncionario, $nomeTbl, $idRegistro, $tpOperacao, $descricao){
 
         $stmt = 
