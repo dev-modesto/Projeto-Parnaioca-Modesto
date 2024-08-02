@@ -110,12 +110,21 @@
   border: 1px solid var(--cor-a-red4);
 }
 
+.icone-controle-visualizar:hover {
+  background-color: var(--cor-a-blue1);
+  border: 1px solid var(--cor-a-blue4);
+}
+
 .icone-controle-editar:hover span {
   color: var(--cor-a-yellow4);
 }
 
 .icone-controle-excluir:hover span {
   color: var(--cor-a-red4);
+}
+
+.icone-controle-visualizar:hover span {
+  color: var(--cor-a-blue3);
 }
 
 .status-geral.ativo {
@@ -213,7 +222,6 @@
 }
 
 .dt-paging-button.current {
-  background-color: red !important;
   background-color: var(--cor-4) !important;
   color: white !important;
 }
