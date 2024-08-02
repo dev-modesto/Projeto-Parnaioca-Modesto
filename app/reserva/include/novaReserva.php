@@ -26,7 +26,7 @@
 
         $consulta = consultaInfoAcomodacao($con, 0, $idAcomodacao);
         $array = mysqli_fetch_assoc($consulta);
-
+        $capacidadeAcomodacao = $array['capacidade_max'];
         $valorDiaria = $array['valor'];
         $valorReservaTotal = ($valorDiaria * $qntDias);
 
@@ -99,7 +99,7 @@
                     
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label class="font-1-s" for="cpf">CPF</label>
+                                    <label class="font-1-s" for="cpf">CPF <em>*</em></label>
                                     <input class="form-control cpf" type="text" name="cpf" id="cpf" value="" required >
                                 </div>
 
@@ -111,8 +111,8 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-3">
-                                    <label class="font-1-s" for="total-hospedes">Total de hóspedes</label>
-                                    <input class="form-control" type="number" min="1" max="5" name="total-hospedes" id="total-hospedes" required>
+                                    <label class="font-1-s" for="total-hospedes">Total de hóspedes <em>*</em></label>
+                                    <input class="form-control" type="number" min="1" max="<?php echo $capacidadeAcomodacao ?>" name="total-hospedes" id="total-hospedes" required>
                                 </div>
                             </div>
 
@@ -354,7 +354,6 @@
                     if(response !== "") {
                         $('#nome').val(response.nomeCliente);
                         $('#reservaForm').data('id-cliente', response.idCliente);
-                        console.log("id cliente é: " + response.idCliente);
                         
                     } else {
                         $('#nome').val("");
@@ -402,9 +401,6 @@
                 var idAcomodacao = $('#reservaForm').data('id-acomodacao');
                 var idCliente = $('#reservaForm').data('id-cliente');
 
-                console.log("id da acomodacao: " + idAcomodacao);
-                console.log("id do cliente: " + idCliente);
-
                 $('#total-hospedes, #data-inicio, #data-final, #valor-diaria, #valor-entrada, #valor-reserva-total, #id-forma-pagamento').prop('disabled', false);
                 var formData = $(this).serialize();
                 $('#total-hospedes, #data-inicio, #data-final, #valor-diaria, #valor-entrada, #valor-reserva-total, #id-forma-pagamento').prop('disabled', true);
@@ -417,7 +413,12 @@
                     url: 'gNovaReserva.php',
                     data: formData,
                     success: function(response) {
-                        window.location.href = "../index.php?msg=Reserva realizada com sucesso!";
+                        if (response.sucesso) {
+                            window.location.href = '../index.php?msg=' + encodeURIComponent(response.mensagem);
+
+                        } else {
+                            window.location.href = '../index.php?msgInvalida=' + encodeURIComponent(response.mensagem);
+                        }
                     }
                 });
             });
