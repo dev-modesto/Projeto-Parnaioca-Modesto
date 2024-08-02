@@ -19,8 +19,15 @@
         $dataInicio = $_GET['data-inicio'];
         $dataFim = $_GET['data-fim'];
 
-        $dateTimeInicio = new DateTime($dataInicio);
-        $dateTimeFim = new DateTime($dataFim);
+        try {
+            $dateTimeInicio = new DateTime($dataInicio);
+            $dateTimeFim = new DateTime($dataFim);
+
+        } catch (Exception $e) {
+            $mensagem = "Datas inválidas. Não foi possível prosseguir com a reserva.";
+            header('location: ../disponibilidade.php?msgInvalida=' . $mensagem);
+            die();
+        }
 
         $intervalo = $dateTimeInicio->diff($dateTimeFim);
         $qntDias = $intervalo->days;
@@ -73,7 +80,7 @@
             </div>
 
             <!-- formulario envio -->
-            <form class="was-validated form-container reservas" id="reservaForm" data-id-acomodacao="<?php echo $idAcomodacao ?>" data-id-cliente="">
+            <form class="was-validated form-container reservas" id="reservaForm" data-id-acomodacao="<?php echo $idAcomodacao ?>" data-id-cliente="" data-data-inicio="<?php echo $dataInicio ?>" data-data-fim="<?php echo $dataFim ?>">
 
                 <div class="container-progresso-nova-reserva">
                     <div class="hospede">
@@ -404,19 +411,24 @@
 
                 var idAcomodacao = $('#reservaForm').data('id-acomodacao');
                 var idCliente = $('#reservaForm').data('id-cliente');
+                var dataInicio = $('#reservaForm').data('data-inicio');
+                var dataFim = $('#reservaForm').data('data-fim');
 
-                $('#total-hospedes, #data-inicio, #data-final, #valor-diaria, #valor-entrada, #valor-reserva-total, #id-forma-pagamento').prop('disabled', false);
+                $('#total-hospedes, #valor-diaria, #valor-entrada, #valor-reserva-total, #id-forma-pagamento').prop('disabled', false);
                 var formData = $(this).serialize();
-                $('#total-hospedes, #data-inicio, #data-final, #valor-diaria, #valor-entrada, #valor-reserva-total, #id-forma-pagamento').prop('disabled', true);
+                $('#total-hospedes, #valor-diaria, #valor-entrada, #valor-reserva-total, #id-forma-pagamento').prop('disabled', true);
 
                 formData += '&id-acomodacao=' + encodeURIComponent(idAcomodacao);
                 formData += '&id-cliente=' + encodeURIComponent(idCliente);
+                formData += '&data-inicio=' + encodeURIComponent(dataInicio);
+                formData += '&data-fim=' + encodeURIComponent(dataFim);
 
                 $.ajax({
                     type: 'POST',
                     url: 'gNovaReserva.php',
                     data: formData,
                     success: function(response) {
+                        console.log(response);
                         if (response.sucesso) {
                             window.location.href = '../index.php?msg=' + encodeURIComponent(response.mensagem);
 

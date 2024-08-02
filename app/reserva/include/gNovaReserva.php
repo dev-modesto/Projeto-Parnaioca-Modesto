@@ -17,12 +17,13 @@
         $totalHospedes = $_POST['total-hospedes'];
 
         $dataCheckIn = $_POST['data-inicio'];
-        $dataCheckOut = $_POST['data-final'];
+        $dataCheckOut = $_POST['data-fim'];
+
         $horarioCheckInPadrao = "13:00";
         $horarioCheckOutPadrao = "11:00";
         $idStatusReserva = 1; //pendente
         $idFormaPagamento = $_POST['id-forma-pagamento'];
-        
+
         $dateTimeCheckIn = new DateTime($dataCheckIn);
         $dateTimeCheckOut = new DateTime($dataCheckOut);
         $intervalo = $dateTimeCheckIn->diff($dateTimeCheckOut);
@@ -39,7 +40,28 @@
         $valorDiaria = $arrayInfoAcomodacao['valor'];
         $capacidadeAcomodacao = $arrayInfoAcomodacao['capacidade_max'];
         $valorReservaTotal = $valorDiaria * $qntNoites;
-        
+
+        try {
+            $dateTimeInicio = new DateTime($dataCheckIn);
+            $dateTimeFim = new DateTime($dataCheckOut);
+            $dataInicioTratada = date_format($dateTimeInicio, "Y-m-d"); 
+            $dataFimTratada = date_format($dateTimeFim, "Y-m-d"); 
+
+        } catch (Exception $e) {
+            $mensagem['mensagem'] = "Datas inválidas. Não foi possível prosseguir com a reserva.";
+            header('Content-Type: application/json');
+            echo json_encode($mensagem);
+            die();
+
+        }
+
+        if ($dateTimeInicio > $dateTimeFim) {
+            $mensagem['mensagem'] = "A data de entrada deve ser anterior a data de saída.";
+            header('Content-Type: application/json');
+            echo json_encode($mensagem);
+            die();
+
+        }
         
         if ($valorEntradaConvertido == $valorReservaTotal){
             $idStatusPagamento = 3; //pago 

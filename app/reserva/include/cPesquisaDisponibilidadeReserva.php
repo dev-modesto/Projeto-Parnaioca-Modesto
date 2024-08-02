@@ -7,14 +7,37 @@
         $idTipoAcomodacao = $_POST['id-tipo-acomodacao'];
         $dataInicio = $_POST['dt-inicio'];
         $dataFim = $_POST['dt-fim'];
-        $horaCheckIn = $_POST['hora-check-in'];
-        $horaCheckOut = $_POST['hora-check-out'];
+        $horaCheckIn = '13:00';
+        $horaCheckOut = '11:00';
+
+        if(empty($idTipoAcomodacao) || empty($dataInicio) || empty($dataFim)) {
+            $mensagem['mensagem'] = "Favor, preencha todos os campos.";
+            header('Content-Type: application/json');
+            echo json_encode($mensagem);
+            die();
+        }
+        
+        try {
+            $dateTimeInicio = new DateTime($dataInicio);
+            $dateTimeFim = new DateTime($dataFim);
+
+        } catch (Exception $e) {
+            $mensagem['mensagem'] = "Datas inválidas. Não foi possível prosseguir com a reserva.";
+            header('Content-Type: application/json');
+            echo json_encode($mensagem);
+            die();
+        }
+
+        if ($dataInicio > $dataFim) {
+            $mensagem['mensagem'] = "A data de entrada deve ser anterior a data de saída.";
+            header('Content-type: application/json');
+            echo json_encode($mensagem);
+            die();
+        }
 
         $dataInicioFormatado = ($dataInicio ." ".  $horaCheckIn);
         $dataFimFormatado = ($dataFim ." ". $horaCheckOut);
-
     }
-
 ?>
 
 <div class="container-conteudo">
