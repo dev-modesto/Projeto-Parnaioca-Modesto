@@ -2,6 +2,7 @@
     // include __DIR__  . '/../../../config/conexao.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
+    include PASTA_FUNCOES . "funcaoData.php";
 
     session_start();
 
@@ -29,6 +30,11 @@
             $idStatus = $array['id_status'];
             $dtCadastro = $array['dt_cadastro'];
             $dtAtualizacao = $array['dt_atualizacao'];
+            $dataNascimentoFormatada = new DateTime($dataNascimento);
+            $dataNascimentoFormatada = date_format($dataNascimentoFormatada, "d/m/Y");
+
+            $dtCadastroFormatada = dataHoraFormatada($dtCadastro);
+            $dtAtualizacaoFormatada = dataHoraFormatada($dtAtualizacao);
 
 
         } else {
@@ -79,7 +85,7 @@
 
                         <div class="mb-3 label-dados-visualizar-info">
                             <label class="font-1-s" for="data-nascimento">Data de nascimento</label>
-                            <p><?php echo $dataNascimento ?> </p>
+                            <p><?php echo $dataNascimentoFormatada ?> </p>
                         </div>
 
                         <div class="mb-3 label-dados-visualizar-info">
@@ -101,12 +107,12 @@
 
                         <div class="mb-3 label-dados-visualizar-info">
                             <label class="font-1-s" for="cidade">Data de cadastro</label>
-                            <p><?php echo $dtCadastro ?></p>
+                            <p><?php echo $dtCadastroFormatada ?></p>
                         </div>
 
                         <div class="mb-3 label-dados-visualizar-info">
                             <label class="font-1-s" for="cidade">Data de atualização</label>
-                            <p><?php echo $dtAtualizacao ?></p>
+                            <p><?php echo $dtAtualizacaoFormatada ?></p>
                         </div>
 
                     </div>

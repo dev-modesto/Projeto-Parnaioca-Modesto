@@ -15,8 +15,10 @@
         $idAcomodacao = $_POST['id-acomodacao'];
         $idCliente = $_POST['id-cliente'];
         $totalHospedes = $_POST['total-hospedes'];
+
         $dataCheckIn = $_POST['data-inicio'];
-        $dataCheckOut = $_POST['data-final'];
+        $dataCheckOut = $_POST['data-fim'];
+
         $horarioCheckInPadrao = "13:00";
         $horarioCheckOutPadrao = "11:00";
         $idStatusReserva = 1; //pendente
@@ -26,7 +28,7 @@
         $dateTimeCheckOut = new DateTime($dataCheckOut);
         $intervalo = $dateTimeCheckIn->diff($dateTimeCheckOut);
         $qntNoites = $intervalo->days;
-
+        
         $dataHorarioCheckIn = ($dataCheckIn ." ".  $horarioCheckInPadrao);
         $dataHorarioCheckOut = ($dataCheckOut ." ". $horarioCheckOutPadrao);
         
@@ -36,19 +38,49 @@
         $retornoInfoAcomodacao = consultaInfoAcomodacao($con, 0, $idAcomodacao);
         $arrayInfoAcomodacao = mysqli_fetch_assoc($retornoInfoAcomodacao);
         $valorDiaria = $arrayInfoAcomodacao['valor'];
-        
+        $capacidadeAcomodacao = $arrayInfoAcomodacao['capacidade_max'];
         $valorReservaTotal = $valorDiaria * $qntNoites;
 
+        try {
+            $dateTimeInicio = new DateTime($dataCheckIn);
+            $dateTimeFim = new DateTime($dataCheckOut);
+            $dataInicioTratada = date_format($dateTimeInicio, "Y-m-d"); 
+            $dataFimTratada = date_format($dateTimeFim, "Y-m-d"); 
 
+        } catch (Exception $e) {
+            $mensagem['mensagem'] = "Datas inválidas. Não foi possível prosseguir com a reserva.";
+            header('Content-Type: application/json');
+            echo json_encode($mensagem);
+            die();
+
+        }
+
+        if ($dateTimeInicio > $dateTimeFim) {
+            $mensagem['mensagem'] = "A data de entrada deve ser anterior a data de saída.";
+            header('Content-Type: application/json');
+            echo json_encode($mensagem);
+            die();
+
+        }
+        
         if ($valorEntradaConvertido == $valorReservaTotal){
             $idStatusPagamento = 3; //pago 
-
+            
         } else if ($valorEntradaConvertido > 0) {
             $idStatusPagamento = 2; //parcial
-
+            
         } else {
             $valorEntradaConvertido = 0;
             $idStatusPagamento = 1; //pendente
+        }
+
+        if ($totalHospedes > $capacidadeAcomodacao) {
+
+            $mensagem['mensagem'] = "Não foi possível realizar a reserva. A acomodação não suporta a capacidade de hóspedes desejada.";
+            header('Content-Type: application/json');
+            echo json_encode($mensagem);
+            die();
+            
         }
 
         mysqli_begin_transaction($con);
@@ -118,23 +150,26 @@
                 // 
             }
 
-            $mensagem = "Reserva realizada com sucesso!";
-            header('location: ../index.php?msg=' . $mensagem);
             mysqli_commit($con);
+            $mensagem['sucesso'] = true;
+            $mensagem['mensagem'] = "Reserva realizada com sucesso!";
+            header('Content-Type: application/json');
+            echo json_encode($mensagem);
 
         } catch (Exception $e) {
             mysqli_rollback($con);
             unset($_SESSION['id-reserva']);
-            $mensagem = "Ocorreu um erro. Não foi possível realizar a reserva.";
-            header('location: ../index.php?msgInvalida=' . $mensagem);
+            $mensagem['mensagem'] = "Ocorreu um erro. Não foi possível realizar a reserva.";
 
         } finally {
             mysqli_close($con);
         }
     
     } else {
-        $msg = "O ID da reserva não foi enviado.";
+        $mensagem['mensagem'] = "O ID da reserva não foi enviado.";
         unset($_SESSION['id-reserva']);
-        header('location: ../index.php?msgInvalida=' . $msg);
+        header('Content-Type: application/json');
+        echo json_encode($mensagem);
+        mysqli_close($con);
     } 
 ?>

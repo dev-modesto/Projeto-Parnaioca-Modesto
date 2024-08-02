@@ -5,6 +5,7 @@
     $tituloMenuPagina = "Estoque | Frigobar";
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+    include PASTA_FUNCOES . "funcaoData.php";
 
     
     if (session_status() == PHP_SESSION_ACTIVE) {
@@ -104,6 +105,8 @@
                         <?php 
                             while($exibe = mysqli_fetch_array($consulta)){
                                     $idItem = $exibe['id_item'];
+                                    $dtOcorrencia = $exibe['dt_saida'];
+                                    $dtOcorrenciaFormatada = dataHoraFormatada($dtOcorrencia);
                                 ?>
                                 <tr>
                                     <td class="id-item"><?php echo $exibe['id_consumo_item_f']?></td>
@@ -113,7 +116,7 @@
                                     <td class="Nome item"><?php echo $exibe['nome_item']?></td>
                                     <td><?php echo $exibe['quantidade']?></td>
                                     <td class="monetario"><?php echo $exibe['preco_unit']?></td>
-                                    <td><?php echo $exibe['dt_saida']?></td>
+                                    <td><?php echo $dtOcorrenciaFormatada ?></td>
                                 </tr>
                                 <?php
                             }

@@ -174,6 +174,7 @@
                                     <ul class="container-header-itens" >
                                         <li><a href="<?php echo BASE_URL ?>/app/reserva/index.php">Visão geral</a></li>
                                         <li><a href="<?php echo BASE_URL ?>/app/reserva/disponibilidade.php">Disponibilidade</a></li>
+                                        <li><a href="<?php echo BASE_URL ?>/app/reserva/reservas.php">Reservas</a></li>
                                     </ul>
                                 </div>
                             <?php
