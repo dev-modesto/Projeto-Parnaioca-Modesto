@@ -20,12 +20,6 @@
         $cidade = trim($_POST['cidade']);
         $idStatus = 1;
 
-        $array = ['nome: ' . $nome,'data nascimento: ' .  $dataNascimento,'cpf: '.  $cpf,'email: ' . $email,'telefone: ' . $telefone,'estado: ' . $estado,'cidade: '.  $cidade,'id funcionario: ' . $idLogado,'id status: ' . $idStatus];
-        echo "<pre>";
-        print_r($array);
-        var_dump($telefone);
-
-        die();
         if(strlen($cpf) < 14){
             $mensagem = "Cpf inválido. Favor, preencha corretamente.";
             header('location: ../index.php?msgInvalida=' . $mensagem);
