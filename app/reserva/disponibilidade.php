@@ -117,6 +117,11 @@
                     </div>
 
                     <div class="mb-3">
+                        <div class="invalid-feedback-diverso" style="color: red; "></div>
+                    </div>
+
+
+                    <div class="mb-3">
                         <div class="col-md-4">
                             <button class='btn btn-primary btn-verificar-disponibilidade'>Verificar</button>
                         </div>
@@ -179,7 +184,14 @@
                     'hora-check-out':horaCheckOut
                 },
                 success: function (response) {
-                    console.log(response);
+
+                    if(response.mensagem) {
+                        console.log(response);
+                        $('.invalid-feedback-diverso').text(response.mensagem);
+                        
+                    } else {
+                        $('.invalid-feedback-diverso').text("");
+                    }
 
                     $('.container-cards-reservas').html(response)
                     
