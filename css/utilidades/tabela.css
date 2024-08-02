@@ -110,12 +110,21 @@
   border: 1px solid var(--cor-a-red4);
 }
 
+.icone-controle-visualizar:hover {
+  background-color: var(--cor-a-blue1);
+  border: 1px solid var(--cor-a-blue4);
+}
+
 .icone-controle-editar:hover span {
   color: var(--cor-a-yellow4);
 }
 
 .icone-controle-excluir:hover span {
   color: var(--cor-a-red4);
+}
+
+.icone-controle-visualizar:hover span {
+  color: var(--cor-a-blue3);
 }
 
 .status-geral.ativo {
@@ -137,7 +146,8 @@
 .legenda-tp-operacao.insercao,
 .legenda-tp-operacao.atualizacao,
 .legenda-tp-operacao.exclusao,
-.legenda-status-estoque {
+.legenda-status-estoque,
+.legenda-status-reserva {
   box-sizing: border-box;
   padding: 5px;
   border-radius: 0.5rem;
@@ -173,6 +183,43 @@
   background-color: var(--cor-a-red1);
   border: 1px solid var(--cor-a-red4);
   color: var(--cor-a-red4);
+}
+
+/* legendas reservas */
+.legenda-status-reserva.pendente {
+  background-color: var(--cor-a-yellow1);
+  border: 1px solid var(--cor-a-yellow4);
+  color: var(--cor-a-yellow4);
+}
+
+.legenda-status-reserva.confirmado {
+  background-color: var(--cor-a-green1);
+  border: 1px solid var(--cor-a-green3);
+  color: var(--cor-a-green3);
+}
+
+.legenda-status-reserva.check-in {
+  background-color: var(--cor-a-blue1);
+  border: 1px solid var(--cor-a-blue4);
+  color: var(--cor-a-blue4);
+}
+
+.legenda-status-reserva.check-out {
+  background-color: var(--cor-a-purple1);
+  border: 1px solid var(--cor-a-purple3);
+  color: var(--cor-a-purple3);
+}
+
+.legenda-status-reserva.finalizado {
+  background-color: var(--cor-a-green4);
+  border: 1px solid var(--cor-a-green4);
+  color: var(--cor-a-green1);
+}
+
+.legenda-status-reserva.cancelado {
+  background-color: var(--cor-a-red1);
+  border: 1px solid var(--cor-a-red3);
+  color: var(--cor-a-red3);
 }
 
 .dt-info,
@@ -213,7 +260,6 @@
 }
 
 .dt-paging-button.current {
-  background-color: red !important;
   background-color: var(--cor-4) !important;
   color: white !important;
 }

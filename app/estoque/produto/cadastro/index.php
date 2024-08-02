@@ -5,6 +5,7 @@
     $tituloMenuPagina = "Estoque | Produtos";
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+    include PASTA_FUNCOES . "funcaoData.php";
     
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
@@ -88,6 +89,8 @@
                         <?php 
                             while($exibe = mysqli_fetch_array($consulta)){
                                     $idItem = $exibe['id_item'];
+                                    $dtOcorrencia = $exibe['dt_cadastro'];
+                                    $dtOcorrenciaFormatada = dataHoraFormatada($dtOcorrencia);
                                 ?>
                                 <tr>
                                     <td class="id-item"><?php echo $exibe['id_item']?></td>
@@ -96,7 +99,7 @@
                                     <td class="monetario"><?php echo $exibe['preco_unit']?></td>
                                     <td><?php echo $exibe['estoque_minimo']?></td>
                                     <td class="id-funcionario"><?php echo $exibe['id_funcionario']?></td>
-                                    <td><?php echo $exibe['dt_cadastro']?></td>
+                                    <td><?php echo $dtOcorrenciaFormatada ?></td>
                                     <td class="td-icons">
                                         <a class="btn-editar-item icone-controle-editar " href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
                                         <a class="btn-excluir-item icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>

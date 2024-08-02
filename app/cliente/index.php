@@ -5,6 +5,7 @@
     $tituloMenuPagina = "Clientes";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
     include ARQUIVO_FUNCAO_SQL;
+    include PASTA_FUNCOES . "funcaoData.php";
 
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
@@ -140,6 +141,8 @@
                         <?php 
                             while($exibe = mysqli_fetch_array($consulta)){
                                     $idCliente = $exibe['id_cliente'];
+                                    $dtOcorrencia = $exibe['dt_cadastro'];
+                                    $dtOcorrenciaFormatada = dataHoraFormatada($dtOcorrencia);
                                 ?>
                                 <tr data-id-cliente="<?php echo $idCliente ?>">
                                     <td class="id-cliente"><?php echo $exibe['id_cliente']?></td>
@@ -147,7 +150,7 @@
                                     <td class="cpf"><?php echo $exibe['cpf']?></td>
                                     <td><?php echo $exibe['email']?></td>
                                     <td><?php echo $exibe['telefone']?></td>
-                                    <td><?php echo $exibe['dt_cadastro']?></td>
+                                    <td><?php echo $dtOcorrenciaFormatada ?></td>
                                     <td><span class="status-geral"><?php echo $exibe['nome_status']?></span></td>
                                     <td class="td-icons">
                                         <a class="btn-visualizar-info-cliente icone-controle-visualizar " href="#"><span class="icon-btn-controle material-symbols-rounded">visibility</span></a>

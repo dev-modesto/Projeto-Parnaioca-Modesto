@@ -70,6 +70,10 @@
         border-left-color: var(--cor-a-red3);
     }
 
+    .card-container-disponibilidade-reserva.disponivel {
+        border-left-color: var(--cor-3);
+    }
+
     .disp-reserva-status.pendente span {
         background-color: var(--cor-a-yellow3);
     }
