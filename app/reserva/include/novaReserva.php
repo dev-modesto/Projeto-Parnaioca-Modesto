@@ -7,6 +7,7 @@
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
     include ARQUIVO_FUNCAO_SQL;
+    include PASTA_FUNCOES . "funcaoData.php";
     
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
@@ -23,6 +24,9 @@
 
         $intervalo = $dateTimeInicio->diff($dateTimeFim);
         $qntDias = $intervalo->days;
+
+        $dataInicioFormatada = date_format($dateTimeInicio, "d/m/Y");
+        $dataFimFormatada = date_format($dateTimeFim, "d/m/Y");
 
         $consulta = consultaInfoAcomodacao($con, 0, $idAcomodacao);
         $array = mysqli_fetch_assoc($consulta);
@@ -150,12 +154,12 @@
 
                                 <div class="col-md-3">
                                     <label class="font-1-s" for="data-inicio">Data inicio</label>
-                                    <input class="form-control" type="text" name="data-inicio" id="data-inicio" value="<?php echo $dataInicio ?>" disabled required>
+                                    <input class="form-control" type="text" name="data-inicio" id="data-inicio" value="<?php echo $dataInicioFormatada ?>" disabled required>
                                 </div>
                                 
                                 <div class="col-md-3">
                                     <label class="font-1-s" for="data-final">Data final</label>
-                                    <input class="form-control" type="text" name="data-final" id="data-final" value="<?php echo $dataFim ?>" disabled required>
+                                    <input class="form-control" type="text" name="data-final" id="data-final" value="<?php echo $dataFimFormatada ?>" disabled required>
                                 </div>
                             </div>
 

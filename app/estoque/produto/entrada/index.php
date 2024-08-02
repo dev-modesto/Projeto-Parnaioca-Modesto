@@ -5,6 +5,7 @@
     $tituloMenuPagina = "Estoque | Produtos";
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+    include PASTA_FUNCOES . "funcaoData.php";
     
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
@@ -90,6 +91,8 @@
                         <?php 
                             while($exibe = mysqli_fetch_array($consulta)){
                                     $idItem = $exibe['id_e_item_e'];
+                                    $dtOcorrencia = $exibe['dt_entrada'];
+                                    $dtOcorrenciaFormatada = dataHoraFormatada($dtOcorrencia);
                                 ?>
                                 <tr data-id-entrada-item-estoque="<?php echo $idItem ?>">
                                     <td class="id_entrada-item-estoque"><?php echo $exibe['id_e_item_e']?></td>
@@ -100,7 +103,7 @@
                                     <td class="monetario"><?php echo $exibe['valor_unit']?></td>
                                     <td class="monetario"><?php echo $exibe['valor_total']?></td>
                                     <td class="id-funcionario"><?php echo $exibe['id_funcionario']?></td>
-                                    <td class="dt-entrada"><?php echo $exibe['dt_entrada']?></td>
+                                    <td class="dt-entrada"><?php echo $dtOcorrenciaFormatada ?></td>
                                     <td class="td-icons">
                                         <a class="btn-editar-entrada-item-estoque icone-controle-editar " href="#"><span class="icon-btn-controle material-symbols-rounded">edit</span></a>
                                         <a class="btn-excluir-entrada-item-estoque icone-controle-excluir" href="#"><span class="icon-btn-controle material-symbols-rounded">delete</span></a>
