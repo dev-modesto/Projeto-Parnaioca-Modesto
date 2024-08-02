@@ -4,7 +4,7 @@
 
     if(isset($_POST['click-editar-vaga-estacionamento'])){
 
-        $id = $_POST['idVagaEstacionamento'];
+        $id = $_POST['idPrincipal'];
 
         $stmt = mysqli_prepare($con, "SELECT * FROM tbl_estacionamento WHERE id_estacionamento = ?");
         mysqli_stmt_bind_param($stmt, 'i', $id);

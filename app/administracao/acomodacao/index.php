@@ -92,12 +92,11 @@
                 <table id="myTable" class="table nowrap order-column table-hover text-left">
                     <thead class="">
                         <tr>
-                            <th scope="col">Nº</th>
-                            <th scope="col">id</th>
+                            <th scope="col">ID#</th>
                             <th scope="col">Número</th>
                             <th scope="col">Tipo</th>
                             <th scope="col">Nome acomodação</th>
-                            <th scope="col">Valor(R$)</th>
+                            <th scope="col">Valor</th>
                             <th scope="col">Capacidade</th>
                             <th scope="col">Status</th>
                             <th scope="col">Controle</th>
@@ -105,12 +104,10 @@
                     </thead>
                     <tbody class="table-group-divider">
                         <?php 
-                            $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consultaInner)){
-                                    $id = $exibe['id_acomodacao'];
+                                    $idAcomodacao = $exibe['id_acomodacao'];
                                 ?>
-                                <tr>
-                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
+                                <tr data-id-acomodacao="<?php echo $idAcomodacao ?>">
                                     <td class="id-acomodacao"><?php echo $exibe['id_acomodacao']?></td>
                                     <td><?php echo $exibe['numero_acomodacao']?></td>
                                     <td><?php echo $exibe['nome_tp_acomodacao']?></td>

@@ -74,10 +74,8 @@
                 <table id="myTable" class="table  nowrap order-column dt-right table-hover text-center">
                     <thead class="">
                         <tr>
-                            <th scope="col">Nº</th>
-                            <th scope="col">ID entrada item</th>
-                            <th scope="col">ID item</th>
-                            <th scope="col">ID sku</th>
+                            <th scope="col">ID#</th>
+                            <th scope="col">SKU</th>
                             <th scope="col">Nome item</th>
                             <th scope="col">Nota fiscal</th>
                             <th scope="col">Quantidade</th>
@@ -90,14 +88,11 @@
                     </thead>
                     <tbody class="table-group-divider">
                         <?php 
-                            $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $idItem = $exibe['id_item'];
+                                    $idItem = $exibe['id_e_item_e'];
                                 ?>
-                                <tr>
-                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
+                                <tr data-id-entrada-item-estoque="<?php echo $idItem ?>">
                                     <td class="id_entrada-item-estoque"><?php echo $exibe['id_e_item_e']?></td>
-                                    <td class="id-item"><?php echo $exibe['id_item']?></td>
                                     <td class="id-sku"><?php echo $exibe['id_sku']?></td>
                                     <td class="nome-item"><?php echo $exibe['nome_item']?></td>
                                     <td class="nota-fiscal"><?php echo $exibe['nota_fiscal']?></td>

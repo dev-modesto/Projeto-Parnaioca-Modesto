@@ -74,20 +74,17 @@
                 <table id="myTable" class="table  nowrap order-column dt-right table-hover text-center">
                     <thead class="">
                         <tr>
-                            <th scope="col">Nº</th>
-                            <th scope="col">id tipo acomodação</th>
+                            <th scope="col">ID#</th>
                             <th scope="col">Nome tipo acomodação</th>
                             <th scope="col">Controle</th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
                         <?php 
-                            $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id_tp_acomodacao'];
+                                    $idTpAcomodacao = $exibe['id_tp_acomodacao'];
                                 ?>
-                                <tr>
-                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
+                                <tr data-id-tp-acomodacao="<?php echo $idTpAcomodacao ?>">
                                     <td class="id-tp-acomodacao"><?php echo $exibe['id_tp_acomodacao']?></td>
                                     <td><?php echo $exibe['nome_tp_acomodacao']?></td>
                                     <td class="td-icons">

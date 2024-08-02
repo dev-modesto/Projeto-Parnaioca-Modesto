@@ -86,8 +86,7 @@
                 <table id="myTable" class="table table-hover text-center">
                     <thead class="">
                         <tr>
-                            <th scope="col">Nº</th>
-                            <th scope="col">id frigobar</th>
+                            <th scope="col">ID#</th>
                             <th scope="col">Nome frigobar</th>
                             <th scope="col">Número acomodação</th>
                             <th scope="col">Capacidade</th>
@@ -96,12 +95,10 @@
                     </thead>
                     <tbody class="table-group-divider">
                         <?php 
-                            $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id_frigobar'];
+                                    $idFrigobar = $exibe['id_frigobar'];
                                 ?>
-                                <tr>
-                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
+                                <tr data-id-frigobar="<?php echo $idFrigobar ?>">
                                     <td class="id-frigobar"><?php echo $exibe['id_frigobar']?></td> 
                                     <td class="nome-frigobar"><?php echo $exibe['nome_frigobar']?></td>
                                     <td class="id-acomodacao"><?php echo $exibe['numero_acomodacao']?></td>

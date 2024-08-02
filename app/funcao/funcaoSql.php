@@ -21,8 +21,39 @@
         mysqli_query($con, $sql);
     }
 
-    function excluirNivelAcessoPadrao($con, $idFuncionario){
+    function excluirAcessoArea($con, $idFuncionario){
         $sql = "DELETE FROM tbl_acesso_area WHERE id_funcionario = '$idFuncionario'";
+        mysqli_query($con, $sql);
+    }
+    
+    function consultaAcessoArea($con, $idFuncionario) {
+        $sql = "SELECT * FROM tbl_acesso_area WHERE id_funcionario = '$idFuncionario'";
+        $consulta = mysqli_query($con, $sql);
+        $array = mysqli_fetch_assoc($consulta);
+        return $array;
+    }
+
+    function inserirNivelAcesso($con, $idFuncionario, $nivel){
+        $sql = 
+            "INSERT INTO tbl_nivel_acesso (
+                id_funcionario, 
+                nivel_acesso) 
+            VALUES (
+                '$idFuncionario', 
+                '$nivel')
+        ";
+        mysqli_query($con, $sql);
+    }
+    
+    function verificaNivelAcesso($con, $idFuncionario) {
+        $sql = "SELECT * FROM tbl_nivel_acesso WHERE id_funcionario = $idFuncionario";
+        $consulta = mysqli_query($con, $sql);
+        $array = mysqli_fetch_assoc($consulta);
+        return $array;
+    }
+
+    function excluirNivelAcesso($con, $idFuncionario) {
+        $sql = "DELETE FROM tbl_nivel_acesso WHERE id_funcionario = '$idFuncionario'";
         mysqli_query($con, $sql);
     }
     

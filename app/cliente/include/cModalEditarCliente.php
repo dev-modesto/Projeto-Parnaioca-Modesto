@@ -2,16 +2,19 @@
     // include __DIR__  . '/../../../config/conexao.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
+    include ARQUIVO_FUNCAO_SQL;
 
     session_start();
 
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
         $nomeFuncionario = $_SESSION['nome'];
+        $arrayAcessoArea = consultaAcessoArea($con, $idLogado);
+        $adm = $arrayAcessoArea['administracao'];
     }
 
     if(isset($_POST['click-editar-cliente'])){
-        $id = $_POST['idCliente'];
+        $id = $_POST['idPrincipal'];
         $sql = "SELECT * FROM tbl_cliente WHERE id_cliente = '$id'";
         
         $consulta = mysqli_query($con, $sql);
@@ -55,9 +58,15 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="endereco-cliente-tab-edit" data-bs-toggle="tab" data-bs-target="#endereco-cliente-tab-edit-pane" type="button" role="tab" aria-controls="endereco-cliente-tab-edit-pane" aria-selected="false">Endereço</button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="status-cliente-tab-edit" data-bs-toggle="tab" data-bs-target="#status-cliente-tab-edit-pane" type="button" role="tab" aria-controls="status-cliente-tab-edit-pane" aria-selected="false">Status cliente</button>
-                    </li>
+                    <?php 
+                        if ($adm == 1) {
+                            ?>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="status-cliente-tab-edit" data-bs-toggle="tab" data-bs-target="#status-cliente-tab-edit-pane" type="button" role="tab" aria-controls="status-cliente-tab-edit-pane" aria-selected="false">Status cliente</button>
+                                </li>
+                            <?php
+                        }
+                    ?>
                 </ul>
                 <br>
 

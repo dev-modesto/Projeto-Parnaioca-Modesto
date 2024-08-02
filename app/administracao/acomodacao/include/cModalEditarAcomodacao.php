@@ -4,7 +4,7 @@
     include ARQUIVO_CONEXAO;
 
     if(isset($_POST['click-editar-acomodacao'])){
-        $id = $_POST['idAcomodacao'];
+        $id = $_POST['idPrincipal'];
 
         $sql = 
             "SELECT

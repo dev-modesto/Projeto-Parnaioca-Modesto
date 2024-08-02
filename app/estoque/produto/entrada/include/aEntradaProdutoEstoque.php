@@ -22,14 +22,12 @@
         $valorUnitarioFormatado = converterMonetario($valorUnitario);
         $valorTotalFormatado = converterMonetario($valorTotal);
 
-        // $array = ["Id tabela: " . $id, "id item: " . $idItem,"sku: " . $idSku,"quantidade: ". $quantidade, "valor unitario: " . $valorUnitarioFormatado, "valor total: " . $valorTotalFormatado,"nota fiscal: " . $notaFiscal];
+        mysqli_begin_transaction($con);
 
-        // echo "<pre>";
-        // print_r($array);
-        // die();
+        try {
 
-        $sql = 
-            mysqli_prepare(
+            $sql = 
+                mysqli_prepare(
                 $con, 
                 "UPDATE tbl_entrada_item_estoque
                 SET
@@ -41,21 +39,21 @@
                     nota_fiscal=?, 
                     id_funcionario=?
                 WHERE id_e_item_e = '$id'
-        ");
+            ");
 
-        mysqli_stmt_bind_param(
-            $sql, 
-            "isiddsi", 
-            $idItem, 
-            $idSku, 
-            $quantidade, 
-            $valorUnitarioFormatado, 
-            $valorTotalFormatado, 
-            $notaFiscal, 
-            $idLogado
-        );
+            mysqli_stmt_bind_param(
+                $sql, 
+                "isiddsi", 
+                $idItem, 
+                $idSku, 
+                $quantidade, 
+                $valorUnitarioFormatado, 
+                $valorTotalFormatado, 
+                $notaFiscal, 
+                $idLogado
+            );
 
-        if(mysqli_stmt_execute($sql)){
+            mysqli_stmt_execute($sql);
 
             // log operações
                 $nomeTabela = 'tbl_entrada_item_estoque';
@@ -64,17 +62,21 @@
                 $descricao = 'Item atualizado ID: ' . $idSku;
                 logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
             // 
+
+            mysqli_commit($con);
             header('location: ../index.php?msg=Alterado com sucesso!');
 
-        } else {
-            echo "Error ao gravar" . mysqli_error($con);
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+
+        } finally {
+            mysqli_close($con);
         }
 
-        mysqli_close($con);
-        
     } else {
-        echo "";
-
+        $mensagem = "";
     }
 
 ?>

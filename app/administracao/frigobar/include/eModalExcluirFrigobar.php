@@ -1,7 +1,7 @@
 <?php
 
     if(isset($_POST['click-excluir-frigobar'])){
-        $id = $_POST['idFrigobar'];
+        $id = $_POST['idPrincipal'];
     }
 
 ?>

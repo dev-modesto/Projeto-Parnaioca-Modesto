@@ -4,11 +4,14 @@
     $grupoPagina = "";
     $tituloMenuPagina = "Clientes";
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+    include ARQUIVO_FUNCAO_SQL;
 
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
         $nomeFuncionario = $_SESSION['nome'];
         segurancaSac($con, $idLogado);
+        $arrayAcessoArea = consultaAcessoArea($con, $idLogado);
+        $adm = $arrayAcessoArea['administracao'];
     }
 
     $sql = 
@@ -114,6 +117,7 @@
 
             <span class="separador"></span>
 
+
             <!-- Tabela -->
             <div class="container-tabela">
                 <div class="container-button">
@@ -122,8 +126,7 @@
                 <table id="myTable" class="table  nowrap order-column dt-right table-hover text-center">
                     <thead class="">
                         <tr>
-                            <th scope="col">Nº</th>
-                            <th scope="col">ID cliente</th>
+                            <th scope="col">ID#</th>
                             <th scope="col">Nome</th>
                             <th scope="col">CPF</th>
                             <th scope="col">E-mail</th>
@@ -135,12 +138,10 @@
                     </thead>
                     <tbody class="table-group-divider">
                         <?php 
-                            $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id_cliente'];
+                                    $idCliente = $exibe['id_cliente'];
                                 ?>
-                                <tr>
-                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
+                                <tr data-id-cliente="<?php echo $idCliente ?>">
                                     <td class="id-cliente"><?php echo $exibe['id_cliente']?></td>
                                     <td><?php echo $exibe['nome']?></td>
                                     <td class="cpf"><?php echo $exibe['cpf']?></td>
@@ -179,9 +180,6 @@
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="endereco-cliente-tab" data-bs-toggle="tab" data-bs-target="#endereco-cliente-tab-pane" type="button" role="tab" aria-controls="endereco-cliente-tab-pane" aria-selected="false">Endereço</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="status-cliente-tab" data-bs-toggle="tab" data-bs-target="#status-cliente-tab-pane" type="button" role="tab" aria-controls="status-cliente-tab-pane" aria-selected="false">Status cliente</button>
                                 </li>
                             </ul>
                             <br>
@@ -234,32 +232,7 @@
 
                                 </div>
                                 
-                                <div class="tab-pane fade" id="status-cliente-tab-pane" role="tabpanel" aria-labelledby="status-cliente-tab" tabindex="0">
-                                    <div class="mb-3">
-                                        <label for="id-status">Status <em>*</em></label>
-                                        <select class="form-select" name="id-status" id="id-status" required aria-label="select example">
-                                            <option value="">Selecione um status</option>
-                                            <?php
-                                                include '../../config/conexao.php';
-                                                $query = "SELECT id_status, nome_status FROM tbl_status_geral";
-                                                $result = mysqli_query($con, $query);
-                                    
-                                                while ($row = mysqli_fetch_assoc($result)) {
-                                                    echo "<option value='" . $row['id_status'] . "'>" . $row['nome_status'] . "</option>";
-                                                }
-                                                mysqli_close($con);
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                
                             </div>
-
-                            <div class="mb-3">
-                                <input class="form-control" type="text" name="id-funcionario" class="id-funcionario" id="id-funcionario" value="<?php echo $nomeLogado ?>" hidden required>
-                            </div>
-
-
 
                             <?php if(!empty($mensagem)){ ?>  
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">

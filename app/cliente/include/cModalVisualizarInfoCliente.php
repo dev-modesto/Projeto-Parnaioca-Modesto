@@ -12,7 +12,7 @@
     }
 
     if(isset($_POST['click-visualizar-info-cliente'])){
-        $id = $_POST['idCliente'];
+        $id = $_POST['idPrincipal'];
         $sql = "SELECT * FROM tbl_cliente WHERE id_cliente = '$id'";
         
         $consulta = mysqli_query($con, $sql);

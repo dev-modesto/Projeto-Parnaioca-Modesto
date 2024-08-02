@@ -301,3 +301,9 @@
 .container-cabecalho-padrao {
     padding: 0px 20px;
 }
+
+a[aria-disabled="true"] {
+    pointer-events: none;
+    cursor: default;
+    /* color: grey; */
+}

@@ -4,7 +4,7 @@
 
     if(isset($_POST['click-editar-status-geral'])){
 
-        $id = $_POST['idStatusGeral'];
+        $id = $_POST['idPrincipal'];
 
         $stmt = mysqli_prepare($con, "SELECT * FROM tbl_status_geral WHERE id_status = ?");
         mysqli_stmt_bind_param($stmt, 'i', $id);

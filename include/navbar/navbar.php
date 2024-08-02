@@ -2,7 +2,6 @@
 
     // include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
 
-
     if(session_status() == PHP_SESSION_ACTIVE){
         $nome = $_SESSION['nome'];
         $id = $_SESSION['id'];
@@ -70,9 +69,6 @@
     <?php 
 
         if ($setorPagina == "Administração") {
-            // echo "<pre>";
-            // print_r('pagina administracao');
-            // die();
 
             if ($administracao == 1 ){
 
@@ -199,18 +195,18 @@
     </div>
 
     <ul class="navbar-itens">
-        <li class="cor-3 "><a href="navbar-lateral.php" class="font-1-s"><span class="material-symbols-rounded">dashboard</span><p class="texto-nav">Dashboard</p></a></li>
+        <li class="cor-8"><a href="#" class="font-1-s" aria-disabled="true"><span class="material-symbols-rounded">dashboard</span><p class="texto-nav">Dashboard</p></a></li>
         
         <?php
             if ($sac == 1) {
                 ?>
-                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/reserva/index.php" class="font-1-s"><span class="material-symbols-rounded">style</span><p class="texto-nav">Reservas</p></a></li>
+                    <li class="cor-3"><a href="<?php echo BASE_URL ?>/app/reserva/" class="font-1-s"><span class="material-symbols-rounded">style</span><p class="texto-nav">Reservas</p></a></li>
                 <?php
             }
         ?>
         
         
-        <li class="cor-3"><a href="#" class="font-1-s"><span class="material-symbols-rounded">hotel</span><p class="texto-nav">Acomodações</p></a></li>
+        <li class="cor-8"><a href="#" class="font-1-s" aria-disabled="true"><span class="material-symbols-rounded">hotel</span><p class="texto-nav">Acomodações</p></a></li>
         
        
 
@@ -247,6 +243,5 @@
 </div>
 
 
-<!-- <script src="../../js/menu.js"></script> -->
 <script src="<?php echo BASE_URL ?>/js/menu.js"></script>
 </body>
