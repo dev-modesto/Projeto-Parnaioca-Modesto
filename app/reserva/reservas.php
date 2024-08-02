@@ -111,7 +111,7 @@
                                     <td class=""><?php echo $totalHospedes ?></td>
                                     <td class=""><?php echo $dataEntradaFormatada ?></td>
                                     <td class=""><?php echo $dataSaidaFormatada ?></td>
-                                    <td class="legenda"><span class="legenda-status-reserva check-in"><?php echo $statusReserva ?></span></td>
+                                    <td class="legenda"><span class="legenda-status-reserva"><?php echo $statusReserva ?></span></td>
                                 </tr>
                                 <?php
                             }
@@ -131,3 +131,30 @@
 
     <script src="<?php echo BASE_URL ?>/js/modal.js"></script>
     <script src="<?php echo BASE_URL ?>/js/table.js"></script>
+
+    <script>
+
+        document.querySelectorAll('.legenda-status-reserva').forEach(function (element){
+            switch (element.textContent) {
+                case 'Pendente':
+                    element.classList.add("pendente");
+                    break;
+                case 'Confirmado':
+                    element.classList.add("confirmado");
+                    break;
+                case 'Cancelado':
+                    element.classList.add("cancelado");
+                    break;
+                case 'Check-in':
+                    element.classList.add("check-in");
+                    break;
+                case 'Check-out':
+                    element.classList.add("check-out");
+                    break;
+                default:
+                    element.classList.add("finalizado");
+                    break;
+            }
+        })
+
+    </script>

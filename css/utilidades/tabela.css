@@ -191,6 +191,13 @@
   border: 1px solid var(--cor-a-yellow4);
   color: var(--cor-a-yellow4);
 }
+
+.legenda-status-reserva.confirmado {
+  background-color: var(--cor-a-green1);
+  border: 1px solid var(--cor-a-green3);
+  color: var(--cor-a-green3);
+}
+
 .legenda-status-reserva.check-in {
   background-color: var(--cor-a-blue1);
   border: 1px solid var(--cor-a-blue4);
@@ -204,9 +211,9 @@
 }
 
 .legenda-status-reserva.finalizado {
-  background-color: var(--cor-s11);
-  border: 1px solid var(--cor-s11);
-  color: var(--cor-s1);
+  background-color: var(--cor-a-green4);
+  border: 1px solid var(--cor-a-green4);
+  color: var(--cor-a-green1);
 }
 
 .legenda-status-reserva.cancelado {
