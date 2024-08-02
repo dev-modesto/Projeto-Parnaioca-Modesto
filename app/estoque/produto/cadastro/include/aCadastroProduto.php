@@ -27,10 +27,15 @@
         $msg = "";
 
         if (mysqli_num_rows($result) > 0) {
-            $msg .= "Este SKU de produto já foi cadastrado anteriormente.";
-            header("location: ../index.php?msgInvalida=" . $msg);
-        } else {
-            
+            $mensagem = "Este SKU de produto já foi cadastrado anteriormente.";
+            header("location: ../index.php?msgInvalida=" . $mensagem);
+            die();
+        } 
+
+        mysqli_begin_transaction($con);
+
+        try {
+
             $sql = 
                 mysqli_prepare(
                 $con, 
@@ -54,26 +59,30 @@
                 $idLogado
             );
 
-            if(mysqli_stmt_execute($sql)){
-                // log operações
-                    $nomeTabela = 'tbl_item';
-                    $idRegistro = $idItem;
-                    $tpOperacao = 'atualizacao';
-                    $descricao = 'Item atualizado ID: ' . $sku;
-                    logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
-                // 
-                header('location: ../index.php?msg=Alterado com sucesso!');
+            mysqli_stmt_execute($sql);
 
-            } else {
-                echo "Error ao gravar" . mysqli_error($con);
-            }
+            // log operações
+                $nomeTabela = 'tbl_item';
+                $idRegistro = $idItem;
+                $tpOperacao = 'atualizacao';
+                $descricao = 'Item atualizado ID: ' . $sku;
+                logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+            // 
 
+            mysqli_commit($con);
+            header('location: ../index.php?msg=Alterado com sucesso!');
+
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+
+        } finally {
+            mysqli_close($con);
         }
-        mysqli_close($con);
-        
-    } else {
-        echo "";
 
+    } else {
+        $mensagem = "";
     }
 
 ?>

@@ -21,46 +21,59 @@
         $idStatus = $_POST['id-status'];
         $valorConvertido = converterMonetario($valor);
         
-
-        $stmt = mysqli_prepare(
-            $con, 
-            "UPDATE tbl_acomodacao 
-            SET 
-            numero_acomodacao=?, 
-            id_tp_acomodacao=?, 
-            nome_acomodacao=?, 
-            valor=?, 
-            capacidade_max=?, 
-            id_status=? 
-        WHERE 
-            id_acomodacao = $id
-        ");
+        mysqli_begin_transaction($con);
         
-        mysqli_stmt_bind_param(
-            $stmt, 
-            'iisdii', 
-            $numero, 
-            $idTpAcomodacao,
-            $nomeAcomodacao, 
-            $valorConvertido, 
-            $capacidade, 
-            $idStatus
-        );
+        try {
+    
+            $stmt = mysqli_prepare(
+                $con, 
+                "UPDATE tbl_acomodacao 
+                SET 
+                numero_acomodacao=?, 
+                id_tp_acomodacao=?, 
+                nome_acomodacao=?, 
+                valor=?, 
+                capacidade_max=?, 
+                id_status=? 
+            WHERE 
+                id_acomodacao = $id
+            ");
+            
+            mysqli_stmt_bind_param(
+                $stmt, 
+                'iisdii', 
+                $numero, 
+                $idTpAcomodacao,
+                $nomeAcomodacao, 
+                $valorConvertido, 
+                $capacidade, 
+                $idStatus
+            );
 
-        if(mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_execute($stmt);
+
             // log operações
                 $nomeTabela = 'tbl_acomodacao';
                 $idRegistro = $id;
                 $tpOperacao = 'atualizacao';
                 $descricao = 'Acomodação atualização ID: ' . $idRegistro;
                 logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
-            // 
+            //
+
+            mysqli_commit($con);
             header('location: ../index.php?msg=Atualizado com sucesso!');
-        } else {
-            echo "Erro ao gravar: " . mysqli_error($con);
+
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+
+        } finally {
+            mysqli_close($con);
+            
         }
-
-
+    } else {
+        $mensagem = "";
     }
 
 ?>

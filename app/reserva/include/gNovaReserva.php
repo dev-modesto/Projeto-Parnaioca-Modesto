@@ -43,8 +43,7 @@
         if ($valorEntradaConvertido == $valorReservaTotal){
             $idStatusPagamento = 3; //pago 
 
-        } else if ($valorEntrada > 0) {
-            $valorEntradaConvertido;
+        } else if ($valorEntradaConvertido > 0) {
             $idStatusPagamento = 2; //parcial
 
         } else {
@@ -97,19 +96,45 @@
             mysqli_stmt_execute($sql);
             $idReserva = mysqli_insert_id($con);
 
-            $sqlPagamento = mysqli_prepare($con, "INSERT INTO tbl_pagamento(id_reserva, valor, id_metodo_pag) VALUES(?,?,?)");
-            mysqli_stmt_bind_param($sqlPagamento, 'idi', $idReserva, $valorEntradaConvertido, $idFormaPagamento);
-            mysqli_stmt_execute($sqlPagamento);
-            
+            // log operações
+                $nomeTabela = 'tbl_reserva';
+                $idRegistro = $idReserva;
+                $tpOperacao = 'insercao';
+                $descricao = 'Reserva realizada ID: ' . $idReserva;
+                logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+            // 
+
+            if($valorEntradaConvertido > 0 ) {
+                $sqlPagamento = mysqli_prepare($con, "INSERT INTO tbl_pagamento(id_reserva, valor, id_metodo_pag) VALUES(?,?,?)");
+                mysqli_stmt_bind_param($sqlPagamento, 'idi', $idReserva, $valorEntradaConvertido, $idFormaPagamento);
+                mysqli_stmt_execute($sqlPagamento);
+
+                // log operações
+                    $nomeTabela = 'tbl_pagamento';
+                    $idRegistro = $idReserva;
+                    $tpOperacao = 'insercao';
+                    $descricao = 'Pagamento realizado ID reserva: ' . $idReserva;
+                    logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+                // 
+            }
+
             $mensagem = "Reserva realizada com sucesso!";
             header('location: ../index.php?msg=' . $mensagem);
             mysqli_commit($con);
-            mysqli_close($con);
 
         } catch (Exception $e) {
             mysqli_rollback($con);
-            $mensagem = "Houve um problema ao realizar a reserva.";
-            header('location: ../index.php?msg=' . $mensagem);
+            unset($_SESSION['id-reserva']);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a reserva.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+
+        } finally {
+            mysqli_close($con);
         }
-    }   
+    
+    } else {
+        $msg = "O ID da reserva não foi enviado.";
+        unset($_SESSION['id-reserva']);
+        header('location: ../index.php?msgInvalida=' . $msg);
+    } 
 ?>

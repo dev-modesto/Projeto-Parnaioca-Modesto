@@ -22,6 +22,7 @@
         
         $totalConsumido = $arrayTotalConsumoReserva['total_consumo'];
         $totalConsumidoFormatadado = floatval($totalConsumido);
+        $totalConsumidoFormatadado = number_format($totalConsumidoFormatadado, 2);
 
         $sqlReserva = mysqli_prepare($con, "SELECT * FROM tbl_reserva WHERE id_reserva = ?");
         mysqli_stmt_bind_param($sqlReserva, "i", $idReserva);
@@ -121,43 +122,55 @@
                     <span class="cor-6"><?php echo $nomeAcomodacao ?> - <?php echo $numeroAcomodacao ?> </span>
                 </div>
             </div>
-            
-            <div class="form-container reservas top-container-button-reserva-info" >
-                <div class="col-md-12 form-container-button-reserva" data-id-reserva="<?php echo $idReserva ?>">
-                    <button class='btn btn-primary btn-cancelar-reserva' id="btn-finalizar-reserva">Cancelar reserva</button>
 
-                    <?php 
-                        switch ($idStatusReserva) {
-                            case $pendente :
-                                ?>
-                                    <button class='btn btn-primary btn-confirmar-reserva' id="btn-confirmar-reserva">Confirmar reserva</button>
-                                <?php
-                                break;
-
-                            case $confirmado :
-                                ?>
-                                     <button class='btn btn-primary btn-realizar-check-in' id="btn-realizar-check-in">Realizar check-in</button>
-                                <?php
-                                break;
-                            case $checkIn :
-                                ?>
-                                     <button class='btn btn-primary btn-realizar-check-out' id="btn-realizar-check-out">Realizar check-out</button>
-                                <?php
-                                break;
-
-                            case $checkOut :
-                                ?>
-                                    <button class='btn btn-primary btn-finalizar-reserva' id="btn-finalizar-reserva">Finalizar reserva</button>
-                                <?php
-                                break;
-                            
-                            default:
-                                break;
-                        }
+            <?php
+                if ($idStatusReserva !== $finalizado ) {
                     ?>
-                    
-                </div>
-            </div>
+                    <div class="form-container reservas top-container-button-reserva-info" >
+
+                        <div class="col-md-12 form-container-button-reserva" data-id-reserva="<?php echo $idReserva ?>">
+
+                            <?php 
+                                if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado) {
+                                    ?>
+                                          <button class='btn btn-primary btn-cancelar-reserva' id="btn-finalizar-reserva">Cancelar reserva</button>
+                                    <?php
+                                }
+
+                                switch ($idStatusReserva) {
+                                    case $pendente :
+                                        ?>
+                                            <button class='btn btn-primary btn-confirmar-reserva' id="btn-confirmar-reserva">Confirmar reserva</button>
+                                        <?php
+                                        break;
+
+                                    case $confirmado :
+                                        ?>
+                                            <button class='btn btn-primary btn-realizar-check-in' id="btn-realizar-check-in">Realizar check-in</button>
+                                        <?php
+                                        break;
+                                    case $checkIn :
+                                        ?>
+                                            <button class='btn btn-primary btn-realizar-check-out' id="btn-realizar-check-out">Realizar check-out</button>
+                                        <?php
+                                        break;
+
+                                    case $checkOut :
+                                        ?>
+                                            <button class='btn btn-primary btn-finalizar-reserva' id="btn-finalizar-reserva">Finalizar reserva</button>
+                                        <?php
+                                        break;
+                                    
+                                    default:
+                                        break;
+                                }
+                            ?>
+                        </div>
+                    </div>
+                <?php
+                }
+            ?>
+
             <!-- formulario envio -->
             <form class="was-validated form-container reservas-informacao" id="reservaForm">
 
@@ -251,7 +264,13 @@
                         <div class="row mb-3 footer-container-button-reserva">
                             <div class="col-md-6 container-button-reserva-info" data-id-reserva="<?php echo $idReserva ?>">
                                 <a class='btn btn-primary  btn-ver-consumo' data-bs-toggle="modal" data-bs-target="#modal-visualizar-consumo" id="btn-ver-consumo" >Visualizar consumo</a>
-                                <a class='btn btn-primary btn-consumir-itens-frigobar' id="btn-consumir-itens-frigobar">Consumo frigobar</a>
+                                <?php
+                                    if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado) {
+                                        ?>
+                                            <a class='btn btn-primary btn-consumir-itens-frigobar' id="btn-consumir-itens-frigobar">Consumo frigobar</a>
+                                        <?php
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -261,7 +280,7 @@
 
                 <div class="modulo-reservas-informacao">
                     <div class="cards-reservas-cabecalho">
-                        <h1 class="font-1-l cor-8 peso-semi-bold">Informações gerais</h1>
+                        <h1 class="font-1-l cor-8 peso-semi-bold">Pagamentos</h1>
                         <div id="dropdown-reservas-disponiveis">
                             <span class="material-symbols-rounded icon-drop-disponiveis">keyboard_arrow_up</span>
                         </div>
@@ -299,7 +318,13 @@
 
                             <div class="row mb-3 footer-container-button-reserva">
                                 <div class="col-md-6 ">
-                                    <a class='btn btn-primary btn-avancar finalizar' id="btn-finalizar-reserva" data-bs-toggle="modal" data-bs-target="#modal-realizar-pagamento">Realizar pagamento</a>
+                                    <?php
+                                        if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado) {
+                                            ?>
+                                                <a class='btn btn-primary btn-avancar finalizar' id="btn-realizar-pagamento" data-bs-toggle="modal" data-bs-target="#modal-realizar-pagamento">Realizar pagamento</a>
+                                            <?php
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         </div>   
@@ -308,7 +333,7 @@
                 </div>
 
 
-                <div class="modalConfirmaCheckIn modalConfirmarCheckOut modalConfirmarReserva">
+                <div class="modalConfirmaCheckIn modalConfirmarCheckOut modalConfirmarReserva modalFinalizarReserva">
                 </div>
 
 
@@ -417,9 +442,9 @@
                                                 <tr class="table-td-produtos-consumidos">
                                                     <td><?php echo $nroLinha++ ?></td>
                                                     <td><?php echo $row['nome_item'] ?></td>
-                                                    <td><?php echo $row['quantidade'] ?></td>
+                                                    <td><?php echo $row['total_quantidade'] ?></td>
                                                     <td>R$ <span class="monetario font-2-xs-2"><?php echo $row['preco_unit'] ?></span></td>
-                                                    <td>R$ <span class="monetario font-2-xs-2"><?php echo $row['valor_total'] ?></span></td>
+                                                    <td>R$ <span class="monetario font-2-xs-2"><?php echo $row['total_consumido'] ?></span></td>
                                                 </tr>
                                             <?php
                                         }
@@ -521,6 +546,26 @@
                     console.log(response);
                     $('.modalConfirmarCheckOut').html(response);
                     $('#modalConfirmarCheckOut').modal('show');
+                }
+            });
+        });
+
+        $('.btn-finalizar-reserva').click(function (e) { 
+            e.preventDefault();
+            
+            var idReserva = $(this).closest('.form-container-button-reserva').data('id-reserva');
+
+            $.ajax({
+                type: "POST",
+                url: "cModalFinalizarReserva.php",
+                data: {
+                    'click-finalizar-reserva':true,
+                    'id-reserva':idReserva
+                },
+                success: function (response) {
+                    console.log(response);
+                    $('.modalFinalizarReserva').html(response);
+                    $('#modalFinalizarReserva').modal('show');
                 }
             });
         });

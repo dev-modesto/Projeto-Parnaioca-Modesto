@@ -13,18 +13,26 @@
         $idNumeroAcomodacao = $_POST['id-numero-acomodacao'];
         $numeroVagaEstacionamento = trim($_POST['numero-vaga-estacionamento']);
 
-        $stmt = 
-            mysqli_prepare(
-            $con, 
-            "INSERT INTO 
-                tbl_estacionamento (id_estacionamento, id_acomodacao, numero_vaga) 
-            VALUES 
-                (NULL, ?, ?)"
-        );
-        
-        mysqli_stmt_bind_param($stmt, "is", $idNumeroAcomodacao, $numeroVagaEstacionamento);
+        mysqli_begin_transaction($con);
 
-        if(mysqli_stmt_execute($stmt)){
+        try {
+
+            $stmt = 
+                mysqli_prepare(
+                $con, 
+                "INSERT INTO 
+                    tbl_estacionamento(
+                    id_estacionamento, 
+                    id_acomodacao, 
+                    numero_vaga) 
+                VALUES 
+                    (NULL, ?, ?)
+            ");
+            
+            mysqli_stmt_bind_param($stmt, "is", $idNumeroAcomodacao, $numeroVagaEstacionamento);
+
+            mysqli_stmt_execute($stmt);
+            
             // log operações
                 $nomeTabela = 'tbl_estacionamento';
                 $idRegistro = mysqli_insert_id($con);
@@ -32,10 +40,18 @@
                 $descricao = 'Vaga estacionamento adicionada ID: ' . $idRegistro;
                 logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
             // 
-            header('location: ../index.php?msg=Adicionado com sucesso!');
-        }  
 
-        mysqli_close($con);
+            mysqli_commit($con);
+            header('location: ../index.php?msg=Adicionado com sucesso!');
+
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+
+        } finally {
+            mysqli_close($con);
+        }
     }
 
 ?>

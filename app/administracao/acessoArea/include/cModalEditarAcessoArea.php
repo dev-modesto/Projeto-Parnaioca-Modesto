@@ -2,9 +2,18 @@
     // include __DIR__  . '/../../../config/conexao.php';
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
+    include ARQUIVO_FUNCAO_SQL;
 
-    if(isset($_GET['click-editar-acesso-area'])){
-        $id = $_GET['idFuncionario'];
+    session_start();
+
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        $idLogado = $_SESSION['id'];
+    }
+
+    if(isset($_POST['click-editar-acesso-area'])){
+        $id = $_POST['idPrincipal'];
+        $nivelAcessoLogado = verificaNivelAcesso($con, $idLogado);
+        $nivelLogado = $nivelAcessoLogado['nivel_acesso'];
 
         $sql = 
             "SELECT
@@ -30,6 +39,10 @@
             $administracao = $array['administracao'];
 
         }
+
+        $consultaNivelAcesso = verificaNivelAcesso($con, $id);
+        $nivelAcesso = $consultaNivelAcesso['nivel_acesso'];
+
     } else {
         echo "";
     }
@@ -54,16 +67,33 @@
                     </div>
                 </div>
                 
-                <div class="mb-3 btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                    <input type="checkbox" class="btn-check" id="btn-sac" name="sac" autocomplete="off" <?php echo $sac == 1 ? 'checked' : '' ?> >
-                    <label class="btn btn-outline-primary btn-sac" for="btn-sac">SAC</label>
+                <div class="mb-3 btn-group container-paginas-acesso" role="group" aria-label="Basic checkbox toggle button group">
+                    <label for="nivel">Páginas de acesso <em>*</em></label>
+                    <div>
+                        <input type="checkbox" class="btn-check" id="btn-sac" name="sac" autocomplete="off" <?php echo $sac == 1 ? 'checked' : '' ?> >
+                        <label class="btn btn-outline-primary btn-sac" for="btn-sac">SAC</label>
 
-                    <input type="checkbox" class="btn-check" id="btn-logistica" name="logistica" autocomplete="off" <?php echo $logistica == 1 ? 'checked' : '' ?>>
-                    <label class="btn btn-outline-primary" for="btn-logistica">Logística</label>
+                        <input type="checkbox" class="btn-check" id="btn-logistica" name="logistica" autocomplete="off" <?php echo $logistica == 1 ? 'checked' : '' ?>>
+                        <label class="btn btn-outline-primary" for="btn-logistica">Logística</label>
 
-                    <input type="checkbox" class="btn-check" id="btn-administracao" name="administracao" autocomplete="off" <?php echo $administracao == 1 ? 'checked' : '' ?>>
-                    <label class="btn btn-outline-primary" for="btn-administracao">Administração</label>
+                        <input type="checkbox" class="btn-check" id="btn-administracao" name="administracao" autocomplete="off" <?php echo $administracao == 1 ? 'checked' : '' ?>>
+                        <label class="btn btn-outline-primary" for="btn-administracao">Administração</label>
+                    </div>
                 </div>
+                
+                <?php
+                    if($nivelLogado > 0) {
+                        ?>
+                            <div class="mb-3" required>
+                                <label for="nivel">Nível de Usuário <em>*</em></label>
+                                <div>
+                                    <input type="radio" id="nivel-usuario" name="nivel-usuario" value="0" <?php if($nivelAcesso == 0) echo 'checked' ?> > Usuário padrão <br>
+                                    <input type="radio" id="nivel-usuario" name="nivel-usuario" value="1" <?php if($nivelAcesso == 1) echo 'checked' ?> > Administrador<br>
+                                </div>
+                            </div>
+                        <?php
+                    }
+                ?>
 
                 <?php if(!empty($mensagem)){ ?>  
                     <div class="alert alert-success alert-dismissible fade show" role="alert">

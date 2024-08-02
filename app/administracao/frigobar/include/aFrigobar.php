@@ -15,17 +15,21 @@
         $idAcomodacao = $_POST['id-acomodacao'];
         $capacidade = $_POST['capacidade'];
 
-        $stmt = 
+        mysqli_begin_transaction($con);
+
+        try {
+            $stmt = 
                 mysqli_prepare(
                 $con, 
                 "UPDATE tbl_frigobar 
                 SET nome_frigobar = ?, id_acomodacao = ?, capacidade_itens = ? 
                 WHERE id_frigobar = '$id'"
-        );
-        
-        mysqli_stmt_bind_param($stmt, 'sii', $nomeFrigobar, $idAcomodacao, $capacidade);
+            );
+            
+            mysqli_stmt_bind_param($stmt, 'sii', $nomeFrigobar, $idAcomodacao, $capacidade);
 
-        if(mysqli_stmt_execute($stmt)){
+            mysqli_stmt_execute($stmt);
+
             // log operações
                 $nomeTabela = 'tbl_frigobar';
                 $idRegistro = $id;
@@ -33,10 +37,22 @@
                 $descricao = 'Frigobar atualizado ID: ' . $idRegistro;
                 logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
             // 
+
+            mysqli_commit($con);
             header('location: ../index.php?msg=Alterado com sucesso!');
-        } else {
-            echo "Error ao gravar" . mysqli_error($con);
+
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+
+        } finally {
+            mysqli_close($con);
+            
         }
+
+    } else {
+        $mensagem = "";
     }
 
 ?>

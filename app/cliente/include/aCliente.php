@@ -24,24 +24,54 @@
         $idStatus = $_POST['id-status'];
 
         if(strlen($cpf) < 14){
-            header('location: ../index.php?msgInvalida=Cpf inválido. Favor, preencha corretamente.');
-        } else {
-    
+            $mensagem = "Cpf inválido. Favor, preencha corretamente.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+            die();
+        } 
+        
+        mysqli_begin_transaction($con);
+
+        try {
+
+            $sqlVerifica = mysqli_prepare($con, "SELECT cpf, email FROM tbl_cliente WHERE cpf = ? OR email = ? ");
+            mysqli_stmt_bind_param($sqlVerifica, "ss", $cpf, $email);
+            mysqli_stmt_execute($sqlVerifica);
+            $result = mysqli_stmt_get_result($sqlVerifica);
+        
+            if (mysqli_num_rows($result) > 0) {
+                $array = mysqli_fetch_assoc($result);
+                
+                if($array['cpf'] == $cpf ){
+                    $mensagem = "Este CPF já foi cadastrado anteriormente.";
+                    header('location: ../index.php?msgInvalida=' . $mensagem);
+                    die();
+
+                } elseif ($array['email'] == $email ){
+                    $mensagem = "Este e-mail já foi cadastrado anteriormente.";
+                    header('location: ../index.php?msgInvalida=' . $mensagem);
+                    die();
+                } 
+            } 
+
+            if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                throw new Exception('Tipo de e-mail inválido.');
+            } 
+
             $sql = 
-                    mysqli_prepare(
-                    $con,
-                    "UPDATE tbl_cliente 
-                    SET 
-                        nome=?, 
-                        dt_nascimento=?, 
-                        cpf=?, 
-                        email=?, 
-                        telefone=?, 
-                        estado=?, 
-                        cidade=?, 
-                        id_funcionario=?, 
-                        id_status=? 
-                    WHERE id_cliente = ?"
+                mysqli_prepare(
+                $con,
+                "UPDATE tbl_cliente 
+                SET 
+                    nome=?, 
+                    dt_nascimento=?, 
+                    cpf=?, 
+                    email=?, 
+                    telefone=?, 
+                    estado=?, 
+                    cidade=?, 
+                    id_funcionario=?, 
+                    id_status=? 
+                WHERE id_cliente = ?"
             );
 
             mysqli_stmt_bind_param(
@@ -58,28 +88,32 @@
                 $idStatus, 
                 $id
             );
-    
-            if(mysqli_stmt_execute($sql)){
-
-                // log operações
-                    $nomeTabela = 'tbl_cliente';
-                    $idRegistro = $id;
-                    $tpOperacao = 'atualizacao';
-                    $descricao = 'Cliente atualizado ID: ' . $id;
-                    logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
-                // 
-
-
-                // echo 'gravado com sucesso';
-                $mensagem = "Cliente atualizado com sucesso!";
-                header('location: ../index.php?msg=Atualizado com sucesso!');
-            } else {
-                echo "Erro ao gravar: " . mysqli_error($con);
-            }
-            mysqli_close($con);
             
+            mysqli_stmt_execute($sql);
+
+            // log operações
+                $nomeTabela = 'tbl_cliente';
+                $idRegistro = $id;
+                $tpOperacao = 'atualizacao';
+                $descricao = 'Cliente atualizado ID: ' . $id;
+                logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+            // 
+
+            $mensagem = "Cliente atualizado com sucesso!";
+            header('location: ../index.php?msg=' . $mensagem);
+            mysqli_commit($con);
+
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+
+        } finally {
+            mysqli_close($con);
         }
 
+    } else {
+        $mensagem = "";
     }
 
 ?>

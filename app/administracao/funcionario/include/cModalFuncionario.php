@@ -5,7 +5,7 @@
 
 
     if(isset($_POST['click-botao-editar'])){
-        $id = $_POST['idFuncionario'];
+        $id = $_POST['idPrincipal'];
 
         $sql = "SELECT * FROM tbl_funcionario WHERE id_funcionario = '$id'";
         $consulta = mysqli_query($con, $sql);

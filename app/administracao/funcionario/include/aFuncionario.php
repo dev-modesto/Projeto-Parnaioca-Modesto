@@ -19,9 +19,14 @@
         $id_cargo = trim($_POST['id_cargo']);
 
         if(strlen($cpf) < 14){
-            header('location: ../index.php?msgInvalida=Cpf inválido. Favor, preencha corretamente.');
+            $mensagem = "Cpf inválido. Favor, preencha corretamente.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+            die();
+        } 
 
-        } else {
+        mysqli_begin_transaction($con);
+
+        try {
 
             // consulta verificar cpf se já foi cadastrado
             $sqlVerifica = mysqli_prepare($con, "SELECT * FROM tbl_funcionario WHERE cpf = ? AND id_funcionario != ? ");
@@ -30,38 +35,56 @@
             $result = mysqli_stmt_get_result($sqlVerifica);
 
             if (mysqli_num_rows($result) > 0) {
-
                 header('location: ../index.php?msgInvalida=Este CPF já foi cadastrado anteriormente.');
                 mysqli_close($con); 
+                die();
+            } 
 
-            } else {
+            $sql = 
+                mysqli_prepare(
+                    $con, 
+                    "UPDATE tbl_funcionario 
+                    SET 
+                        nome=?,
+                        cpf=?,
+                        telefone=?,
+                        id_cargo=? 
+                    WHERE id_funcionario = ?
+            ");
 
-                $sql = mysqli_prepare($con, "UPDATE tbl_funcionario SET nome=?,cpf=?,telefone=?,id_cargo=? WHERE id_funcionario = ?");
-                mysqli_stmt_bind_param($sql, "ssssi",$nome,$cpf,$telefone,$id_cargo,$id);
-        
-                if(mysqli_stmt_execute($sql)){
-    
-                    // log operações
-                        $nomeTabela = 'tbl_funcionario';
-                        $idRegistro = $id;
-                        $tpOperacao = 'atualizacao';
-                        $descricao = 'Funcionário atualizado ID: ' . $id;
-                        logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
-                    // 
+            mysqli_stmt_bind_param(
+                $sql, 
+                "ssssi",
+                $nome,
+                $cpf,
+                $telefone,
+                $id_cargo,
+                $id
+            );
 
-                    // $mensagem = "Usuario atualizado com sucesso!";
-                    header('location: ../index.php?msg=Atualizado com sucesso!');
+            mysqli_stmt_execute($sql);
 
-                } else {
-                    echo "Erro ao gravar: " . mysqli_error($con);
-
-                }
+            // log operações
+                $nomeTabela = 'tbl_funcionario';
+                $idRegistro = $id;
+                $tpOperacao = 'atualizacao';
+                $descricao = 'Funcionário atualizado ID: ' . $id;
+                logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+            // 
+            
+            mysqli_commit($con);
+            header('location: ../index.php?msg=Atualizado com sucesso!');
                 
-                mysqli_close($con);
-
-            }
+        } catch (Exception $e) {
+            mysqli_rollback($con);
+            $mensagem = "Ocorreu um erro. Não foi possível realizar a operação.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+            
+        } finally {
+            mysqli_close($con);
             
         }
+
 
     }
 

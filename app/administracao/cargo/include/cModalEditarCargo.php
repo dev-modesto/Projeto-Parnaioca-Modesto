@@ -5,7 +5,7 @@
 
     if(isset($_POST['click-editar-cargo'])){
 
-        $id = $_POST['idCargo'];
+        $id = $_POST['idPrincipal'];
         $stmt = mysqli_prepare($con, "SELECT * FROM tbl_cargo WHERE id_cargo = ?");
         mysqli_stmt_bind_param($stmt, 'i', $id);
         $consulta = mysqli_stmt_execute($stmt);

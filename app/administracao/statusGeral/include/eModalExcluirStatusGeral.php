@@ -3,7 +3,7 @@
     include ARQUIVO_CONEXAO;
 
     if(isset($_POST['click-excluir-status-geral'])) {
-        $id = $_POST['idStatusGeral'];
+        $id = $_POST['idPrincipal'];
         echo 'Identificacao' . $id;
     }
 

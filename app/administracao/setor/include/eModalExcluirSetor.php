@@ -1,7 +1,7 @@
 <?php
 
     if(isset($_POST['click-excluir-setor'])){
-        $id = $_POST['idSetor'];
+        $id = $_POST['idPrincipal'];
         // echo 'id do setor é:' .  $id;
     }
 

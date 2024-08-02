@@ -85,6 +85,11 @@ label {
     background: var(--cor-0);
     box-shadow: 0 0 0 2px var(--cor-s1);
   }
+
+.container-paginas-acesso {
+  display: flex;
+  flex-direction: column;
+}
   
   @media (max-width: 600px) {
     .form {

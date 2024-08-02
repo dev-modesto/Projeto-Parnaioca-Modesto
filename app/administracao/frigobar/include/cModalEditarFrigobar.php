@@ -4,7 +4,7 @@
 
     if(isset($_POST['click-editar-frigobar'])){
 
-        $id = $_POST['idFrigobar'];
+        $id = $_POST['idPrincipal'];
 
         $stmt = mysqli_prepare($con, "SELECT * FROM tbl_frigobar WHERE id_frigobar = ?");
         mysqli_stmt_bind_param($stmt, 'i', $id);

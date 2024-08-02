@@ -1,7 +1,7 @@
 <?php
 
     if(isset($_POST['click-excluir-vaga-estacionamento'])){
-        $id = $_POST['idVagaEstacionamento'];
+        $id = $_POST['idPrincipal'];
     }
 
 ?>

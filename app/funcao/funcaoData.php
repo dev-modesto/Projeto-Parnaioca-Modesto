@@ -19,4 +19,10 @@
         }
     }
 
+    function dataHoraFormatada($dataOcorrencia) {
+        $data = new DateTime($dataOcorrencia);
+        $dataFormatada = date_format($data, "d/m/Y H:i:s");
+        return $dataFormatada;
+    }
+
 ?>

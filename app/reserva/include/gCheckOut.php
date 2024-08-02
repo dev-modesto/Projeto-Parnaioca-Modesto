@@ -3,6 +3,7 @@
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php';
     include ARQUIVO_CONEXAO;
     include ARQUIVO_FUNCAO_SQL;
+    include ARQUIVO_FUNCAO_SQL_RESERVA;
 
     session_start();
 
@@ -14,39 +15,74 @@
     if (isset($_POST['id-reserva'])) {
         $idReservaPost = $_POST['id-reserva'];
 
-        if ($idReservaPost == $idReservaSessao) {
+        if ($idReservaPost !== $idReservaSessao) { 
+            $mensagem = "Ocorreu um erro. Não foi possível realizar o check-out.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+            die();
+        }
+
+        $idReservaFormatado = intval($idReservaPost);
             
-            // ID de status das reservas
+        // ID de status das reservas
             $pendente = 1;
             $confirmado = 2;
             $cancelado = 3;
             $checkIn = 4;
             $checkOut = 5;
             $finalizado = 6;
-            // 
+        // 
+
+        mysqli_begin_transaction($con);
+
+        try {
+
+            $consultaReserva = consultaInfoReserva($con, $idReservaFormatado); 
+
+            $totalPago = $consultaReserva['total_pago'];
+            $valorTotalReserva = $consultaReserva['valor_total_reserva'];
+            $totalCosumido = $consultaReserva['valor_consumido']; 
+            $totalPendente = ($valorTotalReserva + $totalCosumido) - $totalPago;
+
+            if ($totalPendente > 0) {
+                $mensagem = "Existem débitos a pagar. Favor, realize o pagamento antes de prosseguir. Reserva: " . $idReservaFormatado;
+                header("location: ../index.php?msgInvalida=" . $mensagem);
+                die();
+            }
 
             $sql = 
                 mysqli_prepare(
-                    $con, 
-                    "UPDATE tbl_reserva 
-                    SET dt_check_out = NOW(), id_status_reserva = $checkOut 
-                    WHERE id_reserva = ? 
+                $con, 
+                "UPDATE tbl_reserva 
+                SET dt_check_out = NOW(), id_status_reserva = $checkOut 
+                WHERE id_reserva = ? 
             ");
                     
             mysqli_stmt_bind_param($sql, "i", $idReservaPost);
             mysqli_stmt_execute($sql);
+
+            // log operações
+                $nomeTabela = 'tbl_reserva';
+                $idRegistro = $idReservaPost;
+                $tpOperacao = 'atualizacao';
+                $descricao = 'Check-out realizado ID: ' . $idReservaPost;
+                logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
+            // 
+
             unset($_SESSION['id-reserva']);
+            mysqli_commit($con);
             $mensagem = "Check-out realizado com sucesso!";
             header('location: ../index.php?msg=' . $mensagem);
-            mysqli_close($con);
 
-        } else {
-            $msg = "Não foi possível realizar o check-out.";
+        } catch (Exception $e) {
+            mysqli_rollback($con);
             unset($_SESSION['id-reserva']);
-            header('location: ../index.php?msgInvalida=' . $msg);
-            die();
-        }
+            $mensagem = "Ocorreu um erro. Não foi possível realizar o check-out.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
 
+        } finally {
+            mysqli_close($con);
+        }
+    
     } else {
         $msg = "O ID da reserva não foi enviado.";
         unset($_SESSION['id-reserva']);

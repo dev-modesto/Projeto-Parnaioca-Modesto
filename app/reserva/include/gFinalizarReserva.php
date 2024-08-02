@@ -37,7 +37,7 @@
                 mysqli_prepare(
                     $con, 
                     "UPDATE tbl_reserva 
-                    SET id_status_reserva = $confirmado 
+                    SET id_status_reserva = $finalizado 
                     WHERE id_reserva = ? 
             ");
                     
@@ -48,19 +48,19 @@
                 $nomeTabela = 'tbl_reserva';
                 $idRegistro = $idReservaPost;
                 $tpOperacao = 'atualizacao';
-                $descricao = 'Reserva confirmada ID: ' . $idReservaPost;
+                $descricao = 'Reserva finalizada ID: ' . $idReservaPost;
                 logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
             // 
 
             unset($_SESSION['id-reserva']);
             mysqli_commit($con);
-            $mensagem = "Reserva confirmada com sucesso!";
+            $mensagem = "Reserva finalizada com sucesso!";
             header('location: ../index.php?msg=' . $mensagem);
 
         } catch (Exception $e) {
             mysqli_rollback($con);
             unset($_SESSION['id-reserva']);
-            $mensagem = "Ocorreu um erro. Não foi possível confirmar a reserva.";
+            $mensagem = "Ocorreu um erro. Não foi possível finalizar a reserva.";
             header('location: ../index.php?msgInvalida=' . $mensagem);
 
         } finally {

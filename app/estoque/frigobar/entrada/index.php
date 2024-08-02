@@ -14,7 +14,8 @@
     $sqlInner = 
             "SELECT 
                 e.id_e_item_f, 
-                e.id_frigobar, 
+                e.id_frigobar,
+                f.nome_frigobar, 
                 e.id_acomodacao, 
                 a.numero_acomodacao,
                 a.nome_acomodacao,
@@ -29,6 +30,8 @@
             ON e.id_item = i.id_item
             INNER JOIN tbl_acomodacao a
             ON e.id_acomodacao = a.id_acomodacao
+            INNER JOIN tbl_frigobar f
+            ON e.id_frigobar = f.id_frigobar
     ";
             
     $consulta = mysqli_query($con, $sqlInner);
@@ -90,11 +93,9 @@
                 <table id="myTable" class="table  nowrap order-column dt-right table-hover text-center">
                     <thead class="">
                         <tr>
-                            <th scope="col">Nº</th>
-                            <th scope="col">ID item</th>
-                            <th scope="col">ID frigobar</th>
-                            <th scope="col">ID acomodação</th>
-                            <th scope="col">Número acomodação</th>
+                            <th scope="col">ID#</th>
+                            <th scope="col">Nome frigobar</th>
+                            <th scope="col">Nº acomodação</th>
                             <th scope="col">Nome acomodação</th>
                             <th scope="col">SKU</th>
                             <th scope="col">Nome item</th>
@@ -106,15 +107,12 @@
                     </thead>
                     <tbody class="table-group-divider">
                         <?php 
-                            $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
                                     $idItem = $exibe['id_item'];
                                 ?>
                                 <tr>
-                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
                                     <td class="id-item"><?php echo $exibe['id_item']?></td>
-                                    <td class="id-frigobar"><?php echo $exibe['id_frigobar']?></td>
-                                    <td class="id-acomodacao"><?php echo $exibe['id_acomodacao']?></td>
+                                    <td><?php echo $exibe['nome_frigobar']?></td>
                                     <td class="numero-acomodacao"><?php echo $exibe['numero_acomodacao']?></td>
                                     <td class="nome-acomodacao"><?php echo $exibe['nome_acomodacao']?></td>
                                     <td class="id-sku"><?php echo $exibe['id_sku']?></td>

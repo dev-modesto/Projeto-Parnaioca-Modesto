@@ -4,7 +4,7 @@
 
     if(isset($_POST['click-editar-setor'])){
 
-        $id = $_POST['idSetor'];
+        $id = $_POST['idPrincipal'];
         $stmt = mysqli_prepare($con, "SELECT * FROM tbl_setor WHERE id_setor = ?");
         mysqli_stmt_bind_param($stmt, 'i', $id);
         $consulta = mysqli_stmt_execute($stmt);

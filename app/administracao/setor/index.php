@@ -73,20 +73,17 @@
                 <table id="myTable" class="table table-hover text-center">
                     <thead class="">
                         <tr>
-                            <th scope="col">Nº</th>
-                            <th scope="col">id setor</th>
+                            <th scope="col">ID#</th>
                             <th scope="col">Nome setor</th>
                             <th scope="col">Controle</th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
                         <?php 
-                            $nroLinha = 1;
                             while($exibe = mysqli_fetch_array($consulta)){
-                                    $id = $exibe['id_setor'];
+                                    $idSetor = $exibe['id_setor'];
                                 ?>
-                                <tr>
-                                    <td class="numero-linha"><?php echo $nroLinha++; ?></td>
+                                <tr class="tr-info-setor" data-id-setor="<?php echo $idSetor ?>">
                                     <td class="id-setor"><?php echo $exibe['id_setor']?></td>
                                     <td><?php echo $exibe['nome_setor']?></td>
                                     <td class="td-icons">
