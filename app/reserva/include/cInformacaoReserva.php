@@ -114,7 +114,7 @@
 <body>
 
     <div class="conteudo">
-        <div class="container-conteudo-principal">
+        <div class="container-conteudo-principal informacao-reservas">
 
             <div class="form-container reservas cabecalho">
                 <div class="container-cabecalho-padrao">
@@ -128,7 +128,7 @@
                     ?>
                     <div class="form-container reservas top-container-button-reserva-info" >
 
-                        <div class="col-md-12 form-container-button-reserva" data-id-reserva="<?php echo $idReserva ?>">
+                        <div class="col-md-12 form-container-button-reserva informacao" data-id-reserva="<?php echo $idReserva ?>">
 
                             <?php 
                                 if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado) {
@@ -174,8 +174,8 @@
             <!-- formulario envio -->
             <form class="was-validated form-container reservas-informacao" id="reservaForm">
 
-                <div>
-                    <div class="cards-reservas-cabecalho">
+                <div class="modulo-reservas-informacao geral">
+                    <div class="cards-reservas-cabecalho informacao-reservas">
                         <h1 class="font-1-l cor-8 peso-semi-bold">Informações gerais</h1>
                         <div id="dropdown-reservas-disponiveis">
                             <span class="material-symbols-rounded icon-drop-disponiveis">keyboard_arrow_up</span>
@@ -243,8 +243,8 @@
                 
                 <br>
 
-                <div class="modulo-reservas-informacao">
-                    <div class="cards-reservas-cabecalho">
+                <div class="modulo-reservas-informacao geral">
+                    <div class="cards-reservas-cabecalho informacao-reservas">
                         <h1 class="font-1-l cor-8 peso-semi-bold">Consumo</h1>
                         <div id="dropdown-reservas-disponiveis">
                             <span class="material-symbols-rounded icon-drop-disponiveis">keyboard_arrow_up</span>
@@ -278,8 +278,8 @@
 
                 <br>
 
-                <div class="modulo-reservas-informacao">
-                    <div class="cards-reservas-cabecalho">
+                <div class="modulo-reservas-informacao geral">
+                    <div class="cards-reservas-cabecalho informacao-reservas">
                         <h1 class="font-1-l cor-8 peso-semi-bold">Pagamentos</h1>
                         <div id="dropdown-reservas-disponiveis">
                             <span class="material-symbols-rounded icon-drop-disponiveis">keyboard_arrow_up</span>
