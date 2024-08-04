@@ -62,6 +62,31 @@
             die();
 
         }
+
+        if (is_numeric($idCliente)) {
+            $idClienteConvertido = intval($idCliente);
+
+            $sqlVerifica = mysqli_prepare($con, "SELECT id_cliente FROM tbl_cliente WHERE id_cliente = ? ");
+            mysqli_stmt_bind_param($sqlVerifica, "i", $idClienteConvertido);
+            mysqli_stmt_execute($sqlVerifica);
+            $resultado = mysqli_stmt_get_result($sqlVerifica);
+    
+            if (mysqli_num_rows($resultado) > 0 ) {
+
+            } else {
+                $mensagem['mensagem'] = "O cliente não foi encontrado.";
+                header('Content-Type: application/json');
+                echo json_encode($mensagem);
+                die();
+            }
+
+        } else {
+            $mensagem['mensagem'] = "Ocorreu um erro. Não foi possível realizar a reserva.";
+            header('Content-Type: application/json');
+            echo json_encode($mensagem);
+            die();
+
+        }
         
         if ($valorEntradaConvertido == $valorReservaTotal){
             $idStatusPagamento = 3; //pago 
