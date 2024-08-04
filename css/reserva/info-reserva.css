@@ -1,0 +1,144 @@
+.container-conteudo-principal.informacao-reservas {
+    gap: 0px;
+}
+
+.top-container-button-reserva-info {
+    background-color: transparent;
+    border: none !important;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.top-container-button-reserva-info::before {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    left: 15px;
+    top: 0px;
+    background-color: var(--cor-s7);
+}
+
+
+/* botoes confirmar reserva */
+
+    .btn-confirmar-reserva {
+        background-color: var(--cor-s5);
+        border-color: var(--cor-s5);
+    }
+
+    .btn-confirmar-reserva:hover{
+        background-color: var(--cor-s6);
+        border-color: var(--cor-s5);
+    }
+
+    .btn-confirmar-reserva:active {
+        background-color: var(--cor-s4) !important;
+        border-color: var(--cor-s5) !important;
+    }
+
+    .btn-cancelar-reserva {
+        background-color: var(--cor-a-red3);
+        border-color: var(--cor-a-red3);
+    }
+
+    .btn-cancelar-reserva:hover {
+        background-color: var(--cor-a-red4);
+        border-color: var(--cor-a-red4);
+    }
+
+    .btn-cancelar-reserva:active {
+        background-color: var(--cor-a-red4) !important;
+        border-color: var(--cor-a-red4) !important;
+    }
+
+    .btn-realizar-check-in {
+        background-color: var(--cor-a-blue3);
+        border-color: var(--cor-a-blue3);
+    }
+
+    .btn-realizar-check-in:hover {
+        background-color: var(--cor-a-blue4);
+        border-color: var(--cor-a-blue4);
+    }
+
+    .btn-realizar-check-in:active {
+        background-color: var(--cor-a-blue4) !important;
+        border-color: var(--cor-a-blue4) !important;
+    }
+
+    .btn-realizar-check-out {
+        background-color: var(--cor-a-purple3);
+        border-color: var(--cor-a-purple3);
+    }
+
+    .btn-realizar-check-out:hover {
+        background-color: var(--cor-a-purple4);
+        border-color: var(--cor-a-purple4);
+    }
+
+    .btn-realizar-check-out:active {
+        background-color: var(--cor-a-purple3) !important;
+        border-color: var(--cor-a-purple3) !important;
+    }
+
+    .btn-ver-consumo,
+    .btn-consumir-itens-frigobar {
+        background-color: var(--cor-7);
+        border-color: var(--cor-7);
+    }
+
+    .btn-ver-consumo:hover,
+    .btn-consumir-itens-frigobar:hover {
+        background-color: var(--cor-8);
+        border-color: var(--cor-8);
+    }
+
+    .btn-ver-consumo:active,
+    .btn-consumir-itens-frigobar:active {
+        background-color: var(--cor-7) !important;
+        border-color: var(--cor-7) !important;
+    }
+
+
+    .modulo-reservas-informacao.geral {
+        /* background-color: tomato; */
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .cards-reservas-cabecalho.informacao-reservas {
+        margin-bottom: 0px;
+        padding: 10px 40px;
+        /* background-color: aqua; */
+    }
+
+
+    /* legendas reservas */
+.legenda-status-reserva.pendente {
+    background-color: var(--cor-a-yellow1);
+    border: 1px solid var(--cor-a-yellow4);
+    color: var(--cor-a-yellow4);
+  }
+  
+  .legenda-status-reserva.confirmado {
+    background-color: var(--cor-a-green1);
+    border: 1px solid var(--cor-a-green3);
+    color: var(--cor-a-green3);
+  }
+  
+  .legenda-status-reserva.check-in {
+    background-color: var(--cor-a-blue1);
+    border: 1px solid var(--cor-a-blue4);
+    color: var(--cor-a-blue4);
+  }
+  
+  .legenda-status-reserva.finalizado {
+    background-color: var(--cor-a-green4);
+    border: 1px solid var(--cor-a-green4);
+    color: var(--cor-a-green1);
+  }
+  
