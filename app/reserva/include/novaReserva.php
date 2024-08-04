@@ -80,7 +80,7 @@
             </div>
 
             <!-- formulario envio -->
-            <form class="was-validated form-container reservas" id="reservaForm" data-id-acomodacao="<?php echo $idAcomodacao ?>" data-id-cliente="" data-data-inicio="<?php echo $dataInicio ?>" data-data-fim="<?php echo $dataFim ?>">
+            <form class="form-container reservas" id="reservaForm" data-id-acomodacao="<?php echo $idAcomodacao ?>" data-id-cliente="" data-data-inicio="<?php echo $dataInicio ?>" data-data-fim="<?php echo $dataFim ?>">
 
                 <div class="container-progresso-nova-reserva">
                     <div class="hospede">
@@ -111,7 +111,9 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label class="font-1-s" for="cpf">CPF <em>*</em></label>
-                                    <input class="form-control cpf" type="text" name="cpf" id="cpf" value="" required >
+                                    <input class="form-control cpf input-cpf" type="text" name="cpf" id="cpf" value="" required >
+                                    <div class="invalid-feedback">
+                                    </div>
                                 </div>
 
                                 <div class="col-md-6">
@@ -123,8 +125,9 @@
                             <div class="row mb-3">
                                 <div class="col-md-3">
                                     <label class="font-1-s" for="total-hospedes">Total de hóspedes <em>*</em></label>
-                                    <input class="form-control" type="number" min="1" max="<?php echo $capacidadeAcomodacao ?>" name="total-hospedes" id="total-hospedes" required>
+                                    <input class="form-control total-hospedes" type="number" min="1" max="<?php echo $capacidadeAcomodacao ?>" name="total-hospedes" id="total-hospedes" disabled required>
                                 </div>
+                                <div class="invalid-feedback-hospedes" style="color: red; font-size: .875em" ></div>
                             </div>
 
                         </div>
@@ -133,7 +136,7 @@
 
                         <div class="row mb-3 footer-container-button-reserva">
                             <div class="col-md-6 form-container-button-reserva">
-                                <a class="btn btn-primary btn-avancar info">Avançar</a>
+                                <a class="btn btn-primary btn-avancar dados disabled-button info" aria-disabled="true">Avançar</a>
                             </div>
                         </div>
 
@@ -350,60 +353,82 @@
 // pesquisa cliente
 
     $(document).ready(function () {
+
+        var totalHospedes = $('.total-hospedes').attr('max');
+        var inputTotalHospedes = $('.total-hospedes').val();
+ 
+        function verificarTotalHospedes() {
+            var valorTotal = $('.total-hospedes').val();
+            var totalDigitada = Number(valorTotal);
+
+            if (totalDigitada > totalHospedes) {
+                $('.invalid-feedback-hospedes').text('Total de hóspedes superior à capacidade da acomodação.');
+                $('.btn-avancar.dados').attr('aria-disabled', 'true');
+                $('.btn-avancar.dados').addClass('disabled-button');
+
+            } else {
+                $('.invalid-feedback-hospedes').text(''); 
+                $('.btn-avancar.dados').removeAttr('aria-disabled', 'true'); 
+                $('.btn-avancar.dados').removeClass('disabled-button'); 
+                $('.total-hospedes').removeAttr('disabled', '');
+            }
+        }
+
+        function habilitaCampoTotalHospedes() {
+            $('.total-hospedes').removeAttr('disabled', '');
+        }
+
+        function desabilitaCampoTotalHospedes() {
+            $('.total-hospedes').attr('disabled', 'disabled');
+            $('.total-hospedes').val('');
+            $('.invalid-feedback-hospedes').text('');
+            $('.btn-avancar.dados').attr('aria-disabled', 'true'); 
+        }
+
+
         $('.cpf').keyup(function (e) { 
-           var cpfCliente = $(this).val();
+            var cpfCliente = $(this).val();
 
             $.ajax({
                 type: "POST",
                 url: "../include/cPesquisaCadastroCliente.php",
                 data: {
-                    'cpf-cliente':cpfCliente
+                    'cpf-cliente': cpfCliente
                 },
-                
-                success: function (response) {
 
-                    if(response !== "") {
+                success: function (response) {
+                    if (response.sucesso) {
                         $('#nome').val(response.nomeCliente);
                         $('#reservaForm').data('id-cliente', response.idCliente);
-                        
+                        $('.input-cpf').removeClass('is-invalid');
+                        $('.input-cpf').addClass('is-valid');
+                        $('.finalizar').removeAttr('disabled', '');
+
+                        habilitaCampoTotalHospedes();
+
+                        $('.total-hospedes').on('change keyup', function (e) {
+                            verificarTotalHospedes();
+                        });
+
                     } else {
+                        desabilitaCampoTotalHospedes();
+                        $('.input-cpf').removeClass('is-valid');
+                        $('.input-cpf').addClass('is-invalid');
+                        $('.invalid-feedback').text(response.mensagem);
                         $('#nome').val("");
-                        $('#reservaForm').data('id-cliente', "");
+                        $('#reservaForm').data('id-cliente', '');
+                        $('.finalizar').attr('disabled', '');
+                        $('.btn-avancar.dados').attr('aria-disabled', 'true');
                     }
                 }
             });
-
         });
 
-        var valorReservaTotal = $('#valor-reserva-total').val();
-        var valorRestante = valorReservaTotal;
-
-        valorRestanteSubstituir = valorRestante.replace(/\./g, '').replace(',', '.');
-        valorRestanteConvertido = parseFloat(valorRestanteSubstituir);
-        
-        $('#valor-restante').val(valorRestante);
-
-        $('#valor-entrada').keyup(function (e) {
-            var valorEntrada = $(this).val();
-            valorEntradaSubstituir = valorEntrada.replace(/\./g, '').replace(',', '.');
-            valorEntradaConvertido = parseFloat(valorEntradaSubstituir);
-
-            if (valorEntrada == NaN || valorEntrada == "") {
-                var calculoValorRestante = valorRestanteConvertido;
-
-            } else {
-                var calculoValorRestante = (valorRestanteConvertido - valorEntradaConvertido);
-            }
-
-            calculoValorRestante = parseFloat(calculoValorRestante.toFixed(2));
-
-            $('#valor-restante').val(calculoValorRestante);
-
-            // console.log(calculoValorRestante);
-            // console.log(typeof(calculoValorRestante));
-        });
 
     });
+
+
+    
 
     $(document).ready(function() {
             $('#reservaForm').on('submit', function(e) {
@@ -428,7 +453,6 @@
                     url: 'gNovaReserva.php',
                     data: formData,
                     success: function(response) {
-                        console.log(response);
                         if (response.sucesso) {
                             window.location.href = '../index.php?msg=' + encodeURIComponent(response.mensagem);
 
