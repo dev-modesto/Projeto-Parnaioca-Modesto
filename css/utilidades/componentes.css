@@ -67,6 +67,11 @@
     border-color: var(--cor-4);
 }
 
+.disabled-button {
+    background-color: var(--cor-3) !important;
+    border-color: var(--cor-4) !important;
+}
+
 .separador {
     display: block;
     width: 100%;
