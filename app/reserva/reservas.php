@@ -100,7 +100,7 @@
                                     $dtEntradaTransformar = new DateTime($dataEntrada);
                                     $dataEntradaFormatada = date_format($dtEntradaTransformar, "d/m/Y");
           
-                                    $dtSaidaTransformar = new DateTime($dataEntrada);
+                                    $dtSaidaTransformar = new DateTime($dataSaida);
                                     $dataSaidaFormatada = date_format($dtSaidaTransformar, "d/m/Y");
                                 ?>
                                 <tr>

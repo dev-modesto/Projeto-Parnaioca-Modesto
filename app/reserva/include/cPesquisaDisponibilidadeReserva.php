@@ -135,10 +135,11 @@
 
                         $dataReservaCheckIn = $row['dt_reserva_inicio'];
                         $dataReservaCheckOut = $row['dt_reserva_fim'];
+                        $idReserva = $row['id_reserva'];
 
                         ?>
 
-                            <div class="card card-container-disponibilidade-reserva reservado">
+                            <div class="card card-container-disponibilidade-reserva reservado" data-id-reserva="<?php echo $idReserva ?>">
                                 <div class="disp-reserva-nome">
                                     <span class="material-symbols-rounded">hotel</span>
                                     <div class="disp-reserva-nome-info">
@@ -228,7 +229,7 @@
 <script>
     $(document).ready(function () {
 
-        $('body').on('click', '.card-container-disponibilidade-reserva', function (e) { 
+        $('body').on('click', '.card-container-disponibilidade-reserva.disponivel', function (e) { 
             e.preventDefault();
 
             var idAcomodacao = $(this).closest(".card-container-disponibilidade-reserva").data("id-acomodacao");
@@ -247,6 +248,22 @@
         });
     });
 
+    $(document).ready(function () {
+        $('body').on('click', '.card-container-disponibilidade-reserva.reservado', function (e) { 
+            e.preventDefault();
+
+            $('.card-container-disponibilidade-reserva').data('id-reserva');
+            
+            var idReserva = $(this).closest('.card-container-disponibilidade-reserva').data('id-reserva');
+
+            var queryString = $.param({
+                'click-reserva':true,
+                'id-reserva':idReserva
+            });
+
+            window.location.href = "include/cInformacaoReserva.php?" + queryString;
+        });
+    });
 
 </script>
 
