@@ -212,7 +212,6 @@
                     'id-reserva':idReserva
                 },  
                 success: function (response) {
-                    console.log(response);
                     $('.modalSaidaItemFrigobar').html(response)
                     $('#modalSaidaItemFrigobar').modal('show');
                 }

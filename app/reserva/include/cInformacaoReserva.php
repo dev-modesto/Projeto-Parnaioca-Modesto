@@ -507,7 +507,6 @@
                     'id-reserva':idReserva
                 },
                 success: function (response) {
-                    console.log(response);
                     $('.modalConfirmaCheckIn').html(response);
                     $('#modalConfirmaCheckIn').modal('show');
                 }
@@ -527,7 +526,6 @@
                     'id-reserva':idReserva
                 },
                 success: function (response) {
-                    console.log(response);
                     $('.modalConfirmarReserva').html(response);
                     $('#modalConfirmarReserva').modal('show');
                 }
@@ -547,7 +545,6 @@
                     'id-reserva':idReserva
                 },
                 success: function (response) {
-                    console.log(response);
                     $('.modalConfirmarCheckOut').html(response);
                     $('#modalConfirmarCheckOut').modal('show');
                 }
@@ -567,7 +564,6 @@
                     'id-reserva':idReserva
                 },
                 success: function (response) {
-                    console.log(response);
                     $('.modalFinalizarReserva').html(response);
                     $('#modalFinalizarReserva').modal('show');
                 }

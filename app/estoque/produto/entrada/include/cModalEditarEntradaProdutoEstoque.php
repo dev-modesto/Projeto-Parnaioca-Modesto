@@ -120,7 +120,6 @@
             e.preventDefault();
 
             var idSku = $(this).val();
-            console.log(idSku);
 
             $.ajax({
                 type: "POST",
