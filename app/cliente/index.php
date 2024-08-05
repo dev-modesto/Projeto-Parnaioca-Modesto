@@ -221,18 +221,18 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="endereco-cliente-tab-pane" role="tabpanel" aria-labelledby="endereco-cliente-tab" tabindex="0">
-                                    
                                     <div class="mb-3">
-                                        <label class="font-1-s" for="estado">Estado <em>*</em></label>
-                                        <input class="form-control" type="fone" name="estado" class="estado" id="estado" required>
+                                        <label for="estado">Estado <em>*</em></label>
+                                        <select class="form-select" name="estado" id="estado" required aria-label="select example">
+                                        </select>
                                     </div>
 
-                                    
                                     <div class="mb-3">
-                                        <label class="font-1-s" for="cidade">Cidade <em>*</em></label>
-                                        <input class="form-control" type="fone" name="cidade" class="cidade" id="cidade" required>
+                                        <label for="cidade">Cidade <em>*</em></label>
+                                        <select class="form-select" name="cidade" id="cidade" required aria-label="select example">
+                                            <option value=""/>Escolha primeiro um estado
+                                        </select>
                                     </div>
-
                                 </div>
                                 
                             </div>
@@ -287,4 +287,13 @@
             }
         });
 
+        window.onload = function () {
+            new dgCidadesEstados(
+                document.getElementById('estado'),
+                document.getElementById('cidade'),
+                true
+            );
+        }
     </script>
+
+    <script type="text/javascript" src="<?= BASE_URL ?>/js/cidades-estados-v0.2.js"></script> 
