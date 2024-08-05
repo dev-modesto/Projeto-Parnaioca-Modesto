@@ -358,12 +358,12 @@
                         </div>
 
                         <!-- formulario envio -->
-                        <form class="was-validated form-container" action="gRealizarPagamento.php" method="post">
+                        <form class="form-container" action="gRealizarPagamento.php" method="post">
                             <input type="text" name="id-reserva" id="id-reserva" value="<?php echo $idReserva ?>" hidden>
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="id-forma-pagamento">Forma de pagamento <em>*</em></label>
-                                    <select class="form-select"  name="id-forma-pagamento" id="id-forma-pagamento" required aria-label="select example">
+                                    <select class="form-select select-forma-pagamento"  name="id-forma-pagamento" id="id-forma-pagamento" required aria-label="select example">
                                         <option value="">-</option>
                                         <?php
                                             $sqlStatus = "SELECT id_metodo_pag, nome_metodo_pag FROM tbl_metodo_pagamento";
@@ -379,14 +379,17 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="font-1-s" for="valor-total-pendente">Total pendente</label>
-                                    <input class="form-control monetario" type="text" name="valor-total-pendente" id="valor-total-pendente" value="<?php echo $valorRestanteFormatado ?>" disabled required>
+                                    <input class="form-control monetario valor-total-pendente" type="text" name="valor-total-pendente" id="valor-total-pendente" value="<?php echo $valorRestanteFormatado ?>" disabled required>
                                 </div>
                             </div>
 
 
                             <div class="mb-3">
-                                <label class="font-1-s" for="valor">Valor <em>*</em></label>
-                                <input class="form-control monetario" type="text" name="valor" id="valor" placeholder="R$" required>
+                                <label class="font-1-s" for="valor">Valor a pagar <em>*</em></label>
+                                <input class="form-control monetario valor-total-pagar" type="text" name="valor" id="valor" placeholder="R$" required>
+                            </div>
+                            <div class="mb-3">
+                                <div class="invalid-feedback-valor-pago" style="color: red; "></div>
                             </div>
 
                             <?php if(!empty($mensagem)){ ?>  
@@ -401,7 +404,7 @@
 
                             <div class="modal-footer form-container-button">
                                 <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
-                                <button class='btn btn-primary' type="submit">Confirmar</button>
+                                <button class='btn btn-primary btn-confirmar-pagamento' type="submit" disabled>Confirmar</button>
                             </div>
                         </form>
                     </div>
@@ -481,6 +484,7 @@
 
 <script src="<?php echo BASE_URL ?>/js/modal.js"></script>
 <script src="<?php echo BASE_URL ?>/js/table.js"></script>
+<script src="<?php echo BASE_URL ?>/js/funcao.js"></script>
 
 <script>
     $('.cpf').mask('000.000.000-00', {reverse: true});
@@ -579,6 +583,52 @@
             });
 
             window.location.href = "cFrigobarReserva.php?" + queryString;
+        });
+
+        const valorPendente = $('.valor-total-pendente').val();
+        valorPendenteFormatado = formatarValorVirgula(valorPendente);
+
+
+        $('.valor-total-pagar').keyup(function (e) { 
+            valorDigitado = $(this).val();
+            valorDigitadoFormatado = formatarValorVirgula(valorDigitado)
+
+            total = valorPendenteFormatado - valorDigitadoFormatado;
+            totalFormatado = formatarValorNumero(total);
+
+            if (isNaN(valorDigitadoFormatado) || valorDigitadoFormatado == 0) {
+                $('.btn-confirmar-pagamento').attr('disabled', 'disabled');
+                $('.valor-total-pagar').removeClass('is-valid');
+                $('.valor-total-pagar').addClass('is-invalid');
+
+            } else {
+                $('.btn-confirmar-pagamento').removeAttr('disabled', 'disabled');
+                $('.valor-total-pagar').removeClass('is-invalid');
+                $('.valor-total-pagar').addClass('is-valid');
+            }
+
+            if (totalFormatado < 0 ) {
+                $('.invalid-feedback-valor-pago').text('Valor superior ao total pendente.');
+                $('.valor-total-pagar').addClass('is-invalid');
+                $('.btn-confirmar-pagamento').attr('disabled', 'disabled');
+
+            } else {
+                $('.invalid-feedback-valor-pago').text('');
+            }
+        });
+
+        $('.select-forma-pagamento').change(function (e) { 
+            e.preventDefault();
+            formaPagamento = $(this).val();
+
+            if (formaPagamento == '') {
+                $('.select-forma-pagamento').addClass('is-invalid');
+
+            } else {
+                $('.select-forma-pagamento').removeClass('is-invalid');
+                $('.select-forma-pagamento').addClass('is-valid');
+
+            }
         });
     });
 </script>
