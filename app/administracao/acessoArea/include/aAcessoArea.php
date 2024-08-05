@@ -39,14 +39,14 @@
                     sac = $sac, 
                     logistica = $logistica, 
                     administracao = $administracao 
-                WHERE id_funcionario = $idLogado
+                WHERE id_funcionario = $idFuncionario
             ";
 
             mysqli_query($con, $sql);
                             
             // log operações
                 $nomeTabela = 'tbl_acesso_area';
-                $idRegistro = $idFuncionario;
+                $idRegistro = $idLogado;
                 $tpOperacao = 'atualizacao';
                 $descricao = 'Funcionário atualizado ID: ' . $idFuncionario;
                 logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
