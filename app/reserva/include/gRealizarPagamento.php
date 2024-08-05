@@ -28,10 +28,35 @@
         }
 
         $idReserva = intval($idReservaPost);
+
+        $arrayReserva = consultaInfoReserva($con, $idReserva);
+
         $consultaTotalPago = consultaTotalPagamentoReserva($con, $idReserva);
         $totalPagoAnteriormente = $consultaTotalPago['valor_total'];
-        $totalPagoMomento = $totalPagoAnteriormente + $novoPagamentoConvertido;
 
+        $valorReservaTotal = $arrayReserva['valor_total_reserva'];
+        $valorReservaTotalFormatado = number_format($valorReservaTotal, 2, '.', '');
+        $valorReservaTotalFormatado = floatval($valorReservaTotalFormatado);
+        
+        $arrayTotalConsumoReserva = consultaTotalConsumoReserva($con, $idReserva);   
+        $totalConsumido = $arrayTotalConsumoReserva['total_consumo'];
+        $totalConsumidoFormatadado = number_format($totalConsumido, 2);
+        $totalConsumidoFormatadado = floatval($totalConsumidoFormatadado);
+        
+        $valorRestanteAnterior = ($valorReservaTotalFormatado + $totalConsumidoFormatadado) - $totalPagoAnteriormente;
+
+        $novoTotalRestante = $valorRestanteAnterior - $novoPagamentoConvertido;
+        $novoTotalRestanteFormatado = number_format($novoTotalRestante, 2, '.', '');
+        $novoTotalRestanteFormatado = floatval($novoTotalRestanteFormatado);
+
+        if ($novoTotalRestanteFormatado < 0) {
+            $mensagem = "Não foi possível efetuar o pagamento.";
+            header('location: ../index.php?msgInvalida=' . $mensagem);
+            die();
+        } 
+
+        $totalPagoMomento = $totalPagoAnteriormente + $novoPagamentoConvertido;
+        
         mysqli_begin_transaction($con);
             
         try {
