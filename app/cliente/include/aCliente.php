@@ -12,7 +12,7 @@
     
     if($_SERVER['REQUEST_METHOD'] == "POST"){
 
-        $id = $_POST['id-cliente'];
+        $idCliente = $_POST['id-cliente'];
         $nome = trim($_POST['nome']);
         $dataNascimento = trim($_POST['data-nascimento']);
         $cpf = trim($_POST['cpf']);
@@ -33,14 +33,14 @@
 
         try {
 
-            $sqlVerifica = mysqli_prepare($con, "SELECT cpf, email FROM tbl_cliente WHERE cpf = ? OR email = ? ");
-            mysqli_stmt_bind_param($sqlVerifica, "ss", $cpf, $email);
+            $sqlVerifica = mysqli_prepare($con, "SELECT cpf, email FROM tbl_cliente WHERE (cpf = ? OR email = ?) AND id_cliente != ?");
+            mysqli_stmt_bind_param($sqlVerifica, "sss", $cpf, $email, $idCliente);
             mysqli_stmt_execute($sqlVerifica);
             $result = mysqli_stmt_get_result($sqlVerifica);
         
             if (mysqli_num_rows($result) > 0) {
                 $array = mysqli_fetch_assoc($result);
-                
+
                 if($array['cpf'] == $cpf ){
                     $mensagem = "Este CPF já foi cadastrado anteriormente.";
                     header('location: ../index.php?msgInvalida=' . $mensagem);
@@ -86,16 +86,16 @@
                 $cidade, 
                 $idFuncionario, 
                 $idStatus, 
-                $id
+                $idCliente
             );
             
             mysqli_stmt_execute($sql);
 
             // log operações
                 $nomeTabela = 'tbl_cliente';
-                $idRegistro = $id;
+                $idRegistro = $idCliente;
                 $tpOperacao = 'atualizacao';
-                $descricao = 'Cliente atualizado ID: ' . $id;
+                $descricao = 'Cliente atualizado ID: ' . $idCliente;
                 logOperacao($con,$idLogado,$nomeTabela,$idRegistro,$tpOperacao,$descricao);
             // 
 
