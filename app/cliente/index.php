@@ -228,7 +228,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="estado">Cidade <em>*</em></label>
+                                        <label for="cidade">Cidade <em>*</em></label>
                                         <select class="form-select" name="cidade" id="cidade" required aria-label="select example">
                                             <option value=""/>Escolha primeiro um estado
                                         </select>
