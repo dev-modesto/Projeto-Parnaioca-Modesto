@@ -15,7 +15,6 @@ $(document).ready(function () {
                 'idSku':idSku,
             },
             success: function (response) {
-                // console.log('Response: ' + response);
                 $('.modalExcluir').html(response)
                 $('#modalExcluir').modal('show');
             }
@@ -39,7 +38,6 @@ $(document).ready(function () {
                 'idSku':idSku,
             },
             success: function (response) {
-                // console.log('Response: ' + response);
                 $('.modalEditarCadastroProduto').html(response)
                 $('#modalEditarCadastroProduto').modal('show');
             }

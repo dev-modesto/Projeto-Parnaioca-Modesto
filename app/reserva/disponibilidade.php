@@ -163,8 +163,6 @@
         $('.btn-verificar-disponibilidade').click(function (e) { 
             e.preventDefault();
 
-            console.log("Clicou no botão!!");
-
             var idTipoAcomodacao = $("#id-tp-acomodacao").val();
             var dtInicio = $("#data-inicio").val();
             var dtFim = $("#data-final").val();
@@ -186,7 +184,6 @@
                 success: function (response) {
 
                     if(response.mensagem) {
-                        console.log(response);
                         $('.invalid-feedback-diverso').text(response.mensagem);
                         
                     } else {

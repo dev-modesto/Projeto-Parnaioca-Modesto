@@ -154,10 +154,8 @@
                 },
 
                 success: function (response) {
-                    // console.log(response);
  
                     if (response.sucesso) {
-                        console.log(response.sucesso);
                         window.location.href = '../index.php?msg=' + encodeURIComponent(response.mensagem);
 
                     } else {
