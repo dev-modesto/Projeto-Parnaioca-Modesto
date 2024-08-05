@@ -195,7 +195,6 @@
                         'id-acomodacao':idAcomodacao,
                     },  
                     success: function (response) {
-                        console.log(response);
                         $('.modalAbastecerFrigobar').html(response)
                         $('#modalAbastecerFrigobar').modal('show');
                     }

@@ -23,16 +23,20 @@
             $idCliente = $array['id_cliente'];
             $nomeCliente = $array['nome'];
 
+            $response['sucesso'] = true;
             $response = [
                 'idCliente' => $idCliente,
-                'nomeCliente' => $nomeCliente
+                'nomeCliente' => $nomeCliente,
+                'sucesso' => $response
             ];
-    
+            
             header('Content-Type: application/json');
             echo json_encode($response);
             
         } else {
-            echo "";
+            $response['mensagem'] = 'Cliente não encontrado.';
+            header('Content-Type: application/json');
+            echo json_encode($response);
         }
 
         mysqli_close($con);

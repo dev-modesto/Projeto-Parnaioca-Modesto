@@ -104,7 +104,6 @@
                 e.preventDefault();
 
                 var idSku = $(this).val();
-                // console.log(idSku);
 
                 $.ajax({
                     type: "POST",
@@ -115,7 +114,6 @@
 
                     success: function (response) {
                         if (response !== "") {
-                            // console.log(response);
                             $('#id-item-frigobar').val(response.idItem);
                             $('#nome-produto-frigobar').val(response.nomeItem);
                             $('#total-estoque-item').val(response.totalEstoqueItem);
@@ -123,7 +121,6 @@
                             var totalEstoque = response.totalEstoqueItem;
 
                             var textoEstoque = document.querySelectorAll('.total-item-estoque').forEach( function (element) {
-                                console.log(element.textContent);
                                 element.innerHTML = totalEstoque;
                             });
 
@@ -174,7 +171,6 @@
                             $('#total-estoque-item').val('');
 
                             document.querySelectorAll('.total-item-estoque').forEach( function (element) {
-                                console.log(element.textContent);
                                 element.innerHTML = '-';
                             });
 

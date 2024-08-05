@@ -21,7 +21,13 @@
             $dateTimeInicio = new DateTime($dataInicio);
             $dateTimeFim = new DateTime($dataFim);
 
-        } catch (Exception $e) {
+            $dtReservaInicioFormatada = date_format($dateTimeInicio, "d/m/Y");
+            $dtReservaFimFormatada = date_format($dateTimeFim, "d/m/Y");
+
+            $dataInicioFormatadoPtbr = ($dtReservaInicioFormatada ." ".  $horaCheckIn);
+            $dataFimFormatadoPtbr = ($dtReservaFimFormatada ." ". $horaCheckOut);
+
+            } catch (Exception $e) {
             $mensagem['mensagem'] = "Datas inválidas. Não foi possível prosseguir com a reserva.";
             header('Content-Type: application/json');
             echo json_encode($mensagem);
@@ -88,12 +94,12 @@
                                     <div class="disp-reserva-data-periodo">
                                         <div>
                                             <p class="cor-7 font-1-xxs">Data check-in<p>
-                                            <p class="cor-5 font-1-xxs peso-leve" ><?php echo $dataInicioFormatado ?></p>
+                                            <p class="cor-5 font-1-xxs peso-leve" ><?php echo $dataInicioFormatadoPtbr ?></p>
                                         </div>
                                         
                                         <div>
                                             <p class="cor-7 font-1-xxs">Data check-out</p>
-                                            <p class="cor-5 font-1-xxs peso-leve"><?php echo $dataFimFormatado ?></p>
+                                            <p class="cor-5 font-1-xxs peso-leve"><?php echo $dataFimFormatadoPtbr ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -135,10 +141,11 @@
 
                         $dataReservaCheckIn = $row['dt_reserva_inicio'];
                         $dataReservaCheckOut = $row['dt_reserva_fim'];
+                        $idReserva = $row['id_reserva'];
 
                         ?>
 
-                            <div class="card card-container-disponibilidade-reserva reservado">
+                            <div class="card card-container-disponibilidade-reserva reservado" data-id-reserva="<?php echo $idReserva ?>">
                                 <div class="disp-reserva-nome">
                                     <span class="material-symbols-rounded">hotel</span>
                                     <div class="disp-reserva-nome-info">
@@ -160,12 +167,12 @@
                                     <div class="disp-reserva-data-periodo">
                                         <div>
                                         <p class="cor-7 font-1-xxs">Data check-in<p>
-                                            <p class="cor-5 font-1-xxs peso-leve" ><?php echo $dataReservaCheckIn ?></p>
+                                            <p class="cor-5 font-1-xxs peso-leve" ><?php echo $dataInicioFormatadoPtbr ?></p>
                                         </div>
                                         
                                         <div>
                                             <p class="cor-7 font-1-xxs">Data check-out</p>
-                                            <p class="cor-5 font-1-xxs peso-leve"><?php echo $dataReservaCheckOut ?></p>
+                                            <p class="cor-5 font-1-xxs peso-leve"><?php echo $dataFimFormatadoPtbr ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -193,27 +200,24 @@
 
 <script>
     const containerReservasOcupadas = document.querySelector(".container-cards-reservas-ocupadas");
-    const btnDropReservasOcupadas = document.getElementById("dropdown-reservas-ocupadas");
     const iconDropOcupadas = document.querySelector(".icon-drop-ocupadas");
 
     const containerReservasDisponiveis = document.querySelector(".container-cards-reservas-disponiveis");
-    const btnDropReservasDisponiveis = document.getElementById("dropdown-reservas-disponiveis");
     const iconDropDisponiveis = document.querySelector(".icon-drop-disponiveis");
-    
-    btnDropReservasDisponiveis.addEventListener("click", function () {
-        containerReservasDisponiveis.classList.toggle("min");
 
+    $(document).on('click', '#dropdown-reservas-disponiveis', function () {
+        $('.container-cards-reservas-disponiveis').toggleClass('min');
+        
         if (containerReservasDisponiveis.classList.contains("min")) {
             iconDropDisponiveis.style.rotate = '180deg';
 
         } else {
             iconDropDisponiveis.style.rotate = '0deg';
         }
+    });
 
-    })
-
-    btnDropReservasOcupadas.addEventListener("click", function () {
-        containerReservasOcupadas.classList.toggle("min");
+    $(document).on('click', '#dropdown-reservas-ocupadas', function () {
+        $('.container-cards-reservas-ocupadas').toggleClass('min');
 
         if (containerReservasOcupadas.classList.contains("min")) {
             iconDropOcupadas.style.rotate = '180deg';
@@ -221,14 +225,14 @@
         } else {
             iconDropOcupadas.style.rotate = '0deg';
         }
+    });
 
-    })
 </script>
 
 <script>
     $(document).ready(function () {
 
-        $('body').on('click', '.card-container-disponibilidade-reserva', function (e) { 
+        $('body').on('click', '.card-container-disponibilidade-reserva.disponivel', function (e) { 
             e.preventDefault();
 
             var idAcomodacao = $(this).closest(".card-container-disponibilidade-reserva").data("id-acomodacao");
@@ -247,6 +251,22 @@
         });
     });
 
+    $(document).ready(function () {
+        $('body').on('click', '.card-container-disponibilidade-reserva.reservado', function (e) { 
+            e.preventDefault();
+
+            $('.card-container-disponibilidade-reserva').data('id-reserva');
+            
+            var idReserva = $(this).closest('.card-container-disponibilidade-reserva').data('id-reserva');
+
+            var queryString = $.param({
+                'click-reserva':true,
+                'id-reserva':idReserva
+            });
+
+            window.location.href = "include/cInformacaoReserva.php?" + queryString;
+        });
+    });
 
 </script>
 
