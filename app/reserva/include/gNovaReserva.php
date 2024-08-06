@@ -87,6 +87,13 @@
             die();
 
         }
+
+        if ($valorEntradaConvertido > $valorReservaTotal) {
+            $mensagem['mensagem'] = "Ocorreu um erro. Não foi possível realizar a reserva.";
+            header('Content-Type: application/json');
+            echo json_encode($mensagem);
+            die();
+        }
         
         if ($valorEntradaConvertido == $valorReservaTotal){
             $idStatusPagamento = 3; //pago 
