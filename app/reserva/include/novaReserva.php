@@ -457,7 +457,7 @@
             }
 
             if (totalFormatado < 0 ) {
-                $('.invalid-feedback-valor-pago').text('Valor superior ao total pendente.');
+                $('.invalid-feedback-valor-pago').text('Valor superior ao total restante.');
                 $('.valor-entrada').addClass('is-invalid');
                 $('#btn-finalizar-reserva').prop('disabled', true);
 
