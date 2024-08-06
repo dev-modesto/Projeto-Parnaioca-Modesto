@@ -207,7 +207,7 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="id-forma-pagamento">Forma de pagamento</label>
+                                    <label for="id-forma-pagamento">Forma de pagamento <em>*</em></label>
                                     <select class="form-select"  name="id-forma-pagamento" id="id-forma-pagamento" required aria-label="select example">
                                         <option value="">-</option>
                                         <?php
@@ -229,13 +229,18 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label class="font-1-s" for="valor-entrada">Valor de entrada</label>
-                                    <input class="form-control monetario" type="text" name="valor-entrada" id="valor-entrada" value="">
+                                    <input class="form-control monetario valor-entrada" type="text" name="valor-entrada" id="valor-entrada" value="">
                                 </div>
+
 
                                 <div class="col-md-6">
                                     <label class="font-1-s" for="valor-restante">Valor restante</label>
-                                    <input class="form-control monetario" type="text" name="valor-restante" id="valor-restante" value="" disabled>
+                                    <input class="form-control monetario" type="text" name="valor-restante" id="valor-restante" value="<?php echo $valorReservaTotalFormatado ?>" disabled>
                                 </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="invalid-feedback-valor-pago" style="color: red; "></div>
                             </div>
 
                             <div class="row mb-3">
@@ -425,6 +430,45 @@
         });
 
 
+        var valorTotalReserva = $('#valor-reserva-total').val();
+        valorTotalReservaFormatado = formatarValorVirgula(valorTotalReserva);
+
+        $('#valor-entrada').keyup(function (e) { 
+            valorEntradaDigitada = $(this).val();
+            valorEntradaFormatado = formatarValorVirgula(valorEntradaDigitada);
+
+            totalFormatado = valorTotalReservaFormatado - valorEntradaFormatado;
+
+            if (valorEntradaFormatado < 0 ) {
+                $('.valor-entrada').removeClass('is-valid');
+                $('.valor-entrada').addClass('is-invalid');
+                valorEntradaFormatado = 0;
+                valorRestante = valorTotalReservaFormatado - valorEntradaFormatado;
+
+            } else if (isNaN(valorEntradaFormatado)) {
+                $('.valor-entrada').removeClass('is-invalid');
+                $('.valor-entrada').removeClass('is-valid');
+                valorRestante = valorTotalReservaFormatado;
+
+            } else { 
+                $('.valor-entrada').removeClass('is-invalid');
+                $('.valor-entrada').addClass('is-valid');
+                valorRestante = valorTotalReservaFormatado - valorEntradaFormatado;
+            }
+
+            if (totalFormatado < 0 ) {
+                $('.invalid-feedback-valor-pago').text('Valor superior ao total pendente.');
+                $('.valor-entrada').addClass('is-invalid');
+                $('#btn-finalizar-reserva').prop('disabled', true);
+
+            } else {
+                $('.invalid-feedback-valor-pago').text('');
+                $('#btn-finalizar-reserva').prop('disabled', false);
+            }
+            valorRestanteFormatado = formatarValorNumero(valorRestante);
+
+            $('#valor-restante').val(valorRestanteFormatado);
+        });
     });
 
 
@@ -465,3 +509,4 @@
         });
 
 </script>
+<script type="text/javascript" src="<?= BASE_URL ?>/js/funcao.js"></script> 
