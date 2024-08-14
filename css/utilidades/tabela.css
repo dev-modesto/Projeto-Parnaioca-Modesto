@@ -42,6 +42,19 @@
 
 #myTable {
   width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 2px;
+}
+
+.sorting_1,
+.sorting_2,
+.sorting_3 {
+  box-shadow: none !important;
+  background: none !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f2f2f2 !important;
 }
 
 .table td {
@@ -50,10 +63,9 @@
     vertical-align: middle;
     text-align: left !important;
     font-size: .875rem;
-    color: var(--cor-7);
     color: var(--cor-10);
     height: 50px;
-    border: none;
+    /* border: none; */
     border-bottom: 1px solid #dee2e6 !important;
   }
 
@@ -62,23 +74,23 @@
     font: 300 1rem/1rem "Poppins", sans-serif;
     color: var(--cor-6);
     text-align: left !important;
-    border: none;
+    /* border: none; */
     border-bottom: 1px solid #dee2e6 !important;
   }
 
   .table td:first-child,
   .table th:first-child {
-      border-left: none;
+      /* border-left: none; */
   }
 
   .table td:last-child,
   .table th:last-child {
-      border-right: none;
+      /* border-right: none; */
   }
   
   .table-group-divider {
     color: var(--cor-3);
-    border-top: none;
+    /* border-top: none; */
   }
   
   .td-icons {
