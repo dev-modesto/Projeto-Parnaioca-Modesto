@@ -131,9 +131,9 @@
                         <div class="col-md-12 form-container-button-reserva informacao" data-id-reserva="<?php echo $idReserva ?>">
 
                             <?php 
-                                if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado) {
+                                if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado && $idStatusReserva !== $cancelado) {
                                     ?>
-                                          <button class='btn btn-primary btn-cancelar-reserva' id="btn-finalizar-reserva">Cancelar reserva</button>
+                                          <button class='btn btn-primary btn-cancelar-reserva' id="btn-cancelar-reserva">Cancelar reserva</button>
                                     <?php
                                 }
 
@@ -265,7 +265,7 @@
                             <div class="col-md-6 container-button-reserva-info" data-id-reserva="<?php echo $idReserva ?>">
                                 <a class='btn btn-primary  btn-ver-consumo' data-bs-toggle="modal" data-bs-target="#modal-visualizar-consumo" id="btn-ver-consumo" >Visualizar consumo</a>
                                 <?php
-                                    if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado) {
+                                    if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado && $idStatusReserva !== $cancelado) {
                                         ?>
                                             <a class='btn btn-primary btn-consumir-itens-frigobar' id="btn-consumir-itens-frigobar">Consumo frigobar</a>
                                         <?php
@@ -319,7 +319,7 @@
                             <div class="row mb-3 footer-container-button-reserva">
                                 <div class="col-md-6 ">
                                     <?php
-                                        if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado) {
+                                        if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado && $idStatusReserva !== $cancelado) {
                                             ?>
                                                 <a class='btn btn-primary btn-avancar finalizar' id="btn-realizar-pagamento" data-bs-toggle="modal" data-bs-target="#modal-realizar-pagamento">Realizar pagamento</a>
                                             <?php
@@ -333,7 +333,7 @@
                 </div>
 
 
-                <div class="modalConfirmaCheckIn modalConfirmarCheckOut modalConfirmarReserva modalFinalizarReserva">
+                <div class="modalConfirmaCheckIn modalConfirmarCheckOut modalConfirmarReserva modalFinalizarReserva modalCancelarReserva">
                 </div>
 
 
@@ -579,6 +579,26 @@
             });
 
             window.location.href = "cFrigobarReserva.php?" + queryString;
+        });
+
+        $('.btn-cancelar-reserva').click(function (e) { 
+            e.preventDefault();
+
+            var idReserva = $(this).closest('.form-container-button-reserva').data('id-reserva');
+
+            $.ajax({
+                type: "POST",
+                url: "cModalCancelarReserva.php",
+                data: {
+                    'click-cancelar-reserva':true,
+                    'id-reserva':idReserva
+                },
+                success: function (response) {
+                    $('.modalCancelarReserva').html(response);
+                    $('#modalCancelarReserva').modal('show');
+                }
+            });
+            
         });
 
         const valorPendente = $('.valor-total-pendente').val();
