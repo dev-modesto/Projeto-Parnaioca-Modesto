@@ -308,6 +308,10 @@
     color: var(--cor-a-purple3);
 }
 
+.modal-cancelar-reserva-icone span {
+    color: var(--cor-a-red3);
+}
+
 .container-button-reserva-info {
     display: flex;
     justify-content: right;

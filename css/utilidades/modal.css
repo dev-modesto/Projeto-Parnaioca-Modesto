@@ -57,13 +57,15 @@
     color: rgb(116, 116, 116);
 }
 
-.btn-modal-excluir {
+.btn-modal-excluir, 
+.btn-modal-cancelar-reserva {
     background-color: #e05c5c;
     border: #D77C7C;
     color: white;
 }
 
-.btn-modal-excluir:hover {
+.btn-modal-excluir:hover,
+.btn-modal-cancelar-reserva:hover {
     background-color: #D77C7C;
     border: #D77C7C;
     color: white;
