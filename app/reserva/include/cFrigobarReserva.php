@@ -185,7 +185,6 @@
 ?>
 
 <script src="<?php echo BASE_URL ?>/js/modal.js"></script>
-<script src="<?php echo BASE_URL ?>/js/table.js"></script>
 
 <script>
     $('.cpf').mask('000.000.000-00', {reverse: true});
