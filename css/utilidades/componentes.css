@@ -72,6 +72,10 @@
     border-color: var(--cor-4) !important;
 }
 
+.form-control:disabled {
+    background-color: var(--cor-2) !important;
+}
+
 .separador {
     display: block;
     width: 100%;
