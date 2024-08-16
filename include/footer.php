@@ -1,5 +1,6 @@
 <?php
     // echo "Carregou o footer";
+    include_once($_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/config.php');
 ?>
 
     <!-- arquivos js importação bibliotecas -->
@@ -15,6 +16,17 @@
         $('.cpf').mask('000.000.000-00', {reverse: true});
         $('#telefone').mask('0000000000000');
         $('.monetario').mask('000.000.000.000.000,00', {reverse: true});
+
+        new DataTable('#myTable', {
+            pagingType: 'simple_numbers',
+            language: {
+                url: '<?php echo BASE_URL ?>/config/pt_br.json'
+            },
+        });
+
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
     </script>
 
 </body>
