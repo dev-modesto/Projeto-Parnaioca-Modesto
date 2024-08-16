@@ -36,6 +36,7 @@
   display: flex;
   align-items: center;
   position: relative;
+  justify-content: space-between;
 }
 
 .form-container.reservas.cabecalho::before {
@@ -44,7 +45,6 @@
   height: 35px;
   position: absolute;
   left: -5px;
-  background-color: var(--cor-s7);
   border-radius: 4px;
 }
 

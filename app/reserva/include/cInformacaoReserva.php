@@ -24,7 +24,29 @@
         $totalConsumidoFormatadado = floatval($totalConsumido);
         $totalConsumidoFormatadado = number_format($totalConsumidoFormatadado, 2);
 
-        $sqlReserva = mysqli_prepare($con, "SELECT * FROM tbl_reserva WHERE id_reserva = ?");
+        $sqlReserva = 
+                mysqli_prepare(
+                    $con, 
+                    "SELECT 
+                        r.id_acomodacao,
+                        r.id_cliente,
+                        r.valor,
+                        r.total_hospedes,
+                        r.dt_reserva_inicio,
+                        r.dt_reserva_fim,
+                        r.total_noites,
+                        r.dt_check_in,
+                        r.dt_check_out,
+                        r.valor_total_reserva,
+                        r.id_metodo_pag,
+                        r.valor_consumido,
+                        r.id_status_pag,
+                        r.id_status_reserva,
+                        s.nome_status_reserva
+                    FROM tbl_reserva r
+                    INNER JOIN tbl_status_reserva s 
+                    ON r.id_status_reserva = s.id_status_reserva 
+                    WHERE r.id_reserva = ?");
         mysqli_stmt_bind_param($sqlReserva, "i", $idReserva);
         mysqli_stmt_execute($sqlReserva);
         $resultado = mysqli_stmt_get_result($sqlReserva);
@@ -34,7 +56,6 @@
             $idAcomodacao = $array['id_acomodacao'];
             $idCliente = $array['id_cliente'];
             $valorAcomodacao = $array['valor'];
-            $idCliente = $array['id_cliente'];
             $totalHospedes = $array['total_hospedes'];
             $dataInicio = $array['dt_reserva_inicio'];
             $dataFim = $array['dt_reserva_fim'];
@@ -50,6 +71,7 @@
             $valorConsumido = $array['valor_consumido'];
             $idStatusPag = $array['id_status_pag'];
             $idStatusReserva = $array['id_status_reserva'];
+            $nomeStatusReserva = $array['nome_status_reserva'];
 
             $consulta = consultaInfoAcomodacao($con, 0, $idAcomodacao);
             $arrayAcomodacao = mysqli_fetch_assoc($consulta);
@@ -116,10 +138,14 @@
     <div class="conteudo">
         <div class="container-conteudo-principal informacao-reservas">
 
-            <div class="form-container reservas cabecalho">
+            <div class="form-container reservas cabecalho" data-status-reserva="<?php echo strtolower($nomeStatusReserva)?>">
                 <div class="container-cabecalho-padrao">
                     <h1 class="modal-title fs-5 cor-8 peso-semi-bold" id="staticBackdropLabel">Reserva - #<?php echo $idReserva ?></h1>
                     <span class="cor-6"><?php echo $nomeAcomodacao ?> - <?php echo $numeroAcomodacao ?> </span>
+                </div>
+                <div class="container-status-reserva disp-reserva-status <?php echo strtolower($nomeStatusReserva)?>">
+                    <h1 class="cor-4 font-1-xs">Status atual</h1>
+                    <p class="cor-8 status-reserva"><?php echo $nomeStatusReserva ?><span></span></p>
                 </div>
             </div>
 
@@ -131,9 +157,9 @@
                         <div class="col-md-12 form-container-button-reserva informacao" data-id-reserva="<?php echo $idReserva ?>">
 
                             <?php 
-                                if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado) {
+                                if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado && $idStatusReserva !== $cancelado) {
                                     ?>
-                                          <button class='btn btn-primary btn-cancelar-reserva' id="btn-finalizar-reserva">Cancelar reserva</button>
+                                          <button class='btn btn-primary btn-cancelar-reserva' id="btn-cancelar-reserva">Cancelar reserva</button>
                                     <?php
                                 }
 
@@ -265,7 +291,7 @@
                             <div class="col-md-6 container-button-reserva-info" data-id-reserva="<?php echo $idReserva ?>">
                                 <a class='btn btn-primary  btn-ver-consumo' data-bs-toggle="modal" data-bs-target="#modal-visualizar-consumo" id="btn-ver-consumo" >Visualizar consumo</a>
                                 <?php
-                                    if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado) {
+                                    if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado && $idStatusReserva !== $cancelado) {
                                         ?>
                                             <a class='btn btn-primary btn-consumir-itens-frigobar' id="btn-consumir-itens-frigobar">Consumo frigobar</a>
                                         <?php
@@ -319,7 +345,7 @@
                             <div class="row mb-3 footer-container-button-reserva">
                                 <div class="col-md-6 ">
                                     <?php
-                                        if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado) {
+                                        if ($idStatusReserva !== $checkOut && $idStatusReserva !== $finalizado && $idStatusReserva !== $cancelado) {
                                             ?>
                                                 <a class='btn btn-primary btn-avancar finalizar' id="btn-realizar-pagamento" data-bs-toggle="modal" data-bs-target="#modal-realizar-pagamento">Realizar pagamento</a>
                                             <?php
@@ -333,7 +359,7 @@
                 </div>
 
 
-                <div class="modalConfirmaCheckIn modalConfirmarCheckOut modalConfirmarReserva modalFinalizarReserva">
+                <div class="modalConfirmaCheckIn modalConfirmarCheckOut modalConfirmarReserva modalFinalizarReserva modalCancelarReserva">
                 </div>
 
 
@@ -581,6 +607,26 @@
             window.location.href = "cFrigobarReserva.php?" + queryString;
         });
 
+        $('.btn-cancelar-reserva').click(function (e) { 
+            e.preventDefault();
+
+            var idReserva = $(this).closest('.form-container-button-reserva').data('id-reserva');
+
+            $.ajax({
+                type: "POST",
+                url: "cModalCancelarReserva.php",
+                data: {
+                    'click-cancelar-reserva':true,
+                    'id-reserva':idReserva
+                },
+                success: function (response) {
+                    $('.modalCancelarReserva').html(response);
+                    $('#modalCancelarReserva').modal('show');
+                }
+            });
+            
+        });
+
         const valorPendente = $('.valor-total-pendente').val();
         valorPendenteFormatado = formatarValorVirgula(valorPendente);
 
@@ -626,5 +672,19 @@
 
             }
         });
+
+        const formMarcador = $('.form-container.reservas.cabecalho')[0];
+        const formLinha = $('.top-container-button-reserva-info')[0];
+        function atualizaClasse(status) {
+            formMarcador.classList.remove('status-pendente', 'status-confirmado', 'status-check-in', 'status-check-out', 'status-cancelado');
+            formLinha.classList.remove('status-pendente', 'status-confirmado', 'status-check-in', 'status-check-out', 'status-cancelado');
+            
+            formMarcador.classList.add(`status-${status}`);
+            formLinha.classList.add(`status-${status}`);
+        }
+
+        const valorStatus = $('.form-container.reservas.cabecalho').data('status-reserva');
+        atualizaClasse(valorStatus);
+
     });
 </script>
