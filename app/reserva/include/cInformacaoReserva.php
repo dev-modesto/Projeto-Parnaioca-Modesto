@@ -24,7 +24,29 @@
         $totalConsumidoFormatadado = floatval($totalConsumido);
         $totalConsumidoFormatadado = number_format($totalConsumidoFormatadado, 2);
 
-        $sqlReserva = mysqli_prepare($con, "SELECT * FROM tbl_reserva WHERE id_reserva = ?");
+        $sqlReserva = 
+                mysqli_prepare(
+                    $con, 
+                    "SELECT 
+                        r.id_acomodacao,
+                        r.id_cliente,
+                        r.valor,
+                        r.total_hospedes,
+                        r.dt_reserva_inicio,
+                        r.dt_reserva_fim,
+                        r.total_noites,
+                        r.dt_check_in,
+                        r.dt_check_out,
+                        r.valor_total_reserva,
+                        r.id_metodo_pag,
+                        r.valor_consumido,
+                        r.id_status_pag,
+                        r.id_status_reserva,
+                        s.nome_status_reserva
+                    FROM tbl_reserva r
+                    INNER JOIN tbl_status_reserva s 
+                    ON r.id_status_reserva = s.id_status_reserva 
+                    WHERE r.id_reserva = ?");
         mysqli_stmt_bind_param($sqlReserva, "i", $idReserva);
         mysqli_stmt_execute($sqlReserva);
         $resultado = mysqli_stmt_get_result($sqlReserva);
@@ -34,7 +56,6 @@
             $idAcomodacao = $array['id_acomodacao'];
             $idCliente = $array['id_cliente'];
             $valorAcomodacao = $array['valor'];
-            $idCliente = $array['id_cliente'];
             $totalHospedes = $array['total_hospedes'];
             $dataInicio = $array['dt_reserva_inicio'];
             $dataFim = $array['dt_reserva_fim'];
@@ -50,6 +71,7 @@
             $valorConsumido = $array['valor_consumido'];
             $idStatusPag = $array['id_status_pag'];
             $idStatusReserva = $array['id_status_reserva'];
+            $nomeStatusReserva = $array['nome_status_reserva'];
 
             $consulta = consultaInfoAcomodacao($con, 0, $idAcomodacao);
             $arrayAcomodacao = mysqli_fetch_assoc($consulta);
@@ -116,10 +138,14 @@
     <div class="conteudo">
         <div class="container-conteudo-principal informacao-reservas">
 
-            <div class="form-container reservas cabecalho">
+            <div class="form-container reservas cabecalho" data-status-reserva="<?php echo strtolower($nomeStatusReserva)?>">
                 <div class="container-cabecalho-padrao">
                     <h1 class="modal-title fs-5 cor-8 peso-semi-bold" id="staticBackdropLabel">Reserva - #<?php echo $idReserva ?></h1>
                     <span class="cor-6"><?php echo $nomeAcomodacao ?> - <?php echo $numeroAcomodacao ?> </span>
+                </div>
+                <div class="container-status-reserva disp-reserva-status <?php echo strtolower($nomeStatusReserva)?>">
+                    <h1 class="cor-4 font-1-xs">Status atual</h1>
+                    <p class="cor-8 status-reserva"><?php echo $nomeStatusReserva ?><span></span></p>
                 </div>
             </div>
 
@@ -646,5 +672,19 @@
 
             }
         });
+
+        const formMarcador = $('.form-container.reservas.cabecalho')[0];
+        const formLinha = $('.top-container-button-reserva-info')[0];
+        function atualizaClasse(status) {
+            formMarcador.classList.remove('status-pendente', 'status-confirmado', 'status-check-in', 'status-check-out', 'status-cancelado');
+            formLinha.classList.remove('status-pendente', 'status-confirmado', 'status-check-in', 'status-check-out', 'status-cancelado');
+            
+            formMarcador.classList.add(`status-${status}`);
+            formLinha.classList.add(`status-${status}`);
+        }
+
+        const valorStatus = $('.form-container.reservas.cabecalho').data('status-reserva');
+        atualizaClasse(valorStatus);
+
     });
 </script>
