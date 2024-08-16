@@ -105,7 +105,7 @@
 
                         <span class="separador-botao"></span>
 
-                        <div class="conteudo-nova-reserva teste">
+                        <div class="conteudo-nova-reserva">
 
                     
                             <div class="row mb-3">
@@ -147,7 +147,7 @@
                     
                         <span class="separador-botao"></span>
 
-                        <div class="conteudo-nova-reserva teste">
+                        <div class="conteudo-nova-reserva">
 
                             <div class="row mb-3">
                                 <div class="col-md-12">
@@ -203,7 +203,7 @@
                     <div class="tab-pagamento tab-pane fade" id="pagamento-pane" role="tabpanel" aria-labelledby="pagamento" tabindex="0">
                         <span class="separador-botao"></span>
 
-                        <div class="conteudo-nova-reserva teste">
+                        <div class="conteudo-nova-reserva">
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
