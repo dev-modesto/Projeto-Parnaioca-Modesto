@@ -38,5 +38,4 @@
 
     <!-- <script src="../../js/modal.js"></script> -->
     <script src="<?= BASE_URL ?>/js/modal.js"></script>
-    <script src="<?= BASE_URL ?>/js/table.js"></script>
 
