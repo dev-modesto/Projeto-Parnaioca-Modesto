@@ -153,4 +153,3 @@
     ?>
 
     <script src="<?php echo BASE_URL ?>/js/modal.js"></script>
-    <script src="<?php echo BASE_URL ?>/js/table.js"></script>
