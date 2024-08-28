@@ -46,27 +46,42 @@
 
 ?>
 
-    <!DOCTYPE html>
-    <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Clientes</title>
-        <!-- link bootstrap -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <!-- meu css -->
-        <link rel="stylesheet" href="../../css/style.css"> <!--- precisa colocar a constante -->
-        <!-- meus icons -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
-        <!-- link css datatable -->
-        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
-    
-    
-    </head>
-    <body>
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/global/global.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/navbar/navbar-lateral.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/navbar/navbar-top.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/tipografia.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/cores.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/componentes.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/modal.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/formulario.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/tabela.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/cards-info.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/setor/setor.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/login/login.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/reserva/disponibilidade-reserva.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/reserva/visao-geral-reservas.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/reserva/consumo-frigobar-reserva.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/reserva/info-reserva.css'?>">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+
+</head>
+<body>
+
+    <?php 
+        include ARQUIVO_NAVBAR;
+    ?>
 
     <div class="conteudo conteudo-user">
         <div class="container-conteudo-principal">
@@ -269,30 +284,29 @@
 
     </div>
 
-    <?php
-        include ARQUIVO_FOOTER;
-    ?>
+<?php
+    include ARQUIVO_FOOTER;
+?>
 
-    <!-- <script src="../../js/modal.js"></script> -->
-    <script src="<?= BASE_URL ?>/js/modal.js"></script>
+<script src="<?= BASE_URL ?>/js/modal.js"></script>
 
-    <script>
+<script>
 
-        document.querySelectorAll('.status-geral').forEach(function(element) {
-            if (element.textContent.trim() === 'Ativo') {
-                element.classList.add('ativo');
-            } else if (element.textContent.trim() === 'Inativo') {
-                element.classList.add('inativo');
-            }
-        });
-
-        window.onload = function () {
-            new dgCidadesEstados(
-                document.getElementById('estado'),
-                document.getElementById('cidade'),
-                true
-            );
+    document.querySelectorAll('.status-geral').forEach(function(element) {
+        if (element.textContent.trim() === 'Ativo') {
+            element.classList.add('ativo');
+        } else if (element.textContent.trim() === 'Inativo') {
+            element.classList.add('inativo');
         }
-    </script>
+    });
 
-    <script type="text/javascript" src="<?= BASE_URL ?>/js/cidades-estados-v0.2.js"></script> 
+    window.onload = function () {
+        new dgCidadesEstados(
+            document.getElementById('estado'),
+            document.getElementById('cidade'),
+            true
+        );
+    }
+</script>
+
+<script type="text/javascript" src="<?= BASE_URL ?>/js/cidades-estados-v0.2.js"></script> 

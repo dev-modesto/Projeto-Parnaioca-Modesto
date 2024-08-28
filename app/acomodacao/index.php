@@ -193,7 +193,7 @@
     </div>
 
     <?php
-        include __DIR__ . '/../../include/footer.php';
+       include ARQUIVO_FOOTER;;
     ?>
 
     <script src="../../js/modal.js"></script>
