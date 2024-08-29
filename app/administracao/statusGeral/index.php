@@ -82,7 +82,7 @@
                 <div class="container-button">
                     <button type="button" class="cadastrar-status-geral btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo status</button>
                 </div>
-                <table id="myTable" class="table table-hover text-center">
+                <table id="myTable" class="table table-bordered table-striped table-hover text-center">
                     <thead class="">
                         <tr>
                             <th scope="col">Nº</th>

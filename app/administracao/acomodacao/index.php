@@ -97,7 +97,7 @@
                 <div class="container-button">
                     <button type="button" class="cadastrar-acomodacao btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Nova acomodação</button>
                 </div>
-                <table id="myTable" class="table nowrap order-column table-hover text-left">
+                <table id="myTable" class="table nowrap table-bordered table-striped order-column table-hover text-left">
                     <thead class="">
                         <tr>
                             <th scope="col">ID#</th>

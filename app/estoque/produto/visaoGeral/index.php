@@ -76,7 +76,7 @@
 
                 <!-- Tabela -->
                 <div class="container-tabela">
-                    <table id="myTable" class="table nowrap order-column dt-right table-hover text-center">
+                    <table id="myTable" class="table nowrap table-bordered table-striped order-column dt-right table-hover text-center">
                         <thead>
                             <tr>
                                 <th scope="col">ID#</th>

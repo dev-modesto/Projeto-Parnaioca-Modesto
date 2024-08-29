@@ -139,7 +139,7 @@
                 <div class="container-button">
                     <button type="button" class="cadastrar-cliente btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <span class="material-symbols-rounded">add</span>Novo cliente</button>
                 </div>
-                <table id="myTable" class="table  nowrap order-column dt-right table-hover text-center">
+                <table id="myTable" class="table nowrap table-bordered table-striped order-column dt-right table-hover text-center">
                     <thead class="">
                         <tr>
                             <th scope="col">ID#</th>

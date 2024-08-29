@@ -91,7 +91,7 @@
             <!-- Tabela -->
             <div class="container-tabela">
 
-                <table id="myTable" class="table nowrap order-column table-hover text-left">
+                <table id="myTable" class="table nowrap table-bordered table-striped order-column table-hover text-left">
                     <thead class="">
                         <tr>
                             <!-- <th scope="col">Nº</th> -->

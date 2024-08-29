@@ -43,7 +43,7 @@
 #myTable {
   width: 100% !important;
   border-collapse: separate !important;
-  border-spacing: 2px;
+  border-spacing: 3px;
 }
 
 .sorting_1,
@@ -67,6 +67,7 @@
     height: 50px;
     /* border: none; */
     border-bottom: 1px solid #dee2e6 !important;
+    border: none;
   }
 
   .table th {
