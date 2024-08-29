@@ -5,6 +5,7 @@
     $tituloMenuPagina = "Administração";
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
+    include BASE_PATH . '/include/funcoes/diversas/mensagem.php';
 
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
@@ -48,30 +49,13 @@
 
     <div class="conteudo">
         <div class="container-conteudo-principal">
-
-            <?php
-                if(isset($_GET['msg'])){
-                    $msg = $_GET['msg'];
-                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                            '. $msg .'
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>';
-                }
             
+            <?php
+                msgGetValida();
+                msgGetInvalida();
             ?>
 
             <span class="separador"></span>
-
-
-            <?php if(!empty($mensagem)){ ?>  
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?php echo $mensagem ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div> 
-            <?php }else {
-                    echo '';
-                }
-            ?>
 
             <!-- Tabela -->
             <div class="container-tabela">

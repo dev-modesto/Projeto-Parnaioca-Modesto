@@ -9,6 +9,7 @@
     include ARQUIVO_FUNCAO_SQL;
     include ARQUIVO_FUNCAO_SQL_RESERVA;
     include PASTA_FUNCOES . "funcaoData.php";
+    include BASE_PATH . '/include/funcoes/diversas/mensagem.php';
     
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
@@ -90,28 +91,6 @@
 
     <div class="conteudo">
         <div class="container-conteudo-principal">
-
-            <?php
-                if(isset($_GET['msg'])){
-                    $msg = $_GET['msg'];
-                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                            '. $msg .'
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>';
-                }
-            ?>
-
-            <?php
-                if(isset($_GET['msgInvalida'])){
-                    $msg = $_GET['msgInvalida'];
-                    echo '<div class="alert alert-danger  alert-dismissible fade show" role="alert">
-                            '. $msg .'
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>';
-                }
-            ?>
-
-            
 
             <div class="container-conteudo dash-reserva">
                 <div class="container-data-dash-reserva">
@@ -266,19 +245,11 @@
         });
     });
 
-</script>
-
-<script>
 
     btnLimparFiltro = document.getElementById('limpar-filtro');
     btnLimparFiltro.addEventListener('click', function(){
         window.location.href = '../reserva/index.php';
     })
-
-</script>
-
-
-<script>
 
     $(document).ready(function () {
         $('body').on('click', '.card-container-disponibilidade-reserva', function (e) { 

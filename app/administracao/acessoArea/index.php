@@ -63,29 +63,7 @@
     <div class="conteudo">
         <div class="container-conteudo-principal">
 
-            <?php
-                if(isset($_GET['msg'])){
-                    $msg = $_GET['msg'];
-                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                            '. $msg .'
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>';
-                }
-            
-            ?>
-
-            <?php
-                if(isset($_GET['msgInvalida'])){
-                    $msg = $_GET['msgInvalida'];
-                    echo '<div class="alert alert-danger  alert-dismissible fade show" role="alert">
-                            '. $msg .'
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>';
-                }
-            
-            ?>
-
-            <span class="separador"></span>
+        <span class="separador"></span>
 
             <!-- Tabela -->
             <div class="container-tabela">

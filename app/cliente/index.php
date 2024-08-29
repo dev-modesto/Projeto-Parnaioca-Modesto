@@ -6,6 +6,7 @@
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
     include ARQUIVO_FUNCAO_SQL;
     include PASTA_FUNCOES . "funcaoData.php";
+    include BASE_PATH . '/include/funcoes/diversas/mensagem.php';
 
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
@@ -110,29 +111,11 @@
             </div>
             
             <?php
-                if(isset($_GET['msg'])){
-                    $msg = $_GET['msg'];
-                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                            '. $msg .'
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>';
-                }
-            
-            ?>
-
-            <?php
-                if(isset($_GET['msgInvalida'])){
-                    $msg = $_GET['msgInvalida'];
-                    echo '<div class="alert alert-danger  alert-dismissible fade show" role="alert">
-                            '. $msg .'
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>';
-                }
-            
+                msgGetValida();
+                msgGetInvalida();
             ?>
 
             <span class="separador"></span>
-
 
             <!-- Tabela -->
             <div class="container-tabela">
