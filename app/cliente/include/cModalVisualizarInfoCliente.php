@@ -118,16 +118,6 @@
                     </div>
                 </div>
 
-                <?php if(!empty($mensagem)){ ?>  
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo $mensagem ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div> 
-                <?php }else {
-                        echo '';
-                    }
-                ?>
-
                 <div class="modal-footer form-container-button btn-info">
                     <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Fechar</button>
                 </div>

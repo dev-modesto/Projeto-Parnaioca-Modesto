@@ -177,15 +177,6 @@
                 <div class="modalConfirmaCheckIn">
                 </div>
 
-                <?php if(!empty($mensagem)){ ?>  
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo $mensagem ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div> 
-                <?php }else {
-                        echo '';
-                    }
-                ?>
             </form>
 
             <div class="modalSaidaItemFrigobar">

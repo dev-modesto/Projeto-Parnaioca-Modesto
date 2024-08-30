@@ -145,17 +145,6 @@
                     <input class="form-control" type="hidden" name="id-funcionario" class="id-funcionario" id="id-funcionario" value="<?php echo $idLogado ?>" required>
                 </div>
 
-
-                <?php if(!empty($mensagem)){ ?>  
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo $mensagem ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div> 
-                <?php }else {
-                        echo '';
-                    }
-                ?>
-
                 <div class="modal-footer form-container-button">
                     <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
                     <button class='btn btn-primary' type="submit">Adicionar</button>
