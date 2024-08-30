@@ -91,6 +91,10 @@
 
     <div class="conteudo">
         <div class="container-conteudo-principal">
+            <?php
+                msgGetValida();
+                msgGetInvalida();
+            ?>
 
             <div class="container-conteudo dash-reserva">
                 <div class="container-data-dash-reserva">
