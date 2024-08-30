@@ -3,6 +3,5 @@
 
     include ARQUIVO_CONEXAO;
     include ARQUIVO_SEGURANCA;
-    include ARQUIVO_NAVBAR;
 
 ?>

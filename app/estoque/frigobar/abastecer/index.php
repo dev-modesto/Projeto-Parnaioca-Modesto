@@ -6,7 +6,8 @@
 
     include $_SERVER['DOCUMENT_ROOT'] . '/Projeto-Parnaioca-Modesto/config/base.php';
     include ARQUIVO_FUNCAO_SQL;
-    
+    include BASE_PATH . '/include/funcoes/diversas/mensagem.php';
+
     if (session_status() == PHP_SESSION_ACTIVE) {
         $idLogado = $_SESSION['id'];
         segurancaLogistica($con, $idLogado);
@@ -23,52 +24,48 @@
 
 ?>
 
-    <!DOCTYPE html>
-    <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Frigobar | Abastecer frigobar</title>
-        <!-- link bootstrap -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <!-- meu css -->
-        <link rel="stylesheet" href="../../../../css/style.css"> <!--- precisa colocar a constante -->
-        <!-- meus icons -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frigobar | Abastecer frigobar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/global/global.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/navbar/navbar-lateral.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/navbar/navbar-top.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/tipografia.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/cores.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/componentes.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/modal.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/formulario.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/tabela.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/utilidades/cards-info.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/setor/setor.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/login/login.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/reserva/disponibilidade-reserva.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/reserva/visao-geral-reservas.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/reserva/consumo-frigobar-reserva.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/reserva/info-reserva.css'?>">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+</head>
+<body>
 
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Poppins:wght@200;300;400;600;700&family=Roboto:wght@200;300;400;500&display=swap" rel="stylesheet">
-        
-        <!-- link css datatable -->
-        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
-    
-    
-    </head>
-    <body>
+    <?php 
+        include ARQUIVO_NAVBAR;
+    ?>
 
     <div class="conteudo">
         <div class="container-conteudo-principal">
 
             <?php
-                if(isset($_GET['msg'])){
-                    $msg = $_GET['msg'];
-                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                            '. $msg .'
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>';
-                }
-            
-            ?>
-
-            <?php
-                if(isset($_GET['msgInvalida'])){
-                    $msg = $_GET['msgInvalida'];
-                    echo '<div class="alert alert-danger  alert-dismissible fade show" role="alert">
-                            '. $msg .'
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>';
-                }
-            
+                msgGetValida();
+                msgGetInvalida();
             ?>
 
             <span class="separador"></span>
@@ -107,7 +104,7 @@
                                 <a href="" class="card-frigobar-btn click-botao-abastecer-frigobar">Abastecer</a>
                                 <!-- <a href="" class="card-frigobar-btn click-botao-abastecer-frigobar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Abastecer</a> -->
                             </div>
-       
+        
                         <?php
                     }
 
@@ -169,37 +166,37 @@
 
     </div>
 
-    <?php
-        include ARQUIVO_FOOTER;
-    ?>
+<?php
+    include ARQUIVO_FOOTER;
+?>
 
-    <script src="<?php echo BASE_URL ?>/js/modal.js"></script>
+<script src="<?php echo BASE_URL ?>/js/modal.js"></script>
 
 
-    <script>
+<script>
 
-        $(document).ready(function () {
-            
-            $(".click-botao-abastecer-frigobar").click(function (e) { 
-                e.preventDefault();
-                var idFrigobar = $(this).closest('.card-frigobar').data('id-frigobar');
-                var idAcomodacao = $(this).closest('.card-frigobar').data('id-acomodacao');
+    $(document).ready(function () {
+        
+        $(".click-botao-abastecer-frigobar").click(function (e) { 
+            e.preventDefault();
+            var idFrigobar = $(this).closest('.card-frigobar').data('id-frigobar');
+            var idAcomodacao = $(this).closest('.card-frigobar').data('id-acomodacao');
 
-                $.ajax({
-                    type: "POST",
-                    url: "include/cModalAbastecerFrigobar.php",
-                    data: {
-                        'click-botao-abastecer-frigobar':true,
-                        'id-frigobar':idFrigobar,
-                        'id-acomodacao':idAcomodacao,
-                    },  
-                    success: function (response) {
-                        $('.modalAbastecerFrigobar').html(response)
-                        $('#modalAbastecerFrigobar').modal('show');
-                    }
-                });
+            $.ajax({
+                type: "POST",
+                url: "include/cModalAbastecerFrigobar.php",
+                data: {
+                    'click-botao-abastecer-frigobar':true,
+                    'id-frigobar':idFrigobar,
+                    'id-acomodacao':idAcomodacao,
+                },  
+                success: function (response) {
+                    $('.modalAbastecerFrigobar').html(response)
+                    $('#modalAbastecerFrigobar').modal('show');
+                }
             });
         });
+    });
 
 
-    </script>
+</script>

@@ -27,12 +27,14 @@
     transition: all .2s;
     overflow: visible;
     z-index: 9999;
+    display: flex;
     width: 35px;
     height: 35px;
 }
 
 .botao-menu span {
     transition: all .2s;
+    top: 0px;
 }
 
 .botao-menu:hover {
