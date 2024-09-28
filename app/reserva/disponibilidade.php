@@ -113,22 +113,12 @@
                         <div class="invalid-feedback-diverso" style="color: red; "></div>
                     </div>
 
-
                     <div class="mb-3">
                         <div class="col-md-4">
                             <button class='btn btn-primary btn-verificar-disponibilidade'>Verificar</button>
                         </div>
                     </div>
 
-                    <?php if(!empty($mensagem)){ ?>  
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <?php echo $mensagem ?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div> 
-                    <?php } else {
-                            echo '';
-                        }
-                    ?>
                 </form>
             </div>
 

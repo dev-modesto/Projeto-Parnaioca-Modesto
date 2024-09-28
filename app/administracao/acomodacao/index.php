@@ -167,8 +167,6 @@
                                 <input class="form-control monetario" type="text" name="valor" id="valor" required>
                             </div>
 
-
-
                             <div class="mb-3">
                                 <label class="font-1-s" for="capacidade">Capacidade máxima <em>*</em></label>
                                 <input class="form-control" type="text" name="capacidade" id="capacidade" required>
@@ -191,16 +189,6 @@
                                 </select>
 
                             </div>
-
-                            <?php if(!empty($mensagem)){ ?>  
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <?php echo $mensagem ?>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div> 
-                            <?php }else {
-                                    echo '';
-                                }
-                            ?>
 
                             <div class="modal-footer form-container-button">
                                 <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>

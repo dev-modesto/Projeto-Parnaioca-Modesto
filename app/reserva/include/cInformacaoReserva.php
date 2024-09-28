@@ -379,15 +379,7 @@
 
 
 
-                <?php if(!empty($mensagem)){ ?>  
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php echo $mensagem ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div> 
-                <?php }else {
-                        echo '';
-                    }
-                ?>
+
             </form>
 
             <div class="modal fade" id="modal-realizar-pagamento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-realizar-pagamento" aria-hidden="true">
@@ -432,16 +424,6 @@
                             <div class="mb-3">
                                 <div class="invalid-feedback-valor-pago" style="color: red; "></div>
                             </div>
-
-                            <?php if(!empty($mensagem)){ ?>  
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <?php echo $mensagem ?>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div> 
-                            <?php }else {
-                                    echo '';
-                                }
-                            ?>
 
                             <div class="modal-footer form-container-button">
                                 <button type="button" class="btn btn-secondary btn-modal-cancelar" data-bs-dismiss="modal">Cancelar</button>
